@@ -1,0 +1,14 @@
+
+\.idea/
+
+node_modules/
+
+\.nyc_output/
+
+\dist/
+
+\dist.browser/
+
+\coverage/
+
+\build/

@@ -1,0 +1,21 @@
+language: node_js
+
+node_js:
+  - '8'
+
+branches:
+  only:
+    - master
+
+env:
+  global:
+    - secure: aHAe5RuduzgZ9D5beemyoY08E2sqbBufEOzCf0DtBJo5Y9XUgUT8MWIHLsGALRea9C6C+LU6vSkjaWJm9QoveiqBpbaAkdOghdTsAJ1NbqFgF1/M2/pRW6G50vJg+3fcTqgkGwjJ0OCXQVY5Dk0mG89Vswf6p7N7Jz6fNV79zwawF4PAgHttI8lZ3hZo8REICA4fdzgLx5K7C20H1ICY+Syyaw66F6sp/3VmFpsdH7Oh9m2etKnZpw9L7E/xCRn2Nk9Fvvvx1Cxu/F0MTR+6ws9jDEO5sHs89S7o2RudLz5PMc3WbE9W5zs0lqjxDvUcCf/pOHXQEu5cKTV6NEZVXTQOaLrkgb06oTFU+DRmDgpDtB63rkQuuXSL73hwxhAj5YP/kUZZzSl6diHum5T2QTuuiwMxNDIBC1MIDn9qwM6Omr6QQRMD1jYTcslHxDP/FgTctC9jG2alP4xyAyGkHhY1LIKklwHNtwAOYEPKme5+yybh/VVYfGTXvjh76Qo97f+JnVt6YaCQ6c7BcgJriOFeBI8RhRmtNbxTuvAHbHXXFm8+h3JoYg11U7A3cxH7gM2AwlMY8YqzwN1nJubAaHcyoReixCP5Faiv0t5YlzvGLvyRkb4tfVxKHJwHZQUrHtUxZ6iWMSuD42/R7O8au7LFTZAgW6pRMQB7jL+l1aA=
+
+after_success:
+  - npm run coverage
+  - git clone "https://$GITHUB_TOKEN@github.com/$GITHUB_USER/$GITHUB_REPO.wiki.git"
+  - bash gendoc.sh
+  - cd $GITHUB_REPO.wiki
+  - git add .
+  - git commit -m "Generated Wiki via Travis-CI"
+  - git push

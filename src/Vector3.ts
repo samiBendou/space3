@@ -1,4 +1,4 @@
-import {Vector, Encoder} from "./Algebra";
+import {Vector} from "./Algebra";
 
 /**
  * @brief 3D Vectors
@@ -13,7 +13,7 @@ import {Vector, Encoder} from "./Algebra";
  *
  * - **basis generators** like `ex`, `er`, `e(k)`, ...
  */
-export class Vector3 implements Vector, Encoder {
+export class Vector3 implements Vector {
 
     dim: Readonly<number> = 3;
 

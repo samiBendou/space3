@@ -61,7 +61,7 @@ export interface Vector extends Encoder {
 
     fillc(s: number): Vector;
 
-    /** normalizes a vector `u / ||u|| `*/
+    /** normalizes a vector `u / ||u||` */
     norm(): this;
 
     normc(): Vector;

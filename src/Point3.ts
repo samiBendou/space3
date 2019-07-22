@@ -1,6 +1,6 @@
 import {Vector3} from "./Vector3";
 import {Matrix3} from "./Matrix3";
-import {dist, epsilon2, mag, mag2, Vector} from "./Algebra";
+import {dist, epsilon2, mag, mag2, Object3, Vector} from "./Algebra";
 
 /**
  * @brief couple of points
@@ -15,7 +15,7 @@ import {dist, epsilon2, mag, mag2, Vector} from "./Algebra";
  * - **affine geometry** displacement and origin changes `origin`, `to`, ...
  */
 
-export class Point3 implements Vector {
+export class Point3 implements Vector, Object3 {
 
     dim: Readonly<number> = 3;
 
@@ -137,6 +137,93 @@ export class Point3 implements Vector {
         return this;
     }
 
+    random(): this {
+        this.position[0] = Math.random();
+        this.position[1] = Math.random();
+        this.position[2] = Math.random();
+        return this;
+    }
+
+    floor(): this {
+        this.position[0] = Math.floor(this.position[0]);
+        this.position[1] = Math.floor(this.position[1]);
+        this.position[2] = Math.floor(this.position[2]);
+        return this;
+    }
+
+    floorc(): Point3 {
+        return this.clone().floor();
+    }
+
+    ceil(): this {
+        this.position[0] = Math.ceil(this.position[0]);
+        this.position[1] = Math.ceil(this.position[1]);
+        this.position[2] = Math.ceil(this.position[2]);
+        return this;
+    }
+
+    ceilc(): Point3 {
+        return this.clone().ceil();
+    }
+
+    round(): this {
+        this.position[0] = Math.round(this.position[0]);
+        this.position[1] = Math.round(this.position[1]);
+        this.position[2] = Math.round(this.position[2]);
+        return this;
+    }
+
+    roundc(): Point3 {
+        return this.clone().round();
+    }
+
+    trunc(decimals: number): this {
+        const pow10 = Math.pow(10, decimals);
+        this.position[0] = Math.round(this.position[0] * pow10) / pow10;
+        this.position[1] = Math.round(this.position[1] * pow10) / pow10;
+        this.position[2] = Math.round(this.position[2] * pow10) / pow10;
+        return this;
+    }
+
+    truncc(decimals: number): Point3 {
+        return this.clone().trunc(decimals);
+    }
+
+    abs(): this {
+        this.position[0] = Math.abs(this.position[0]);
+        this.position[1] = Math.abs(this.position[1]);
+        this.position[2] = Math.abs(this.position[2]);
+        return this;
+    }
+
+    absc(): Point3 {
+        return this.clone().abs();
+    }
+
+    min(p: Point3): this {
+        const u = this.at(this._origin);
+        this.position[0] = Math.min(this.position[0], u[0]);
+        this.position[1] = Math.min(this.position[1], u[1]);
+        this.position[2] = Math.min(this.position[2], u[2]);
+        return this;
+    }
+
+    minc(p: Point3): Point3 {
+        return this.clone().min(p);
+    }
+
+    max(p: Point3): this {
+        const u = this.at(this._origin);
+        this.position[0] = Math.max(this.position[0], u[0]);
+        this.position[1] = Math.max(this.position[1], u[1]);
+        this.position[2] = Math.max(this.position[2], u[2]);
+        return this;
+    }
+
+    maxc(p: Point3): Point3 {
+        return this.clone().max(p);
+    }
+
     fill(s: number): this {
         this.position[0] = s;
         this.position[1] = s;
@@ -215,6 +302,18 @@ export class Point3 implements Vector {
         return this.clone().div(s);
     }
 
+    comb(s: number, p: Point3): this {
+        const u = this.at(this._origin);
+        this.position[0] = u[0] + this.position[0] * s;
+        this.position[1] = u[1] + this.position[1] * s;
+        this.position[2] = u[2] + this.position[2] * s;
+        return this;
+    }
+
+    combc(s: number, p: Point3): Point3 {
+        return this.clone().comb(s, p);
+    }
+
     lerp(p: Point3, t: number): this {
         const x = this.position[0] + this._origin[0],
             y = this.position[1] + this._origin[1],
@@ -228,8 +327,62 @@ export class Point3 implements Vector {
         return this;
     }
 
-    lerpc(u: Point3, t: number) {
-        return this.clone().lerp(u, t);
+    lerpc(p: Point3, t: number) {
+        return this.clone().lerp(p, t);
+    }
+
+    herp(p: Point3, p1: Point3, p2: Point3, s: number): this {
+        const s2 = s * s,
+            t0 = s2 * (2 * s - 3) + 1,
+            t1 = s2 * (s - 2) + s,
+            t2 = s2 * (s - 1),
+            t3 = s2 * (3 - 2 * s);
+        const u = p.at(this._origin),
+            u1 = p1.at(this._origin),
+            u2 = p2.at(this._origin);
+
+        this.position[0] = this.position[0] * t0 + u1[0] * t1 + u2[0] * t2 + u[0] * t3;
+        this.position[1] = this.position[1] * t0 + u1[1] * t1 + u2[1] * t2 + u[1] * t3;
+        this.position[2] = this.position[2] * t0 + u1[2] * t1 + u2[2] * t2 + u[2] * t3;
+        return this;
+    }
+
+    herpc(p: Point3, p1: Point3, p2: Point3, s: number): Point3 {
+        return this.clone().herp(p, p1, p2, s);
+    }
+
+    berp(p: Point3, p1: Point3, p2: Point3, s: number): this {
+        const s2 = s * s,
+            inv = 1 - s,
+            inv2 = inv * inv,
+            t0 = inv2 * inv,
+            t1 = 3 * s * inv2,
+            t2 = 3 * s2 * inv,
+            t3 = s2 * s;
+        const u = p.at(this._origin),
+            u1 = p1.at(this._origin),
+            u2 = p2.at(this._origin);
+
+        this.position[0] = this.position[0] * t0 + u1[0] * t1 + u2[0] * t2 + u[0] * t3;
+        this.position[1] = this.position[1] * t0 + u1[1] * t1 + u2[1] * t2 + u[1] * t3;
+        this.position[2] = this.position[2] * t0 + u1[2] * t1 + u2[2] * t2 + u[2] * t3;
+        return this;
+    }
+
+    berpc(p: Point3, p1: Point3, p2: Point3, s: number): Point3 {
+        return this.clone().berp(p, p1, p2, s);
+    }
+
+    der(ds: number, p: Point3): this {
+        const u = p.at(this._origin);
+        this.position[0] = (this.position[0] - u[0]) / ds;
+        this.position[1] = (this.position[1] - u[1]) / ds;
+        this.position[2] = (this.position[2] - u[2]) / ds;
+        return this;
+    }
+
+    derc(ds: number, p: Point3): Point3 {
+        return this.clone().der(ds, p);
     }
 
     trans(): this {
@@ -263,31 +416,51 @@ export class Point3 implements Vector {
     }
 
     dot(p: Point3): number {
-        const px = p.position[0] + p._origin[0] - this._origin[0],
-            py = p.position[1] + p._origin[1] - this._origin[1],
-            pz = p.position[2] + p._origin[2] - this._origin[2];
-        return this.position[0] * px + this.position[1] * py + this.position[2] * pz;
+        const u = this.at(this._origin);
+        return this.position[0] * u[0] + this.position[1] * u[1] + this.position[2] * u[2];
     }
 
     dist(p: Point3): number {
         return dist(this, p);
     }
 
+    dist1(vector: Point3): number {
+        return 0;
+    }
+
     dist2(p: Point3): number {
-        const px = p.position[0] + p._origin[0] - this._origin[0],
-            py = p.position[1] + p._origin[1] - this._origin[1],
-            pz = p.position[2] + p._origin[2] - this._origin[2];
-        const dx = this.position[0] - px,
-            dy = this.position[1] - py,
-            dz = this.position[2] - pz;
+        const u = p.at(this._origin);
+        const dx = this.position[0] - u[0],
+            dy = this.position[1] - u[1],
+            dz = this.position[2] - u[2];
         return dx * dx + dy * dy + dz * dz;
     }
 
-    equal(p: Point3): boolean {
+    exact(vector: Vector): boolean {
+        return false;
+    }
+
+
+    equal1(vector: Vector): boolean {
+        return false;
+    }
+
+
+    equal2(p: Point3): boolean {
         return this.dist2(p) < epsilon2;
     }
 
-    zero(): boolean {
+    nil(): boolean {
+        return false;
+    }
+
+
+    zero1(): boolean {
+        return false;
+    }
+
+
+    zero2(): boolean {
         const x = this.position[0],
             y = this.position[1],
             z = this.position[2];

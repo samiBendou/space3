@@ -11,7 +11,7 @@ export function equal(actual: Vectors, expected: Vectors, message?: string) {
         arrayCompare(actual as Vector[], expected as Vector[]);
     else {
         message = message || defaultMessage(actual as Encoder, expected as Encoder);
-        assert((actual as Vector).equal(expected as Vector), message);
+        assert((actual as Vector).equal2(expected as Vector), message);
     }
 }
 

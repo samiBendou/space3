@@ -18,9 +18,9 @@ describe("Vector3 Tests", () => {
 
     describe("Equality", () => {
         it("initialized", () => assert(magic.x === 1 && magic.y === 2 && magic.z === 3));
-        it("returns true on auto equal", () => assert.isTrue(ex.equal(ex)));
-        it("differentiates object", () => assert.isFalse(ex.equal(ey)));
-        it("should be epsilon precise", () => assert.isFalse(ex.equal(ex.clone().mul(1 + epsilon))));
+        it("returns true on auto equal", () => assert.isTrue(ex.equal2(ex)));
+        it("differentiates object", () => assert.isFalse(ex.equal2(ey)));
+        it("should be epsilon precise", () => assert.isFalse(ex.equal2(ex.clone().mul(1 + epsilon))));
     });
 
     describe("Clone", () => {

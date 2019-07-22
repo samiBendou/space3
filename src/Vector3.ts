@@ -1,4 +1,4 @@
-import {dist, epsilon2, mag, mag2, Vector} from "./Algebra";
+import {dist, epsilon, epsilon2, gaussian, mag, mag2, Object3, Vector} from "./Algebra";
 
 /**
  * @brief 3D Vectors
@@ -14,7 +14,7 @@ import {dist, epsilon2, mag, mag2, Vector} from "./Algebra";
  *
  * - inherits from `Float64Array` in order to provide double precision computation
  */
-export class Vector3 extends Float64Array implements Vector {
+export class Vector3 extends Float64Array implements Vector, Object3 {
 
     dim: Readonly<number> = 3;
 
@@ -54,12 +54,12 @@ export class Vector3 extends Float64Array implements Vector {
         this.assign(...coordinates);
     }
 
-    /** magnitude of the vector */
+    /** length of the vector */
     get mag(): number {
         return mag(this);
     }
 
-    /** squared magnitude of the vector */
+    /** squared length of the vector */
     get mag2(): number {
         return mag2(this);
     }
@@ -155,17 +155,6 @@ export class Vector3 extends Float64Array implements Vector {
         this[2] = z;
     }
 
-    equal(u: Vector3): boolean {
-        return this.dist2(u) < epsilon2;
-    }
-
-    zero(): boolean {
-        const x = this[0],
-            y = this[1],
-            z = this[2];
-        return x * x + y * y + z * z < epsilon2;
-    }
-
     string(): string {
         return `(${this[0]}, ${this[1]}, ${this[2]})`;
     }
@@ -180,7 +169,6 @@ export class Vector3 extends Float64Array implements Vector {
         this[2] = z;
         return this;
     }
-
 
     copy(u: Vector3): this {
         this[0] = u[0];
@@ -206,6 +194,93 @@ export class Vector3 extends Float64Array implements Vector {
         this[1] = 1;
         this[2] = 1;
         return this;
+    }
+
+    random(): this {
+        this[0] = Math.random();
+        this[1] = Math.random();
+        this[2] = Math.random();
+        return this;
+    }
+
+    floor(): this {
+        this[0] = Math.floor(this[0]);
+        this[1] = Math.floor(this[1]);
+        this[2] = Math.floor(this[2]);
+        return this;
+    }
+
+    floorc(): Vector3 {
+        return this.clone().floor();
+    }
+
+    ceil(): this {
+        this[0] = Math.ceil(this[0]);
+        this[1] = Math.ceil(this[1]);
+        this[2] = Math.ceil(this[2]);
+        return this;
+    }
+
+    ceilc(): Vector3 {
+        return this.clone().ceil();
+    }
+
+
+    round(): this {
+        this[0] = Math.round(this[0]);
+        this[1] = Math.round(this[1]);
+        this[2] = Math.round(this[2]);
+        return this;
+    }
+
+    roundc(): Vector3 {
+        return this.clone().round();
+    }
+
+    trunc(decimals: number): this {
+        const pow10 = Math.pow(10, decimals);
+        this[0] = Math.round(this[0] * pow10) / pow10;
+        this[1] = Math.round(this[1] * pow10) / pow10;
+        this[2] = Math.round(this[2] * pow10) / pow10;
+        return this;
+    }
+
+    truncc(decimals: number): Vector3 {
+        return this.clone().trunc(decimals);
+    }
+
+    abs(): this {
+        this[0] = Math.abs(this[0]);
+        this[1] = Math.abs(this[1]);
+        this[2] = Math.abs(this[2]);
+        return this;
+    }
+
+    absc(): Vector3 {
+        return this.clone().abs();
+    }
+
+    min(u: Vector3): this {
+        this[0] = Math.min(this[0], u[0]);
+        this[1] = Math.min(this[1], u[1]);
+        this[2] = Math.min(this[2], u[2]);
+        return this;
+    }
+
+    minc(u: Vector3): Vector3 {
+        return this.clone().min(u);
+    }
+
+
+    max(u: Vector3): this {
+        this[0] = Math.max(this[0], u[0]);
+        this[1] = Math.max(this[1], u[1]);
+        this[2] = Math.max(this[2], u[2]);
+        return this;
+    }
+
+    maxc(u: Vector3): Vector3 {
+        return this.clone().max(u);
     }
 
     fill(s: number): this {
@@ -286,26 +361,74 @@ export class Vector3 extends Float64Array implements Vector {
         return this.clone().div(s);
     }
 
-    lerp(u: Vector3, t: number): this {
-        this[0] += (u[0] - this[0]) * t;
-        this[1] += (u[1] - this[1]) * t;
-        this[2] += (u[2] - this[2]) * t;
+    comb(s: number, u: Vector3): this {
+        this[0] = u[0] + this[0] * s;
+        this[1] = u[1] + this[1] * s;
+        this[2] = u[2] + this[2] * s;
         return this;
     }
 
-    lerpc(u: Vector3, t: number): Vector3 {
-        return this.clone().lerp(u, t);
+    combc(s: number, u: Vector3): Vector3 {
+        return this.clone().comb(s, u);
     }
 
-    trans(): this {
+    lerp(u: Vector3, s: number): this {
+        this[0] += (u[0] - this[0]) * s;
+        this[1] += (u[1] - this[1]) * s;
+        this[2] += (u[2] - this[2]) * s;
         return this;
     }
 
-    transc(): Vector3 {
-        return this.clone();
+    lerpc(u: Vector3, s: number): Vector3 {
+        return this.clone().lerp(u, s);
     }
 
-    /** hadamard product of two vectors*/
+    herp(u: Vector3, u1: Vector3, u2: Vector3, s: number): this {
+        const s2 = s * s,
+            t0 = s2 * (2 * s - 3) + 1,
+            t1 = s2 * (s - 2) + s,
+            t2 = s2 * (s - 1),
+            t3 = s2 * (3 - 2 * s);
+        this[0] = this[0] * t0 + u1[0] * t1 + u2[0] * t2 + u[0] * t3;
+        this[1] = this[1] * t0 + u1[1] * t1 + u2[1] * t2 + u[1] * t3;
+        this[2] = this[2] * t0 + u1[2] * t1 + u2[2] * t2 + u[2] * t3;
+        return this;
+    }
+
+    herpc(u: Vector3, u1: Vector3, u2: Vector3, s: number): Vector3 {
+        return this.clone().herp(u, u1, u2, s);
+    }
+
+    berp(u: Vector3, u1: Vector3, u2: Vector3, s: number): this {
+        const s2 = s * s,
+            inv = 1 - s,
+            inv2 = inv * inv,
+            t0 = inv2 * inv,
+            t1 = 3 * s * inv2,
+            t2 = 3 * s2 * inv,
+            t3 = s2 * s;
+        this[0] = this[0] * t0 + u1[0] * t1 + u2[0] * t2 + u[0] * t3;
+        this[1] = this[1] * t0 + u1[1] * t1 + u2[1] * t2 + u[1] * t3;
+        this[2] = this[2] * t0 + u1[2] * t1 + u2[2] * t2 + u[2] * t3;
+        return this;
+    }
+
+    berpc(u: Vector3, u1: Vector3, u2: Vector3, s: number): Vector3 {
+        return this.clone().berp(u, u1, u1, s);
+    }
+
+    der(ds: number, u: Vector3): this {
+        this[0] = (this[0] - u[0]) / ds;
+        this[1] = (this[1] - u[1]) / ds;
+        this[2] = (this[2] - u[2]) / ds;
+        return this;
+    }
+
+    derc(ds: number, u: Vector3): Vector3 {
+        return this.clone().der(ds, u);
+    }
+
+    /** Hadamard product of two vectors*/
     prod(u: Vector3): this {
         this[0] *= u[0];
         this[1] *= u[1];
@@ -336,11 +459,60 @@ export class Vector3 extends Float64Array implements Vector {
         return dist(this, u);
     }
 
+    dist1(u: Vector3): number {
+        const dx = Math.abs(this[0] - u[0]),
+            dy = Math.abs(this[1] - u[1]),
+            dz = Math.abs(this[2] - u[2]);
+        return dx + dy + dz;
+    }
+
     dist2(u: Vector3): number {
         const dx = this[0] - u[0],
             dy = this[1] - u[1],
             dz = this[2] - u[2];
         return dx * dx + dy * dy + dz * dz;
+    }
+
+    exact(u: Vector3): boolean {
+        return this[0] === u[0] && this[1] === u[1] && this[2] === u[2];
+    }
+
+    equal1(u: Vector3): boolean {
+        const x = this[0],
+            y = this[1],
+            z = this[2],
+            ux = u[0],
+            uy = u[1],
+            uz = u[2];
+
+        // noinspection JSSuspiciousNameCombination
+        return Math.abs(x - ux) <= epsilon * Math.max(1.0, Math.abs(x), Math.abs(ux)) &&
+             Math.abs(y - uy) <= epsilon * Math.max(1.0, Math.abs(y), Math.abs(uy)) &&
+             Math.abs(z - uz) <= epsilon * Math.max(1.0, Math.abs(z), Math.abs(uz));
+    }
+
+    equal2(u: Vector3): boolean {
+        return this.dist2(u) < epsilon2;
+    }
+
+    nil(): boolean {
+        return this[0] === 0 && this[1] === 0 && this[2] === 0;
+    }
+
+    zero1(): boolean {
+        const x = Math.abs(this[0]),
+            y = Math.abs(this[1]),
+            z = Math.abs(this[2]);
+
+        // noinspection JSSuspiciousNameCombination
+        return x <= epsilon * Math.max(1.0, x) && y <= epsilon * Math.max(1.0, y) && z <= epsilon * Math.max(1.0, z);
+    }
+
+    zero2(): boolean {
+        const x = this[0],
+            y = this[1],
+            z = this[2];
+        return x * x + y * y + z * z < epsilon2;
     }
 
     /** cross product of two vector */
@@ -361,7 +533,7 @@ export class Vector3 extends Float64Array implements Vector {
         return this.clone().cross(u);
     }
 
-    /** angle between two vectors in radians */
+    /** unsigned angle between two vectors in radians */
     angle(u: Vector3): number {
         const t1 = this.normc(), u1 = u.normc();
         return Math.acos(t1.dot(u1));
@@ -451,6 +623,14 @@ export class Vector3 extends Float64Array implements Vector {
         return this;
     }
 
+    /** sets coordinates to `xm`, `ym`, `zm` with given deviation see [[Vector3.gaussian]] for more details */
+    gaussian(xm: number, ym: number, zm: number, xd: number, yd = xd, zd = xd): this {
+        this[0] = gaussian(xm, xd);
+        this[1] = gaussian(ym, yd);
+        this[2] = gaussian(zm, zd);
+        return this;
+    }
+
     static get dim(): number {
         return 3;
     }
@@ -470,6 +650,18 @@ export class Vector3 extends Float64Array implements Vector {
         return new Vector3(s, s, s);
     }
 
+    /** vector filled with uniform random values */
+    static random(): Vector3 {
+        return new Vector3(Math.random(), Math.random(), Math.random());
+    }
+
+    /** @brief vector with coordinates following gaussian law centered at coordinates `xm`, `ym`, `zm`
+     * @details specify either a deviation in each axis `xd`, `yd`, `zd` or a deviation `xd` for all axis
+     */
+    static gaussian(xm: number, ym: number, zm: number, xd: number, yd = xd, zd = xd): Vector3 {
+        return new Vector3(gaussian(xm, xd), gaussian(ym, yd), gaussian(zm, zd));
+    }
+
     /** vector with given cylindrical coordinates */
     static rthz(rxy: number, theta: number, z: number): Vector3 {
         return new Vector3(rxy * Math.cos(theta), rxy * Math.sin(theta), z);
@@ -481,19 +673,34 @@ export class Vector3 extends Float64Array implements Vector {
         return new Vector3(s * Math.cos(theta), s * Math.sin(theta), r * Math.cos(phi));
     }
 
-    /** first vector of canonical basis */
+    /** first vector of canonical basis, equivalent to right */
     static get ex(): Vector3 {
         return new Vector3(1, 0, 0);
     }
 
-    /** second vector of canonical basis */
+    /** opposite of the first vector of canonical basis, equivalent to left */
+    static get exn(): Vector3 {
+        return new Vector3(-1, 0, 0);
+    }
+
+    /** second vector of canonical basis, equivalent to up */
     static get ey(): Vector3 {
         return new Vector3(0, 1, 0);
     }
 
-    /** third vector of canonical basis */
+    /** opposite of the second vector of canonical basis, equivalent to down */
+    static get eyn(): Vector3 {
+        return new Vector3(0, -1, 0);
+    }
+
+    /** third vector of canonical basis, equivalent to forward */
     static get ez(): Vector3 {
         return new Vector3(0, 0, 1);
+    }
+
+    /** third vector of canonical basis, equivalent to backward */
+    static get ezn(): Vector3 {
+        return new Vector3(0, 0, -1);
     }
 
     /**

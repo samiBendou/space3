@@ -16,8 +16,8 @@ describe("Algebra Tests", () => {
     });
 
     describe("Addition", () => {
-        it("adds vectors", () => assert3.equal(Algebra.add(vectors), new Vector3(1, 1, 1)));
-        it("adds matrices", () => assert3.equal(Algebra.add(matrices), new Matrix3(
+        it("adds vectors", () => assert3.equal(Algebra.add(...vectors), new Vector3(1, 1, 1)));
+        it("adds matrices", () => assert3.equal(Algebra.add(...matrices), new Matrix3(
             7, 1, 1,
             1, 7, 1,
             1, 1, 7
@@ -26,8 +26,8 @@ describe("Algebra Tests", () => {
     });
 
     describe("Multiplication", () => {
-        it("multiplies vectors", () => assert3.equal(Algebra.prod(vectors), new Vector3(0, 0, 0)));
-        it("multiplies matrices", () => assert3.equal(Algebra.prod(matrices), new Matrix3(
+        it("multiplies vectors", () => assert3.equal(Algebra.prod(...vectors), new Vector3(0, 0, 0)));
+        it("multiplies matrices", () => assert3.equal(Algebra.prod(...matrices), new Matrix3(
             5, 5, 5,
             5, 5, 5,
             5, 5, 5
@@ -36,8 +36,8 @@ describe("Algebra Tests", () => {
     });
 
     describe("Linear Combination", () => {
-        it("combines vectors", () => assert3.equal(Algebra.comb(scalars, vectors), new Vector3(1, 2, 3)));
-        it("combines matrices", () => assert3.equal(Algebra.comb(scalars, matrices), new Matrix3(
+        it("combines vectors", () => assert3.equal(Algebra.comb(scalars, ...vectors), new Vector3(1, 2, 3)));
+        it("combines matrices", () => assert3.equal(Algebra.comb(scalars, ...matrices), new Matrix3(
             18, 2, 2,
             2, 18, 2,
             2, 2, 18
@@ -47,6 +47,7 @@ describe("Algebra Tests", () => {
 
     describe("Derivation", () => {
         const expected = [new Vector3(-1, 1, 0), new Vector3(0, -1, 1)];
-        it("gets derivative", () => assert3.equal(Algebra.der([vectors[0], vectors[1], vectors[2]], 1), expected));
+        it("gets discrete derivative", () => assert3.equal(Algebra.der1(...vectors), expected));
+        it("gets 1-st order derivative", () => assert3.equal(Algebra.der(1, ...vectors), expected));
     });
 });

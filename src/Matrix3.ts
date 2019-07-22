@@ -21,7 +21,7 @@ import {Vector3} from "./Vector3";
  *
  * - inherits from `Float64Array` in order to provide double precision computation
  */
-export class Matrix3 extends Float32Array implements Vector {
+export class Matrix3 extends Float64Array implements Vector {
     dim: Readonly<number> = 9;
 
     /** first row as vector **/
@@ -647,9 +647,9 @@ export class Matrix3 extends Float32Array implements Vector {
     /**
      * @brief rotation matrix of axis (`0`, `ex`)
      * @details Anticlockwise rotation.
+     * @param theta angle of rotation
      * @param cos `x` metric function of the rotation
      * @param sin `y` metric function of the rotation
-     * @param theta angle of rotation
      */
     static rotX(theta: number, cos = Math.cos, sin = Math.sin) : Matrix3 {
         const c = cos(theta), s = sin(theta);
@@ -659,9 +659,9 @@ export class Matrix3 extends Float32Array implements Vector {
     /**
      * @brief rotation matrix of axis (`0`, `ey`)
      * @details Anticlockwise rotation.
+     * @param theta angle of rotation
      * @param cos `x` metric function of the rotation
      * @param sin `y` metric function of the rotation
-     * @param theta angle of rotation
      */
     static rotY(theta: number, cos = Math.cos, sin = Math.sin) : Matrix3 {
         const c = cos(theta), s = sin(theta);
@@ -671,9 +671,9 @@ export class Matrix3 extends Float32Array implements Vector {
     /**
      * @brief rotation matrix of axis (`0`, `ez`)
      * @details Anticlockwise rotation.
+     * @param theta angle of rotation
      * @param cos `x` metric function of the rotation
      * @param sin `y` metric function of the rotation
-     * @param theta angle of rotation
      */
     static rotZ(theta: number, cos = Math.cos, sin = Math.sin) : Matrix3 {
         const c = cos(theta), s = sin(theta);
@@ -683,10 +683,8 @@ export class Matrix3 extends Float32Array implements Vector {
     /**
      * @brief rotation matrix with around axis
      * @details Anticlockwise rotation.
-     * - Use `a * cosh` as `cos` and `b * sinh` as `sin` to perform a hyperbolic rotation.
-     * - Use `a * cos` as `cos` and `b * sin` as `sin` to perform a rotation around an ellipse
      * @param u axis of rotation
-     * @param theta angle
+     * @param theta angle of ration
      * @param cos `x` metric function of the rotation
      * @param sin `y` metric function of the rotation
      */
@@ -724,20 +722,16 @@ export class Matrix3 extends Float32Array implements Vector {
         return v;
     }
 
-    /**
-     * @brief tensor product of two vectors
-     * @details Tensor product is the matrix obtained from two vectors such that `m.i.j = u.i * v.j`.
-     */
-    static tensor(u: Vector3, v?: Vector3) : Matrix3 {
-        const right = v || u;
+    /** tensor product of two vectors */
+    static tensor(u: Vector3, v = u) : Matrix3 {
         return new Matrix3(
-            u[0] * right[0], u[0] * right[1], u[0] * right[2],
-            u[1] * right[0], u[1] * right[1], u[1] * right[2],
-            u[2] * right[0], u[2] * right[1], u[2] * right[2],
+            u[0] * v[0], u[0] * v[1], u[0] * v[2],
+            u[1] * v[0], u[1] * v[1], u[1] * v[2],
+            u[2] * v[0], u[2] * v[1], u[2] * v[2],
         );
     }
 
-    /** matrix with given 1D array containing the components of the matrix ordered as rows */
+    /** matrix from given 1D array containing the components of the matrix ordered as rows */
     static array(arr: number[]) : Matrix3 {
         return new Matrix3(
             arr[0], arr[1], arr[2],
@@ -745,7 +739,7 @@ export class Matrix3 extends Float32Array implements Vector {
             arr[6], arr[7], arr[8]);
     }
 
-    /** array from 2D array of number ordered such that `arr[i]` is the i-th row of the matrix */
+    /** matrix from 2D array of number ordered such that `arr[i]` is the i-th row of the matrix */
     static array2(arr: number[][]) : Matrix3 {
         return new Matrix3(
             arr[0][0], arr[0][1], arr[0][2],
@@ -753,7 +747,7 @@ export class Matrix3 extends Float32Array implements Vector {
             arr[2][0], arr[2][1], arr[2][2]);
     }
 
-    /** array from [[Vector3]] objects as rows */
+    /** matrix from [[Vector3]] objects as rows */
     static xyz(arr: [Vector3, Vector3, Vector3]) : Matrix3 {
         return new Matrix3(
             arr[0][0], arr[0][1], arr[0][2],

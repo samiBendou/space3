@@ -41,7 +41,7 @@ export interface Vector extends Encoder {
     /** squared magnitude of the vector */
     mag2: number;
 
-    /** assigns coordinates to vector a vector */
+    /** assigns coordinates to a vector */
     assign(...args: number[]): this;
 
     /** copies a source vector into `this` */
@@ -161,7 +161,7 @@ export const comb = (scalars: number[], vectors: Vector[]) =>
  * @param dt array of numbers representing steps between vector
  * @returns array of `Vector3` representing the value of the derivative
  */
-export const derivative = (vectors: Vector[], dt: number[] | number = 1) => {
+export const der = (vectors: Vector[], dt: number[] | number = 1) => {
     const steps = (typeof dt == "number") ? Array(vectors.length).fill(dt) : dt;
     const der = new Array(vectors.length - 1);
     for (let i = 0; i < vectors.length - 1; i++) {

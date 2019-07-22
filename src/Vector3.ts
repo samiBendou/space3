@@ -388,7 +388,12 @@ export class Vector3 extends Float64Array implements Vector {
         return t1.dot(u1);
     }
 
-    /** rotates the vector around `x` axis from origin with an angle `theta `*/
+    /** @brief rotates the vector around `x`
+     *  @details Anticlockwise rotation.
+     *  @param theta angle of rotation
+     *  @param cos `x` metric function of the rotation
+     *  @param sin `y` metric function of the rotation
+     * */
     rotX(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), y = this[1], z = this[2];
         this[1] = y * c - z * s;
@@ -396,7 +401,12 @@ export class Vector3 extends Float64Array implements Vector {
         return this;
     }
 
-    /** rotates the vector around `y` axis from origin with an angle `theta `*/
+    /** @brief rotates the vector around `y` axis
+     *  @details Anticlockwise rotation.
+     *  @param theta angle of rotation
+     *  @param cos `x` metric function of the rotation
+     *  @param sin `y` metric function of the rotation
+     **/
     rotY(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = -sin(theta), x = this[0], z = this[2];
         this[0] = x * c + z * s;
@@ -404,7 +414,12 @@ export class Vector3 extends Float64Array implements Vector {
         return this;
     }
 
-    /** rotates the vector around `z` axis from origin with an angle `theta `*/
+    /** @brief rotates the vector around `z` axis
+     *  @details Anticlockwise rotation.
+     *  @param theta angle of rotation
+     *  @param cos `x` metric function of the rotation
+     *  @param sin `y` metric function of the rotation
+     *  */
     rotZ(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), x = this[0], y = this[1];
         this[0] = x * c - y * s;
@@ -412,7 +427,13 @@ export class Vector3 extends Float64Array implements Vector {
         return this;
     }
 
-    /** rotates the vector around `u` axis from origin with an angle `theta `*/
+    /** @brief rotates the vector around given axis
+     *  @details Anticlockwise rotation.
+     *  @param u axis of rotation
+     *  @param theta angle of rotation
+     *  @param cos `x` metric function of the rotation
+     *  @param sin `y` metric function of the rotation
+     **/
     rot(u: Vector3, theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), k = 1 - c;
         const x = this[0],

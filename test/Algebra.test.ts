@@ -47,6 +47,6 @@ describe("Algebra Tests", () => {
 
     describe("Derivation", () => {
         const expected = [new Vector3(-1, 1, 0), new Vector3(0, -1, 1)];
-        it("gets derivative", () => assert3.equal(Algebra.derivative([vectors[0], vectors[1], vectors[2]], 1), expected));
+        it("gets derivative", () => assert3.equal(Algebra.der([vectors[0], vectors[1], vectors[2]], 1), expected));
     });
 });

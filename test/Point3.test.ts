@@ -3,6 +3,7 @@ import * as assert3 from "./assert3";
 import {Vector3} from "../src/Vector3";
 import {Matrix3} from "../src/Matrix3";
 import {Point3} from "../src/Point3";
+import {epsilon} from "../src/Algebra";
 
 describe("Point3 Tests", () => {
 
@@ -24,7 +25,7 @@ describe("Point3 Tests", () => {
             it("gets squared magnitude", () => assert.equal(m.dist2(p), 1));
         });
 
-        it("gets angle", () => assert.equal(m.angle(p), Math.PI / 4));
+        it("gets angle", () => assert.approximately(m.angle(p), Math.PI / 4, 10 * epsilon));
     });
 
     describe("Coordinates", () => {
@@ -32,7 +33,7 @@ describe("Point3 Tests", () => {
             it("gets x", () => assert.equal(m.x, 1));
             it("gets y", () => assert.equal(m.y, 0));
             it("gets z", () => assert.equal(m.z, 0));
-            it("gets xyz", () => assert.equal(m.xyz, [1, 0, 0]));
+            it("gets xyz", () => assert3.equal1D(m.xyz, [1, 0, 0]));
         });
 
         describe("Setters", () => {
@@ -78,7 +79,7 @@ describe("Point3 Tests", () => {
 
     describe("Affine", () => {
         it("gets affine transform", () => {
-            let affOM = m.copy().affine(Matrix3.rotZ(Math.PI / 4), Vector3.ones);
+            let affOM = m.clone().affine(Matrix3.rotZ(Math.PI / 4), Vector3.ones);
             assert.approximately(affOM.position.y, affOM.position.y, Number.EPSILON)
         });
     });

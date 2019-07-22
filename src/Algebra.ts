@@ -1,43 +1,54 @@
 /** interface to encode values in different native Javascript types */
 export interface Encoder {
+    /** native Javascript array containing object's content */
+    array(): number[];
 
-    array() : number[];
-
-    string() : string;
+    /** string containing a summary of object's content */
+    string(): string;
 }
 
 /**
  * @brief abstract vectors in 3D
- * @details This interface represent a **vector** in an abstract _normed vector space_.
+ * @details Represents a **vector** in an abstract _normed vector space_.
  * It might be numerical vectors, matrices, or something more complicated.
  *
- * The vector has to be related to 3D but is **not necessarily of dimension 3**.
- * However it has to implement `x`, `y` and `z` members such that if the object is of dimension `N`,
- * `x` is of dimension `N/3`.
+ * - Has to be related to 3D but not necessarily represent an object of dimension 3.
  *
- * This interface is designed such that each mathematical operation stores the result directly in the calling object.
- * Call the operations suffixed by `c` to avoid modify the calling object and compute the result in a new instance.
+ * - Implements `x`, `y` and `z` members such that if the object is of dimension `N`,
+ * `x` is of dimension `N/3`, eg. `.x` of a [[Matrix3]] becomes a [[Vector3]].
  *
- * The goal of that design is to provide a memory efficient way to chain operations. Use `c` suffixed operations
- * only when needed.
+ * - Offers algebraical operations `add`, `sub`, `inv`, `mul`, `prod`,  ...
  *
- * `Vector` elements specifies distance related operations assuming that the norm is given by the usual dot product.
- * Therefore theses vectors offers _equality_ and zero _comparisons methods_.
+ * - Offers norm based equality, zeros and distance methods `equal`, `mag`, `dist`, ...
  *
- * Theses vectors must also implement a **binary product** in order to perform repeated multiplication.
- * They can be considered and implemented as elements of an _algebra_ over real number's field.
+ * - Provides immutable operations `addc`, `subc`, ...
  */
 export interface Vector extends Encoder {
+    /** dimension of the vector */
     dim: number;
+
     x: any;
+
     y: any;
+
     z: any;
+
     xyz: any;
+
+    /** magnitude of the vector */
     mag: number;
+
+    /** squared magnitude of the vector */
     mag2: number;
 
+    /** assigns coordinates to vector a vector */
+    assign(...args: number[]): this;
+
+    /** copies a source vector into `this` */
+    copy(vector: Vector): this;
+
     /** clone a vector */
-    copy(): Vector;
+    clone(): Vector;
 
     /** reset to an additive neutral element `0` */
     reset0(): this;
@@ -53,7 +64,7 @@ export interface Vector extends Encoder {
     /** normalizes a vector `u / ||u|| `*/
     norm(): this;
 
-    normc() : Vector;
+    normc(): Vector;
 
     /** usual addition between two vectors `u + v` */
     add(vector: Vector): this;
@@ -110,31 +121,41 @@ export interface Vector extends Encoder {
     dist2(vector: Vector): number;
 
     /** `true` if distance between vectors is 0 */
-    equal(vector : Vector): boolean;
+    equal(vector: Vector): boolean;
 
     /** `true` if the vector has a 0 magnitude */
     zero(): boolean;
 }
 
+export const epsilon = Number.EPSILON;
+
+export const epsilon2 = epsilon * epsilon;
+
+export const mag = (vector: Vector): number => Math.sqrt(vector.dot(vector));
+
+export const mag2 = (vector: Vector): number => vector.dot(vector);
+
+export const dist = (vector1: Vector, vector2: Vector): number => Math.sqrt(vector1.dist2(vector2));
+
 /** adds vectors in array `u0 + u1 + ...` */
 export const add = (vectors: Vector[]) =>
-    vectors.reduce((acc, u) => acc.add(u), vectors[0].copy().reset0());
+    vectors.reduce((acc, u) => acc.add(u), vectors[0].clone().reset0());
 
 /** multiplies vectors in array `u0 * u1 * ...` */
 export const prod = (vectors: Vector[]) =>
-    vectors.reduce((acc, u) => acc.prod(u), vectors[0].copy().reset1());
+    vectors.reduce((acc, u) => acc.prod(u), vectors[0].clone().reset1());
 
 /** linear combination of vectors in array `s0 u0 + s1 u1 + ...` */
 export const comb = (scalars: number[], vectors: Vector[]) =>
-    vectors.reduce((acc, u, index) => acc.add(u.mulc(scalars[index])), vectors[0].copy().reset0());
+    vectors.reduce((acc, u, index) => acc.add(u.mulc(scalars[index])), vectors[0].clone().reset0());
 
 /**
  * @brief derivative of an array of vector with given steps
  * @details Representing discrete derivative of the array of Vector3.
- * If the original array is of size `N`, than the derivative is of size `N - 1`.
  *
- * The derivative is approximated according using the given steps between
- * each value with lower bound approximation.
+ * - If the original array is of size `N`, than the derivative is of size `N - 1`.
+ *
+ * - The derivative is approximated according using lower bound 1-st order approximation
  *
  * @param vectors array of `Vector3` to process
  * @param dt array of numbers representing steps between vector
@@ -144,7 +165,7 @@ export const derivative = (vectors: Vector[], dt: number[] | number = 1) => {
     const steps = (typeof dt == "number") ? Array(vectors.length).fill(dt) : dt;
     const der = new Array(vectors.length - 1);
     for (let i = 0; i < vectors.length - 1; i++) {
-        der[i] = vectors[i + 1].copy().sub(vectors[i]).div(steps[i]);
+        der[i] = vectors[i + 1].clone().sub(vectors[i]).div(steps[i]);
     }
     return der;
 };

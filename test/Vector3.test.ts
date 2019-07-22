@@ -1,6 +1,7 @@
 import {assert} from "chai";
 import * as assert3 from "./assert3";
 import {Vector3} from "../src/Vector3";
+import {epsilon} from "../src/Algebra";
 
 describe("Vector3 Tests", () => {
 
@@ -19,13 +20,13 @@ describe("Vector3 Tests", () => {
         it("initialized", () => assert(magic.x === 1 && magic.y === 2 && magic.z === 3));
         it("returns true on auto equal", () => assert.isTrue(ex.equal(ex)));
         it("differentiates object", () => assert.isFalse(ex.equal(ey)));
-        it("should be Number.EPSILON precise", () => assert.isFalse(ex.equal(ex.copy().mul(1 + Number.EPSILON))));
+        it("should be epsilon precise", () => assert.isFalse(ex.equal(ex.clone().mul(1 + epsilon))));
     });
 
-    describe("Copy", () => {
+    describe("Clone", () => {
         it("clones object", () => assert3.equal(magic, new Vector3(1, 2, 3)));
         it("does not modify original object", () => {
-            magic.copy().x = 5;
+            magic.clone().x = 5;
             assert3.equal(magic, new Vector3(1, 2, 3));
         });
     });
@@ -58,29 +59,49 @@ describe("Vector3 Tests", () => {
         });
 
         describe("Cross Product", () => {
-            it("gets ex x ey", () => assert3.equal(ex.crossc(ey), new Vector3(0, 0, 1)));
-            it("gets ey x ez", () => assert3.equal(ey.crossc(ez), new Vector3(1, 0, 0)));
-            it("gets ez x ex", () => assert3.equal(ez.crossc(ex), new Vector3(0, 1, 0)));
-            it("gets ex x ex", () => assert3.equal(ex.crossc(ex), new Vector3(0, 0, 0)));
+            it("gets ex x ey", () => assert3.equal(ex.crossc(ey), ez));
+            it("gets ey x ez", () => assert3.equal(ey.crossc(ez), ex));
+            it("gets ez x ex", () => assert3.equal(ez.crossc(ex), ey));
+            it("gets ex x ex", () => assert3.equal(ex.crossc(ex), zeros));
         });
 
         describe("Angle", () => {
-            it("gets with ex", () => assert.approximately(ex.angle(ex), 0.0, Number.EPSILON));
-            it("gets with ey", () => assert.approximately(ex.angle(ey), Math.PI / 2, Number.EPSILON));
-            it("gets with ez", () => assert.approximately(ex.angle(ez), Math.PI / 2, Number.EPSILON));
-        })
+            it("gets with ex", () => assert.equal(ex.angle(ex), 0.0));
+            it("gets with ey", () => assert.equal(ex.angle(ey), Math.PI / 2));
+            it("gets with ez", () => assert.equal(ex.angle(ez), Math.PI / 2));
+            it("is non oriented", () => assert.equal(ez.angle(ex), Math.PI / 2));
+        });
+
+        describe("Area", () => {
+            it("gets area with ones and ex", () => assert.equal(ex.area(new Vector3(1, 1, 0)), 1));
+            it("gets area with ey and ex", () => assert.equal(ex.area(ey), 1));
+            it("gets area with ex and ex", () => assert.equal(ex.area(ex), 0));
+        });
+
+        describe("Rotation", () => {
+            it("gets rotates around ex", () => assert3.equal(ey.rotX(Math.PI / 2), ez));
+            it("gets rotates around ey", () => assert3.equal(ex.rotY(Math.PI / 2), ez.neg()));
+            it("gets rotates around ez", () => assert3.equal(ex.rotZ(Math.PI / 2), ey));
+            it("gets rotates around axis ex", () => assert3.equal(ey.rot(ex, Math.PI / 2), ez));
+            it("gets rotates around axis ey", () => assert3.equal(ex.rot(ey, Math.PI / 2), ez.neg()));
+            it("gets rotates around axis ez", () => assert3.equal(ex.rot(ez, Math.PI / 2), ey));
+        });
     });
 
     describe("Coordinates", () => {
         describe("Getters", () => {
-            it("gets r for ex", () => assert.approximately(ex.r, 1, Number.EPSILON));
-            it("gets rxy for ex", () => assert.approximately(ex.rxy, 1, Number.EPSILON));
-            it("gets theta for ex", () => assert.approximately(ex.theta, 0, Number.EPSILON));
-            it("gets phi for ex", () => assert.approximately(ex.phi, Math.PI / 2, Number.EPSILON));
-            it("should gets phi = 0 at 0", () => assert.approximately(Vector3.zeros.phi, 0, Number.EPSILON));
-            it("should gets theta = 0 at 0", () => assert.approximately(Vector3.zeros.theta, 0, Number.EPSILON));
+            it("gets r for ex", () => assert.equal(ex.r, 1));
+            it("gets rxy for ex", () => assert.equal(ex.rxy, 1));
+            it("gets theta for ex", () => assert.equal(ex.theta, 0));
+            it("gets phi for ex", () => assert.equal(ex.phi, Math.PI / 2));
+            it("should gets phi = 0 at 0", () => assert.equal(Vector3.zeros.phi, 0));
+            it("should gets theta = 0 at 0", () => assert.equal(Vector3.zeros.theta, 0));
             it("gets cylindrical", () => assert3.equal1D(ex.rthz, [1, 0, 0]));
             it("gets spherical", () => assert3.equal1D(ex.rthph, [1, 0, Math.PI / 2]));
+            it("gets latitude of ex", () => assert.equal(ex.lat, 0));
+            it("gets longitude of ex", () => assert.equal(ex.lon, 0));
+            it("gets latitude of ez", () => assert.equal(ez.lat, Math.PI / 2));
+            it("gets longitude of ey", () => assert.equal(ey.lon, Math.PI / 2));
         });
 
         describe("Setters", () => {
@@ -105,36 +126,19 @@ describe("Vector3 Tests", () => {
                 ex.phi = 0;
                 assert3.equal(ex, new Vector3(0, 0, 1));
             });
-
-            it("sets xyz", () => {
-                ex.r = 2;
-                assert3.equal(ex, new Vector3(2, 0, 0));
-            });
-        });
-
-        describe("Latitude/Longitude", () => {
-            describe("Getters", () => {
-                it("gets latitude of ex", () => assert.approximately(ex.lat, 0, Number.EPSILON));
-                it("gets longitude of ex", () => assert.approximately(ex.lon, 0, Number.EPSILON));
-                it("gets latitude of ez", () => assert.approximately(ez.lat, Math.PI / 2, Number.EPSILON));
-                it("gets longitude of ey", () => assert.approximately(ey.lon, Math.PI / 2, Number.EPSILON));
+            it("sets latitude", () => {
+                ex.lat = 0;
+                assert3.equal(ex, new Vector3(1, 0, 0));
             });
 
-            describe("Setters", () => {
-                it("sets latitude", () => {
-                    ex.lat = 0;
-                    assert3.equal(ex, new Vector3(1, 0, 0));
-                });
+            it("sets positive longitudes", () => {
+                ex.lon = Math.PI / 2;
+                assert3.equal(ex, new Vector3(0, 1, 0));
+            });
 
-                it("sets positive longitudes", () => {
-                    ex.lon = Math.PI / 2;
-                    assert3.equal(ex, new Vector3(0, 1, 0));
-                });
-
-                it("sets negative longitudes", () => {
-                    ex.lon = -Math.PI / 2;
-                    assert3.equal(ex, new Vector3(0, -1, 0));
-                });
+            it("sets negative longitudes", () => {
+                ex.lon = -Math.PI / 2;
+                assert3.equal(ex, new Vector3(0, -1, 0));
             });
         });
     });
@@ -143,7 +147,7 @@ describe("Vector3 Tests", () => {
         const u1D = [1, 0, 0];
         it("encodes to array", () => assert3.equal1D(ex.array(), u1D));
         it("decodes to array", () => assert3.equal(Vector3.array(u1D), ex));
-        it("encodes to string", () => assert.equal(ex.string(), "(1.00e+0 0.00e+0 0.00e+0)"));
+        it("encodes to string", () => assert.equal(ex.string(), "(1, 0, 0)"));
     });
 
     describe("Coordinates Generators", () => {

@@ -2,6 +2,7 @@ import {assert} from "chai";
 import * as assert3 from "./assert3";
 import {Vector3} from "../src/Vector3";
 import {Matrix3} from "../src/Matrix3";
+import {epsilon} from "../src/Algebra";
 
 describe("Matrix3 Tests", () => {
 
@@ -38,7 +39,7 @@ describe("Matrix3 Tests", () => {
 
     describe("Geometry", () => {
         let d = 1 / Math.sqrt(3);
-        it("norms the vector", () => assert3.equal(a.normc(), new Matrix3(
+        it("norms the matrix", () => assert3.equal(a.normc(), new Matrix3(
             d, 0, 0,
             0, d, 0,
             0, 0, d
@@ -74,14 +75,14 @@ describe("Matrix3 Tests", () => {
 
     describe("Vector Multiplication", () => {
         let u = Vector3.ones;
-        it("conserves identity", () => assert3.equal(a.mapc(u), u));
-        it("gets product", () => assert3.equal(magic.mapc(u), new Vector3(6, 6, 6)));
+        it("conserves identity", () => assert3.equal(a.atc(u), u));
+        it("gets product", () => assert3.equal(magic.atc(u), new Vector3(6, 6, 6)));
     });
 
     describe("Determinant", () => {
-        it("gets 1 on identity", () => assert.approximately(a.det, 1, Number.EPSILON));
-        it("gets 0 on non invertible", () => assert.approximately(magic.det, 0, Number.EPSILON));
-        it("gets determinant", () => assert.approximately(c.det, 4, Number.EPSILON));
+        it("gets 1 on identity", () => assert.approximately(a.det, 1, epsilon));
+        it("gets 0 on non invertible", () => assert.approximately(magic.det, 0, epsilon));
+        it("gets determinant", () => assert.approximately(c.det, 4, epsilon));
     });
 
     describe("Inversion", () => {
@@ -99,12 +100,11 @@ describe("Matrix3 Tests", () => {
     });
 
     describe("Row/Col", () => {
-        let assertRow = new Vector3(1, 2, 3);
-        it("gets row 0", () => assert3.equal(magic.row(0), assertRow));
-        it("gets row 2", () => assert3.equal(magic.row(2), assertRow));
+        it("gets row 0", () => assert3.equal1D(magic.row(0), [1, 2, 3]));
+        it("gets row 2", () => assert3.equal1D(magic.row(2), [1, 2, 3]));
 
-        it("gets col 0", () => assert3.equal(a.col(0), Vector3.ex));
-        it("gets col 2", () => assert3.equal(a.col(2), Vector3.ez));
+        it("gets col 0", () => assert3.equal1D(a.col(0), [1, 0, 0]));
+        it("gets col 2", () => assert3.equal1D(a.col(2), [0, 0, 1]));
 
         it("sets row with vectors", () => {
             a.xyz = [Vector3.ez, Vector3.ey, Vector3.ex];
@@ -119,18 +119,18 @@ describe("Matrix3 Tests", () => {
         const angle = Math.PI / 2;
 
         it("rotates around Ox", () =>
-            assert3.equal(Matrix3.rotX(Math.PI / 2).map(Vector3.ey), Vector3.ez));
+            assert3.equal(Matrix3.rotX(Math.PI / 2).at(Vector3.ey), Vector3.ez));
         it("rotates around Oy", () =>
-            assert3.equal(Matrix3.rotY(Math.PI / 2).map(Vector3.ez), Vector3.ex));
+            assert3.equal(Matrix3.rotY(Math.PI / 2).at(Vector3.ez), Vector3.ex));
         it("rotates around Oz", () =>
-            assert3.equal(Matrix3.rotZ(Math.PI / 2).map(Vector3.ex), Vector3.ey));
+            assert3.equal(Matrix3.rotZ(Math.PI / 2).at(Vector3.ex), Vector3.ey));
 
         it("generates rotation of axis Ox", () =>
-            assert3.equal(Matrix3.rotX(angle), Matrix3.makeRot(Vector3.ex)(angle)));
+            assert3.equal(Matrix3.rotX(angle), Matrix3.rot(Vector3.ex, angle)));
         it("generates rotation of axis Oy", () =>
-            assert3.equal(Matrix3.rotY(angle), Matrix3.makeRot(Vector3.ey)(angle)));
+            assert3.equal(Matrix3.rotY(angle), Matrix3.rot(Vector3.ey, angle)));
         it("generates rotation of axis Oz", () =>
-            assert3.equal(Matrix3.rotZ(angle), Matrix3.makeRot(Vector3.ez)(angle)));
+            assert3.equal(Matrix3.rotZ(angle), Matrix3.rot(Vector3.ez, angle)));
     });
 
     describe("Elliptic Rotation", () => {
@@ -140,42 +140,42 @@ describe("Matrix3 Tests", () => {
         const sin = (theta: number) => b / a * Math.sin(theta);
 
         it("rotates around Ox", () =>
-            assert3.equal(Matrix3.rotX(Math.PI / 2, cos, sin).map(Vector3.ey.mul(a)), Vector3.ez));
+            assert3.equal(Matrix3.rotX(Math.PI / 2, cos, sin).at(Vector3.ey.mul(a)), Vector3.ez));
         it("rotates around Oy", () =>
-            assert3.equal(Matrix3.rotY(Math.PI / 2, cos, sin).map(Vector3.ez.mul(a)), Vector3.ex));
+            assert3.equal(Matrix3.rotY(Math.PI / 2, cos, sin).at(Vector3.ez.mul(a)), Vector3.ex));
         it("rotates around Oz", () =>
-            assert3.equal(Matrix3.rotZ(Math.PI / 2, cos, sin).map(Vector3.ex.mul(a)), Vector3.ey));
+            assert3.equal(Matrix3.rotZ(Math.PI / 2, cos, sin).at(Vector3.ex.mul(a)), Vector3.ey));
 
         it("generates rotation of axis Ox", () =>
-            assert3.equal(Matrix3.rotX(angle, cos, sin), Matrix3.makeRot(Vector3.ex, cos, sin)(angle)));
+            assert3.equal(Matrix3.rotX(angle, cos, sin), Matrix3.rot(Vector3.ex, angle, cos, sin)));
         it("generates rotation of axis Oy", () =>
-            assert3.equal(Matrix3.rotY(angle, cos, sin), Matrix3.makeRot(Vector3.ey, cos, sin)(angle)));
+            assert3.equal(Matrix3.rotY(angle, cos, sin), Matrix3.rot(Vector3.ey, angle, cos, sin)));
         it("generates rotation of axis Oz", () =>
-            assert3.equal(Matrix3.rotZ(angle, cos, sin), Matrix3.makeRot(Vector3.ez, cos, sin)(angle)));
+            assert3.equal(Matrix3.rotZ(angle, cos, sin), Matrix3.rot(Vector3.ez, angle, cos, sin)));
     });
 
     describe("Hyperbolic Rotation", () => {
-        const angle = Math.PI / 2;
+        const angle = Math.PI / 2, tol = 0.2e-6;
         const cos = (theta: number) => Math.cosh(theta);
         const sin = (theta: number) => Math.sinh(theta);
 
-        const resX = Matrix3.rotX(angle, cos, sin).map(Vector3.ey);
-        const resY = Matrix3.rotY(angle, cos, sin).map(Vector3.ez);
-        const resZ = Matrix3.rotZ(angle, cos, sin).map(Vector3.ex);
+        const resX = Matrix3.rotX(angle, cos, sin).at(Vector3.ey);
+        const resY = Matrix3.rotY(angle, cos, sin).at(Vector3.ez);
+        const resZ = Matrix3.rotZ(angle, cos, sin).at(Vector3.ex);
 
         it("rotates around Ox", () =>
-            assert.equal(resX.y ** 2 - resX.z ** 2, 1, `\nresX : ${resX}`));
+            assert.approximately(resX.y ** 2 - resX.z ** 2, 1, tol, `\nresX : ${resX}`));
         it("rotates around Oy", () =>
-            assert.equal(resY.z ** 2 - resY.x ** 2, 1, `\nresY : ${resY}`));
+            assert.approximately(resY.z ** 2 - resY.x ** 2, 1, tol, `\nresY : ${resY}`));
         it("rotates around Oz", () =>
-            assert.equal(resZ.x ** 2 - resZ.y ** 2, 1, `\nresZ : ${resZ}`));
+            assert.approximately(resZ.x ** 2 - resZ.y ** 2, 1, tol, `\nresZ : ${resZ}`));
 
         it("generates rotation of axis Ox",
-            () => assert3.equal(Matrix3.rotX(angle, cos, sin), Matrix3.makeRot(Vector3.ex, cos, sin)(angle)));
+            () => assert3.equal(Matrix3.rotX(angle, cos, sin), Matrix3.rot(Vector3.ex, angle, cos, sin)));
         it("generates rotation of axis Oy",
-            () => assert3.equal(Matrix3.rotY(angle, cos, sin), Matrix3.makeRot(Vector3.ey, cos, sin)(angle)));
+            () => assert3.equal(Matrix3.rotY(angle, cos, sin), Matrix3.rot(Vector3.ey, angle, cos, sin)));
         it("generates rotation of axis Oz",
-            () => assert3.equal(Matrix3.rotZ(angle, cos, sin), Matrix3.makeRot(Vector3.ez, cos, sin)(angle)));
+            () => assert3.equal(Matrix3.rotZ(angle, cos, sin), Matrix3.rot(Vector3.ez, angle, cos, sin)));
     });
 
     describe("Serialize", () => {
@@ -187,13 +187,12 @@ describe("Matrix3 Tests", () => {
         let a1D = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 
         it("encodes to 1D array", () => assert3.equal1D(a.array(), a1D));
-        it("encodes to 2D array", () => assert3.equal2D(a.array2(), a2D));
 
         it("decodes from 1D array", () => assert3.equal(Matrix3.array(a1D), a));
         it("decodes from 2D array", () => assert3.equal(Matrix3.array2(a2D), a));
 
         it("encodes to string", () =>
-            assert.equal(a.string(), "(1.00e+0 0.00e+0 0.00e+0)\n(0.00e+0 1.00e+0 0.00e+0)\n(0.00e+0 0.00e+0 1.00e+0)"));
+            assert.equal(a.string(), "(1, 0, 0)\n(0, 1, 0)\n(0, 0, 1)"));
     });
 
     describe("Generators", () => {

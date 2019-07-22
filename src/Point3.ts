@@ -1,18 +1,18 @@
 import {Vector3} from "./Vector3";
 import {Matrix3} from "./Matrix3";
-import {Vector} from "./Algebra";
+import {dist, epsilon2, mag, mag2, Vector} from "./Algebra";
 
 /**
  * @brief couple of points
- * @details `Point3` class represents a point of 3D affine space. Each point comes with it own origin such that
- * operations between points are done considering that at the same origin.
+ * @details Represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
  *
- * - behave mostly like [[Vector3]]
+ * - Each point comes with it's own origin
  *
  * - addition and subtraction following Chalses's relation
  *
- * - manipulate **relative and absolute** coordinates
+ * - manipulate **relative and absolute** coordinates `position`, `absolute`, `at`, ...
  *
+ * - **affine geometry** displacement and origin changes `origin`, `to`, ...
  */
 
 export class Point3 implements Vector {
@@ -23,264 +23,372 @@ export class Point3 implements Vector {
     position: Vector3;
 
     /** coordinates of the origin*/
-    private _origin: Vector3;
+    private readonly _origin: Vector3;
 
     /** construct a point by giving it's position */
     constructor(position = Vector3.zeros, origin = Vector3.zeros) {
         this.position = position;
-        this._origin = origin.copy();
+        this._origin = origin.clone();
     }
 
-    get mag() {
-        return this.position.mag;
-    }
-
-    get mag2() {
-        return this.position.mag2;
-    }
-
-    get x() {
-        return this.position.x;
+    get x(): number {
+        return this.position[0];
     }
 
     set x(newX) {
-        this.position.x = newX;
+        this.position[0] = newX;
     }
 
-    get y() {
-        return this.position.y;
+    get y(): number {
+        return this.position[1];
     }
 
     set y(newY) {
-        this.position.y = newY;
+        this.position[1] = newY;
     }
 
-    get z() {
-        return this.position.z;
+    get z(): number {
+        return this.position[2];
     }
 
     set z(newZ) {
-        this.position.z = newZ;
+        this.position[2] = newZ;
     }
 
-    get xyz() {
-        return this.position.xyz;
+    get xyz(): [number, number, number] {
+        return [this.position[0], this.position[1], this.position[2]];
     }
 
-    set xyz(coordinates) {
-        this.position.xyz = coordinates;
+    set xyz(coordinates: [number, number, number]) {
+        this.position[0] = coordinates[0];
+        this.position[1] = coordinates[1];
+        this.position[2] = coordinates[2];
     }
 
-    get origin() {
+    get mag(): number {
+        return mag(this.position);
+    }
+
+    get mag2(): number {
+        return mag2(this.position);
+    }
+
+    get origin(): Vector3 {
         return this._origin;
     }
 
     set origin(newOrigin) {
-        this.position.add(this._origin);
-        this.position.sub(newOrigin);
-        this._origin = newOrigin;
+        let ox = newOrigin[0],
+            oy = newOrigin[1],
+            oz = newOrigin[2];
+        this.position[0] += this._origin[0] - ox;
+        this.position[1] += this._origin[1] - oy;
+        this.position[2] += this._origin[2] - oz;
+        this._origin[0] = ox;
+        this._origin[1] = oy;
+        this._origin[2] = oz;
     }
 
-    get absolute() {
-        return this.position.addc(this._origin);
+    get absolute(): Vector3 {
+        const x = this.position[0] + this._origin[0],
+            y = this.position[1] + this._origin[1],
+            z = this.position[2] + this._origin[2];
+        return new Vector3(x, y, z);
     }
 
     set absolute(newAbsolute) {
-        this.position = newAbsolute.subc(this._origin);
+        this.position[0] = newAbsolute[0] - this._origin[0];
+        this.position[1] = newAbsolute[1] - this._origin[1];
+        this.position[2] = newAbsolute[2] - this._origin[2];
     }
 
-    copy() {
+    assign(x: number, y: number, z: number = 0): this {
+        this.position[0] = x;
+        this.position[1] = y;
+        this.position[2] = z;
+        return this;
+    }
+
+    copy(p: Point3): this {
+        this._origin[0] = p._origin[0];
+        this._origin[1] = p._origin[1];
+        this._origin[2] = p._origin[2];
+        this.position[0] = p.position[0];
+        this.position[1] = p.position[1];
+        this.position[2] = p.position[2];
+        return this;
+    }
+
+    clone(): Point3 {
         return new Point3(this._origin, this.position);
     }
 
-    reset0() {
-        this.position.reset0();
+    reset0(): this {
+        this.position[0] = 0;
+        this.position[1] = 0;
+        this.position[2] = 0;
         return this;
     }
 
-    reset1() {
-        this.position.reset1();
+    reset1(): this {
+        this.position[0] = 1;
+        this.position[1] = 1;
+        this.position[2] = 1;
         return this;
     }
 
-    norm() {
-        this.position.norm();
+    fill(s: number): this {
+        this.position[0] = s;
+        this.position[1] = s;
+        this.position[2] = s;
         return this;
     }
 
-    normc() {
-        return this.copy().norm();
+    fillc(s: number): Point3 {
+        return this.clone().fill(s);
     }
 
-    fill(s: number) {
-        this.position.fill(s);
+    norm(): this {
+        const s = mag(this);
+        this.position[0] /= s;
+        this.position[1] /= s;
+        this.position[2] /= s;
         return this;
     }
 
-    fillc(s: number) {
-        return this.copy().fill(s);
+    normc(): Point3 {
+        return this.clone().norm();
     }
 
-    add(p: Point3) {
-        this.position.add(p.position).add(p._origin).sub(this._origin);
+    add(p: Point3): this {
+        this.position[0] += p.position[0] + p._origin[0] - this._origin[0];
+        this.position[1] += p.position[1] + p._origin[1] - this._origin[1];
+        this.position[2] += p.position[2] + p._origin[2] - this._origin[2];
         return this;
     }
 
-    addc(p: Point3) {
-        return this.copy().add(p);
+    addc(p: Point3): Point3 {
+        return this.clone().add(p);
     }
 
-    sub(p: Point3) {
-        this.position.sub(p.position).sub(p._origin).add(this._origin);
+    sub(p: Point3): this {
+        this.position[0] -= p.position[0] - p._origin[0] + this._origin[0];
+        this.position[1] -= p.position[1] - p._origin[1] + this._origin[1];
+        this.position[2] -= p.position[2] - p._origin[2] + this._origin[2];
         return this;
     }
 
-    subc(p: Point3) {
-        return this.sub(p).copy();
+    subc(p: Point3): Point3 {
+        return this.sub(p).clone();
     }
 
-    neg() {
-        this.position.neg();
+    neg(): this {
+        this.position[0] *= -1;
+        this.position[1] *= -1;
+        this.position[2] *= -1;
         return this;
     }
 
-    negc() {
-        return this.copy().neg();
+    negc(): Point3 {
+        return this.clone().neg();
     }
 
-    mul(s: number) {
-        this.position.mul(s);
+    mul(s: number): this {
+        this.position[0] *= s;
+        this.position[1] *= s;
+        this.position[2] *= s;
         return this;
     }
 
-    mulc(s: number) {
-        return this.copy().mul(s);
+    mulc(s: number): Point3 {
+        return this.clone().mul(s);
     }
 
-    div(s: number) {
-        this.position.div(s);
+    div(s: number): this {
+        this.position[0] /= s;
+        this.position[1] /= s;
+        this.position[2] /= s;
         return this;
     }
 
-    divc(s: number) {
-        return this.copy().div(s);
+    divc(s: number): Point3 {
+        return this.clone().div(s);
     }
 
-    lerp(u: Vector3, t: number) {
-        this.position.lerp(u, t);
+    lerp(p: Point3, t: number): this {
+        const x = this.position[0] + this._origin[0],
+            y = this.position[1] + this._origin[1],
+            z = this.position[2] + this._origin[2];
+        const px = p.position[0] + p._origin[0],
+            py = p.position[1] + p._origin[1],
+            pz = p.position[2] + p._origin[2];
+        this.position[0] += (px - x) * t;
+        this.position[1] += (py - y) * t;
+        this.position[2] += (pz - z) * t;
         return this;
     }
 
-    lerpc(u: Vector3, t: number) {
-        return this.copy().lerp(u, t);
+    lerpc(u: Point3, t: number) {
+        return this.clone().lerp(u, t);
     }
 
-    trans() {
-        this.position.trans();
+    trans(): this {
         return this;
     }
 
-    transc() {
-        return this.copy().trans();
+    transc(): Point3 {
+        return this.clone().trans();
     }
 
-    prod(p: Point3) {
-        this.position.prod(p.at(this._origin));
+    prod(p: Point3): this {
+        this.position[0] *= p.position[0] + p._origin[0] - this._origin[0];
+        this.position[1] *= p.position[1] + p._origin[1] - this._origin[1];
+        this.position[2] *= p.position[2] + p._origin[2] - this._origin[2];
         return this;
     }
 
     prodc(p: Point3) {
-        return this.copy().prod(p);
+        return this.clone().prod(p);
     }
 
-    inv() {
-        this.position.inv();
+    inv(): this {
+        this.position[0] **= -1;
+        this.position[1] **= -1;
+        this.position[2] **= -1;
         return this;
     }
 
-    invc() {
-        return this.copy().inv();
+    invc(): Point3 {
+        return this.clone().inv();
     }
 
-    dot(p: Point3) {
-        return this.position.dot(p.at(this._origin));
+    dot(p: Point3): number {
+        const px = p.position[0] + p._origin[0] - this._origin[0],
+            py = p.position[1] + p._origin[1] - this._origin[1],
+            pz = p.position[2] + p._origin[2] - this._origin[2];
+        return this.position[0] * px + this.position[1] * py + this.position[2] * pz;
     }
 
-    dist(p: Point3) {
-        return this.absolute.dist(p.absolute);
+    dist(p: Point3): number {
+        return dist(this, p);
     }
 
     dist2(p: Point3): number {
-        return this.absolute.dist2(p.absolute);
+        const px = p.position[0] + p._origin[0] - this._origin[0],
+            py = p.position[1] + p._origin[1] - this._origin[1],
+            pz = p.position[2] + p._origin[2] - this._origin[2];
+        const dx = this.position[0] - px,
+            dy = this.position[1] - py,
+            dz = this.position[2] - pz;
+        return dx * dx + dy * dy + dz * dz;
     }
 
-    equal(p: Point3) {
-        return this.absolute.equal(p.absolute);
+    equal(p: Point3): boolean {
+        return this.dist2(p) < epsilon2;
     }
 
-    zero() {
-        return this.position.zero();
+    zero(): boolean {
+        const x = this.position[0],
+            y = this.position[1],
+            z = this.position[2];
+        return x * x + y * y + z * z < epsilon2;
     }
 
     array(): number[] {
-        return [...this.position.array(), ...this.origin.array()];
+        return [...this.position, ...this.origin];
     }
 
-    string() {
+    string(): string {
         return `O ${this._origin.string()}\tP - O ${this.position.string()}`;
     }
 
     /** position from given origin */
-    at(origin : Vector3) {
-        return this.position.addc(this._origin).sub(origin);
+    at(origin: Vector3): Vector3 {
+        const x = this.position[0] + this._origin[0] - origin[0],
+            y = this.position[1] + this._origin[1] - origin[1],
+            z = this.position[2] + this._origin[2] - origin[2];
+        return new Vector3(x, y, z);
     }
 
-    /** vector from this to other point */
-    to(p : Point3) {
-        return p.position.subc(this.position).sub(this._origin).add(p._origin);
+    /** displacement vector between two points pointing at `p` */
+    to(p: Point3): Vector3 {
+        const x = p.position[0] - this.position[0] - this._origin[0] + p._origin[0],
+            y = p.position[1] - this.position[1] - this._origin[1] + p._origin[1],
+            z = p.position[2] - this.position[2] - this._origin[2] + p._origin[2];
+        return new Vector3(x, y, z);
     }
 
-    angle(p : Point3) {
-        return this.position.angle(p.at(this._origin));
+    /** angle between two points */
+    angle(p: Point3): number {
+        const u1 = p.position.clone(), t1 = this.position.normc();
+        u1[0] += p._origin[0] - this._origin[0];
+        u1[1] += p._origin[1] - this._origin[1];
+        u1[2] += p._origin[2] - this._origin[2];
+
+        const d = mag(u1);
+        u1[0] /= d;
+        u1[1] /= d;
+        u1[2] /= d;
+
+        return Math.acos(t1.dot(u1));
     }
 
-    translate(u: Vector3) {
-        this.position.add(u);
+    /** translate a point by a given vector */
+    translate(u: Vector3): this {
+        this.position[0] += u[0];
+        this.position[1] += u[1];
+        this.position[2] += u[2];
         return this;
     }
 
-    transform(m: Matrix3) {
-        m.map(this.position);
+    /** apply a transformation matrix to the position of a point */
+    transform(m: Matrix3): this {
+        let x = this.position[0],
+            y = this.position[1],
+            z = this.position[2];
+        this.position[0] = m[0] * x + m[3] * y + m[6] * z;
+        this.position[1] = m[1] * x + m[4] * y + m[7] * z;
+        this.position[2] = m[2] * x + m[5] * y + m[8] * z;
         return this;
     }
 
-    affine(m: Matrix3, v: Vector3) {
-        return this.transform(m).translate(v);
+    /** apply an affine transform to the position of the point */
+    affine(m: Matrix3, u: Vector3): this {
+        let x = this.position[0],
+            y = this.position[1],
+            z = this.position[2];
+        this.position[0] = m[0] * x + m[3] * y + m[6] * z + u[0];
+        this.position[1] = m[1] * x + m[4] * y + m[7] * z + u[1];
+        this.position[2] = m[2] * x + m[5] * y + m[8] * z + u[2];
+        return this;
     }
 
-    static get dim() {
+    static get dim(): number {
         return 3;
     }
 
-    static zeros(origin = Vector3.zeros) {
+    /** point located at it's origin */
+    static zeros(origin = Vector3.zeros): Point3 {
         return new Point3(origin, origin);
     }
 
-    static array(arr: number[]) {
+    /** point from array containing coordinates of both position and origin */
+    static array(arr: number[]): Point3 {
         return new Point3(new Vector3(arr[0], arr[1], arr[2]), new Vector3(arr[3], arr[4], arr[5]));
     }
 
-    static xyz(x : number, y : number, z : number, origin = Vector3.zeros) {
+    /** point with given cartesian coordinates of position */
+    static xyz(x: number, y: number, z: number, origin = Vector3.zeros): Point3 {
         return new Point3(new Vector3(x, y, z), origin);
     }
 
     /** point with given cylindrical coordinates */
-    static rthz(rxy: number, theta: number, z: number, origin = Vector3.zeros) {
+    static rthz(rxy: number, theta: number, z: number, origin = Vector3.zeros): Point3 {
         return new Point3(Vector3.rthz(rxy, theta, z), origin);
     }
 
     /** point with given spherical coordinates */
-    static rthph(r: number, theta: number, phi: number, origin = Vector3.zeros) {
+    static rthph(r: number, theta: number, phi: number, origin = Vector3.zeros): Point3 {
         return new Point3(Vector3.rthph(r, theta, phi), origin);
     }
 }

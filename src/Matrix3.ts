@@ -1,259 +1,514 @@
-import {Vector} from "./Algebra";
+import {dist, epsilon2, mag, mag2, Vector} from "./Algebra";
 import {Vector3} from "./Vector3";
 
 /**
  * @brief 3x3 matrices
- * @details This class represents dense 3x3 matrices.
+ * @details Represents dense square matrices of dimension 3
  *
- * The matrices are represented as [[Vector3]] rows : `x`, `y`, `z`.
+ * - components are ordered as column eg. `m[2]` denotes the value at first column and third row
  *
- * Access a component of the matrix with the syntax `m.i.j` where `i` and `j` might be equal to `x`, `y` or `z`.
- * eg. `m.x.x`, `m.y.z`, ...
+ * - A row index will always be noted `i` and a column index `j`
  *
- * - **algebraical operations** between matrices and with vectors `map`, `inv`, `prod`, `pow`, ...
+ * - components accessors `.ij` such that `i` and `j` can be equal to `x`, `y` or `z`. eg. `m.xy === m[3]` and `m.yx === m[1]`
  *
- * - **metric operations** between matrices `dot`, `mag`, `dist`...
+ * - interface with [[Vector3]] `x`, `y`, `z`, ...
  *
- * - **many generators** `diag`, `sym`, `scalar`, ...
+ * - **row and columns** accessors `row`, `col`, ...
+ *
+ * - **extended algebraical operations** `adj`, `pow`, `at`, ...
+ *
+ * - **many generators** `diag`, `sym`, `scalar`, `rotX`, ...
+ *
+ * - inherits from `Float64Array` in order to provide double precision computation
  */
-export class Matrix3 implements Vector {
-
+export class Matrix3 extends Float32Array implements Vector {
     dim: Readonly<number> = 9;
 
-    /** first row **/
-    x: Vector3;
+    /** first row as vector **/
+    get x(): Vector3 {
+        return new Vector3(this[0], this[1], this[2]);
+    };
 
-    /** second row **/
-    y: Vector3;
+    set x(newX) {
+        this[0] = newX[0];
+        this[3] = newX[1];
+        this[6] = newX[2];
+    }
 
-    /** third row **/
-    z: Vector3;
+    /** second row as vector **/
+    get y(): Vector3 {
+        return new Vector3(this[3], this[4], this[5]);
+    };
 
-    /**
-     * @brief construct a matrix by explicitly giving components
-     * @example ` new Matrix3(1, 2, 3)` fills the first row `x` with `{x = 1, y = 2, z = 3}` and zeros elsewhere.
-     */
-    constructor(xx = 0, xy = 0, xz = 0,
-                yx = 0, yy = 0, yz = 0,
-                zx = 0, zy = 0, zz = 0) {
-        this.x = new Vector3(xx, xy, xz);
-        this.y = new Vector3(yx, yy, yz);
-        this.z = new Vector3(zx, zy, zz);
+    set y(newY) {
+        this[1] = newY[0];
+        this[4] = newY[1];
+        this[7] = newY[2];
+    }
+
+    /** third row as vector **/
+    get z(): Vector3 {
+        return new Vector3(this[6], this[7], this[8]);
+    };
+
+    set z(newZ) {
+        this[2] = newZ[0];
+        this[5] = newZ[1];
+        this[8] = newZ[2];
     }
 
     /** rows of the matrix as vectors */
     get xyz(): [Vector3, Vector3, Vector3] {
-        return [this.x, this.y, this.z];
+        return [
+            new Vector3(this[0], this[3], this[6]),
+            new Vector3(this[1], this[4], this[7]),
+            new Vector3(this[2], this[5], this[8])
+        ];
     }
 
     set xyz(rows) {
-        this.x = rows[0];
-        this.y = rows[1];
-        this.z = rows[2];
+        this[0] = rows[0][0];
+        this[1] = rows[1][0];
+        this[2] = rows[2][0];
+        this[3] = rows[0][1];
+        this[4] = rows[1][1];
+        this[5] = rows[2][1];
+        this[6] = rows[0][2];
+        this[7] = rows[1][2];
+        this[8] = rows[2][2];
     }
 
-    get mag() {
-        return Math.sqrt(this.dot(this));
+    /** columns of the matrix as vectors */
+    get xyzt(): [Vector3, Vector3, Vector3] {
+        return [
+            new Vector3(this[0], this[1], this[2]),
+            new Vector3(this[3], this[4], this[5]),
+            new Vector3(this[6], this[7], this[8])
+        ];
     }
 
-    get mag2() {
-        return this.dot(this);
+    set xyzt(cols) {
+        this[0] = cols[0][0];
+        this[1] = cols[0][1];
+        this[2] = cols[0][2];
+        this[3] = cols[1][0];
+        this[4] = cols[1][1];
+        this[5] = cols[1][2];
+        this[6] = cols[2][0];
+        this[7] = cols[2][1];
+        this[8] = cols[2][2];
+    }
+
+    get mag(): number {
+        return mag(this);
+    }
+
+    get mag2(): number {
+        return mag2(this);
     }
 
     /** determinant of the matrix */
-    get det() {
-        return this.x.x * this.y.y * this.z.z + this.x.y * this.y.z * this.z.x + this.x.z * this.y.x * this.z.y
-            - this.x.z * this.y.y * this.z.x - this.x.y * this.y.x * this.z.z - this.x.x * this.y.z * this.z.y;
+    get det(): number {
+        const mxx = this[0],
+            myx = this[1],
+            mzx = this[2],
+            mxy = this[3],
+            myy = this[4],
+            mzy = this[5],
+            mxz = this[6],
+            myz = this[7],
+            mzz = this[8];
+        return mxx * (mzz * myy - mzy * myz) + myx * (-mzz * mxy + mzy * mxz) + mzx * (myz * mxy - myy * mxz);
     }
 
-    /** i-th row of the matrix */
-    row(i: number) {
-        return i === 0 ? this.x : undefined || i === 1 ? this.y : undefined || i === 2 ? this.z : undefined;
+    /** constructs a matrix by explicitly giving components ordered by rows */
+    constructor(xx: number, xy: number, xz: number,
+                yx: number, yy: number, yz: number,
+                zx: number, zy: number, zz: number) {
+        super(9);
+        this[0] = xx;
+        this[1] = yx;
+        this[2] = zx;
+        this[3] = xy;
+        this[4] = yy;
+        this[5] = zy;
+        this[6] = xz;
+        this[7] = yz;
+        this[8] = zz;
     }
 
-    /** j-th column of the matrix */
-    col(j: number) {
-        return new Vector3(this.x.array()[j], this.y.array()[j], this.z.array()[j]);
+    equal(m: Matrix3) : boolean{
+        return this.dist2(m) < epsilon2;
+    }
+
+    zero() : boolean{
+        const xx = this[0],
+            yx = this[1],
+            zx = this[2],
+            xy = this[3],
+            yy = this[4],
+            zy = this[5],
+            xz = this[6],
+            yz = this[7],
+            zz = this[8];
+
+        return xx * xx + yx * yx + zx * zx + xy * xy + yy * yy + zy * zy + xz * xz + yz * yz + zz * zz < epsilon2;
+    }
+
+    string() :string{
+        return `(${this[0]}, ${this[3]}, ${this[6]})\n` +
+            `(${this[1]}, ${this[4]}, ${this[7]})\n` +
+            `(${this[2]}, ${this[5]}, ${this[8]})`;
+    }
+
+    array() : number[]{
+        return [...this];
     }
 
     /** explicitly sets all the component of the matrix */
-    set(xx = 0, xy = 0, xz = 0,
-        yx = 0, yy = 0, yz = 0,
-        zx = 0, zy = 0, zz = 0) {
-        this.x.xyz = [xx, xy, xz];
-        this.y.xyz = [yx, yy, yz];
-        this.z.xyz = [zx, zy, zz];
+    assign(xx: number, xy: number, xz: number,
+           yx: number, yy: number, yz: number,
+           zx: number, zy: number, zz: number) : this{
+        this[0] = xx;
+        this[1] = yx;
+        this[2] = zx;
+        this[3] = xy;
+        this[4] = yy;
+        this[5] = zy;
+        this[6] = xz;
+        this[7] = yz;
+        this[8] = zz;
         return this;
     }
 
-    copy() {
-        return new Matrix3(...this.array());
-    }
-
-    reset0() {
-        return this.fill(0);
-    }
-
-    reset1() {
-        return this.set(1, 0, 0, 0, 1, 0, 0, 0, 1);
-    }
-
-    fill(s: number) {
-        this.x.fill(s);
-        this.y.fill(s);
-        this.z.fill(s);
+    copy(m: Matrix3): this {
+        this[0] = m[0];
+        this[1] = m[1];
+        this[2] = m[2];
+        this[3] = m[3];
+        this[4] = m[4];
+        this[5] = m[5];
+        this[6] = m[6];
+        this[7] = m[7];
+        this[8] = m[8];
         return this;
     }
 
-    fillc(s: number) {
-        return this.copy().fill(s);
-    }
-
-    norm() {
-        this.div(this.mag);
-        return this;
-    }
-
-    normc() {
-        return this.copy().norm();
-    }
-
-    add(m: Matrix3) {
-        this.x.add(m.x);
-        this.y.add(m.y);
-        this.z.add(m.z);
-        return this;
-    }
-
-    addc(m: Matrix3) {
-        return this.copy().add(m);
-    }
-
-    sub(m: Matrix3) {
-        this.x.sub(m.x);
-        this.y.sub(m.y);
-        this.z.sub(m.z);
-        return this;
-    }
-
-    subc(m: Matrix3) {
-        return this.copy().sub(m);
-    }
-
-    neg() {
-        this.x.neg();
-        this.y.neg();
-        this.z.neg();
-        return this;
-    }
-
-    negc() {
-        return this.copy().neg();
-    }
-
-    mul(s: number) {
-        this.x.mul(s);
-        this.y.mul(s);
-        this.z.mul(s);
-        return this;
-    }
-
-    mulc(s: number) {
-        return this.copy().mul(s);
-    }
-
-    div(s: number) {
-        this.x.div(s);
-        this.y.div(s);
-        this.z.div(s);
-        return this;
-    }
-
-    divc(s: number) {
-        return this.copy().div(s);
-    }
-
-    lerp(m: Matrix3, t: number) {
-        this.x.lerp(m.x, t);
-        this.y.lerp(m.y, t);
-        this.z.lerp(m.z, t);
-        return this;
-    }
-
-    lerpc(m: Matrix3, t: number) {
-        return this.copy().lerp(m, t);
-    }
-
-    trans() {
-        return this.set(
-            this.x.x, this.y.x, this.z.x,
-            this.x.y, this.y.y, this.z.y,
-            this.x.z, this.y.z, this.z.z
+    clone() : Matrix3 {
+        return new Matrix3(
+            this[0],
+            this[3],
+            this[6],
+            this[1],
+            this[4],
+            this[7],
+            this[2],
+            this[5],
+            this[8]
         );
     }
 
-    transc() {
-        return this.copy().trans();
+    reset0():this {
+        this[0] = 0;
+        this[1] = 0;
+        this[2] = 0;
+        this[3] = 0;
+        this[4] = 0;
+        this[5] = 0;
+        this[6] = 0;
+        this[7] = 0;
+        this[8] = 0;
+        return this;
     }
 
-    prod(m: Matrix3) {
-        const mTrs = m.copy().trans();
-        return this.set(
-            this.x.dot(mTrs.x), this.x.dot(mTrs.y), this.x.dot(mTrs.z),
-            this.y.dot(mTrs.x), this.y.dot(mTrs.y), this.y.dot(mTrs.z),
-            this.z.dot(mTrs.x), this.z.dot(mTrs.y), this.z.dot(mTrs.z)
-        );
+    /** sets matrix to identity */
+    reset1():this {
+        this[0] = 1;
+        this[1] = 0;
+        this[2] = 0;
+        this[3] = 0;
+        this[4] = 1;
+        this[5] = 0;
+        this[6] = 0;
+        this[7] = 0;
+        this[8] = 1;
+        return this;
     }
 
-    prodc(m: Matrix3) {
-        return this.copy().prod(m);
+    fill(s: number):this {
+        this[0] = s;
+        this[1] = s;
+        this[2] = s;
+        this[3] = s;
+        this[4] = s;
+        this[5] = s;
+        this[6] = s;
+        this[7] = s;
+        this[8] = s;
+        return this;
     }
 
-    inv() {
-        const det = this.det;
-        return this.set(
-            this.y.y * this.z.z - this.y.z * this.z.y,
-            this.x.z * this.z.y - this.x.y * this.z.z,
-            this.x.y * this.y.z - this.x.z * this.y.y,
-            this.y.z * this.z.x - this.y.x * this.z.z,
-            this.x.x * this.z.z - this.x.z * this.z.x,
-            this.x.z * this.y.x - this.x.x * this.y.z,
-            this.y.x * this.z.y - this.y.y * this.z.x,
-            this.x.y * this.z.x - this.x.x * this.z.y,
-            this.x.x * this.y.y - this.x.y * this.y.x
-        ).div(det);
+    fillc(s: number):Matrix3 {
+        return this.clone().fill(s);
     }
 
-    invc() {
-        return this.copy().inv();
+    norm(): this {
+        const s = mag(this);
+        this[0] /= s;
+        this[1] /= s;
+        this[2] /= s;
+        this[3] /= s;
+        this[4] /= s;
+        this[5] /= s;
+        this[6] /= s;
+        this[7] /= s;
+        this[8] /= s;
+        return this;
     }
 
-    dot(m: Matrix3) {
-        return this.x.dot(m.x) + this.y.dot(m.y) + this.z.dot(m.z);
+    normc() : Matrix3{
+        return this.clone().norm();
     }
 
-    dist(m: Matrix3) {
-        return this.copy().sub(m).mag;
+    add(m: Matrix3):this{
+        this[0] += m[0];
+        this[1] += m[1];
+        this[2] += m[2];
+        this[3] += m[3];
+        this[4] += m[4];
+        this[5] += m[5];
+        this[6] += m[6];
+        this[7] += m[7];
+        this[8] += m[8];
+        return this;
+    }
+
+    addc(m: Matrix3) :Matrix3{
+        return this.clone().add(m);
+    }
+
+    sub(m: Matrix3) : this{
+        this[0] -= m[0];
+        this[1] -= m[1];
+        this[2] -= m[2];
+        this[3] -= m[3];
+        this[4] -= m[4];
+        this[5] -= m[5];
+        this[6] -= m[6];
+        this[7] -= m[7];
+        this[8] -= m[8];
+        return this;
+    }
+
+    subc(m: Matrix3): Matrix3 {
+        return this.clone().sub(m);
+    }
+
+    neg(): this {
+        this[0] *= -1;
+        this[1] *= -1;
+        this[2] *= -1;
+        this[3] *= -1;
+        this[4] *= -1;
+        this[5] *= -1;
+        this[6] *= -1;
+        this[7] *= -1;
+        this[8] *= -1;
+        return this;
+    }
+
+    negc(): Matrix3 {
+        return this.clone().neg();
+    }
+
+    mul(s: number): this {
+        this[0] *= s;
+        this[1] *= s;
+        this[2] *= s;
+        this[3] *= s;
+        this[4] *= s;
+        this[5] *= s;
+        this[6] *= s;
+        this[7] *= s;
+        this[8] *= s;
+        return this;
+    }
+
+    mulc(s: number): Matrix3 {
+        return this.clone().mul(s);
+    }
+
+    div(s: number) : this{
+        this[0] /= s;
+        this[1] /= s;
+        this[2] /= s;
+        this[3] /= s;
+        this[4] /= s;
+        this[5] /= s;
+        this[6] /= s;
+        this[7] /= s;
+        this[8] /= s;
+        return this;
+    }
+
+    divc(s: number) : Matrix3{
+        return this.clone().div(s);
+    }
+
+    lerp(m: Matrix3, t: number) : this{
+        this[0] += (m[0] - this[0]) * t;
+        this[1] += (m[1] - this[1]) * t;
+        this[2] += (m[2] - this[2]) * t;
+        this[3] += (m[3] - this[3]) * t;
+        this[4] += (m[4] - this[4]) * t;
+        this[5] += (m[5] - this[5]) * t;
+        this[6] += (m[6] - this[6]) * t;
+        this[7] += (m[7] - this[7]) * t;
+        this[8] += (m[8] - this[8]) * t;
+        return this;
+    }
+
+    lerpc(m: Matrix3, t: number): Matrix3 {
+        return this.clone().lerp(m, t);
+    }
+
+    trans() : this{
+        const mxy = this[1],
+            mxz = this[2],
+            myz = this[5];
+        this[1] = this[3];
+        this[2] = this[6];
+        this[3] = mxy;
+        this[5] = this[7];
+        this[6] = mxz;
+        this[7] = myz;
+        return this;
+    }
+
+    transc() : Matrix3{
+        return this.clone().trans();
+    }
+
+    prod(m: Matrix3): this {
+        const xx = this[0],
+            yx = this[1],
+            zx = this[2],
+            xy = this[3],
+            yy = this[4],
+            zy = this[5],
+            xz = this[6],
+            yz = this[7],
+            zz = this[8];
+        const mxx = m[0],
+            myx = m[1],
+            mzx = m[2],
+            mxy = m[3],
+            myy = m[4],
+            mzy = m[5],
+            mxz = m[6],
+            myz = m[7],
+            mzz = m[8];
+        this[0] = mxx * xx + myx * xy + mzx * xz;
+        this[1] = mxx * yx + myx * yy + mzx * yz;
+        this[2] = mxx * zx + myx * zy + mzx * zz;
+        this[3] = mxy * xx + myy * xy + mzy * xz;
+        this[4] = mxy * yx + myy * yy + mzy * yz;
+        this[5] = mxy * zx + myy * zy + mzy * zz;
+        this[6] = mxz * xx + myz * xy + mzz * xz;
+        this[7] = mxz * yx + myz * yy + mzz * yz;
+        this[8] = mxz * zx + myz * zy + mzz * zz;
+        return this;
+    }
+
+    prodc(m: Matrix3): Matrix3 {
+        return this.clone().prod(m);
+    }
+
+    inv() :this{
+        const xx = this[0],
+            yx = this[1],
+            zx = this[2],
+            xy = this[3],
+            yy = this[4],
+            zy = this[5],
+            xz = this[6],
+            yz = this[7],
+            zz = this[8];
+        const dyx = zz * yy - zy * yz;
+        const dyy = -zz * xy + zy * xz;
+        const dyz = yz * xy - yy * xz;
+
+        let det = xx * dyx + yx * dyy + zx * dyz;
+
+        if (!det) {
+            return undefined;
+        }
+
+        det = 1.0 / det;
+        this[0] = dyx * det;
+        this[1] = (-zz * yx + zx * yz) * det;
+        this[2] = (zy * yx - zx * yy) * det;
+        this[3] = dyy * det;
+        this[4] = (zz * xx - zx * xz) * det;
+        this[5] = (-zy * xx + zx * xy) * det;
+        this[6] = dyz * det;
+        this[7] = (-yz * xx + yx * xz) * det;
+        this[8] = (yy * xx - yx * xy) * det;
+        return this;
+    }
+
+    invc() : Matrix3{
+        return this.clone().inv();
+    }
+
+    dot(m: Matrix3) : number {
+        const sxx = this[0] * m[0],
+            syx = this[1] * m[1],
+            szx = this[2] * m[2],
+            sxy = this[3] * m[3],
+            syy = this[4] * m[4],
+            szy = this[5] * m[5],
+            sxz = this[6] * m[6],
+            syz = this[7] * m[7],
+            szz = this[8] * m[8];
+        return sxx + syx + szx + sxy + syy + szy + sxz + syz + szz;
+    }
+
+    dist(m: Matrix3) :number{
+        return dist(this, m);
     }
 
     dist2(m: Matrix3): number {
-        return this.copy().sub(m).mag2;
+        const dxx = this[0] - m[0],
+            dyx = this[1] - m[1],
+            dzx = this[2] - m[2],
+            dxy = this[3] - m[3],
+            dyy = this[4] - m[4],
+            dzy = this[5] - m[5],
+            dxz = this[6] - m[6],
+            dyz = this[7] - m[7],
+            dzz = this[8] - m[8];
+        const dxx2 = dxx * dxx,
+            dyx2 = dyx * dyx,
+            dzx2 = dzx * dzx,
+            dxy2 = dxy * dxy,
+            dyy2 = dyy * dyy,
+            dzy2 = dzy * dzy,
+            dxz2 = dxz * dxz,
+            dyz2 = dyz * dyz,
+            dzz2 = dzz * dzz;
+        return dxx2 + dyx2 + dzx2 + dxy2 + dyy2 + dzy2 + dxz2 + dyz2 + dzz2;
     }
 
-    equal(m: Matrix3) {
-        return this.x.equal(m.x) && this.y.equal(m.y) && this.z.equal(m.z);
+    /** i-th row of the matrix */
+    row(i: number): number[] {
+        return [this[i], this[3 + i], this[6 + i]];
     }
 
-    zero() {
-        return this.x.zero() && this.y.zero() && this.z.zero();
-    }
-
-    string() {
-        return `${this.x.string()}\n${this.y.string()}\n${this.z.string()}`;
-    }
-
-    array() {
-        return [...this.x.array(), ...this.y.array(), ...this.z.array()];
+    /** j-th column of the matrix */
+    col(j: number): number[] {
+        let shift = 3 * j;
+        return [this[shift], this[1 + shift], this[2 + shift]];
     }
 
     /**
@@ -261,18 +516,23 @@ export class Matrix3 implements Vector {
      * @details the result is stored in `u`
      * @returns reference to `u`
      */
-    map(u: Vector3) {
-        u.xyz = [this.x.dot(u), this.y.dot(u), this.z.dot(u)];
+    at(u: Vector3) : Vector3 {
+        let ux = u[0],
+            uy = u[1],
+            uz = u[2];
+        u[0] = this[0] * ux + this[3] * uy + this[6] * uz;
+        u[1] = this[1] * ux + this[4] * uy + this[7] * uz;
+        u[2] = this[2] * ux + this[5] * uy + this[8] * uz;
         return u;
     }
 
-    mapc(u: Vector3) {
-        return this.map(u.copy());
+    atc(u: Vector3) : Vector3 {
+        return this.at(u.clone());
     }
 
     private rpow(exp: number) {
         if (exp > 1) {
-            const copy = this.copy();
+            const copy = this.clone();
             this.prod(copy);
             if (exp % 2 === 0) {
                 this.rpow(exp / 2);
@@ -284,33 +544,55 @@ export class Matrix3 implements Vector {
     }
 
     /** exponentiation of a matrix with positive and negative integer exponent. */
-    pow(exp: number) {
+    pow(exp: number) : this{
         if (exp < 0)
             this.inv();
         if (exp === 0)
-            this.set(...Matrix3.eye.array());
+            this.assign(1, 0, 0, 0, 1, 0, 0, 0, 1);
         this.rpow(Math.abs(exp));
         return this;
     }
 
-    powc(exp: number) {
-        return this.copy().pow(exp);
+    powc(exp: number) : Matrix3 {
+        return this.clone().pow(exp);
     }
 
-    /** transform matrix to an 2D array. `arr[i]` represents the i-th row of the matrix */
-    array2() {
-        return [this.x.array(), this.y.array(), this.z.array()];
+    /** adjoint matrix */
+    adj() : this {
+        const xx = this[0],
+            yx = this[1],
+            zx = this[2],
+            xy = this[3],
+            yy = this[4],
+            zy = this[5],
+            xz = this[6],
+            yz = this[7],
+            zz = this[8];
+        this[0] = yy * zz - zy * yz;
+        this[1] = zx * yz - yx * zz;
+        this[2] = yx * zy - zx * yy;
+        this[3] = zy * xz - xy * zz;
+        this[4] = xx * zz - zx * xz;
+        this[5] = zx * xy - xx * zy;
+        this[6] = xy * yz - yy * xz;
+        this[7] = yx * xz - xx * yz;
+        this[8] = xx * yy - yx * xy;
+        return this;
     }
 
-    static get dim() {
+    adjc() : Matrix3 {
+        return this.clone().adj();
+    }
+
+    static get dim() : number {
         return 9;
     }
 
-    static get zeros() {
-        return new Matrix3();
+    static get zeros() : Matrix3 {
+        return new Matrix3(0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
-    static get ones() {
+    static get ones() : Matrix3 {
         return new Matrix3(1, 1, 1, 1, 1, 1, 1, 1, 1);
     }
 
@@ -318,7 +600,7 @@ export class Matrix3 implements Vector {
      * @brief identity matrix
      * @details Diagonal matrix filled with `1`.
      */
-    static get eye() {
+    static get eye() : Matrix3 {
         return new Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1);
     }
 
@@ -327,12 +609,12 @@ export class Matrix3 implements Vector {
      * @details Diagonal matrix filled with a single value.
      * @param s scalar value
      */
-    static scalar(s: number) {
+    static scalar(s: number) : Matrix3 {
         return new Matrix3(s, 0, 0, 0, s, 0, 0, 0, s);
     }
 
     /** diagonal matrix */
-    static diag(xx: number, yy: number, zz: number) {
+    static diag(xx: number, yy: number, zz: number) : Matrix3 {
         return new Matrix3(xx, 0, 0, 0, yy, 0, 0, 0, zz);
     }
 
@@ -340,7 +622,7 @@ export class Matrix3 implements Vector {
      * @brief symmetric matrix
      * @details Fill the matrix by giving values on diagonal.
      */
-    static sym(xx: number, yy: number, zz: number, xy: number, yz: number, xz = 0) {
+    static sym(xx: number, yy: number, zz: number, xy: number, yz: number, xz = 0) : Matrix3 {
         return new Matrix3(xx, xy, xz, xy, yy, yz, xz, yz, zz);
     }
 
@@ -348,7 +630,7 @@ export class Matrix3 implements Vector {
      * @brief antisymmetric matrix
      * @details Fill the matrix by giving values on diagonals.
      */
-    static asym(xx: number, yy: number, zz: number, xy: number, yz: number, xz = 0) {
+    static asym(xx: number, yy: number, zz: number, xy: number, yz: number, xz = 0) : Matrix3 {
         return new Matrix3(xx, xy, xz, -xy, yy, yz, -xz, -yz, zz);
     }
 
@@ -356,15 +638,10 @@ export class Matrix3 implements Vector {
      * @brief canonical matrix
      * @details Matrix with `0` everywhere except in `i`, `j` position where there is a `1`.
      */
-    static e(i: number, j: number) {
-        const row = new Vector3(j === 0 ? 1 : 0, j === 1 ? 1 : 0, j === 2 ? 1 : 0);
-        const can = Matrix3.zeros;
-
-        can.x = i == 0 ? row : can.x;
-        can.y = i == 1 ? row : can.y;
-        can.z = i == 2 ? row : can.z;
-
-        return can;
+    static e(i: number, j: number) : Matrix3 {
+        const eij = new Matrix3(0, 0, 0, 0, 0, 0, 0, 0, 0);
+        eij[3 * j + i] = 1;
+        return eij;
     }
 
     /**
@@ -374,12 +651,9 @@ export class Matrix3 implements Vector {
      * @param sin `y` metric function of the rotation
      * @param theta angle of rotation
      */
-    static rotX(theta: number, cos = Math.cos, sin = Math.sin) {
-        return new Matrix3(
-            1, 0, 0,
-            0, cos(theta), -sin(theta),
-            0, sin(theta), cos(theta)
-        );
+    static rotX(theta: number, cos = Math.cos, sin = Math.sin) : Matrix3 {
+        const c = cos(theta), s = sin(theta);
+        return new Matrix3(1, 0, 0, 0, c, -s, 0, s, c);
     }
 
     /**
@@ -389,12 +663,9 @@ export class Matrix3 implements Vector {
      * @param sin `y` metric function of the rotation
      * @param theta angle of rotation
      */
-    static rotY(theta: number, cos = Math.cos, sin = Math.sin) {
-        return new Matrix3(
-            cos(theta), 0, sin(theta),
-            0, 1, 0,
-            -sin(theta), 0, cos(theta)
-        );
+    static rotY(theta: number, cos = Math.cos, sin = Math.sin) : Matrix3 {
+        const c = cos(theta), s = sin(theta);
+        return new Matrix3(c, 0, s, 0, 1, 0, -s, 0, c);
     }
 
     /**
@@ -404,12 +675,9 @@ export class Matrix3 implements Vector {
      * @param sin `y` metric function of the rotation
      * @param theta angle of rotation
      */
-    static rotZ(theta: number, cos = Math.cos, sin = Math.sin) {
-        return new Matrix3(
-            cos(theta), -sin(theta), 0,
-            sin(theta), cos(theta), 0,
-            0, 0, 1
-        );
+    static rotZ(theta: number, cos = Math.cos, sin = Math.sin) : Matrix3 {
+        const c = cos(theta), s = sin(theta);
+        return new Matrix3(c, -s, 0, s, c, 0, 0, 0, 1);
     }
 
     /**
@@ -418,46 +686,59 @@ export class Matrix3 implements Vector {
      * - Use `a * cosh` as `cos` and `b * sinh` as `sin` to perform a hyperbolic rotation.
      * - Use `a * cos` as `cos` and `b * sin` as `sin` to perform a rotation around an ellipse
      * @param u axis of rotation
+     * @param theta angle
      * @param cos `x` metric function of the rotation
      * @param sin `y` metric function of the rotation
-     * @returns function that generates rotation `Matrix3` around axis for given angle
      */
-    static makeRot(u: Vector3, cos = Math.cos, sin = Math.sin) {
-        return (theta: number) => {
-            const k = 1 - cos(theta), c = cos(theta), s = sin(theta);
-            return new Matrix3(
-                k * u.x ** 2 + c, k * u.x * u.y - u.z * s, k * u.x * u.z + u.y * s,
-                k * u.x * u.y + u.z * s, k * u.y ** 2 + c, k * u.y * u.z - u.x * s,
-                k * u.x * u.z - u.y * s, k * u.y * u.z + u.x * s, k * u.z ** 2 + c
-            );
-        }
+    static rot(u: Vector3, theta: number, cos = Math.cos, sin = Math.sin) : Matrix3 {
+        const c = cos(theta), s = sin(theta), k = 1 - c;
+        const ux = u[0],
+            uy = u[1],
+            uz = u[2];
+        const kuxy = k * ux * uy,
+            kuxz = k * ux * uz,
+            kuyz = k * uy * uz;
+        return new Matrix3(
+            k * ux * ux + c, kuxy - uz * s, kuxz + uy * s,
+            kuxy + uz * s, k * uy * uy + c, kuyz - ux * s,
+            kuxz - uy * s, kuyz + ux * s, k * uz * uz + c
+        );
     }
 
     /**
      * @brief affine transformation of the vector
+     * @details The result of the operation is stored on `v`.
      * @param m matrix of the transformation
-     * @param v vector of the transformation
-     * @returns function that computes affine transform a given `Vector3`
+     * @param u translation of the transformation
+     * @param v vector parameter of the transformation
+     * @returns reference to `v`
      */
-    static makeAffine(m: Matrix3, v: Vector3) {
-        return (u: Vector3) => m.map(u).add(v);
+    static affine(m: Matrix3, u: Vector3, v: Vector3) : Vector3 {
+        const vx = v[0],
+            vy = v[1],
+            vz = v[2];
+
+        v[0] = m[0] * vx + m[3] * vy + m[6] * vz + u[0];
+        v[1] = m[1] * vx + m[4] * vy + m[7] * vz + u[1];
+        v[2] = m[2] * vx + m[5] * vy + m[8] * vz + u[2];
+        return v;
     }
 
     /**
      * @brief tensor product of two vectors
      * @details Tensor product is the matrix obtained from two vectors such that `m.i.j = u.i * v.j`.
      */
-    static tens(u: Vector3, v?: Vector3) {
+    static tensor(u: Vector3, v?: Vector3) : Matrix3 {
         const right = v || u;
         return new Matrix3(
-            u.x * right.x, u.x * right.y, u.x * right.z,
-            u.y * right.x, u.y * right.y, u.y * right.z,
-            u.z * right.x, u.z * right.y, u.z * right.z,
+            u[0] * right[0], u[0] * right[1], u[0] * right[2],
+            u[1] * right[0], u[1] * right[1], u[1] * right[2],
+            u[2] * right[0], u[2] * right[1], u[2] * right[2],
         );
     }
 
     /** matrix with given 1D array containing the components of the matrix ordered as rows */
-    static array(arr: number[]) {
+    static array(arr: number[]) : Matrix3 {
         return new Matrix3(
             arr[0], arr[1], arr[2],
             arr[3], arr[4], arr[5],
@@ -465,7 +746,7 @@ export class Matrix3 implements Vector {
     }
 
     /** array from 2D array of number ordered such that `arr[i]` is the i-th row of the matrix */
-    static array2(arr: number[][]) {
+    static array2(arr: number[][]) : Matrix3 {
         return new Matrix3(
             arr[0][0], arr[0][1], arr[0][2],
             arr[1][0], arr[1][1], arr[1][2],
@@ -473,11 +754,11 @@ export class Matrix3 implements Vector {
     }
 
     /** array from [[Vector3]] objects as rows */
-    static xyz(arr: [Vector3, Vector3, Vector3]) {
+    static xyz(arr: [Vector3, Vector3, Vector3]) : Matrix3 {
         return new Matrix3(
-            arr[0].x, arr[0].y, arr[0].z,
-            arr[1].x, arr[1].y, arr[1].z,
-            arr[2].x, arr[2].y, arr[2].z
+            arr[0][0], arr[0][1], arr[0][2],
+            arr[1][0], arr[1][1], arr[1][2],
+            arr[2][0], arr[2][1], arr[2][2]
         );
     }
 }

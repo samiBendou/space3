@@ -4,11 +4,11 @@ export const epsilon2 = epsilon * epsilon;
 
 export const gaussian = (mu: number, sigma: number) => {
     const pi2 = 2 * Math.PI;
-    let s0 : number, s1 : number;
+    let s0: number, s1: number;
     do {
         s0 = Math.random();
         s1 = Math.random();
-    } while ( s0 <= epsilon );
+    } while (s0 <= epsilon);
     return (Math.sqrt(-2.0 * Math.log(s0)) * Math.cos(pi2 * s1)) * sigma + mu;
 };
 
@@ -43,15 +43,15 @@ export interface Object3 {
  */
 export interface Object9 {
 
-    xx : any;
-    yx : any;
-    zx : any;
-    xy : any;
-    yy : any;
-    zy : any;
-    xz : any;
-    yz : any;
-    zz : any;
+    xx: any;
+    yx: any;
+    zx: any;
+    xy: any;
+    yy: any;
+    zy: any;
+    xz: any;
+    yz: any;
+    zz: any;
 }
 
 /**
@@ -161,9 +161,9 @@ export interface Vector extends Encoder {
     divc(s: number): Vector;
 
     /** linear combination of scalar and vector `s * u + v` */
-    comb(s: number, vector: Vector) : this;
+    comb(s: number, vector: Vector): this;
 
-    combc(s: number, vector: Vector) : Vector;
+    combc(s: number, vector: Vector): Vector;
 
     /** linear interpolation between two vectors. `s` must be between 0 and 1 **/
     lerp(target: Vector, s: number): this;
@@ -258,9 +258,9 @@ export interface Matrix extends Vector {
      * @details the result is stored in `u`
      * @returns reference to `u`
      */
-    at(u: Vector) : Vector;
+    at(u: Vector): Vector;
 
-    atc(u: Vector) : Vector;
+    atc(u: Vector): Vector;
 
     /** transpose of a matrix */
     trans(): this;
@@ -268,14 +268,14 @@ export interface Matrix extends Vector {
     transc(): Matrix;
 
     /** exponentiation of a matrix with positive and negative integer exponent. */
-    pow(exp: number) : this;
+    pow(exp: number): this;
 
-    powc(exp: number) : Matrix;
+    powc(exp: number): Matrix;
 
     /** adjoint matrix */
     adj(): this;
 
-    adjc() : Matrix;
+    adjc(): Matrix;
 
     /** Frobenius norm of the matrix **/
     frob(): number;
@@ -293,13 +293,17 @@ export const round = (vector: Vector): Vector => vector.roundc();
 
 export const abs = (vector: Vector): Vector => vector.absc();
 
+export const min = (...vectors: Vector[]): Vector => vectors.reduce((acc, u) => acc.min(u));
+
+export const max = (...vectors: Vector[]): Vector => vectors.reduce((acc, u) => acc.max(u));
+
 export const trunc = (decimals: number = 0, vector: Vector): Vector => vector.truncc(decimals);
 
 /** addition between vectors `u0 + u1 + ...` */
 export const add = (...vectors: Vector[]): Vector =>
     vectors.reduce((acc, u) => acc.add(u), vectors[0].clone().reset0());
 
-/** subtraction between vectors and a vector `u0 - u1 - ...`*/
+/** subtraction between first vector and other ones `u0 - u1 - ...`*/
 export const sub = (vector: Vector, ...vectors: Vector[]): Vector =>
     vectors.reduce((acc, u) => acc.sub(u), vector.clone());
 
@@ -315,30 +319,34 @@ export const mul = (s: number, ...vectors: Vector[]) =>
 export const div = (s: number, ...vectors: Vector[]): Vector =>
     vectors.reduce((acc, u) => acc.add(u.divc(s)), vectors[0].clone().reset0());
 
+/** linear combination of vectors in array `s0 * u0 + s1 * u1 + ...` */
+export const comb = (scalars: number[], ...vectors: Vector[]) =>
+    vectors.reduce((acc, u, index) => u.combc(scalars[index], acc), vectors[0].clone().reset0());
+
 /** linear interpolation of the vectors, `s = 0` gets the first vector, `s = 1` gets the last vector **/
 export const lerp = (s: number, ...vectors: Vector[]): Vector => {
-    const index = Math.floor(s * (vectors.length - 2));
-    return vectors[index].lerpc(vectors[index + 1], s - index);
+    const sn = (vectors.length - 1) * s, index = Math.ceil(sn);
+    return vectors[Math.max(index - 1, 0)].lerpc(vectors[index], sn - index + 1);
 };
 
 /** Hermite's interpolation of the vectors, `s = 0` gets the first vector, `s = 1` gets the last vector **/
 export const herp = (s: number, ...vectors: Vector[]): Vector => {
-    const index = Math.floor(s * (vectors.length - 3));
-    return vectors[index].herpc(vectors[index + 2], vectors[index], vectors[index + 1], s - index);
+    const sn = (vectors.length - 1) * s, index = Math.max(Math.floor(sn) - 3, 0);
+    return vectors[index].herpc(vectors[index + 3], vectors[index + 1], vectors[index + 2], (sn - index) / 3);
 };
 
 /**  Bezier's interpolation of the vectors, `s = 0` gets the first vector, `s = 1` gets the last vector  */
 export const berp = (s: number, ...vectors: Vector[]): Vector => {
-    const index = Math.floor(s * (vectors.length - 3));
-    return vectors[index].berpc(vectors[index + 2], vectors[index], vectors[index + 1], s - index);
+    const sn = (vectors.length - 1) * s, index = Math.max(Math.floor(sn) - 3, 0);
+    return vectors[index].berpc(vectors[index + 3], vectors[index + 1], vectors[index + 2], (sn - index) / 3);
 };
 
 /** discrete derivative of the given vectors `[u1 - u0, u2 - u1, ...]` */
-export const der1 = (...vectors: Vector[]) : Vector[] =>
+export const der1 = (...vectors: Vector[]): Vector[] =>
     vectors.map((vector, index) => vector.subc(vectors[Math.max(0, index - 1)])).slice(1);
 
 /** 1-st order derivative of the vectors `[(u1 - u0) / ds, (u2 - u1) / ds, ...]` */
-export const der = (ds: number, ...vectors: Vector[]) : Vector[] =>
+export const der = (ds: number, ...vectors: Vector[]): Vector[] =>
     vectors.map((vector, index) => vector.derc(ds, vectors[Math.max(0, index - 1)])).slice(1);
 
 /** multiplication of vectors `u0 * u1 * ...` */
@@ -359,21 +367,17 @@ export const dot = (vector1: Vector, vector2: Vector): number =>
 export const dist = (vector1: Vector, vector2: Vector): number =>
     Math.sqrt(vector1.dist2(vector2));
 
-export const exact = (...vectors : Vector[]): boolean =>
-    vectors.reduce((acc, u, index) => acc && vectors[Math.min(index + 1, index)].exact(u), true);
+export const exact = (...vectors: Vector[]): boolean => {
+    const len = vectors.length - 1;
+    return vectors.reduce((acc, u, index) => acc && vectors[Math.min(index + 1, len)].exact(u), true);
+};
 
-export const equal1 = (...vectors : Vector[]): boolean =>
-    vectors.reduce((acc, u, index) => acc && vectors[Math.min(index + 1, index)].equal1(u), true);
+export const equal1 = (...vectors: Vector[]): boolean => {
+    const len = vectors.length - 1;
+    return vectors.reduce((acc, u, index) => acc && vectors[Math.min(index + 1, len)].equal1(u), true);
+};
 
-export const equal2 = (...vectors : Vector[]): boolean =>
-    vectors.reduce((acc, u, index) => acc && vectors[Math.min(index + 1, index)].equal2(u), true);
-
-export const min = (...vectors: Vector[]): Vector =>
-    vectors.reduce((acc, u) => acc.min(u));
-
-export const max = (...vectors: Vector[]): Vector =>
-    vectors.reduce((acc, u) => acc.max(u));
-
-/** linear combination of vectors in array `s0 * u0 + s1 * u1 + ...` */
-export const comb = (scalars: number[], ...vectors: Vector[]) =>
-    vectors.reduce((acc, u, index) => u.combc(scalars[index], acc), vectors[0].clone().reset0());
+export const equal2 = (...vectors: Vector[]): boolean => {
+    const len = vectors.length - 1;
+    return vectors.reduce((acc, u, index) => acc && vectors[Math.min(index + 1, len)].equal2(u), true);
+};

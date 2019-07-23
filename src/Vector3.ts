@@ -414,7 +414,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     berpc(u: Vector3, u1: Vector3, u2: Vector3, s: number): Vector3 {
-        return this.clone().berp(u, u1, u1, s);
+        return this.clone().berp(u, u1, u2, s);
     }
 
     der(ds: number, u: Vector3): this {

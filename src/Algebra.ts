@@ -66,6 +66,8 @@ export interface Object9 {
  * - Offers norm based equality, zeros and distance methods `equal`, `mag`, `dist`, ...
  *
  * - Provides immutable operations `addc`, `subc`, ...
+ *
+ * In all the follows `u` will always name `this` vector and `v` the parameter vector named `vector` in the code.
  */
 export interface Vector extends Encoder {
     /** dimension of the vector */
@@ -160,7 +162,7 @@ export interface Vector extends Encoder {
 
     divc(s: number): Vector;
 
-    /** linear combination of scalar and vector `s * u + v` */
+    /** linear combination of scalar and vector `u + s * v` */
     comb(s: number, vector: Vector): this;
 
     combc(s: number, vector: Vector): Vector;
@@ -313,15 +315,17 @@ export const neg = (...vectors: Vector[]): Vector =>
 
 /** sum of scaled vectors `s * u0 + s * u1 + ...` */
 export const mul = (s: number, ...vectors: Vector[]) =>
-    vectors.reduce((acc, u) => acc.add(u.mulc(s)), vectors[0].clone().reset0());
+    vectors.reduce((acc, u) => acc.comb(s, u), vectors[0].clone().reset0());
 
 /** sum of scaled vectors `u0 / s + u1 / s + ...` */
-export const div = (s: number, ...vectors: Vector[]): Vector =>
-    vectors.reduce((acc, u) => acc.add(u.divc(s)), vectors[0].clone().reset0());
+export const div = (s: number, ...vectors: Vector[]): Vector => {
+    const inv = 1 / s;
+    return vectors.reduce((acc, u) => acc.comb(inv, u), vectors[0].clone().reset0());
+};
 
 /** linear combination of vectors in array `s0 * u0 + s1 * u1 + ...` */
 export const comb = (scalars: number[], ...vectors: Vector[]) =>
-    vectors.reduce((acc, u, index) => u.combc(scalars[index], acc), vectors[0].clone().reset0());
+    vectors.reduce((acc, u, index) => acc.comb(scalars[index], u), vectors[0].clone().reset0());
 
 /** linear interpolation of the vectors, `s = 0` gets the first vector, `s = 1` gets the last vector **/
 export const lerp = (s: number, ...vectors: Vector[]): Vector => {
@@ -353,13 +357,9 @@ export const der = (ds: number, ...vectors: Vector[]): Vector[] =>
 export const prod = (...vectors: Vector[]) =>
     vectors.reduce((acc, u) => acc.prod(u), vectors[0].clone().reset1());
 
-/** multiplication of inverse vectors `u0 ** -1 * u1 ** -1 * ...` */
-export const inv = (...vectors: Vector[]) =>
-    vectors.reduce((acc, u) => acc.prod(u.invc()), vectors[0].clone().reset1());
-
 /** sum of normalized vectors `u0 / ||u0|| + u1 / ||u1|| + ...` */
 export const norm = (...vectors: Vector[]): Vector =>
-    vectors.reduce((acc, u) => acc.add(u.normc()), vectors[0].clone().reset0());
+    vectors.reduce((acc, u) => acc.comb(1 / u.mag, u), vectors[0].clone().reset0());
 
 export const dot = (vector1: Vector, vector2: Vector): number =>
     vector1.dot(vector2);

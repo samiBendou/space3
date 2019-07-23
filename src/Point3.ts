@@ -103,51 +103,37 @@ export class Point3 implements Vector, Object3 {
     }
 
     assign(x: number, y: number, z: number = 0): this {
-        this.position[0] = x;
-        this.position[1] = y;
-        this.position[2] = z;
+        this.position.assign(x, y, z);
         return this;
     }
 
     copy(p: Point3): this {
-        this._origin[0] = p._origin[0];
-        this._origin[1] = p._origin[1];
-        this._origin[2] = p._origin[2];
-        this.position[0] = p.position[0];
-        this.position[1] = p.position[1];
-        this.position[2] = p.position[2];
+        this._origin.copy(p._origin);
+        this.position.copy(p.position);
         return this;
     }
 
     clone(): Point3 {
-        return new Point3(this._origin, this.position);
+        return new Point3(this.position, this._origin);
     }
 
     reset0(): this {
-        this.position[0] = 0;
-        this.position[1] = 0;
-        this.position[2] = 0;
+        this.position.reset0();
         return this;
     }
 
     reset1(): this {
-        this.position[0] = 1;
-        this.position[1] = 1;
-        this.position[2] = 1;
+        this.position.reset1();
         return this;
     }
 
     random(): this {
-        this.position[0] = Math.random();
-        this.position[1] = Math.random();
-        this.position[2] = Math.random();
+        this.position.random();
         return this;
     }
 
     floor(): this {
-        this.position[0] = Math.floor(this.position[0]);
-        this.position[1] = Math.floor(this.position[1]);
-        this.position[2] = Math.floor(this.position[2]);
+        this.position.floor();
         return this;
     }
 
@@ -156,9 +142,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     ceil(): this {
-        this.position[0] = Math.ceil(this.position[0]);
-        this.position[1] = Math.ceil(this.position[1]);
-        this.position[2] = Math.ceil(this.position[2]);
+        this.position.ceil();
         return this;
     }
 
@@ -167,9 +151,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     round(): this {
-        this.position[0] = Math.round(this.position[0]);
-        this.position[1] = Math.round(this.position[1]);
-        this.position[2] = Math.round(this.position[2]);
+        this.position.round();
         return this;
     }
 
@@ -178,10 +160,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     trunc(decimals: number): this {
-        const pow10 = Math.pow(10, decimals);
-        this.position[0] = Math.round(this.position[0] * pow10) / pow10;
-        this.position[1] = Math.round(this.position[1] * pow10) / pow10;
-        this.position[2] = Math.round(this.position[2] * pow10) / pow10;
+        this.position.trunc(decimals);
         return this;
     }
 
@@ -190,9 +169,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     abs(): this {
-        this.position[0] = Math.abs(this.position[0]);
-        this.position[1] = Math.abs(this.position[1]);
-        this.position[2] = Math.abs(this.position[2]);
+        this.position.abs();
         return this;
     }
 
@@ -201,7 +178,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     min(p: Point3): this {
-        const u = this.at(this._origin);
+        const u = p._at(this._origin);
         this.position[0] = Math.min(this.position[0], u[0]);
         this.position[1] = Math.min(this.position[1], u[1]);
         this.position[2] = Math.min(this.position[2], u[2]);
@@ -213,7 +190,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     max(p: Point3): this {
-        const u = this.at(this._origin);
+        const u = p._at(this._origin);
         this.position[0] = Math.max(this.position[0], u[0]);
         this.position[1] = Math.max(this.position[1], u[1]);
         this.position[2] = Math.max(this.position[2], u[2]);
@@ -225,9 +202,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     fill(s: number): this {
-        this.position[0] = s;
-        this.position[1] = s;
-        this.position[2] = s;
+        this.position.fill(s);
         return this;
     }
 
@@ -236,10 +211,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     norm(): this {
-        const s = mag(this);
-        this.position[0] /= s;
-        this.position[1] /= s;
-        this.position[2] /= s;
+        this.position.norm();
         return this;
     }
 
@@ -270,9 +242,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     neg(): this {
-        this.position[0] *= -1;
-        this.position[1] *= -1;
-        this.position[2] *= -1;
+        this.position.neg();
         return this;
     }
 
@@ -281,9 +251,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     mul(s: number): this {
-        this.position[0] *= s;
-        this.position[1] *= s;
-        this.position[2] *= s;
+        this.position.mul(s);
         return this;
     }
 
@@ -292,9 +260,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     div(s: number): this {
-        this.position[0] /= s;
-        this.position[1] /= s;
-        this.position[2] /= s;
+        this.position.div(s);
         return this;
     }
 
@@ -303,10 +269,10 @@ export class Point3 implements Vector, Object3 {
     }
 
     comb(s: number, p: Point3): this {
-        const u = this.at(this._origin);
-        this.position[0] = u[0] + this.position[0] * s;
-        this.position[1] = u[1] + this.position[1] * s;
-        this.position[2] = u[2] + this.position[2] * s;
+        const u = p._at(this._origin);
+        this.position[0] = s * u[0] + this.position[0];
+        this.position[1] = s * u[1] + this.position[1];
+        this.position[2] = s * u[2] + this.position[2];
         return this;
     }
 
@@ -337,9 +303,9 @@ export class Point3 implements Vector, Object3 {
             t1 = s2 * (s - 2) + s,
             t2 = s2 * (s - 1),
             t3 = s2 * (3 - 2 * s);
-        const u = p.at(this._origin),
-            u1 = p1.at(this._origin),
-            u2 = p2.at(this._origin);
+        const u = p._at(this._origin),
+            u1 = p1._at(this._origin),
+            u2 = p2._at(this._origin);
 
         this.position[0] = this.position[0] * t0 + u1[0] * t1 + u2[0] * t2 + u[0] * t3;
         this.position[1] = this.position[1] * t0 + u1[1] * t1 + u2[1] * t2 + u[1] * t3;
@@ -359,9 +325,9 @@ export class Point3 implements Vector, Object3 {
             t1 = 3 * s * inv2,
             t2 = 3 * s2 * inv,
             t3 = s2 * s;
-        const u = p.at(this._origin),
-            u1 = p1.at(this._origin),
-            u2 = p2.at(this._origin);
+        const u = p._at(this._origin),
+            u1 = p1._at(this._origin),
+            u2 = p2._at(this._origin);
 
         this.position[0] = this.position[0] * t0 + u1[0] * t1 + u2[0] * t2 + u[0] * t3;
         this.position[1] = this.position[1] * t0 + u1[1] * t1 + u2[1] * t2 + u[1] * t3;
@@ -374,7 +340,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     der(ds: number, p: Point3): this {
-        const u = p.at(this._origin);
+        const u = p._at(this._origin);
         this.position[0] = (this.position[0] - u[0]) / ds;
         this.position[1] = (this.position[1] - u[1]) / ds;
         this.position[2] = (this.position[2] - u[2]) / ds;
@@ -405,9 +371,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     inv(): this {
-        this.position[0] **= -1;
-        this.position[1] **= -1;
-        this.position[2] **= -1;
+        this.position.inv();
         return this;
     }
 
@@ -416,7 +380,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     dot(p: Point3): number {
-        const u = this.at(this._origin);
+        const u = p._at(this._origin);
         return this.position[0] * u[0] + this.position[1] * u[1] + this.position[2] * u[2];
     }
 
@@ -429,7 +393,7 @@ export class Point3 implements Vector, Object3 {
     }
 
     dist2(p: Point3): number {
-        const u = p.at(this._origin);
+        const u = p._at(this._origin);
         const dx = this.position[0] - u[0],
             dy = this.position[1] - u[1],
             dz = this.position[2] - u[2];
@@ -477,33 +441,12 @@ export class Point3 implements Vector, Object3 {
 
     /** position from given origin */
     at(origin: Vector3): Vector3 {
-        const x = this.position[0] + this._origin[0] - origin[0],
-            y = this.position[1] + this._origin[1] - origin[1],
-            z = this.position[2] + this._origin[2] - origin[2];
-        return new Vector3(x, y, z);
+        return Vector3.array(this._at(origin));
     }
 
     /** displacement vector between two points pointing at `p` */
     to(p: Point3): Vector3 {
-        const x = p.position[0] - this.position[0] - this._origin[0] + p._origin[0],
-            y = p.position[1] - this.position[1] - this._origin[1] + p._origin[1],
-            z = p.position[2] - this.position[2] - this._origin[2] + p._origin[2];
-        return new Vector3(x, y, z);
-    }
-
-    /** angle between two points */
-    angle(p: Point3): number {
-        const u1 = p.position.clone(), t1 = this.position.normc();
-        u1[0] += p._origin[0] - this._origin[0];
-        u1[1] += p._origin[1] - this._origin[1];
-        u1[2] += p._origin[2] - this._origin[2];
-
-        const d = mag(u1);
-        u1[0] /= d;
-        u1[1] /= d;
-        u1[2] /= d;
-
-        return Math.acos(t1.dot(u1));
+        return Vector3.array(this._to(p));
     }
 
     /** translate a point by a given vector */
@@ -527,13 +470,21 @@ export class Point3 implements Vector, Object3 {
 
     /** apply an affine transform to the position of the point */
     affine(m: Matrix3, u: Vector3): this {
-        let x = this.position[0],
-            y = this.position[1],
-            z = this.position[2];
-        this.position[0] = m[0] * x + m[3] * y + m[6] * z + u[0];
-        this.position[1] = m[1] * x + m[4] * y + m[7] * z + u[1];
-        this.position[2] = m[2] * x + m[5] * y + m[8] * z + u[2];
-        return this;
+        return this.transform(m).translate(u);
+    }
+
+    private _at(origin: Vector3): number[] {
+        const x = this.position[0] + this._origin[0] - origin[0],
+            y = this.position[1] + this._origin[1] - origin[1],
+            z = this.position[2] + this._origin[2] - origin[2];
+        return [x, y, z];
+    }
+
+    private _to(p: Point3): number[] {
+        const x = p.position[0] - this.position[0] - this._origin[0] + p._origin[0],
+            y = p.position[1] - this.position[1] - this._origin[1] + p._origin[1],
+            z = p.position[2] - this.position[2] - this._origin[2] + p._origin[2];
+        return [x, y, z];
     }
 
     static get dim(): number {

@@ -595,15 +595,15 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     comb(s: number, m: Matrix3): this {
-        this[0] = m[0] + this[0] * s;
-        this[1] = m[1] + this[1] * s;
-        this[2] = m[2] + this[2] * s;
-        this[3] = m[3] + this[3] * s;
-        this[4] = m[4] + this[4] * s;
-        this[5] = m[5] + this[5] * s;
-        this[6] = m[6] + this[6] * s;
-        this[7] = m[7] + this[7] * s;
-        this[8] = m[8] + this[8] * s;
+        this[0] += s * m[0];
+        this[1] += s * m[1];
+        this[2] += s * m[2];
+        this[3] += s * m[3];
+        this[4] += s * m[4];
+        this[5] += s * m[5];
+        this[6] += s * m[6];
+        this[7] += s * m[7];
+        this[8] += s * m[8];
         return this;
     }
 

@@ -362,9 +362,9 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     comb(s: number, u: Vector3): this {
-        this[0] = u[0] + this[0] * s;
-        this[1] = u[1] + this[1] * s;
-        this[2] = u[2] + this[2] * s;
+        this[0] += s * u[0];
+        this[1] += s * u[1];
+        this[2] += s * u[2];
         return this;
     }
 

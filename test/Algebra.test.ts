@@ -69,11 +69,6 @@ describe("Algebra Tests", () => {
             it("multiplies vectors by scalar", () => assert3.equal(Algebra.mul(2, ...vectors), new Vector3(2, 2, 2)));
             it("divides vectors by scalar", () => assert3.equal(Algebra.div(0.5, ...vectors), new Vector3(2, 2, 2)));
             it("does not modify original vector", () => assert3.equal(vectors[0], Vector3.ex));
-            it("inverses matrices", () => assert3.equal(Algebra.inv(Matrix3.scalar(2), Matrix3.scalar(2)), new Matrix3(
-                0.25, 0, 0,
-                0, 0.25, 0,
-                0, 0, 0.25
-            )));
         });
 
         describe("Linear Combination", () => {

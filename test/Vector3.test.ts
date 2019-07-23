@@ -15,27 +15,133 @@ describe("Vector3 Tests", () => {
         ones = new Vector3(1, 1, 1);
         magic = new Vector3(1, 2, 3);
     });
+    it("initialized", () => assert(magic.x === 1 && magic.y === 2 && magic.z === 3));
 
-    describe("Equality", () => {
-        it("initialized", () => assert(magic.x === 1 && magic.y === 2 && magic.z === 3));
-        it("returns true on auto equal", () => assert.isTrue(ex.equal2(ex)));
-        it("differentiates object", () => assert.isFalse(ex.equal2(ey)));
-        it("should be epsilon precise", () => assert.isFalse(ex.equal2(ex.clone().mul(1 + epsilon))));
+    describe("Zero", () => {
+        describe("exact", () => {
+            it("gets zero", () => assert.isTrue(zeros.nil()));
+            it("differentiates zeros", () => assert.isFalse(ex.nil()));
+        });
+        describe("norm 1", () => {
+            it("gets zero", () => assert.isTrue(zeros.zero1()));
+            it("differentiates zeros", () => assert.isFalse(ex.zero1()));
+        });
+        describe("norm 2", () => {
+            it("gets zero", () => assert.isTrue(zeros.zero2()));
+            it("differentiates zeros", () => assert.isFalse(ex.zero2()));
+        });
     });
 
-    describe("Clone", () => {
+    describe("Clone/Copy", () => {
         it("clones object", () => assert3.equal(magic, new Vector3(1, 2, 3)));
         it("does not modify original object", () => {
             magic.clone().x = 5;
             assert3.equal(magic, new Vector3(1, 2, 3));
         });
+        it("copies object", () => assert3.equal(magic.copy(ex), ex));
     });
 
-    describe("Manipulators", () => {
-        it("fills the vector", () => assert3.equal(ex.fillc(3), new Vector3(3, 3, 3)));
+    describe("Generators", () => {
+        it("gets zeros", () => assert3.equal(Vector3.zeros, new Vector3(0, 0, 0)));
+        it("gets ones", () => assert3.equal(Vector3.ones, new Vector3(1, 1, 1)));
+        it("gets scalar", () => assert3.equal(Vector3.scalar(3), new Vector3(3, 3, 3)));
 
-        let d = 1 / Math.sqrt(3);
-        it("norms the vector", () => assert3.equal(ones.normc(), new Vector3(d, d, d)));
+        describe("Basis", () => {
+            describe("Cartesian", () => {
+                it("gets at ex", () => assert3.equal(Vector3.ex, new Vector3(1, 0, 0)));
+                it("gets at -ex", () => assert3.equal(Vector3.exn, new Vector3(-1, 0, 0)));
+                it("gets at ey", () => assert3.equal(Vector3.ey, new Vector3(0, 1, 0)));
+                it("gets at -ey", () => assert3.equal(Vector3.eyn, new Vector3(0, -1, 0)));
+                it("gets at ez", () => assert3.equal(Vector3.ez, new Vector3(0, 0, 1)));
+                it("gets at -ez", () => assert3.equal(Vector3.ezn, new Vector3(0, 0, -1)));
+            });
+
+            describe("Spherical", () => {
+                describe("Radial", () => {
+                    it("gets at ex", () => assert3.equal(Vector3.er(Vector3.ex), Vector3.ex));
+                    it("gets at ey", () => assert3.equal(Vector3.er(Vector3.ey), Vector3.ey));
+                    it("gets at ez", () => assert3.equal(Vector3.er(Vector3.ez), Vector3.ez));
+                });
+
+                describe("Prograde", () => {
+                    it("gets at ex", () => assert3.equal(Vector3.etheta(Vector3.ex), Vector3.ey));
+                    it("gets at ey", () => assert3.equal(Vector3.etheta(Vector3.ey), Vector3.ex.neg()));
+                    it("gets at ez", () => assert3.equal(Vector3.etheta(Vector3.ez), Vector3.ey));
+                });
+
+                describe("Normal", () => {
+                    it("gets at ex", () => assert3.equal(Vector3.ephi(Vector3.ex), Vector3.ez.neg()));
+                    it("gets at ey", () => assert3.equal(Vector3.ephi(Vector3.ey), Vector3.ez.neg()));
+                    it("gets at ez", () => assert3.equal(Vector3.ephi(Vector3.ez), Vector3.ex));
+                });
+            });
+        });
+
+        describe("Coordinates", () => {
+            it("gets cylindrical", () => assert3.equal(Vector3.rthz(1, Math.PI / 2, 0), Vector3.ey));
+            it("gets spherical", () => assert3.equal(Vector3.rthph(1, Math.PI / 2, Math.PI / 2), Vector3.ey));
+        });
+    });
+
+    describe("Coordinates", () => {
+        describe("Getters", () => {
+            it("gets r for ex", () => assert.equal(ex.r, 1));
+            it("gets rxy for ex", () => assert.equal(ex.rxy, 1));
+            it("gets theta for ex", () => assert.equal(ex.theta, 0));
+            it("gets phi for ex", () => assert.equal(ex.phi, Math.PI / 2));
+            it("should gets phi = 0 at 0", () => assert.equal(Vector3.zeros.phi, 0));
+            it("should gets theta = 0 at 0", () => assert.equal(Vector3.zeros.theta, 0));
+            it("gets cylindrical", () => assert3.equal1D(ex.rthz, [1, 0, 0]));
+            it("gets spherical", () => assert3.equal1D(ex.rthph, [1, 0, Math.PI / 2]));
+            it("gets latitude of ex", () => assert.equal(ex.lat, 0));
+            it("gets longitude of ex", () => assert.equal(ex.lon, 0));
+            it("gets latitude of ez", () => assert.equal(ez.lat, Math.PI / 2));
+            it("gets longitude of ey", () => assert.equal(ey.lon, Math.PI / 2));
+            it("gets xyz", () => assert3.equal1D(magic.xyz, [1, 2, 3]));
+        });
+
+        describe("Setters", () => {
+            it("sets r", () => {
+                ex.r = 2;
+                assert3.equal(ex, new Vector3(2, 0, 0));
+            });
+
+            it("sets rxy", () => {
+                let d = 1 / Math.sqrt(2);
+                ex.y = 1;
+                ex.rxy = 1;
+                assert3.equal(ex, new Vector3(d, d, 0));
+            });
+
+            it("sets theta", () => {
+                ex.theta = Math.PI / 2;
+                assert3.equal(ex, ey);
+            });
+
+            it("sets phi", () => {
+                ex.phi = 0;
+                assert3.equal(ex, ez);
+            });
+            it("sets latitude", () => {
+                ez.lat = 0;
+                assert3.equal(ez, ex);
+            });
+
+            it("sets positive longitudes", () => {
+                ex.lon = Math.PI / 2;
+                assert3.equal(ex, ey);
+            });
+
+            it("sets negative longitudes", () => {
+                ex.lon = -Math.PI / 2;
+                assert3.equal(ex, Vector3.eyn);
+            });
+
+            it("sets xyz", () => {
+                ex.xyz = [1, 2, 3];
+                assert3.equal(ex, magic);
+            });
+        });
     });
 
     describe("Algebra", () => {
@@ -73,7 +179,7 @@ describe("Vector3 Tests", () => {
         });
 
         describe("Area", () => {
-            it("gets area with ones and ex", () => assert.equal(ex.area(new Vector3(1, 1, 0)), 1));
+            it("gets area with ones and ex", () => assert.equal(ex.area(ones), Math.SQRT2));
             it("gets area with ey and ex", () => assert.equal(ex.area(ey), 1));
             it("gets area with ex and ex", () => assert.equal(ex.area(ex), 0));
         });
@@ -86,60 +192,11 @@ describe("Vector3 Tests", () => {
             it("gets rotates around axis ey", () => assert3.equal(ex.rot(ey, Math.PI / 2), ez.neg()));
             it("gets rotates around axis ez", () => assert3.equal(ex.rot(ez, Math.PI / 2), ey));
         });
-    });
 
-    describe("Coordinates", () => {
-        describe("Getters", () => {
-            it("gets r for ex", () => assert.equal(ex.r, 1));
-            it("gets rxy for ex", () => assert.equal(ex.rxy, 1));
-            it("gets theta for ex", () => assert.equal(ex.theta, 0));
-            it("gets phi for ex", () => assert.equal(ex.phi, Math.PI / 2));
-            it("should gets phi = 0 at 0", () => assert.equal(Vector3.zeros.phi, 0));
-            it("should gets theta = 0 at 0", () => assert.equal(Vector3.zeros.theta, 0));
-            it("gets cylindrical", () => assert3.equal1D(ex.rthz, [1, 0, 0]));
-            it("gets spherical", () => assert3.equal1D(ex.rthph, [1, 0, Math.PI / 2]));
-            it("gets latitude of ex", () => assert.equal(ex.lat, 0));
-            it("gets longitude of ex", () => assert.equal(ex.lon, 0));
-            it("gets latitude of ez", () => assert.equal(ez.lat, Math.PI / 2));
-            it("gets longitude of ey", () => assert.equal(ey.lon, Math.PI / 2));
-        });
-
-        describe("Setters", () => {
-            it("sets r", () => {
-                ex.r = 2;
-                assert3.equal(ex, new Vector3(2, 0, 0));
-            });
-
-            it("sets rxy", () => {
-                let d = 1 / Math.sqrt(2);
-                ex.y = 1;
-                ex.rxy = 1;
-                assert3.equal(ex, new Vector3(d, d, 0));
-            });
-
-            it("sets theta", () => {
-                ex.theta = Math.PI / 2;
-                assert3.equal(ex, new Vector3(0, 1, 0));
-            });
-
-            it("sets phi", () => {
-                ex.phi = 0;
-                assert3.equal(ex, new Vector3(0, 0, 1));
-            });
-            it("sets latitude", () => {
-                ex.lat = 0;
-                assert3.equal(ex, new Vector3(1, 0, 0));
-            });
-
-            it("sets positive longitudes", () => {
-                ex.lon = Math.PI / 2;
-                assert3.equal(ex, new Vector3(0, 1, 0));
-            });
-
-            it("sets negative longitudes", () => {
-                ex.lon = -Math.PI / 2;
-                assert3.equal(ex, new Vector3(0, -1, 0));
-            });
+        describe("Cosine", () => {
+            it("gets cos of ex and ey", () => assert.equal(ex.cos(ey), 0));
+            it("gets cos of ex and ex", () => assert.equal(ex.cos(ex), 1));
+            it("gets cos of ex and ex+ey", () => assert.approximately(ex.cos(new Vector3(1, 1, 0)), Math.SQRT2 / 2, 10 * epsilon));
         });
     });
 
@@ -148,38 +205,5 @@ describe("Vector3 Tests", () => {
         it("encodes to array", () => assert3.equal1D(ex.array(), u1D));
         it("decodes to array", () => assert3.equal(Vector3.array(u1D), ex));
         it("encodes to string", () => assert.equal(ex.string(), "(1, 0, 0)"));
-    });
-
-    describe("Coordinates Generators", () => {
-        it("gets cylindrical", () => assert3.equal(Vector3.rthz(1, Math.PI / 2, 0), Vector3.ey));
-        it("gets spherical", () => assert3.equal(Vector3.rthph(1, Math.PI / 2, Math.PI / 2), Vector3.ey));
-    });
-
-    describe("Basis Generators", () => {
-        describe("Cartesian", () => {
-            it("gets at ex", () => assert3.equal(Vector3.ex, new Vector3(1, 0, 0)));
-            it("gets at ey", () => assert3.equal(Vector3.ey, new Vector3(0, 1, 0)));
-            it("gets at ez", () => assert3.equal(Vector3.ez, new Vector3(0, 0, 1)));
-        });
-
-        describe("Spherical", () => {
-            describe("Radial", () => {
-                it("gets at ex", () => assert3.equal(Vector3.er(Vector3.ex), Vector3.ex));
-                it("gets at ey", () => assert3.equal(Vector3.er(Vector3.ey), Vector3.ey));
-                it("gets at ez", () => assert3.equal(Vector3.er(Vector3.ez), Vector3.ez));
-            });
-
-            describe("Prograde", () => {
-                it("gets at ex", () => assert3.equal(Vector3.etheta(Vector3.ex), Vector3.ey));
-                it("gets at ey", () => assert3.equal(Vector3.etheta(Vector3.ey), Vector3.ex.neg()));
-                it("gets at ez", () => assert3.equal(Vector3.etheta(Vector3.ez), Vector3.ey));
-            });
-
-            describe("Normal", () => {
-                it("gets at ex", () => assert3.equal(Vector3.ephi(Vector3.ex), Vector3.ez.neg()));
-                it("gets at ey", () => assert3.equal(Vector3.ephi(Vector3.ey), Vector3.ez.neg()));
-                it("gets at ez", () => assert3.equal(Vector3.ephi(Vector3.ez), Vector3.ex));
-            });
-        });
     });
 });

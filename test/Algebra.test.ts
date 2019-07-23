@@ -18,12 +18,21 @@ describe("Algebra Tests", () => {
     });
 
     describe("Equality", () => {
-        it("differentiate with norm 1", () => assert.isFalse(Algebra.equal1(...vectors)));
-        it("equals with norm 1", () => assert.isTrue(Algebra.equal1(vectors[0], vectors[0])));
-        it("differentiate with norm 2", () => assert.isFalse(Algebra.equal2(...vectors)));
-        it("equals with norm 2", () => assert.isTrue(Algebra.equal2(vectors[0], vectors[0])));
-        it("differentiate with exact", () => assert.isFalse(Algebra.exact(...vectors)));
-        it("equals with with exact", () => assert.isTrue(Algebra.exact(vectors[0], vectors[0])));
+        describe("exact", () => {
+            it("differentiates", () => assert.isFalse(Algebra.exact(...vectors)));
+            it("equals", () => assert.isTrue(Algebra.exact(vectors[0], vectors[0])));
+            it("is epsilon precise", () => assert.isFalse(vectors[0].exact(new Vector3(1 + epsilon, 0, 0))));
+        });
+        describe("norm 1", () => {
+            it("differentiates", () => assert.isFalse(Algebra.equal1(...vectors)));
+            it("equals", () => assert.isTrue(Algebra.equal1(vectors[0], vectors[0])));
+            it("is epsilon precise", () => assert.isFalse(vectors[0].equal1(new Vector3(1 + epsilon, 0, 0))));
+        });
+        describe("norm 2", () => {
+            it("differentiates", () => assert.isFalse(Algebra.equal2(...vectors)));
+            it("equals", () => assert.isTrue(Algebra.equal2(vectors[0], vectors[0])));
+            it("is epsilon precise", () => assert.isFalse(vectors[0].equal2(new Vector3(1 + epsilon, 0, 0))));
+        });
     });
 
     describe("Manipulators", () => {

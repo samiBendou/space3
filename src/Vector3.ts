@@ -148,7 +148,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     /** constructs a vector with cartesian coordinates */
-    constructor(x: number, y: number, z: number = 0) {
+    constructor(x: number, y: number, z: number) {
         super(3);
         this[0] = x;
         this[1] = y;
@@ -486,9 +486,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
             uz = u[2];
 
         // noinspection JSSuspiciousNameCombination
-        return Math.abs(x - ux) <= epsilon * Math.max(1.0, Math.abs(x), Math.abs(ux)) &&
-             Math.abs(y - uy) <= epsilon * Math.max(1.0, Math.abs(y), Math.abs(uy)) &&
-             Math.abs(z - uz) <= epsilon * Math.max(1.0, Math.abs(z), Math.abs(uz));
+        return Math.abs(x - ux) < epsilon && Math.abs(y - uy) < epsilon && Math.abs(z - uz) < epsilon;
     }
 
     equal2(u: Vector3): boolean {
@@ -637,7 +635,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
 
     /** vector filled with `0` */
     static get zeros(): Vector3 {
-        return new Vector3(0, 0);
+        return new Vector3(0, 0, 0);
     }
 
     /** vector filled with `1` */

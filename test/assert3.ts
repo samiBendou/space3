@@ -1,10 +1,17 @@
 import {assert} from "chai";
 import {Encoder, Vector} from "../src/Algebra";
 
-type Vectors = Vector | Vector[];
+type Vectors = Vector | Vector[] | number[];
 
-const defaultMessage = (actual: Encoder, expected: Encoder) =>
-    `${actual.constructor.name} not equal :\n${(actual as Encoder).string()}\n!=\n${(expected as Encoder).string()}`;
+const arrayString = (array: number[]) =>
+    `(${array.slice(1).reduce((acc, x) => acc + ", " + x, array[0].toString())})`;
+
+const defaultMessage = (actual: Encoder | number[], expected: Encoder | number[]) => {
+    if (expected instanceof Array || actual instanceof Array)
+        return `${actual.constructor.name} not equal :\n${arrayString(actual as number[])}\n!=\n${arrayString(expected as number[])}`;
+    else
+        return `${actual.constructor.name} not equal :\n${(actual as Encoder).string()}\n!=\n${(expected as Encoder).string()}`;
+};
 
 export function equal(actual: Vectors, expected: Vectors, message?: string) {
     if (actual instanceof Array)

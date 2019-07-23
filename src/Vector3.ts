@@ -1,4 +1,4 @@
-import {dist, epsilon, epsilon2, gaussian, mag, mag2, Object3, Vector} from "./Algebra";
+import {epsilon, epsilon2, gaussian, mag, mag2, Object3, Vector} from "./Algebra";
 
 /**
  * @brief 3D Vectors
@@ -456,7 +456,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     dist(u: Vector3): number {
-        return dist(this, u);
+        return Math.sqrt(this.dist2(u));
     }
 
     dist1(u: Vector3): number {
@@ -531,12 +531,6 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this.clone().cross(u);
     }
 
-    /** unsigned angle between two vectors in radians */
-    angle(u: Vector3): number {
-        const t1 = this.normc(), u1 = u.normc();
-        return Math.acos(t1.dot(u1));
-    }
-
     /** area of the parallelepiped formed with the two vectors */
     area(u: Vector3): number {
         const x = this[0],
@@ -552,10 +546,26 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return Math.sqrt(ax * ax + ay * ay + az * az);
     }
 
+    /** unsigned angle between two vectors in radians */
+    angle(u: Vector3): number {
+        return Math.acos(this.cos(u));
+    }
+
     /** cosine of the angle between two vector */
     cos(u: Vector3): number {
-        const t1 = this.normc(), u1 = u.normc();
-        return t1.dot(u1);
+        let ux = u[0],
+            uy = u[1],
+            uz = u[2];
+        const t1 = [...this];
+        const umag = Math.sqrt(ux * ux + uy * uy + uz * uz),
+            tmag = mag(this);
+        ux /= umag;
+        uy /= umag;
+        uz /= umag;
+        t1[0] /= tmag;
+        t1[1] /= tmag;
+        t1[2] /= tmag;
+        return t1[0] * ux + t1[1] * uy + t1[2] * uz;
     }
 
     /** @brief rotates the vector around `x`

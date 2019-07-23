@@ -1,4 +1,4 @@
-import {dist, epsilon, epsilon2, mag, mag2, Matrix, Object3, Object9} from "./Algebra";
+import {epsilon, epsilon2, mag, mag2, Matrix, Object3, Object9} from "./Algebra";
 import {Vector3} from "./Vector3";
 
 /**
@@ -26,7 +26,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
 
     /** first row as vector **/
     get x(): Vector3 {
-        return new Vector3(this[0], this[1], this[2]);
+        return new Vector3(this[0], this[3], this[6]);
     };
 
     set x(newX) {
@@ -37,7 +37,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
 
     /** second row as vector **/
     get y(): Vector3 {
-        return new Vector3(this[3], this[4], this[5]);
+        return new Vector3(this[1], this[4], this[7]);
     };
 
     set y(newY) {
@@ -48,7 +48,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
 
     /** third row as vector **/
     get z(): Vector3 {
-        return new Vector3(this[6], this[7], this[8]);
+        return new Vector3(this[2], this[5], this[8]);
     };
 
     set z(newZ) {
@@ -100,7 +100,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 0, column 0 */
-    get xx() : number {
+    get xx(): number {
         return this[0];
     }
 
@@ -109,7 +109,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 1, column 0 */
-    get yx() : number {
+    get yx(): number {
         return this[1];
     }
 
@@ -118,7 +118,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 2, column 0 */
-    get zx() : number {
+    get zx(): number {
         return this[2];
     }
 
@@ -127,7 +127,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 0, column 1 */
-    get xy() : number {
+    get xy(): number {
         return this[3];
     }
 
@@ -136,7 +136,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 1, column 1 */
-    get yy() : number {
+    get yy(): number {
         return this[4];
     }
 
@@ -145,7 +145,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 2, column 1 */
-    get zy() : number {
+    get zy(): number {
         return this[5];
     }
 
@@ -154,7 +154,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 0, column 2 */
-    get xz() : number {
+    get xz(): number {
         return this[6];
     }
 
@@ -163,7 +163,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 1, column 2 */
-    get yz() : number {
+    get yz(): number {
         return this[7];
     }
 
@@ -172,7 +172,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** value at row 2, column 2 */
-    get zz() : number {
+    get zz(): number {
         return this[8];
     }
 
@@ -271,7 +271,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return [...this];
     }
 
-    /** explicitly sets all the component of the matrix */
+    /** explicitly sets all the component of the matrix ordered as rows */
     assign(xx: number, xy: number, xz: number,
            yx: number, yy: number, yz: number,
            zx: number, zy: number, zz: number): this {
@@ -678,12 +678,12 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         this[0] = (this[0] - m[0]) / ds;
         this[1] = (this[1] - m[1]) / ds;
         this[2] = (this[2] - m[2]) / ds;
-        this[3] = (this[3] - m[0]) / ds;
-        this[4] = (this[4] - m[1]) / ds;
-        this[5] = (this[5] - m[2]) / ds;
-        this[6] = (this[6] - m[0]) / ds;
-        this[7] = (this[7] - m[1]) / ds;
-        this[8] = (this[8] - m[2]) / ds;
+        this[3] = (this[3] - m[3]) / ds;
+        this[4] = (this[4] - m[4]) / ds;
+        this[5] = (this[5] - m[5]) / ds;
+        this[6] = (this[6] - m[6]) / ds;
+        this[7] = (this[7] - m[7]) / ds;
+        this[8] = (this[8] - m[8]) / ds;
         return undefined;
     }
 
@@ -777,7 +777,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     dist(m: Matrix3): number {
-        return dist(this, m);
+        return Math.sqrt(this.dist2(m));
     }
 
     dist1(m: Matrix3): number {
@@ -821,7 +821,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
             this[2] === m[2] && this[5] === m[5] && this[8] === m[8];
     }
 
-    equal1(vector: Matrix3): boolean {
+    equal1(m: Matrix3): boolean {
         const xx = this[0],
             yx = this[1],
             zx = this[2],
@@ -831,26 +831,20 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
             xz = this[6],
             yz = this[7],
             zz = this[8];
-        const mxx = this[0],
-            myx = this[1],
-            mzx = this[2],
-            mxy = this[3],
-            myy = this[4],
-            mzy = this[5],
-            mxz = this[6],
-            myz = this[7],
-            mzz = this[8];
+        const mxx = m[0],
+            myx = m[1],
+            mzx = m[2],
+            mxy = m[3],
+            myy = m[4],
+            mzy = m[5],
+            mxz = m[6],
+            myz = m[7],
+            mzz = m[8];
 
         // noinspection JSSuspiciousNameCombination
-        return Math.abs(xx - mxx) <= epsilon * Math.max(1.0, Math.abs(xx), Math.abs(mxx)) &&
-            Math.abs(yx - myx) <= epsilon * Math.max(1.0, Math.abs(yx), Math.abs(myx)) &&
-            Math.abs(zx - mzx) <= epsilon * Math.max(1.0, Math.abs(zx), Math.abs(mzx)) &&
-            Math.abs(xy - mxy) <= epsilon * Math.max(1.0, Math.abs(xy), Math.abs(mxy)) &&
-            Math.abs(yy - myy) <= epsilon * Math.max(1.0, Math.abs(yy), Math.abs(myy)) &&
-            Math.abs(zy - mzy) <= epsilon * Math.max(1.0, Math.abs(zy), Math.abs(mzy)) &&
-            Math.abs(xz - mxz) <= epsilon * Math.max(1.0, Math.abs(xz), Math.abs(mxz)) &&
-            Math.abs(yz - myz) <= epsilon * Math.max(1.0, Math.abs(yz), Math.abs(myz)) &&
-            Math.abs(zz - mzz) <= epsilon * Math.max(1.0, Math.abs(zz), Math.abs(mzz));
+        return Math.abs(xx - mxx) <= epsilon && Math.abs(yx - myx) <= epsilon && Math.abs(zx - mzx) <= epsilon &&
+            Math.abs(xy - mxy) <= epsilon && Math.abs(yy - myy) <= epsilon && Math.abs(zy - mzy) <= epsilon &&
+            Math.abs(xz - mxz) <= epsilon && Math.abs(yz - myz) <= epsilon && Math.abs(zz - mzz) <= epsilon;
     }
 
     equal2(m: Matrix3): boolean {
@@ -1146,11 +1140,19 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** matrix from 2D array of number ordered such that `arr[i]` is the i-th row of the matrix */
-    static array2(arr: number[][]): Matrix3 {
+    static rows(arr: number[][]): Matrix3 {
         return new Matrix3(
             arr[0][0], arr[0][1], arr[0][2],
             arr[1][0], arr[1][1], arr[1][2],
             arr[2][0], arr[2][1], arr[2][2]);
+    }
+
+    /** matrix from 2D array of number ordered such that `arr[j]` is the j-th column of the matrix */
+    static cols(arr: number[][]): Matrix3 {
+        return new Matrix3(
+            arr[0][0], arr[1][0], arr[2][0],
+            arr[0][1], arr[1][1], arr[2][1],
+            arr[0][2], arr[1][2], arr[2][2]);
     }
 
     /** matrix from [[Vector3]] objects as rows */

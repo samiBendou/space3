@@ -9,19 +9,6 @@
  * [[Matrix3]] is a vast class that allows to perform many **commons and advanced operations** with 3x3 matrices.
  * It's designed in the ame philosophy as [[Vector3]].
  *
- * ### Coordinates
- *
- * Access a component using an equivalent of cartesian coordinates `m.ij` where :
- *
- * - `i` is a row index which value can be `x`, `y`, `z`
- * - `j` is a column index which value can be `x`, `y`, `z`
- *
- * #### Example
- * ```js
- * m.xx = 2;
- * s = m.yz + u.x;
- * z = m.zz;
- * ```
  * ### Interface with Vector3
  *
  * [[Matrix3]] provides an interface with [[Vector3]] by implementing [[Object3]] interface. It allows to construct
@@ -53,6 +40,15 @@
  * q = Matrix3.rotZ(Math.PI / 4, (x) => 5 * Math.cos(x), Math.sin);
  * ```
  *
+ * You can also directly set an existent matrix to a rotation matrix
+ *
+ * #### Example
+ *
+ * ```js
+ * m.rotX(Math.PI / 4); // sets m to rotation matrix around x axis
+ * m.rot(u, Math.PI / 4); // sets m to rotation matrix around u axis
+ * ```
+ *
  * see [[Object3]] interface documentation for more details about rotations in the framework.
  *
  * </br>
@@ -61,17 +57,18 @@
 
 /** */
 
-import {epsilon, epsilon2, mag, mag2, Matrix, Object3, Object9} from "./Algebra";
+import {epsilon, epsilon2, mag, mag2, Matrix, Object3, Object9, Vector} from "./Algebra";
 import {Vector3} from "./Vector3";
 
 /**
  * @brief 3x3 matrices
- * @details Represents dense square matrices of dimension 3
+ * @details Represents dense square matrices of dimension 3.
  *
  * - **Array like** access `m[2]` denotes the value at first column and third row
- * - components accessors `.ij`, `xx`, `xy`, ...
- * - interface with [[Vector3]] `x`, `y`, `z`, ...
- * - **many generators** `diag`, `sym`, `scalar`, `rotX`, ...
+ * - **Interface with [[Vector3]]** `x`, `y`, `z`, ...
+ * - **Many generators** `diag`, `sym`, `scalar`, `rotX`, ...
+ *
+ * See [[Matrix]] for mor details.
  */
 export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     dim: Readonly<number> = 9;
@@ -298,10 +295,14 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     }
 
     /** constructs a matrix by explicitly giving components ordered by rows */
-    constructor(xx: number, xy: number, xz: number,
-                yx: number, yy: number, yz: number,
-                zx: number, zy: number, zz: number) {
+    constructor(xx?: number, xy?: number, xz?: number,
+                yx?: number, yy?: number, yz?: number,
+                zx?: number, zy?: number, zz?: number) {
         super(9);
+
+        if (xx === undefined)
+            return;
+
         this[0] = xx;
         this[1] = yx;
         this[2] = zx;
@@ -339,7 +340,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    copy(m: Matrix3): this {
+    copy(m: Vector): this {
         this[0] = m[0];
         this[1] = m[1];
         this[2] = m[2];
@@ -492,7 +493,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this.clone().trunc(decimals);
     }
 
-    max(m: Matrix3): this {
+    max(m: Vector): this {
         this[0] = Math.max(this[0], m[0]);
         this[1] = Math.max(this[0], m[1]);
         this[2] = Math.max(this[0], m[2]);
@@ -505,11 +506,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    maxc(m: Matrix3): Matrix3 {
+    maxc(m: Vector): Matrix3 {
         return this.clone().max(m);
     }
 
-    min(m: Matrix3): this {
+    min(m: Vector): this {
         this[0] = Math.min(this[0], m[0]);
         this[1] = Math.min(this[0], m[1]);
         this[2] = Math.min(this[0], m[2]);
@@ -522,7 +523,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    minc(m: Matrix3): Matrix3 {
+    minc(m: Vector): Matrix3 {
         return this.clone().min(m);
     }
 
@@ -561,7 +562,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this.clone().norm();
     }
 
-    add(m: Matrix3): this {
+    add(m: Vector): this {
         this[0] += m[0];
         this[1] += m[1];
         this[2] += m[2];
@@ -574,11 +575,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    addc(m: Matrix3): Matrix3 {
+    addc(m: Vector): Matrix3 {
         return this.clone().add(m);
     }
 
-    sub(m: Matrix3): this {
+    sub(m: Vector): this {
         this[0] -= m[0];
         this[1] -= m[1];
         this[2] -= m[2];
@@ -591,7 +592,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    subc(m: Matrix3): Matrix3 {
+    subc(m: Vector): Matrix3 {
         return this.clone().sub(m);
     }
 
@@ -646,7 +647,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this.clone().div(s);
     }
 
-    comb(s: number, m: Matrix3): this {
+    comb(s: number, m: Vector): this {
         this[0] += s * m[0];
         this[1] += s * m[1];
         this[2] += s * m[2];
@@ -659,11 +660,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    combc(s: number, m: Matrix3): Matrix3 {
+    combc(s: number, m: Vector): Matrix3 {
         return this.clone().comb(s, m);
     }
 
-    lerp(m: Matrix3, t: number): this {
+    lerp(m: Vector, t: number): this {
         this[0] += (m[0] - this[0]) * t;
         this[1] += (m[1] - this[1]) * t;
         this[2] += (m[2] - this[2]) * t;
@@ -676,11 +677,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    lerpc(m: Matrix3, t: number): Matrix3 {
+    lerpc(m: Vector, t: number): Matrix3 {
         return this.clone().lerp(m, t);
     }
 
-    herp(m: Matrix3, m1: Matrix3, m2: Matrix3, s: number): this {
+    herp(m: Vector, m1: Vector, m2: Vector, s: number): this {
         const s2 = s * s,
             t0 = s2 * (2 * s - 3) + 1,
             t1 = s2 * (s - 2) + s,
@@ -698,11 +699,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    herpc(m: Matrix3, m1: Matrix3, m2: Matrix3, s: number): Matrix3 {
+    herpc(m: Vector, m1: Vector, m2: Vector, s: number): Matrix3 {
         return this.clone().berp(m, m1, m2, s);
     }
 
-    berp(m: Matrix3, m1: Matrix3, m2: Matrix3, s: number): this {
+    berp(m: Vector, m1: Vector, m2: Vector, s: number): this {
         const s2 = s * s,
             inv = 1 - s,
             inv2 = inv * inv,
@@ -722,11 +723,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    berpc(m: Matrix3, m1: Matrix3, m2: Matrix3, s: number): Matrix3 {
+    berpc(m: Vector, m1: Vector, m2: Vector, s: number): Matrix3 {
         return this.clone().berp(m, m1, m1, s);
     }
 
-    der(ds: number, m: Matrix3): this {
+    der(ds: number, m: Vector): this {
         this[0] = (this[0] - m[0]) / ds;
         this[1] = (this[1] - m[1]) / ds;
         this[2] = (this[2] - m[2]) / ds;
@@ -739,11 +740,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return undefined;
     }
 
-    derc(ds: number, m: Matrix3): Matrix3 {
+    derc(ds: number, m: Vector): Matrix3 {
         return this.clone().der(ds, m);
     }
 
-    prod(m: Matrix3): this {
+    prod(m: Vector): this {
         const xx = this[0],
             yx = this[1],
             zx = this[2],
@@ -774,7 +775,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this;
     }
 
-    prodc(m: Matrix3): Matrix3 {
+    prodc(m: Vector): Matrix3 {
         return this.clone().prod(m);
     }
 
@@ -815,7 +816,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return this.clone().inv();
     }
 
-    dot(m: Matrix3): number {
+    dot(m: Vector): number {
         const sxx = this[0] * m[0],
             syx = this[1] * m[1],
             szx = this[2] * m[2],
@@ -828,11 +829,11 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return sxx + syx + szx + sxy + syy + szy + sxz + syz + szz;
     }
 
-    dist(m: Matrix3): number {
+    dist(m: Vector): number {
         return Math.sqrt(this.dist2(m));
     }
 
-    dist1(m: Matrix3): number {
+    dist1(m: Vector): number {
         const dxx = Math.abs(this[0] - m[0]),
             dyx = Math.abs(this[1] - m[1]),
             dzx = Math.abs(this[2] - m[2]),
@@ -845,7 +846,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return dxx + dyx + dzx + dxy + dyy + dzy + dxz + dyz + dzz;
     }
 
-    dist2(m: Matrix3): number {
+    dist2(m: Vector): number {
         const dxx = this[0] - m[0],
             dyx = this[1] - m[1],
             dzx = this[2] - m[2],
@@ -867,13 +868,13 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return dxx2 + dyx2 + dzx2 + dxy2 + dyy2 + dzy2 + dxz2 + dyz2 + dzz2;
     }
 
-    exact(m: Matrix3): boolean {
+    exact(m: Vector): boolean {
         return this[0] === m[0] && this[3] === m[3] && this[6] === m[6] &&
             this[1] === m[1] && this[4] === m[4] && this[7] === m[7] &&
             this[2] === m[2] && this[5] === m[5] && this[8] === m[8];
     }
 
-    equal1(m: Matrix3): boolean {
+    equal1(m: Vector): boolean {
         const xx = this[0],
             yx = this[1],
             zx = this[2],
@@ -899,7 +900,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
             Math.abs(xz - mxz) <= epsilon && Math.abs(yz - myz) <= epsilon && Math.abs(zz - mzz) <= epsilon;
     }
 
-    equal2(m: Matrix3): boolean {
+    equal2(m: Vector): boolean {
         return this.dist2(m) < epsilon2;
     }
 
@@ -947,7 +948,7 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return [this[shift], this[1 + shift], this[2 + shift]];
     }
 
-    at(u: Vector3): Vector3 {
+    prodv(u: Vector3): Vector3 {
         let ux = u[0],
             uy = u[1],
             uz = u[2];
@@ -957,8 +958,8 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return u;
     }
 
-    atc(u: Vector3): Vector3 {
-        return this.at(u.clone());
+    prodvc(u: Vector3): Vector3 {
+        return this.prodv(u.clone());
     }
 
     trans(): this {
@@ -1036,6 +1037,68 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
             Math.pow(this[6], 2) + Math.pow(this[7], 2) + Math.pow(this[8], 2));
     }
 
+    rotX(theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = sin(theta);
+        this[0] = 1;
+        this[3] = 0;
+        this[6] = 0;
+        this[1] = 0;
+        this[4] = c;
+        this[7] = -s;
+        this[2] = 0;
+        this[5] = s;
+        this[8] = c;
+        return this;
+    }
+
+    rotY(theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = sin(theta);
+        this[0] = c;
+        this[3] = 0;
+        this[6] = s;
+        this[1] = 0;
+        this[4] = 1;
+        this[7] = 0;
+        this[2] = -s;
+        this[5] = 0;
+        this[8] = c;
+        return this;
+    }
+
+    rotZ(theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = sin(theta);
+        this[0] = c;
+        this[3] = -s;
+        this[6] = 0;
+        this[1] = s;
+        this[4] = c;
+        this[7] = 0;
+        this[2] = 0;
+        this[5] = 0;
+        this[8] = 1;
+        return this;
+    }
+
+    rot(u: Vector, theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = sin(theta), k = 1 - c;
+        const ux = u[0],
+            uy = u[1],
+            uz = u[2];
+        const kuxy = k * ux * uy,
+            kuxz = k * ux * uz,
+            kuyz = k * uy * uz;
+        this[0] = k * ux * ux + c;
+        this[3] = kuxy - uz * s;
+        this[6] = kuxz + uy * s;
+        this[1] = kuxy + uz * s;
+        this[4] = k * uy * uy + c;
+        this[7] = kuyz - ux * s;
+        this[2] = kuxz - uy * s;
+        this[5] = kuyz + ux * s;
+        this[8] = k * uz * uz + c;
+        return this;
+    }
+
     static get dim(): number {
         return 9;
     }
@@ -1065,7 +1128,10 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return new Matrix3(s, 0, 0, 0, s, 0, 0, 0, s);
     }
 
-    /** diagonal matrix */
+    /**
+     * @brief diagonal matrix
+     * @details Diagonal matrix filled with values.
+     */
     static diag(xx: number, yy: number, zz: number): Matrix3 {
         return new Matrix3(xx, 0, 0, 0, yy, 0, 0, 0, zz);
     }
@@ -1096,74 +1162,35 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return eij;
     }
 
-    /**
-     * @brief rotation matrix of axis (`0`, `ex`)
-     * @details Anticlockwise rotation.
-     * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     */
+    /** rotation matrix of axis `x`. See [[Object3]] for mor details. */
     static rotX(theta: number, cos = Math.cos, sin = Math.sin): Matrix3 {
-        const c = cos(theta), s = sin(theta);
-        return new Matrix3(1, 0, 0, 0, c, -s, 0, s, c);
+        return new Matrix3().rotX(theta, cos, sin);
     }
 
-    /**
-     * @brief rotation matrix of axis (`0`, `ey`)
-     * @details Anticlockwise rotation.
-     * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     */
+    /** rotation matrix of axis `y`. See [[Object3]] for mor details. */
     static rotY(theta: number, cos = Math.cos, sin = Math.sin): Matrix3 {
-        const c = cos(theta), s = sin(theta);
-        return new Matrix3(c, 0, s, 0, 1, 0, -s, 0, c);
+        return new Matrix3().rotY(theta, cos, sin);
     }
 
-    /**
-     * @brief rotation matrix of axis (`0`, `ez`)
-     * @details Anticlockwise rotation.
-     * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     */
+    /** rotation matrix of axis `z`. See [[Object3]] for mor details. */
     static rotZ(theta: number, cos = Math.cos, sin = Math.sin): Matrix3 {
-        const c = cos(theta), s = sin(theta);
-        return new Matrix3(c, -s, 0, s, c, 0, 0, 0, 1);
+        return new Matrix3().rotZ(theta, cos, sin);
     }
 
-    /**
-     * @brief rotation matrix with around axis
-     * @details Anticlockwise rotation.
-     * @param u axis of rotation
-     * @param theta angle of ration
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     */
+    /** rotation matrix of axis `u`. See [[Object3]] for mor details. */
     static rot(u: Vector3, theta: number, cos = Math.cos, sin = Math.sin): Matrix3 {
-        const c = cos(theta), s = sin(theta), k = 1 - c;
-        const ux = u[0],
-            uy = u[1],
-            uz = u[2];
-        const kuxy = k * ux * uy,
-            kuxz = k * ux * uz,
-            kuyz = k * uy * uz;
-        return new Matrix3(
-            k * ux * ux + c, kuxy - uz * s, kuxz + uy * s,
-            kuxy + uz * s, k * uy * uy + c, kuyz - ux * s,
-            kuxz - uy * s, kuyz + ux * s, k * uz * uz + c
-        );
+        return new Matrix3().rot(u, theta, cos, sin);
     }
 
     /**
-     * @brief affine transformation of the vector
+     * @brief affine transformation of the vector `m * v + u`
      * @details The result of the operation is stored on `v`.
      * @param m matrix of the transformation
      * @param u translation of the transformation
      * @param v vector parameter of the transformation
      * @returns reference to `v`
      */
-    static affine(m: Matrix3, u: Vector3, v: Vector3): Vector3 {
+    static affine(m: Vector, u: Vector3, v: Vector3): Vector3 {
         const vx = v[0],
             vy = v[1],
             vz = v[2];
@@ -1174,7 +1201,12 @@ export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
         return v;
     }
 
-    /** tensor product of two vectors */
+    /**
+     * @brief tensor product of two vectors `ut * v`
+     * @details matrix such that `m.ij = u.i * u.j`
+     * @param u left operand
+     * @param v right operand
+     */
     static tensor(u: Vector3, v = u): Matrix3 {
         return new Matrix3(
             u[0] * v[0], u[0] * v[1], u[0] * v[2],

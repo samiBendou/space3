@@ -56,7 +56,9 @@ import {epsilon, epsilon2, gaussian, mag, mag2, Object3, Vector} from "./Algebra
  * - **Geometrical operations** `angle`, `cross`, `dist`, ...
  * - **Many coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
  * - **Basis generators** like `ex`, `er(u)`, `e(k)`, ...
- * - **Rotations** around `ex`, `ey`, `ez` and custom axis, `rot`, `rotX`, ...
+ * - **Rotations** of vector around `ex`, `ey`, `ez` and custom axis, `rot`, `rotX`, ...
+ *
+ * See [[Vector]] for more details.
  */
 export class Vector3 extends Float64Array implements Vector, Object3 {
 
@@ -131,7 +133,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
 
     /** third spherical coordinate, clockwise angle formed with  `ez` in radians */
     get phi(): number {
-        return Math.atan2(this.rxy, this[2]);
+        return Math.atan2(this[0] * this[0] + this[1] * this[1], this[2]);
     }
 
     set phi(newPhi) {
@@ -192,8 +194,12 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     /** constructs a vector with cartesian coordinates */
-    constructor(x: number, y: number, z: number) {
+    constructor(x?: number, y?: number, z?: number) {
         super(3);
+
+        if (x === undefined)
+            return;
+
         this[0] = x;
         this[1] = y;
         this[2] = z;
@@ -207,14 +213,14 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return [...this];
     }
 
-    assign(x: number, y: number, z: number = 0): this {
+    assign(x: number, y: number, z: number): this {
         this[0] = x;
         this[1] = y;
         this[2] = z;
         return this;
     }
 
-    copy(u: Vector3): this {
+    copy(u: Vector): this {
         this[0] = u[0];
         this[1] = u[1];
         this[2] = u[2];
@@ -305,26 +311,26 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this.clone().abs();
     }
 
-    min(u: Vector3): this {
+    min(u: Vector): this {
         this[0] = Math.min(this[0], u[0]);
         this[1] = Math.min(this[1], u[1]);
         this[2] = Math.min(this[2], u[2]);
         return this;
     }
 
-    minc(u: Vector3): Vector3 {
+    minc(u: Vector): Vector3 {
         return this.clone().min(u);
     }
 
 
-    max(u: Vector3): this {
+    max(u: Vector): this {
         this[0] = Math.max(this[0], u[0]);
         this[1] = Math.max(this[1], u[1]);
         this[2] = Math.max(this[2], u[2]);
         return this;
     }
 
-    maxc(u: Vector3): Vector3 {
+    maxc(u: Vector): Vector3 {
         return this.clone().max(u);
     }
 
@@ -351,25 +357,25 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this.clone().norm();
     }
 
-    add(u: Vector3): this {
+    add(u: Vector): this {
         this[0] += u[0];
         this[1] += u[1];
         this[2] += u[2];
         return this;
     }
 
-    addc(u: Vector3): Vector3 {
+    addc(u: Vector): Vector3 {
         return this.clone().add(u);
     }
 
-    sub(u: Vector3): this {
+    sub(u: Vector): this {
         this[0] -= u[0];
         this[1] -= u[1];
         this[2] -= u[2];
         return this;
     }
 
-    subc(u: Vector3): Vector3 {
+    subc(u: Vector): Vector3 {
         return this.clone().sub(u);
     }
 
@@ -406,29 +412,29 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this.clone().div(s);
     }
 
-    comb(s: number, u: Vector3): this {
+    comb(s: number, u: Vector): this {
         this[0] += s * u[0];
         this[1] += s * u[1];
         this[2] += s * u[2];
         return this;
     }
 
-    combc(s: number, u: Vector3): Vector3 {
+    combc(s: number, u: Vector): Vector3 {
         return this.clone().comb(s, u);
     }
 
-    lerp(u: Vector3, s: number): this {
+    lerp(u: Vector, s: number): this {
         this[0] += (u[0] - this[0]) * s;
         this[1] += (u[1] - this[1]) * s;
         this[2] += (u[2] - this[2]) * s;
         return this;
     }
 
-    lerpc(u: Vector3, s: number): Vector3 {
+    lerpc(u: Vector, s: number): Vector3 {
         return this.clone().lerp(u, s);
     }
 
-    herp(u: Vector3, u1: Vector3, u2: Vector3, s: number): this {
+    herp(u: Vector, u1: Vector, u2: Vector, s: number): this {
         const s2 = s * s,
             t0 = s2 * (2 * s - 3) + 1,
             t1 = s2 * (s - 2) + s,
@@ -440,11 +446,11 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
-    herpc(u: Vector3, u1: Vector3, u2: Vector3, s: number): Vector3 {
+    herpc(u: Vector, u1: Vector, u2: Vector, s: number): Vector3 {
         return this.clone().herp(u, u1, u2, s);
     }
 
-    berp(u: Vector3, u1: Vector3, u2: Vector3, s: number): this {
+    berp(u: Vector, u1: Vector, u2: Vector, s: number): this {
         const s2 = s * s,
             inv = 1 - s,
             inv2 = inv * inv,
@@ -458,30 +464,30 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
-    berpc(u: Vector3, u1: Vector3, u2: Vector3, s: number): Vector3 {
+    berpc(u: Vector, u1: Vector, u2: Vector, s: number): Vector3 {
         return this.clone().berp(u, u1, u2, s);
     }
 
-    der(ds: number, u: Vector3): this {
+    der(ds: number, u: Vector): this {
         this[0] = (this[0] - u[0]) / ds;
         this[1] = (this[1] - u[1]) / ds;
         this[2] = (this[2] - u[2]) / ds;
         return this;
     }
 
-    derc(ds: number, u: Vector3): Vector3 {
+    derc(ds: number, u: Vector): Vector3 {
         return this.clone().der(ds, u);
     }
 
     /** Hadamard product of two vectors*/
-    prod(u: Vector3): this {
+    prod(u: Vector): this {
         this[0] *= u[0];
         this[1] *= u[1];
         this[2] *= u[2];
         return this;
     }
 
-    prodc(u: Vector3): Vector3 {
+    prodc(u: Vector): Vector3 {
         return this.clone().prod(u);
     }
 
@@ -496,33 +502,33 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this.clone().inv();
     }
 
-    dot(u: Vector3): number {
+    dot(u: Vector): number {
         return this[0] * u[0] + this[1] * u[1] + this[2] * u[2];
     }
 
-    dist(u: Vector3): number {
+    dist(u: Vector): number {
         return Math.sqrt(this.dist2(u));
     }
 
-    dist1(u: Vector3): number {
+    dist1(u: Vector): number {
         const dx = Math.abs(this[0] - u[0]),
             dy = Math.abs(this[1] - u[1]),
             dz = Math.abs(this[2] - u[2]);
         return dx + dy + dz;
     }
 
-    dist2(u: Vector3): number {
+    dist2(u: Vector): number {
         const dx = this[0] - u[0],
             dy = this[1] - u[1],
             dz = this[2] - u[2];
         return dx * dx + dy * dy + dz * dz;
     }
 
-    exact(u: Vector3): boolean {
+    exact(u: Vector): boolean {
         return this[0] === u[0] && this[1] === u[1] && this[2] === u[2];
     }
 
-    equal1(u: Vector3): boolean {
+    equal1(u: Vector): boolean {
         const x = this[0],
             y = this[1],
             z = this[2],
@@ -534,7 +540,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return Math.abs(x - ux) < epsilon && Math.abs(y - uy) < epsilon && Math.abs(z - uz) < epsilon;
     }
 
-    equal2(u: Vector3): boolean {
+    equal2(u: Vector): boolean {
         return this.dist2(u) < epsilon2;
     }
 
@@ -558,8 +564,46 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return x * x + y * y + z * z < epsilon2;
     }
 
-    /** cross product of two vector */
-    cross(u: Vector3): this {
+    rotX(theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = sin(theta), y = this[1], z = this[2];
+        this[1] = y * c - z * s;
+        this[2] = y * s + z * c;
+        return this;
+    }
+
+    rotY(theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = -sin(theta), x = this[0], z = this[2];
+        this[0] = x * c + z * s;
+        this[2] = x * s - z * c;
+        return this;
+    }
+
+    rotZ(theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = sin(theta), x = this[0], y = this[1];
+        this[0] = x * c - y * s;
+        this[1] = x * s + y * c;
+        return this;
+    }
+
+    rot(u: Vector, theta: number, cos = Math.cos, sin = Math.sin): this {
+        const c = cos(theta), s = sin(theta), k = 1 - c;
+        const x = this[0],
+            y = this[1],
+            z = this[2];
+        const ux = u[0],
+            uy = u[1],
+            uz = u[2];
+        const kuxy = k * ux * uy,
+            kuxz = k * ux * uz,
+            kuyz = k * uy * uz;
+        this[0] = (k * ux * ux + c) * x + (kuxy - uz * s) * y + (kuxz + uy * s) * z;
+        this[1] = (kuxy + uz * s) * x + (k * uy * uy + c) * y + (kuyz - ux * s) * z;
+        this[2] = (kuxz - uy * s) * x + (kuyz + ux * s) * y + (k * uz * uz + c) * z;
+        return this;
+    }
+
+    /** cross product of two vector `u x v` */
+    cross(u: Vector): this {
         const x = this[0],
             y = this[1],
             z = this[2];
@@ -572,12 +616,12 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
-    crossc(u: Vector3): Vector3 {
+    crossc(u: Vector): Vector3 {
         return this.clone().cross(u);
     }
 
     /** area of the parallelepiped formed with the two vectors */
-    area(u: Vector3): number {
+    area(u: Vector): number {
         const x = this[0],
             y = this[1],
             z = this[2];
@@ -592,12 +636,12 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     /** unsigned angle between two vectors in radians */
-    angle(u: Vector3): number {
+    angle(u: Vector): number {
         return Math.acos(this.cos(u));
     }
 
     /** cosine of the angle between two vector */
-    cos(u: Vector3): number {
+    cos(u: Vector): number {
         let ux = u[0],
             uy = u[1],
             uz = u[2];
@@ -613,67 +657,32 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return t1[0] * ux + t1[1] * uy + t1[2] * uz;
     }
 
-    /**
-     * @brief rotates the vector around `x` axis
-     * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     */
-    rotX(theta: number, cos = Math.cos, sin = Math.sin): this {
-        const c = cos(theta), s = sin(theta), y = this[1], z = this[2];
-        this[1] = y * c - z * s;
-        this[2] = y * s + z * c;
+    er(u: Vector): this {
+        const theta = Math.atan2(u[1], u[0]),
+            phi = Math.atan2(u[0] * u[0] + u[1] * u[1], u[2]),
+            s = Math.sin(phi);
+
+        this[0] = s * Math.cos(theta);
+        this[1] = s * Math.sin(theta);
+        this[2] = Math.cos(phi);
         return this;
     }
 
-    /**
-     * @brief rotates the vector around `y` axis
-     * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     */
-    rotY(theta: number, cos = Math.cos, sin = Math.sin): this {
-        const c = cos(theta), s = -sin(theta), x = this[0], z = this[2];
-        this[0] = x * c + z * s;
-        this[2] = x * s - z * c;
+    etheta(u: Vector): this {
+        const theta = Math.atan2(u[1], u[0]);
+        this[0] = -Math.sin(theta);
+        this[1] = Math.cos(theta);
+        this[2] = 0;
         return this;
     }
 
-    /**
-     * @brief rotates the vector around `z` axis
-     * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     * @details Anticlockwise rotation.
-     */
-    rotZ(theta: number, cos = Math.cos, sin = Math.sin): this {
-        const c = cos(theta), s = sin(theta), x = this[0], y = this[1];
-        this[0] = x * c - y * s;
-        this[1] = x * s + y * c;
-        return this;
-    }
-
-    /**
-     * @brief rotates the vector around given axis
-     * @param u axis of rotation
-     * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
-     */
-    rot(u: Vector3, theta: number, cos = Math.cos, sin = Math.sin): this {
-        const c = cos(theta), s = sin(theta), k = 1 - c;
-        const x = this[0],
-            y = this[1],
-            z = this[2];
-        const ux = u[0],
-            uy = u[1],
-            uz = u[2];
-        const kuxy = k * ux * uy,
-            kuxz = k * ux * uz,
-            kuyz = k * uy * uz;
-        this[0] = (k * ux * ux + c) * x + (kuxy - uz * s) * y + (kuxz + uy * s) * z;
-        this[1] = (kuxy + uz * s) * x + (k * uy * uy + c) * y + (kuyz - ux * s) * z;
-        this[2] = (kuxz - uy * s) * x + (kuyz + ux * s) * y + (k * uz * uz + c) * z;
+    ephi(u: Vector): this {
+        const theta = Math.atan2(u[1], u[0]),
+            phi = Math.atan2(u[0] * u[0] + u[1] * u[1], u[2]),
+            c = Math.cos(phi);
+        this[0] = c * Math.cos(theta);
+        this[1] = c * Math.sin(theta);
+        this[2] = -Math.sin(phi);
         return this;
     }
 
@@ -734,39 +743,39 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return new Vector3(s * Math.cos(theta), s * Math.sin(theta), r * Math.cos(phi));
     }
 
-    /** first vector of canonical basis, equivalent to right */
+    /** first vector of canonical basis, equivalent to _right_ */
     static get ex(): Vector3 {
         return new Vector3(1, 0, 0);
     }
 
-    /** opposite of the first vector of canonical basis, equivalent to left */
+    /** opposite of the first vector of canonical basis, equivalent to _left_ */
     static get exn(): Vector3 {
         return new Vector3(-1, 0, 0);
     }
 
-    /** second vector of canonical basis, equivalent to up */
+    /** second vector of canonical basis, equivalent to _up_ */
     static get ey(): Vector3 {
         return new Vector3(0, 1, 0);
     }
 
-    /** opposite of the second vector of canonical basis, equivalent to down */
+    /** opposite of the second vector of canonical basis, equivalent to _down_ */
     static get eyn(): Vector3 {
         return new Vector3(0, -1, 0);
     }
 
-    /** third vector of canonical basis, equivalent to forward */
+    /** third vector of canonical basis, equivalent to _forward_ */
     static get ez(): Vector3 {
         return new Vector3(0, 0, 1);
     }
 
-    /** third vector of canonical basis, equivalent to backward */
+    /** third vector of canonical basis, equivalent to _backward_ */
     static get ezn(): Vector3 {
         return new Vector3(0, 0, -1);
     }
 
     /**
      * @brief canonical basis vector
-     * @example `e(0) == ex`, `e(1) == ey`, `e(2) == ez`.
+     * @details `e(0) == ex`, `e(1) == ey`, `e(2) == ez`.
      * @param k {number} order of the vector in basis
      */
     static e(k: number): Vector3 {
@@ -777,35 +786,32 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
 
     /**
      * @brief radial vector of spherical basis
-     * @param u position of local basis from origin
+     * @param u position of local basis
      */
-    static er(u: Vector3): Vector3 {
-        const theta = u.theta, phi = u.phi, s = Math.sin(phi);
-        return new Vector3(s * Math.cos(theta), s * Math.sin(theta), Math.cos(phi));
+    static er(u: Vector): Vector3 {
+        return new Vector3().er(u);
     }
 
     /**
      * @brief prograde vector of spherical basis
      * @details Prograde vector is perpendicular to the radial vector and oriented in the positive `theta` direction.
      * This vector also correspond to the prograde vector of cylindrical basis.
-     * @param u position of local basis from origin
+     * @param u position of local basis
      */
-    static etheta(u: Vector3): Vector3 {
-        const theta = u.theta;
-        return new Vector3(-Math.sin(theta), Math.cos(theta), 0);
+    static etheta(u: Vector): Vector3 {
+        return new Vector3().etheta(u);
     }
 
     /**
      * @brief normal vector of spherical basis
      * @details Normal vector is perpendicular to the radial vector and oriented in the positive `phi` direction.
-     * @param u position of local basis from origin
+     * @param u position of local basis
      */
-    static ephi(u: Vector3): Vector3 {
-        const theta = u.theta, phi = u.phi, c = Math.cos(phi);
-        return new Vector3(c * Math.cos(theta), c * Math.sin(theta), -Math.sin(phi));
+    static ephi(u: Vector): Vector3 {
+        return new Vector3().ephi(u);
     }
 
-    /** vector from coordinates of array in the form `[x, y, z]`*/
+    /** vector from coordinates of array in the form `[x, y, z, ...]` */
     static array(arr: number[]): Vector3 {
         return new Vector3(arr[0], arr[1], arr[2]);
     }

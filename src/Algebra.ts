@@ -5,8 +5,6 @@
  *
  * ## Matrices and vectors
  * Interfaces to standardize mathematical operations for matrices and vectors are specified here.
- * All vectors and matrices inherits from [[Float64Array]] in order to provide double precision computation, an array access `u[k]`.
- * and native C/C++ array compatibility.
  *
  * All the documentation for common mathematical operations can be founded in [[Vector]] and [[Matrix]]
  * documentations. Theses interface offers a rich object oriented syntax.
@@ -46,7 +44,7 @@
  *
  * ## Generation of objects
  *
- * All classes that implement [[Algebra]] interface allows to generate matrix using many Matlab-like generators
+ * All classes that implement [[Vector]] interface allows to generate matrix using many Matlab-like generators
  * such as `zeros`, `ones`. Theses generators are designed as static accessors of each vector-like class.
  * Each call to this accessors construct a new object.
  *
@@ -58,6 +56,9 @@
  * let n = Matrix3.eye; // new identity matrix
  * let q = Matrix3.scalar(6); // diagonal matrix filled with 6
  * ```
+ *
+ * </br>
+ * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
  */
 
 /** Numeric precision limit. */
@@ -82,6 +83,8 @@ export const gaussian = (mu: number, sigma: number) => {
 
 
 /**
+ *
+ * ## Introduction
  * Encodes values in different native Javascript types.
  *
  * #### Example
@@ -89,8 +92,13 @@ export const gaussian = (mu: number, sigma: number) => {
  * u.string(); // "(ux, uy, uz)"
  * m.array(); // [mxx, myx, mzx, mxy, ... ]
  * ```
+ *
+ * ## Float64Array
+ *
+ *  [[Encoder]] class inherits from [[Float64Array]] in order to provide double precision computation, an array access `u[k]`.
+ * and native C/C++ array compatibility.
  * */
-export interface Encoder {
+export interface Encoder extends Float64Array {
     /** native Javascript array containing object's content */
     array(): number[];
 
@@ -102,9 +110,19 @@ export interface Encoder {
  *
  * ## Introduction
  *
- * This interface standardizes components accessors and rotations between objects of dimension 3.
- * Implements `x`, `y` and `z` members such that if the object is of dimension `N`,
- * `x` is of dimension `N/3`. For example `x` of a [[Matrix3]] is a [[Vector3]].
+ * Standardizes components accessors and rotations between objects of 3D space.
+ *
+ * ## Components accessors
+ *
+ * Provides `x`, `y` and `z` accessors such that if the object is of dimension `N`, `x` is of dimension `N/3`.
+ *
+ * ### Example
+ * ```js
+ * m.x // Vector3
+ * u.z // number
+ * m.xyz // [Vector3, Vector3, Vector3]
+ * u.xyz // [number, number, number]
+ * ```
  *
  * ## Rotations
  * 3D rotations for matrices and vectors are both very powerful and computationally efficient. It allows to generate
@@ -114,9 +132,9 @@ export interface Encoder {
  * u.rotX(angle);
  * v.rot(u, angle);
  * w.rot(u, angle, cos, sin);
- * m = Matrix3.rotX(angle);
- * n = Matrix3.rot(u, angle);
- * q = Matrix3.rot(u, angle, cos, sin);
+ * m.rotY(angle);
+ * n.rot(u, angle);
+ * q.rot(u, angle, cos, sin);
  * ```
  *
  * In the last line, he methods `cos` and `sin` are called the _metric functions_ of the rotation.
@@ -132,26 +150,88 @@ export interface Encoder {
  * let a = 2, b = 1; // a is semi-axis major, b is semi-axis minor
  *
  * // +pi/2 rotation around ellipse of axis u
- * m = Matrix3.rot(u, Math.PI / 2, (x) => a * Math.cos(x), (y) => b * Math.sin(y));
+ * m.rot(u, Math.PI / 2, (x) => a * Math.cos(x), (y) => b * Math.sin(y));
  * ```
  */
 export interface Object3 {
+    /** first component */
     x: any;
+
+    /** second component */
     y: any;
+
+    /** third component */
     z: any;
+
+    /** array containing `[x, y, z]` */
     xyz: any;
+
+    /** array containing the transpose of `x`, `y` and `z` `[xt, yt, zt]`*/
     xyzt?: any;
+
+    /**
+     * @brief rotates the vector around `x` axis
+     * @details See [[Object3]] for more details.
+     * @param theta angle of rotation
+     * @param cos `y` metric function of the rotation
+     * @param sin `z` metric function of the rotation
+     */
+    rotX(theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
+
+
+    /**
+     * @brief rotation around `y` axis
+     * @details See [[Object3]] for more details.
+     * @param theta angle of rotation
+     * @param cos `x` metric function of the rotation
+     * @param sin `z` metric function of the rotation
+     */
+    rotY(theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
+
+
+    /**
+     * @brief rotation around `z` axis
+     * @details See [[Object3]] for more details.
+     * @param theta angle of rotation
+     * @param cos `x` metric function of the rotation
+     * @param sin `y` metric function of the rotation
+     */
+    rotZ(theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
+
+
+    /**
+     * @brief rotation around `u` axis
+     * @details `ux` and `uy` are such that they form a orthonormal basis `(ux, uy, u)`.
+     * See [[Object3]] for more details.
+     * @param u axis of rotation
+     * @param theta angle of rotation
+     * @param cos `ux` metric function of the rotation
+     * @param sin `uy` metric function of the rotation
+     */
+    rot(u: Vector, theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
 }
 
 /**
  *
  * ## Introduction
  *
- * This interface tandardize components accessors between objects of dimension 9.
- * Implements `xx`, `yx` such that if the object represent a matrix the first coordinate index
- * is the row and and the second is the column index.
+ * Standardizes components accessors between objects of dimension 9.
+ *
+ * ## Components accessors
+ *
+ * Access a component using an equivalent of cartesian coordinates `m.ij` where :
+ *
+ * - `i` is a row index which value can be `x`, `y`, `z`
+ * - `j` is a column index which value can be `x`, `y`, `z`
+ *
+ * #### Example
+ * ```js
+ * m.xx = 2;
+ * s = m.yz + u.x;
+ * z = m.zz;
+ * ```
  */
-export interface Object9 {
+export interface Object9 extends Float64Array {
 
     xx: any;
     yx: any;
@@ -165,21 +245,56 @@ export interface Object9 {
 }
 
 /**
- * @brief Abstract vectors.
- * @details Represents a **vector** in a  _normed vector space_.
+ * ## Introduction
+ *
+ * Represents a **vector** in a  _normed vector space_.
  * It might be numerical vectors, matrices, or something more complicated.
+ * A [[Vector]] is not necessarily an object of dimension 3.
  *
- * A [[Vector]] has to be related to 3D but not necessarily represent an object of dimension 3.
- * However it must offer the following operations :
+ * ## Operations
  *
- * - Objects copy and clone `copy`, `clone`, `assign`, ...
+ * A [[Vector]] provides the following operations :
+ *
+ * - Objects **copy and clone** `copy`, `clone`, `assign`, ...
  * - Basic **manipulators** `floor`, `fill`, `abs`, ...
  * - **Algebraical operations** `add`, `sub`, `inv`, `mul`, `prod`,  ...
  * - Linear, cubic and Bezier's **interpolation** `lerp`, `herp`, ...
  * - **Equality**, zeros and distance methods `equal2`, `mag`, `dist1`, ...
  * - Provide **immutable operations** by cloning `addc`, `subc`, ...
+ *
+ * #### Example
+ *
+ * ```js
+ * let u = Vector3.ex.mul(5.5), v = u.clone();
+ * u.floor(); // u = (5, 0, 0)
+ * u.lerp(v, 0.5) // u = (5.25, 0, 0);
+ * u.comb(2, v) // u = (16.25, 0, 0);
+ * ```
+ *
+ * The documentation of each method contains a more precise description of the API.
+ *
+ * ## Equality and norm based operations
+ * In order to avoid float precision errors and to give different way to compare vectors,
+ * [[Vector]] interface provides three different ways to compare vectors :
+ * - Using the norm 1, manhattan distance `||u|| = |ux| + |uy| + |uz|`
+ * - Using the norm 2, dot product distance `||u|| = sqrt(|ux|**2 + |uy|**2 + |uz|**2)`
+ * - Using exact comparison coordinates by coordinates.
+ *
+ * #### Example
+ *
+ * ```js
+ * let ex = Vector3.ex, ey = Vector3.ey, zeros = Vector3.zeros;
+ * ex.equal2(ey) // false
+ * ex.equal1(ey) // false
+ * ex.exact(ex) // true
+ * ex.zero1() // false
+ * zeros.nil() // true
+ * ```
+ *
+ * **Note** `mag` accessors is computed using the norm 2. Use `dist`, `equal2` and `zero2` to compare objects by default.
  */
-export interface Vector extends Encoder, Float64Array {
+
+export interface Vector extends Encoder {
     /** dimension of the vector */
     dim: number;
 
@@ -287,7 +402,6 @@ export interface Vector extends Encoder, Float64Array {
 
     lerpc(target: Vector, s: number): Vector;
 
-    /** Hermite's interpolation between two vectors with two control points. `s` must be between 0 and 1  **/
     /**
      * @brief Hermite's interpolation between two vectors
      * @details `s` must be between 0 and 1.
@@ -364,10 +478,11 @@ export interface Vector extends Encoder, Float64Array {
 }
 
 /**
- * @brief Abstract matrices.
- * @details Add some matrix related features to the [[Vector]] interface. Matrix are stored in memory
- * as 1D contiguous array of columns.
+ * ## Introduction
+ * Add some matrix related features to the [[Vector]] interface.
+ * Matrices are stored in memory as 1D contiguous array of columns. Therefore it conforms to the WebGL specification.
  *
+ * ## Operations
  * - Efficient manipulation of **rows and columns** `row`, `rows`, `cols`, ...
  * - Matrix algebra extended features `pow`, `det`, `at`, ...
  */
@@ -394,9 +509,9 @@ export interface Matrix extends Vector {
      * @details the result is stored in `u`
      * @returns reference to `u`
      */
-    at(u: Vector): Vector;
+    prodv(u: Vector): Vector;
 
-    atc(u: Vector): Vector;
+    prodvc(u: Vector): Vector;
 
     /** transpose of a matrix */
     trans(): this;

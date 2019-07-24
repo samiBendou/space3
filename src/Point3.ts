@@ -1,3 +1,76 @@
+/**
+ * ## Introduction
+ *
+ * Represent 3 dimensional points with an **object oriented interface**. This module only document the class
+ * [[Point3]]. See [Algebra](_algebra_.html) page for more general information about the API.
+ *
+ * ## Point3
+ * [[Point3]] is a class that allows to perform many **commons and advanced operations** with 3D points.
+ * It is designed to provide fast and intuitive interface for **geometrical** manipulations in **affine space**.
+ *
+ * ### Inheritance with Vector3
+ * [[Point3]] inherits from [[Vector3]]. A point is a vector represented from a given origin. Points overrides all
+ * the vectors features.
+ *
+ * #### Example
+ * ```js
+ * p.x // x position
+ * p.r // r coordinate from origin
+ * ```
+ *
+ * Each operation between points outputs the same result as between vectors but converts coordinates of the right
+ * operand in coordinates from origin of the left operand if needed.
+ * Therefore operations between two points can be considered as operations between two positions vectors
+ * located from the origin of the left operand.
+ *
+ * ### Position
+ * A point stores relative position from current `origin` member, if the origin is modified using `p.origin = ...` syntax
+ * then the coordinates of the points are updated to the coordinates from new origin.
+ *
+ * #### Example
+ * ```js
+ * let p = Point3.zeros; // sets point (0, 0, 0) from origin (0, 0, 0)
+ * p.origin = Vector3.ex; // sets point (-1, 0, 0) from origin (1, 0, 0)
+ * ```
+ *
+ * **Note** If you want to access absolute position of the point use the syntax `p.absolute = ...`.
+ *
+ * ### Chalses Relation
+ * Addition and subtraction are performed using Chalses relation from the origin of the left operand of the operation.
+ *
+ * #### Example
+ * ```js
+ * let p = Point3(1, 2, 3), q = Point3(2, 0, 0, Vector3.ex);
+ * p.add(q); // sets p to (4, 2, 3) from origin (0, 0, 0)
+ * p.sub(q); // sets p to (-2, 2, 3) from origin (0, 0, 0)
+ * ```
+ *
+ * ### Displacement and Origin Changes
+ * Represent displacement vector **AB** between two points `a`, `b` with `to` and get coordinates of a point from
+ * a given new origin with `at`.
+ *
+ * ```js
+ * let a = Point3.zeros, b = new Point3(1, 0, 0), ex = Vector3.ex;
+ * a.to(b); // (1, 0, 0)
+ * b.to(a); // (-1, 0, 0)
+ * b.at(ex); // (0, 0, 0)
+ * a.at(ex); // (-1, 0, 0)
+ * ```
+ *
+ * ### Translation and Transformation
+ * Apply matrix transform, translations, affine transforms, ...
+ *
+ * ```js
+ * a.translate(u);
+ * a.transform(m);
+ * a.affine(m, u);
+ * ```
+ *
+ * </br>
+ * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
+ */
+/** */
+
 import {Vector3} from "./Vector3";
 import {Matrix3} from "./Matrix3";
 import {dist, epsilon2, Object3, Vector} from "./Algebra";
@@ -6,13 +79,10 @@ import {dist, epsilon2, Object3, Vector} from "./Algebra";
  * @brief couple of points
  * @details Represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
  *
- * - Each point comes with it's own origin
+ * - manipulate **relative and absolute** coordinates `origin`, `absolute`,  ...
+ * - **affine geometry** displacement and origin changes `at`, `to`, ...
  *
- * - addition and subtraction following Chalses's relation
- *
- * - manipulate **relative and absolute** coordinates `position`, `absolute`, `at`, ...
- *
- * - **affine geometry** displacement and origin changes `origin`, `to`, ...
+ * See [[Vector]] for more details.
  */
 
 export class Point3 extends Vector3 implements Vector, Object3 {
@@ -28,6 +98,7 @@ export class Point3 extends Vector3 implements Vector, Object3 {
         this._origin = origin;
     }
 
+    /** origin of the point */
     get origin(): Vector3 {
         return this._origin;
     }
@@ -44,6 +115,7 @@ export class Point3 extends Vector3 implements Vector, Object3 {
         this._origin[2] = oz;
     }
 
+    /** position from origin `(0, 0, 0)`*/
     get absolute(): Vector3 {
         const x = this[0] + this._origin[0],
             y = this[1] + this._origin[1],
@@ -57,7 +129,7 @@ export class Point3 extends Vector3 implements Vector, Object3 {
         this[2] = newAbsolute[2] - this._origin[2];
     }
 
-    assign(x: number, y: number, z: number = 0): this {
+    assign(x: number, y: number, z: number): this {
         super.assign(x, y, z);
         return this;
     }
@@ -404,26 +476,29 @@ export class Point3 extends Vector3 implements Vector, Object3 {
         return Vector3.array(this._to(p));
     }
 
-    /** translate a point by a given vector */
+    /**
+     * @brief translate a point by a given vector
+     * @param u vector of translation
+     */
     translate(u: Vector3): this {
-        this[0] += u[0];
-        this[1] += u[1];
-        this[2] += u[2];
+        super.add(u);
         return this;
     }
 
-    /** apply a transformation matrix to the position of a point */
+    /**
+     * @brief apply a transformation matrix to the position of a point
+     * @param m matrix of transformation
+     */
     transform(m: Matrix3): this {
-        let x = this[0],
-            y = this[1],
-            z = this[2];
-        this[0] = m[0] * x + m[3] * y + m[6] * z;
-        this[1] = m[1] * x + m[4] * y + m[7] * z;
-        this[2] = m[2] * x + m[5] * y + m[8] * z;
+        m.prodv(this);
         return this;
     }
 
-    /** apply an affine transform to the position of the point */
+    /**
+     * @brief apply an affine transform to the position of the point
+     * @param m matrix of transformation
+     * @param u vector of translation
+     */
     affine(m: Matrix3, u: Vector3): this {
         return this.transform(m).translate(u);
     }
@@ -451,17 +526,27 @@ export class Point3 extends Vector3 implements Vector, Object3 {
         return new Point3(0, 0, 0);
     }
 
-    /** point located at origin 0 */
+    /**
+     * @brief point located at 0 from origin
+     * @param origin position of the origin
+     */
     static origin(origin: Vector3): Point3 {
         return new Point3(origin[0], origin[1], origin[2], origin);
     }
 
-    /** point from array containing coordinates of both position and origin */
+    /**
+     * @brief point from array
+     * @param arr array containing coordinates of both position and origin
+     * */
     static array(arr: number[]): Point3 {
         return new Point3(arr[0], arr[1], arr[2], new Vector3(arr[3], arr[4], arr[5]));
     }
 
-    /** point at given position */
+    /**
+     * @brief point at given position as vector
+     * @param position position of the point
+     * @param origin origin of the point
+     */
     static at(position: Vector3, origin = Vector3.zeros): Point3 {
         return new Point3(position[0], position[1], position[2], origin);
     }

@@ -95,11 +95,11 @@ describe("Matrix3 Tests", () => {
             const angle = Math.PI / 2;
 
             it("rotates around Ox", () =>
-                assert3.equal(Matrix3.rotX(Math.PI / 2).at(Vector3.ey), Vector3.ez));
+                assert3.equal(Matrix3.rotX(Math.PI / 2).prodv(Vector3.ey), Vector3.ez));
             it("rotates around Oy", () =>
-                assert3.equal(Matrix3.rotY(Math.PI / 2).at(Vector3.ez), Vector3.ex));
+                assert3.equal(Matrix3.rotY(Math.PI / 2).prodv(Vector3.ez), Vector3.ex));
             it("rotates around Oz", () =>
-                assert3.equal(Matrix3.rotZ(Math.PI / 2).at(Vector3.ex), Vector3.ey));
+                assert3.equal(Matrix3.rotZ(Math.PI / 2).prodv(Vector3.ex), Vector3.ey));
 
             it("generates rotation of axis Ox", () =>
                 assert3.equal(Matrix3.rotX(angle), Matrix3.rot(Vector3.ex, angle)));
@@ -116,11 +116,11 @@ describe("Matrix3 Tests", () => {
                 sin = (theta: number) => b / a * Math.sin(theta);
 
             it("rotates around Ox", () =>
-                assert3.equal(Matrix3.rotX(Math.PI / 2, cos, sin).at(Vector3.ey.mul(a)), Vector3.ez));
+                assert3.equal(Matrix3.rotX(Math.PI / 2, cos, sin).prodv(Vector3.ey.mul(a)), Vector3.ez));
             it("rotates around Oy", () =>
-                assert3.equal(Matrix3.rotY(Math.PI / 2, cos, sin).at(Vector3.ez.mul(a)), Vector3.ex));
+                assert3.equal(Matrix3.rotY(Math.PI / 2, cos, sin).prodv(Vector3.ez.mul(a)), Vector3.ex));
             it("rotates around Oz", () =>
-                assert3.equal(Matrix3.rotZ(Math.PI / 2, cos, sin).at(Vector3.ex.mul(a)), Vector3.ey));
+                assert3.equal(Matrix3.rotZ(Math.PI / 2, cos, sin).prodv(Vector3.ex.mul(a)), Vector3.ey));
 
             it("generates rotation of axis Ox", () =>
                 assert3.equal(Matrix3.rotX(angle, cos, sin), Matrix3.rot(Vector3.ex, angle, cos, sin)));
@@ -135,9 +135,9 @@ describe("Matrix3 Tests", () => {
             const cos = (theta: number) => Math.cosh(theta),
                 sin = (theta: number) => Math.sinh(theta);
 
-            const resX = Matrix3.rotX(angle, cos, sin).at(Vector3.ey),
-                resY = Matrix3.rotY(angle, cos, sin).at(Vector3.ez),
-                resZ = Matrix3.rotZ(angle, cos, sin).at(Vector3.ex);
+            const resX = Matrix3.rotX(angle, cos, sin).prodv(Vector3.ey),
+                resY = Matrix3.rotY(angle, cos, sin).prodv(Vector3.ez),
+                resZ = Matrix3.rotZ(angle, cos, sin).prodv(Vector3.ex);
 
             it("rotates around Ox", () =>
                 assert.approximately(resX.y ** 2 - resX.z ** 2, 1, tol, `\nresX : ${resX}`));
@@ -240,8 +240,8 @@ describe("Matrix3 Tests", () => {
 
         describe("Vector Multiplication", () => {
             const u = Vector3.ones;
-            it("conserves identity", () => assert3.equal(eye.atc(u), u));
-            it("gets product", () => assert3.equal(magic.atc(u), Vector3.scalar(6)));
+            it("conserves identity", () => assert3.equal(eye.prodvc(u), u));
+            it("gets product", () => assert3.equal(magic.prodvc(u), Vector3.scalar(6)));
         });
 
         describe("Determinant", () => {

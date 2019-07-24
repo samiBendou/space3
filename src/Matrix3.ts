@@ -1,16 +1,13 @@
 /**
  * ## Introduction
- *
  * Represent 3x3 matrix with an **object oriented interface**. This module only document the class
  * [[Matrix3]]. See [Algebra](_algebra_.html) page for more general information about the API.
  *
  * ## Matrix3
- *
  * [[Matrix3]] is a vast class that allows to perform many **commons and advanced operations** with 3x3 matrices.
  * It's designed in the ame philosophy as [[Vector3]].
  *
  * ### Interface with Vector3
- *
  * [[Matrix3]] provides an interface with [[Vector3]] by implementing [[Object3]] interface. It allows to construct
  * vectors from rows and columns of the matrix.
  *
@@ -23,7 +20,6 @@
  *
  * ### Rotation matrix
  * Rotation matrices can be generated using a very powerful generator :
- *
  * - Efficient rotations around `x`, `y` and `z`
  * - Rotation around arbitrary vector axis `u`
  * - Rotation around ellipses and hyperbolas `a * cos(theta)`, `b * sinh(theta)`, ...
@@ -43,7 +39,6 @@
  * You can also directly set an existent matrix to a rotation matrix
  *
  * #### Example
- *
  * ```js
  * m.rotX(Math.PI / 4); // sets m to rotation matrix around x axis
  * m.rot(u, Math.PI / 4); // sets m to rotation matrix around u axis

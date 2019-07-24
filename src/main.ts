@@ -1,11 +1,9 @@
 /**
  * ## Introduction
- *
  * Welcome to the documentation of **space3** here is explained how to get started with the framework and where to
  * find documentation for a deep dive into the features.
  *
  * ### Summary
- *
  * - Introduction to the framework [here](_algebra_.html)
  * - How to perform algebraical operations [[Vector]] and [[Matrix]]
  * - How to manipulate components and perform rotations [[Object3]] and [[Object9]]
@@ -21,12 +19,12 @@
  * - Provides handy **classes for matrices, vectors** and other objects related to 3D space and affine representation.
  *
  * This framework is documented such that beginners in maths and/or programming can get started easily but
- * provide rigorous documentation for more advanced users.
+ * provides rigorous documentation for more advanced users.
  *
  * ### Guidelines
  * This framework is designed respecting few guidelines :
  * - The **API must be rich** and offer many ways to perform operations
- * - The objects must **respect the WebGL specification**
+ * - Objects must **respect the WebGL specification**
  * - **Speed is a critical issue**, performance must be comparable to [glMatrix](http://glmatrix.net/)
  *
  * ### API purpose
@@ -47,11 +45,12 @@
  *
  * ## Conventions
  * In all the documentation we assume that :
- * - `u`, `v`, `w` will always name a `Vector3`
- * - `m`, `a`, `b`, `c` will always name a `Matrix3`
- * - `s` will always name a real number
- * - `i` will always name a row index
- * - `j` will always name a column index
+ * - `u`, `v`, `w` will always be a [[Vector3]]
+ * - `m`, `a`, `b`, `c` will always be a [[Matrix3]]
+ * - `p`, `q` will always be a [[Point3]]
+ * - `s`, `t` will always be a real number
+ * - `i` will always be a row index
+ * - `j` will always be a column index
  * - A series of vectors will be noted `uk` where `k = 0, 1, 2, ...` same for matrices and real numbers
  *
  * ### API glossary

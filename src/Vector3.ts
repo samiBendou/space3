@@ -1,11 +1,9 @@
 /**
  * ## Introduction
- *
  * Represent 3 dimensional vectors with an **object oriented interface**. This module only document the class
  * [[Vector3]]. See [Algebra](_algebra_.html) page for more general information about the API.
  *
  * ## Vector3
- *
  * [[Vector3]] is a vast class that allows to perform many **commons and advanced operations** with 3D vectors.
  * It is designed to provide fast and intuitive interface for **algebraical and geometrical** manipulations.
  *

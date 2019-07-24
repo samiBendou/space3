@@ -76,7 +76,7 @@ import {Matrix3} from "./Matrix3";
 import {dist, epsilon2, Object3, Vector} from "./Algebra";
 
 /**
- * @brief couple of points
+ * @brief point with given origin
  * @details Represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
  *
  * - manipulate **relative and absolute** coordinates `origin`, `absolute`,  ...
@@ -84,7 +84,6 @@ import {dist, epsilon2, Object3, Vector} from "./Algebra";
  *
  * See [[Vector]] for more details.
  */
-
 export class Point3 extends Vector3 implements Vector, Object3 {
 
     dim: Readonly<number> = 3;

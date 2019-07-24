@@ -1,6 +1,5 @@
 /**
  * ## Introduction
- *
  * This module provides various algebra related features. It provides API specification for almost all the framework.
  *
  * ## Matrices and vectors
@@ -94,7 +93,6 @@ export const gaussian = (mu: number, sigma: number) => {
  * ```
  *
  * ## Float64Array
- *
  *  [[Encoder]] class inherits from [[Float64Array]] in order to provide double precision computation, an array access `u[k]`.
  * and native C/C++ array compatibility.
  * */
@@ -109,11 +107,9 @@ export interface Encoder extends Float64Array {
 /**
  *
  * ## Introduction
- *
  * Standardizes components accessors and rotations between objects of 3D space.
  *
  * ## Components accessors
- *
  * Provides `x`, `y` and `z` accessors such that if the object is of dimension `N`, `x` is of dimension `N/3`.
  *
  * ### Example
@@ -293,7 +289,6 @@ export interface Object9 extends Float64Array {
  *
  * **Note** `mag` accessors is computed using the norm 2. Use `dist`, `equal2` and `zero2` to compare objects by default.
  */
-
 export interface Vector extends Encoder {
     /** dimension of the vector */
     dim: number;
@@ -480,7 +475,7 @@ export interface Vector extends Encoder {
 /**
  * ## Introduction
  * Add some matrix related features to the [[Vector]] interface.
- * Matrices are stored in memory as 1D contiguous array of columns. Therefore it conforms to the WebGL specification.
+ * Matrices are stored in memory as 1D contiguous array of columns. Therefore they conforms to the WebGL specification.
  *
  * ## Operations
  * - Efficient manipulation of **rows and columns** `row`, `rows`, `cols`, ...

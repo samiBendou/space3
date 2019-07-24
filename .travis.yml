@@ -4,6 +4,9 @@ node_js:
 branches:
   only:
     - master
+env:
+  global:
+    secure: fUxdpWl8+5uL2yjZy5WJnlctRquooEG4YNVObTJGRd4k27bAmGxXTy3NtL0as/OjYlJ/ElKNrO4yGlcO1FKTEABk2b2p1ElyDnI0bbIl8F56DbW/8LjsjSmVBcCKS81pZzuetxn+dJVrkhv2qcbyJ+hLk8h+ogqafwfJqRA6zG4WZNZzZ7ZuOfjh8tmy4PBk9qhuQNvbALD6aWu5+XDrcUoOAfZqzfY2raTOJtE2boAooeO+dxYOrL3cy2PhmMp+5o8S5wKPj8FKod2E0ebm8lUtbPK8JnXXK4N8btPAdaOSYgAN4jSWuuHf5VOJIm7CxG5KOvIELWrqRGtPBeta0tRvdi49iIo/bCDWokDwVx0Fglab1EVmHI6I7/waWD6wfFOfjECuyGj82qcyJCUf1ljoRirFReNcfCKuaxiY8EjtTqiHLbyebozmHyNilGotHL76EK/sTB1s+wckkFr//8fD/CGbB06Eu7u44x7rNownUCgyMtu1xlGwZt0lTqSb8DJzoGYrOdP1fVRkS6D8gD/7Rj3rUlajubisjbn1LRAZ53fblqPR5u2Uh4KYlhb60+oXbX+WakknNjp633sPxh8BB5NMaoYoLbpqvPrRknz2+ypgG7cKGfUv7YalcrQe2nqKCBdhDOiaYvaw1Um6tMjAGJCCTLL+1Oy1D/9PDG4=
 after_success:
   - npm run coverage
   - typedoc --out docs ./src
@@ -16,6 +19,3 @@ deploy:
   keep_history: true
   on:
     branch: master
-env:
-  matrix:
-    secure: fUxdpWl8+5uL2yjZy5WJnlctRquooEG4YNVObTJGRd4k27bAmGxXTy3NtL0as/OjYlJ/ElKNrO4yGlcO1FKTEABk2b2p1ElyDnI0bbIl8F56DbW/8LjsjSmVBcCKS81pZzuetxn+dJVrkhv2qcbyJ+hLk8h+ogqafwfJqRA6zG4WZNZzZ7ZuOfjh8tmy4PBk9qhuQNvbALD6aWu5+XDrcUoOAfZqzfY2raTOJtE2boAooeO+dxYOrL3cy2PhmMp+5o8S5wKPj8FKod2E0ebm8lUtbPK8JnXXK4N8btPAdaOSYgAN4jSWuuHf5VOJIm7CxG5KOvIELWrqRGtPBeta0tRvdi49iIo/bCDWokDwVx0Fglab1EVmHI6I7/waWD6wfFOfjECuyGj82qcyJCUf1ljoRirFReNcfCKuaxiY8EjtTqiHLbyebozmHyNilGotHL76EK/sTB1s+wckkFr//8fD/CGbB06Eu7u44x7rNownUCgyMtu1xlGwZt0lTqSb8DJzoGYrOdP1fVRkS6D8gD/7Rj3rUlajubisjbn1LRAZ53fblqPR5u2Uh4KYlhb60+oXbX+WakknNjp633sPxh8BB5NMaoYoLbpqvPrRknz2+ypgG7cKGfUv7YalcrQe2nqKCBdhDOiaYvaw1Um6tMjAGJCCTLL+1Oy1D/9PDG4=

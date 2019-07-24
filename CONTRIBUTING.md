@@ -2,13 +2,13 @@
 
 ## Introduction
 
-First off, thank you for considering contributing to meca3 project. 
+First off, thank you for considering contributing to space3 project. 
 You help to build a strong basis for 3D maths in Javascript :smile:.
 
 Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. 
 In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
 
-meca3 is an open source project and contributions are really appreciated :sparkles:.
+space3 is an open source project and contributions are really appreciated :sparkles:.
 
 Appropriate yourself the project : improving documentation, proposing new features, reporting bug. 
 Contribute a way that you can earn time or add something you which, feel free to propose your ideas ! :smiley:
@@ -26,10 +26,10 @@ You can work on any open issue, there are issues for any kind of work :
 ## How to suggest a feature or enhancement
 
 ### Philosophy
-meca3 philosophy is to provide fast and easy to use tools for 3D mechanics, it's great for 3D simulations that reconstruct
-real physics behaviors.
+space3 philosophy is to provide fast and easy to use tools for 3D maths, it's great for 3D simulations that reconstruct
+real physics behaviors but also for 3D graphics.
 
-The module must provide as many tools as possible to manipulate 3D objects such as vectors, matrix, trajectories...
+The module must provide as many tools as possible to manipulate 3D objects such as vectors, matrix, points...
 
 It has to be easily integrable with a 3D animation framework such as [threejs](https://threejs.org/).
 
@@ -39,7 +39,7 @@ It has to be easily integrable with a 3D animation framework such as [threejs](h
 * Add at least one label
 
 ## Coding contributions
-You can contribute to the codebase of meca3. Each version is published following theses general guidelines :
+You can contribute to the codebase of space3. Each version is published following theses general guidelines :
 
 * Keep as small as possible, preferably one new feature per version
 * Must be related to at least an open issue

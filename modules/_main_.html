@@ -40,8 +40,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -70,9 +68,10 @@
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<h2 id="introduction">Introduction</h2>
+						<p>Welcome to the documentation of <strong>space3</strong> here is explained how to get started with the framework and where to
+						find documentation for a deep dive into the features.</p>
 					</div>
-					<p>Welcome to the documentation of <strong>space3</strong> here is explained how to get started with the framework and where to
-					find documentation for a deep dive into the features.</p>
+					<p>Each module page contains a tutorial that helps you to get started with the framework step-by-step.</p>
 					<h3 id="summary">Summary</h3>
 					<ul>
 						<li>Introduction to the framework <a href="_algebra_.html">here</a></li>
@@ -91,12 +90,12 @@
 						<li>Provides handy <strong>classes for matrices, vectors</strong> and other objects related to 3D space and affine representation.</li>
 					</ul>
 					<p>This framework is documented such that beginners in maths and/or programming can get started easily but
-					provide rigorous documentation for more advanced users.</p>
+					provides rigorous documentation for more advanced users.</p>
 					<h3 id="guidelines">Guidelines</h3>
 					<p>This framework is designed respecting few guidelines :</p>
 					<ul>
 						<li>The <strong>API must be rich</strong> and offer many ways to perform operations</li>
-						<li>The objects must <strong>respect the WebGL specification</strong></li>
+						<li>Objects must <strong>respect the WebGL specification</strong></li>
 						<li><strong>Speed is a critical issue</strong>, performance must be comparable to <a href="http://glmatrix.net/">glMatrix</a></li>
 					</ul>
 					<h3 id="api-purpose">API purpose</h3>
@@ -115,11 +114,12 @@
 					<h2 id="conventions">Conventions</h2>
 					<p>In all the documentation we assume that :</p>
 					<ul>
-						<li><code>u</code>, <code>v</code>, <code>w</code> will always name a <code>Vector3</code></li>
-						<li><code>m</code>, <code>a</code>, <code>b</code>, <code>c</code> will always name a <code>Matrix3</code></li>
-						<li><code>s</code> will always name a real number</li>
-						<li><code>i</code> will always name a row index</li>
-						<li><code>j</code> will always name a column index</li>
+						<li><code>u</code>, <code>v</code>, <code>w</code> will always be a <a href="../classes/_vector3_.vector3.html">Vector3</a></li>
+						<li><code>m</code>, <code>a</code>, <code>b</code>, <code>c</code> will always be a <a href="../classes/_matrix3_.matrix3.html">Matrix3</a></li>
+						<li><code>p</code>, <code>q</code> will always be a <a href="../classes/_point3_.point3.html">Point3</a></li>
+						<li><code>s</code>, <code>t</code> will always be a real number</li>
+						<li><code>i</code> will always be a row index</li>
+						<li><code>j</code> will always be a column index</li>
 						<li>A series of vectors will be noted <code>uk</code> where <code>k = 0, 1, 2, ...</code> same for matrices and real numbers</li>
 					</ul>
 					<h3 id="api-glossary">API glossary</h3>

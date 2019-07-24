@@ -40,8 +40,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -69,28 +67,29 @@
 					<a href="https://travis-ci.org/samiBendou/space3"><img src="https://img.shields.io/travis/samiBendou/space3.svg?style=flat-square" alt="Build status"></a>
 				<a href="https://www.npmjs.com/package/space3"><img src="https://img.shields.io/npm/l/space3.svg?style=flat-square" alt="License"></a></p>
 				<p>Javascript has become a very common language for 3D animation and physics simulation.
-					Theses applications are very intensive and impose the need of both fast computation and
-				easy to use API.</p>
-				<p>space3 is a <strong>rich high performance API for maths 3D maths</strong>. It is designed
+					Theses applications are very expensive in terms of calculation and has imposed the need of both fast computation and
+				easy to use API to perform 3D computation.</p>
+				<p><em>space3</em> is a <strong>rich high performance API for maths 3D maths</strong>. It is designed
 					with hardcore time optimization in mind and achieve performances comparable to <a href="http://glmatrix.net/">glMatrix</a> on
-				mathematical operations.</p>
+				mathematical operations while keeping maths programming intuitive.</p>
 				<h2 id="featuring">Featuring</h2>
 				<ul>
-					<li><p><strong>WebGL support</strong> with array based classes for matrix and vectors inheriting from <code>Float64Array</code>, column-major matrices, ...</p>
+					<li><p><strong>WebGL support</strong> with array based classes inheriting from <code>Float64Array</code> for matrix and vectors, column-major matrices, ...</p>
 					</li>
 					<li><p><strong>Vast API</strong> designed to perform many general purpose mathematical operations and specialized operations
 						for computer graphics, mechanics and numeric simulation, geometry...</p>
 					</li>
-					<li><p><strong>Typescript implementation</strong> with standardized interfaces to allow easily subclassing over the framework and
+					<li><p><strong>Written in Typescript</strong> with standardized interfaces to allow easily subclassing over the framework and
 						simplifies API.</p>
 					</li>
 					<li><p><strong>Object oriented</strong> and <strong>functional</strong> paradigm for mathematical operations in order to make syntax as clear as possible
-						while staying concise and compact.</p>
+						while staying concise.</p>
 					</li>
-					<li><p><strong>Intuitive syntax</strong> that makes 3D maths intuitive and formulas easy to drop. You&#39;ll almost never find yourself
+					<li><p><strong>Intuitive syntax</strong> that makes formulas easy to drop. You&#39;ll almost never find yourself
 						writing a math formula on more than a code line.</p>
 					</li>
-					<li><p><strong>Fully documented</strong> with <a href="">examples</a> and <a href="">reference</a></p>
+					<li><p><strong>Full <a href="https://samibendou.github.io/space3/modules/_main_.html">reference and tutorials</a></strong>
+						to easily get started even if you&#39;re new in programming.</p>
 					</li>
 				</ul>
 				<h2 id="usage">Usage</h2>
@@ -109,14 +108,16 @@ u.add(v).mul(<span class="hljs-number">6</span>);
 <span class="hljs-keyword">let</span> m = Matrix3.rotX(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2</span>);
 v = m.prodv(add(w, v, u));
 u.rot(w, <span class="hljs-built_in">Math</span>.PI);
+m.inv();
 
 <span class="hljs-keyword">let</span> p = <span class="hljs-keyword">new</span> Point3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, Vector3.ey), q = Point3.zeros;
 p.origin = Vector3.zeros;
-<span class="hljs-keyword">let</span> u = p.to(q);
+u = p.to(q);
 p.translate(u);</code></pre>
-				<h3 id="contribution-guidelines">Contribution guidelines</h3>
-				<p>If you want to improve math javascript experience
-				don&#39;t hesitate to contribute all kind of improvements are welcomed <a href="https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></p>
+				<h2 id="documentation">Documentation</h2>
+				<p>Check the <a href="https://samibendou.github.io/space3/modules/_main_.html">main</a> page of the framework web site to get started.</p>
+				<h2 id="contributions">Contributions</h2>
+				<p>If you want to improve math javascript experience don&#39;t hesitate to contribute all kind of improvements are welcomed ! <a href="https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

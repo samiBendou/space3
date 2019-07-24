@@ -14,7 +14,7 @@ Appropriate yourself the project : improving documentation, proposing new featur
 Contribute a way that you can earn time or add something you which, feel free to propose your ideas ! :smiley:
 
 Be welcoming to newcomers and encourage diverse new contributors from all backgrounds.
-See the [meca3 Code of Conduct](https://github.com/samiBendou/meca3/blob/master/CODE_OF_CONDUCT.md).
+See the [space Code of Conduct](https://github.com/samiBendou/space/blob/master/CODE_OF_CONDUCT.md).
 
 ## Your First Contribution
 
@@ -47,7 +47,7 @@ You can contribute to the codebase of meca3. Each version is published following
 * Must pass unit tests
 * Use package only if necessary
 
-Before starting, ensure following the rules in the basics concepts section of [meca3 Getting Started](https://github.com/samiBendou/meca3/wiki/Getting-Started).
+Before starting, ensure following the rules in the basics concepts section of [space3 introduction]().
 
 ### Coding style
 
@@ -59,8 +59,6 @@ Please follow these conventions when submitting code :
 * Variables and constants : `lowerCamelCase`
 * Enumerations must belong to a class eg. `Solver.methods.EULER`
 * The classes must be implemented using the [ECMAScript2015 syntax](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Classes).
-* Do not use arrow functions for the moment
-* One class per file
 
 The implementation must be as straight forward as possible since 3D objects easier to manipulate then ND objects.
 

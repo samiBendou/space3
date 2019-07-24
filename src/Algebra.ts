@@ -446,7 +446,7 @@ export interface Vector extends Encoder {
 
     normc(): Vector;
 
-    /** usual dot product of two vector `u | v` */
+    /** usual dot product of two vector `u . v` */
     dot(vector: Vector): number;
 
     /** distance distance between two vectors `d2(u, v)` */

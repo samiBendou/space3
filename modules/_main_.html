@@ -1,0 +1,311 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>&quot;main&quot; | space3</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">space3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="_main_.html">&quot;main&quot;</a>
+				</li>
+			</ul>
+			<h1>External module &quot;main&quot;</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<h2 id="introduction">Introduction</h2>
+					</div>
+					<p>Welcome to the documentation of <strong>space3</strong> here is explained how to get started with the framework and where to
+					find documentation for a deep dive into the features.</p>
+					<h3 id="summary">Summary</h3>
+					<ul>
+						<li>Introduction to the framework <a href="_algebra_.html">here</a></li>
+						<li>How to perform algebraical operations <a href="../interfaces/_algebra_.vector.html">Vector</a> and <a href="../interfaces/_algebra_.matrix.html">Matrix</a></li>
+						<li>How to manipulate components and perform rotations <a href="../interfaces/_algebra_.object3.html">Object3</a> and <a href="../interfaces/_algebra_.object9.html">Object9</a></li>
+						<li>How to serialize objects <a href="../interfaces/_algebra_.encoder.html">Encoder</a></li>
+						<li>Introduction to <a href="../classes/_vector3_.vector3.html">Vector3</a> features <a href="_vector3_.html">here</a></li>
+						<li>Introduction to <a href="../classes/_matrix3_.matrix3.html">Matrix3</a> features <a href="_matrix3_.html">here</a></li>
+						<li>Introduction to <a href="../classes/_point3_.point3.html">Point3</a> features <a href="_point3_.html">here</a></li>
+					</ul>
+					<h2 id="basic-concepts">Basic concepts</h2>
+					<p><strong>space3</strong> is a general purpose class library for 3D math.</p>
+					<ul>
+						<li>Offers <strong>Typescript interfaces</strong> that standardizes operations between mathematical objects</li>
+						<li>Comes with a very useful standardized <strong>functional interface for mathematical operations</strong>.</li>
+						<li>Provides handy <strong>classes for matrices, vectors</strong> and other objects related to 3D space and affine representation.</li>
+					</ul>
+					<p>This framework is documented such that beginners in maths and/or programming can get started easily but
+					provide rigorous documentation for more advanced users.</p>
+					<h3 id="guidelines">Guidelines</h3>
+					<p>This framework is designed respecting few guidelines :</p>
+					<ul>
+						<li>The <strong>API must be rich</strong> and offer many ways to perform operations</li>
+						<li>The objects must <strong>respect the WebGL specification</strong></li>
+						<li><strong>Speed is a critical issue</strong>, performance must be comparable to <a href="http://glmatrix.net/">glMatrix</a></li>
+					</ul>
+					<h3 id="api-purpose">API purpose</h3>
+					<p>The API is designed to provide high performance and functionality for :</p>
+					<ul>
+						<li>General purpose <strong>linear algebra</strong></li>
+						<li><strong>3D graphics</strong> computation and animation</li>
+						<li><strong>Mechanics</strong> simulation</li>
+						<li><strong>Physics and numeric</strong> simulation</li>
+					</ul>
+					<p>It introduces the same names for vectors and matrices as it&#39;s commonly used on math and physics formulas.</p>
+					<h4 id="example">Example</h4>
+					<pre><code class="language-js"><span class="hljs-keyword">let</span> ex = Vector3.ex, ey = Vector3.ey, ez = Vector3.ez; <span class="hljs-comment">// canonical basis of 3D space</span>
+<span class="hljs-built_in">console</span>.log(ex.r);
+<span class="hljs-built_in">console</span>.log(ex.theta);</code></pre>
+					<h2 id="conventions">Conventions</h2>
+					<p>In all the documentation we assume that :</p>
+					<ul>
+						<li><code>u</code>, <code>v</code>, <code>w</code> will always name a <code>Vector3</code></li>
+						<li><code>m</code>, <code>a</code>, <code>b</code>, <code>c</code> will always name a <code>Matrix3</code></li>
+						<li><code>s</code> will always name a real number</li>
+						<li><code>i</code> will always name a row index</li>
+						<li><code>j</code> will always name a column index</li>
+						<li>A series of vectors will be noted <code>uk</code> where <code>k = 0, 1, 2, ...</code> same for matrices and real numbers</li>
+					</ul>
+					<h3 id="api-glossary">API glossary</h3>
+					<p>In order to shorten the length of the expression written using the framework, some abbreviations have be introduced.
+					Here is a glossary that resumes the definition of each.</p>
+					<table>
+						<thead>
+							<tr>
+								<th>Abbreviation</th>
+								<th>Name</th>
+								<th>Operation</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><code>add</code></td>
+								<td>addition</td>
+								<td><code>u += v</code></td>
+							</tr>
+							<tr>
+								<td><code>sub</code></td>
+								<td>subtraction</td>
+								<td><code>u -= v</code></td>
+							</tr>
+							<tr>
+								<td><code>mul</code></td>
+								<td>multiplication</td>
+								<td><code>u *= s</code></td>
+							</tr>
+							<tr>
+								<td><code>div</code></td>
+								<td>division</td>
+								<td><code>u /= s</code></td>
+							</tr>
+							<tr>
+								<td><code>comb</code></td>
+								<td>combination</td>
+								<td><code>u += v * s</code></td>
+							</tr>
+							<tr>
+								<td><code>[lhb]erp</code></td>
+								<td>interpolation</td>
+								<td><code>u += (v-u) * s</code></td>
+							</tr>
+							<tr>
+								<td><code>der</code></td>
+								<td>derivation</td>
+								<td><code>u = (v-u) / ds</code></td>
+							</tr>
+							<tr>
+								<td><code>prod</code></td>
+								<td>product</td>
+								<td><code>u *= v</code></td>
+							</tr>
+							<tr>
+								<td><code>inv</code></td>
+								<td>inversion</td>
+								<td><code>u **= -1</code></td>
+							</tr>
+							<tr>
+								<td><code>norm</code></td>
+								<td>normalization</td>
+								<td><code>u /= u . u</code></td>
+							</tr>
+							<tr>
+								<td><code>dot</code></td>
+								<td>dot product</td>
+								<td><code>u . v</code></td>
+							</tr>
+							<tr>
+								<td><code>dist</code></td>
+								<td>equality</td>
+								<td><code>d(u, v)</code></td>
+							</tr>
+							<tr>
+								<td><code>equal</code></td>
+								<td>equality</td>
+								<td><code>u == v</code></td>
+							</tr>
+							<tr>
+								<td><code>zero</code> or <code>nil</code></td>
+								<td>0 comparison</td>
+								<td><code>u == 0</code></td>
+							</tr>
+							<tr>
+								<td><code>rot</code></td>
+								<td>rotation</td>
+								<td><code>u = rot(theta)</code></td>
+							</tr>
+					</tbody></table>
+				</div>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_algebra_.html">"<wbr>Algebra"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_matrix3_.html">"<wbr>Matrix3"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_point3_.html">"<wbr>Point3"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_vector3_.html">"<wbr>Vector3"</a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="_main_.html">"main"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

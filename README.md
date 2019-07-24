@@ -3,23 +3,22 @@
 [![Build status](https://img.shields.io/travis/samiBendou/space3.svg?style=flat-square)](https://travis-ci.org/samiBendou/space3)
 [![License](https://img.shields.io/npm/l/space3.svg?style=flat-square)](https://www.npmjs.com/package/space3)
 
-Javascript has become a very common language for 3D animation and physics simulation.
-Theses applications are very expensive in terms of calculation and has imposed the need of both fast computation and 
+Javascript has become a language able to perform 3D graphics and numerical simulation in real time.
+Theses applications are very expensive in terms of calculation and has imposed the need of both fast and 
 easy to use API to perform 3D computation.
 
-
 _space3_ is a **rich high performance API for maths 3D maths**. It is designed
-with hardcore time optimization in mind and achieve performances comparable to [glMatrix](http://glmatrix.net/) on
-mathematical operations while keeping maths programming intuitive.
+with hardcore time optimization in mind and achieves performances comparable to [glMatrix](http://glmatrix.net/) on
+mathematical operations while keeping maths programming close to written mathematics.
 
 ## Featuring
 - **WebGL support** with array based classes inheriting from `Float64Array` for matrix and vectors, column-major matrices, ...
 
 - **Vast API** designed to perform many general purpose mathematical operations and specialized operations 
-for computer graphics, mechanics and numeric simulation, geometry...
+useful for computer graphics, mechanics and numeric simulation, geometry...
 
 - **Written in Typescript** with standardized interfaces to allow easily subclassing over the framework and 
-simplifies API.
+make the API simpler to use.
 
 - **Object oriented** and **functional** paradigm for mathematical operations in order to make syntax as clear as possible
 while staying concise.
@@ -62,8 +61,8 @@ p.translate(u);
 ```
 
 ## Documentation
-Check the [main](https://samibendou.github.io/space3/modules/_main_.html) page of the framework web site to get started.
+Check the [main](https://samibendou.github.io/space3/modules/_main_.html) page of the framework's site to get started.
 
 ## Contributions
 
-If you want to improve math javascript experience don't hesitate to contribute all kind of improvements are welcomed ! [CONTRIBUTING.md](https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md)
+If you want to improve math javascript experience don't hesitate to contribute. All kind of improvements are welcomed ! [CONTRIBUTING.md](https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md)

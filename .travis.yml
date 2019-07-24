@@ -1,24 +1,19 @@
 language: node_js
-
 node_js:
   - '8'
-
 branches:
   only:
     - master
-
-env:
-  global:
-    - secure: aHAe5RuduzgZ9D5beemyoY08E2sqbBufEOzCf0DtBJo5Y9XUgUT8MWIHLsGALRea9C6C+LU6vSkjaWJm9QoveiqBpbaAkdOghdTsAJ1NbqFgF1/M2/pRW6G50vJg+3fcTqgkGwjJ0OCXQVY5Dk0mG89Vswf6p7N7Jz6fNV79zwawF4PAgHttI8lZ3hZo8REICA4fdzgLx5K7C20H1ICY+Syyaw66F6sp/3VmFpsdH7Oh9m2etKnZpw9L7E/xCRn2Nk9Fvvvx1Cxu/F0MTR+6ws9jDEO5sHs89S7o2RudLz5PMc3WbE9W5zs0lqjxDvUcCf/pOHXQEu5cKTV6NEZVXTQOaLrkgb06oTFU+DRmDgpDtB63rkQuuXSL73hwxhAj5YP/kUZZzSl6diHum5T2QTuuiwMxNDIBC1MIDn9qwM6Omr6QQRMD1jYTcslHxDP/FgTctC9jG2alP4xyAyGkHhY1LIKklwHNtwAOYEPKme5+yybh/VVYfGTXvjh76Qo97f+JnVt6YaCQ6c7BcgJriOFeBI8RhRmtNbxTuvAHbHXXFm8+h3JoYg11U7A3cxH7gM2AwlMY8YqzwN1nJubAaHcyoReixCP5Faiv0t5YlzvGLvyRkb4tfVxKHJwHZQUrHtUxZ6iWMSuD42/R7O8au7LFTZAgW6pRMQB7jL+l1aA=
-
 after_success:
   - npm run coverage
   - typedoc --out docs ./src
-
 deploy:
   provider: pages
   skip_cleanup: true
   local_dir: docs
-  github_token: $GH_REPO_TOKEN
+  github_token: "$GITHUB_TOKEN"
   on:
     branch: master
+env:
+  matrix:
+    secure: fUxdpWl8+5uL2yjZy5WJnlctRquooEG4YNVObTJGRd4k27bAmGxXTy3NtL0as/OjYlJ/ElKNrO4yGlcO1FKTEABk2b2p1ElyDnI0bbIl8F56DbW/8LjsjSmVBcCKS81pZzuetxn+dJVrkhv2qcbyJ+hLk8h+ogqafwfJqRA6zG4WZNZzZ7ZuOfjh8tmy4PBk9qhuQNvbALD6aWu5+XDrcUoOAfZqzfY2raTOJtE2boAooeO+dxYOrL3cy2PhmMp+5o8S5wKPj8FKod2E0ebm8lUtbPK8JnXXK4N8btPAdaOSYgAN4jSWuuHf5VOJIm7CxG5KOvIELWrqRGtPBeta0tRvdi49iIo/bCDWokDwVx0Fglab1EVmHI6I7/waWD6wfFOfjECuyGj82qcyJCUf1ljoRirFReNcfCKuaxiY8EjtTqiHLbyebozmHyNilGotHL76EK/sTB1s+wckkFr//8fD/CGbB06Eu7u44x7rNownUCgyMtu1xlGwZt0lTqSb8DJzoGYrOdP1fVRkS6D8gD/7Rj3rUlajubisjbn1LRAZ53fblqPR5u2Uh4KYlhb60+oXbX+WakknNjp633sPxh8BB5NMaoYoLbpqvPrRknz2+ypgG7cKGfUv7YalcrQe2nqKCBdhDOiaYvaw1Um6tMjAGJCCTLL+1Oy1D/9PDG4=

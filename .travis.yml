@@ -10,7 +10,7 @@ after_success:
   - typedoc --out docs ./src
 
 before_deploy:
-  - touch .nojekyll
+  - touch docs/.nojekyll
 
 deploy:
   provider: pages

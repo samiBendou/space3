@@ -46,7 +46,7 @@ const space3 = require("space3");
 const Vector3 = space3.Vector3, Matrix3 = space3.Matrix3;
 ```
 
-###Syntax
+### Syntax
 
 ```js
 let u = new Vector3(1, 2, 3), v = Vector3.ones;
@@ -63,7 +63,7 @@ let u = p.to(q);
 p.translate(u);
 ```
 
-###Contribution guidelines
+### Contribution guidelines
 
 If you want to improve math javascript experience
 don't hesitate to contribute all kind of improvements are welcomed [CONTRIBUTING.md](https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md)

@@ -1,7 +1,50 @@
+/**
+ * ## Introduction
+ *
+ * This module provides various algebra related features. It provides API specification for almost all the framework.
+ *
+ * ## Matrices and vectors
+ * Interfaces to standardize mathematical operations for matrices and vectors are specified here.
+ * All vectors and matrices inherits from [[Float64Array]] in order to provide double precision computation and an array access `u[k]`.
+ *
+ * All the documentation for common mathematical operations can be founded in [[Vector]] and [[Matrix]]
+ * documentations. Theses interface offers a rich object oriented syntax.
+ *
+ * Theses operations are implemented using 3D optimized code that achieve both very high functionality and speed.
+ *
+ * ## Object oriented interface
+ * This module is natively written using object oriented paradigm which makes it syntax very close to the natural
+ * mathematical language. For example `u += v` becomes `u.add(v)`.
+ *
+ * #### Example
+ * ```js
+ * a = u.addc(w).add(v);
+ * b = u.subc(w.addc(v).div(s));
+ * c = m1.prodc(m2.powc(2)).prod(m3);
+ * ```
+ *
+ * **Note** calling objects are modified during the operation, call `c` suffixed method to output a new instance and
+ * avoid modify the calling object.
+ *
+ * ## Functional interface
+ * This module provides a functional interface consists on a set of function that partially implement the interface [[Vector]].
+ * It allows to perform operations using the syntax `op(u1, u2)` instead of `u1.op(u2)` with quasi no performance loss.
+ *
+ * #### Example
+ * ```js
+ * a = add(u, w, v);
+ * b = sub(u, div(s, w, v));
+ * c = prod(m1, m2.powc(2), m3);
+ * ```
+ * **Note** this interface is immutable, the original objects are not modified during operation and a new instance is returned.
+ */
+
+/** numeric precision limit */
 export const epsilon = Number.EPSILON;
 
 export const epsilon2 = epsilon * epsilon;
 
+/** returns a random gaussian number using Box-Muller */
 export const gaussian = (mu: number, sigma: number) => {
     const pi2 = 2 * Math.PI;
     let s0: number, s1: number;
@@ -13,7 +56,7 @@ export const gaussian = (mu: number, sigma: number) => {
 };
 
 
-/** encode values in different native Javascript types */
+/** Encodes values in different native Javascript types. */
 export interface Encoder {
     /** native Javascript array containing object's content */
     array(): number[];
@@ -22,10 +65,10 @@ export interface Encoder {
     string(): string;
 }
 
-/** @brief objects of 3D space
- * @details add 3D utilities accessors to an object
- *  * - Implements `x`, `y` and `z` members such that if the object is of dimension `N`,
- * `x` is of dimension `N/3`, eg. `.x` of a [[Matrix3]] becomes a [[Vector3]].
+/** @brief Objects of 3D space.
+ * @details **Standardize components accessors** between objects of dimension 3.
+ * Implements `x`, `y` and `z` members such that if the object is of dimension `N`,
+ * `x` is of dimension `N/3`. For example `x` of a [[Matrix3]] is a [[Vector3]].
  */
 export interface Object3 {
     x: any;
@@ -36,9 +79,9 @@ export interface Object3 {
 }
 
 /**
- * @brief objects of 9D space
- * @details add accessors to an object
- * - Implements `xx`, `yx` such that if the object represent a matrix the first coordinate index
+ * @brief Objects of 9D space.
+ * @details **Standardize components accessors** between objects of dimension 9.
+ * Implements `xx`, `yx` such that if the object represent a matrix the first coordinate index
  * is the row and and the second is the column index.
  */
 export interface Object9 {
@@ -55,21 +98,23 @@ export interface Object9 {
 }
 
 /**
- * @brief abstract vectors
- * @details Represents a **vector** in an abstract _normed vector space_.
+ * @brief Abstract vectors.
+ * @details Represents a **vector** in a  _normed vector space_.
  * It might be numerical vectors, matrices, or something more complicated.
  *
- * - Has to be related to 3D but not necessarily represent an object of dimension 3.
+ * A [[Vector]] has to be related to 3D but not necessarily represent an object of dimension 3.
+ * However it must offer the following operations :
  *
- * - Offers algebraical operations `add`, `sub`, `inv`, `mul`, `prod`,  ...
+ * - Objects copy and clone `copy`, `clone`, `assign`, ...
+ * - Basic **manipulators** `floor`, `fill`, `abs`, ...
+ * - **Algebraical operations** `add`, `sub`, `inv`, `mul`, `prod`,  ...
+ * - Linear, cubic and Bezier's **interpolation** `lerp`, `herp`, ...
+ * - **Equality**, zeros and distance methods `equal2`, `mag`, `dist1`, ...
+ * - Provide **immutable operations** by cloning `addc`, `subc`, ...
  *
- * - Offers norm based equality, zeros and distance methods `equal`, `mag`, `dist`, ...
- *
- * - Provides immutable operations `addc`, `subc`, ...
- *
- * In all the follows `u` will always name `this` vector and `v` the parameter vector named `vector` in the code.
+ * In all that follows `u` will always denote vector `this` and `v` vector `vector`.
  */
-export interface Vector extends Encoder {
+export interface Vector extends Encoder, Float64Array {
     /** dimension of the vector */
     dim: number;
 
@@ -79,7 +124,7 @@ export interface Vector extends Encoder {
     /** squared magnitude of the vector */
     mag2: number;
 
-    /** assigns coordinates to a vector */
+    /** assigns components to a vector */
     assign(...coordinates: number[]): this;
 
     /** copies a source vector into `this` */
@@ -94,40 +139,40 @@ export interface Vector extends Encoder {
     /** reset to a multiplicative neutral element `1` */
     reset1(): this;
 
-    /** components by components `Math.random` */
+    /** `Math.random` of the components */
     random(): this;
 
-    /** components by components `Math.floor` */
+    /** `Math.floor` of the components */
     floor(): this;
 
     floorc(): Vector;
 
-    /** components by components `Math.ceil` */
+    /** `Math.ceil` of the components */
     ceil(): this;
 
     ceilc(): Vector;
 
-    /** components by components `Math.round` */
+    /** `Math.round` of the components */
     round(): this;
 
     roundc(): Vector;
 
-    /** components by components truncate method keeping a given amount of decimals */
+    /** truncate method keeping a given amount of decimals */
     trunc(decimals: number): this;
 
     truncc(decimals: number): Vector;
 
-    /** components by components `Math.abs` */
+    /** `Math.abs` of the components */
     abs(): this;
 
     absc(): Vector;
 
-    /** components by components `Math.min` */
+    /** `Math.min` between the components of the two vectors  */
     min(vector: Vector): this;
 
     minc(vector: Vector): Vector;
 
-    /** components by components `Math.max` */
+    /** `Math.max` between the components of the two vectors */
     max(vector: Vector): this;
 
     maxc(vector: Vector): Vector;
@@ -167,17 +212,37 @@ export interface Vector extends Encoder {
 
     combc(s: number, vector: Vector): Vector;
 
-    /** linear interpolation between two vectors. `s` must be between 0 and 1 **/
+    /**
+     * @brief linear interpolation between two vectors `u + (v - u) * s`
+     * @details `s` must be between 0 and 1.
+     * @param target destination of interpolation
+     * @param s parameter of the interpolation.
+     */
     lerp(target: Vector, s: number): this;
 
     lerpc(target: Vector, s: number): Vector;
 
     /** Hermite's interpolation between two vectors with two control points. `s` must be between 0 and 1  **/
+    /**
+     * @brief Hermite's interpolation between two vectors
+     * @details `s` must be between 0 and 1.
+     * @param target destination of interpolation
+     * @param vector1 control point number 1
+     * @param vector2 control point number 2
+     * @param s parameter of the interpolation.
+     */
     herp(target: Vector, vector1: Vector, vector2: Vector, s: number): this;
 
     herpc(target: Vector, vector1: Vector, vector2: Vector, s: number): Vector;
 
-    /** Bezier's interpolation between two vectors with two control points. `s` must be between 0 and 1  */
+    /**
+     * @brief Bezier's interpolation between two vectors
+     * @details `s` must be between 0 and 1.
+     * @param target destination of interpolation
+     * @param vector1 control point number 1
+     * @param vector2 control point number 2
+     * @param s parameter of the interpolation.
+     */
     berp(target: Vector, vector1: Vector, vector2: Vector, s: number): this;
 
     berpc(target: Vector, vector1: Vector, vector2: Vector, s: number): Vector;
@@ -205,36 +270,36 @@ export interface Vector extends Encoder {
     /** usual dot product of two vector `u | v` */
     dot(vector: Vector): number;
 
-    /** dot product based distance `d2(u, v)` */
+    /** distance distance between two vectors `d2(u, v)` */
     dist(vector: Vector): number;
 
-    /** manhattan distance between two vectors `d1(u, v)` */
+    /** distance between two vectors given by norm 1 `d1(u, v)` */
     dist1(vector: Vector): number;
 
-    /** squared dot product based distance `d2(u, v)**2` */
+    /** squared distance between two vectors given by norm 2 `d2(u, v)**2` */
     dist2(vector: Vector): number;
 
     /** `true` if the vectors have exactly the same coordinates */
     exact(vector: Vector): boolean;
 
-    /** `true` if the manhattan distance between vectors is 0 */
+    /** `true` if the distance 1 between vectors is 0 */
     equal1(vector: Vector): boolean
 
-    /** `true` if the dot product based distance between vectors is 0 */
+    /** `true` if the distance 2 between vectors is 0 */
     equal2(vector: Vector): boolean;
 
     /** `true` if the vector has only exacts 0 as coordinates */
     nil(): boolean;
 
-    /** `true` if the vector has a 0 manhattan distance */
+    /** `true` if the vector has a 0 norm 1 */
     zero1(): boolean;
 
-    /** `true` if the vector has a 0 magnitude */
+    /** `true` if the vector has a 0 norm 2 */
     zero2(): boolean;
 }
 
 /**
- * @brief abstract matrix
+ * @brief Abstract matrices.
  * @details Add some matrix related features to the [[Vector]] interface.
  */
 export interface Matrix extends Vector {

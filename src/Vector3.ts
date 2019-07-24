@@ -1,18 +1,62 @@
+/**
+ * ## Introduction
+ *
+ * Represent 3 dimensional vectors with an **object oriented interface**. This module only document the class
+ * [[Vector3]]. See [Algebra](_algebra_.html) page for more general information about the API.
+ *
+ * ## Vector3
+ *
+ * [[Vector3]] is a vast class that allows to perform many **commons and advanced operations** with 3D vectors.
+ * It is designed to provide fast and intuitive interface for **algebraical and geometrical** manipulations.
+ *
+ * ### Coordinates systems
+ * Get and set coordinates in many different systems.
+ *
+ * #### Example
+ * ```js
+ * let u = Vector3.ones; // u = (1 1 1)
+ * console.log(u.r); // outputs +sqrt(3)
+ * console.log(u.x); // outputs 1
+ * console.log(u.theta); // outputs +pi/4
+ * console.log(u.xyz); // outputs [1, 1, 1]
+ * ```
+ *
+ * ### Geometrical features
+ * Perform rotations, compute angles, get cosine, ...
+ *
+ * #### Example
+ *  * ```js
+ * let u = Vector3.ones, ex = Vector3.ex; // (1, 1, 1) (1, 0, 0)
+ * console.log(u.angle(ex)); // outputs +pi/4
+ * ex.rotZ(Math.PI / 2);
+ * console.log(u.string()); // outputs (0, 1, 0)
+ * ```
+ *
+ * ### Basis generators
+ * Represent 3D local basis such as cylindrical basis.
+ *
+ * #### Example
+ * ```js
+ * let ones = Vector3.ones;
+ * let er = Vector3.er(ones), etheta = Vector3.etheta;
+ * ```
+ *
+ * </br>
+ * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
+ */
+/** */
+
 import {epsilon, epsilon2, gaussian, mag, mag2, Object3, Vector} from "./Algebra";
 
 /**
  * @brief 3D Vectors
  * @details Represents numeric vectors of dimension 3.
  *
- * - **geometrical operations** `angle`, `cross`, `dist`, ...
- *
- * - **many coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
- *
- * - **basis generators** like `ex`, `er`, `e(k)`, ...
- *
- * - **rotations** around `x`, `y`, `z` and custom angles
- *
- * - inherits from `Float64Array` in order to provide double precision computation
+ * - **Array like** access `u[0]`, `u[1]`, ...
+ * - **Geometrical operations** `angle`, `cross`, `dist`, ...
+ * - **Many coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
+ * - **Basis generators** like `ex`, `er(u)`, `e(k)`, ...
+ * - **Rotations** around `ex`, `ey`, `ez` and custom axis, `rot`, `rotX`, ...
  */
 export class Vector3 extends Float64Array implements Vector, Object3 {
 
@@ -568,12 +612,12 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return t1[0] * ux + t1[1] * uy + t1[2] * uz;
     }
 
-    /** @brief rotates the vector around `x`
-     *  @details Anticlockwise rotation.
-     *  @param theta angle of rotation
-     *  @param cos `x` metric function of the rotation
-     *  @param sin `y` metric function of the rotation
-     * */
+    /**
+     * @brief rotates the vector around `x` axis
+     * @param theta angle of rotation
+     * @param cos `x` metric function of the rotation
+     * @param sin `y` metric function of the rotation
+     */
     rotX(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), y = this[1], z = this[2];
         this[1] = y * c - z * s;
@@ -581,12 +625,12 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
-    /** @brief rotates the vector around `y` axis
-     *  @details Anticlockwise rotation.
-     *  @param theta angle of rotation
-     *  @param cos `x` metric function of the rotation
-     *  @param sin `y` metric function of the rotation
-     **/
+    /**
+     * @brief rotates the vector around `y` axis
+     * @param theta angle of rotation
+     * @param cos `x` metric function of the rotation
+     * @param sin `y` metric function of the rotation
+     */
     rotY(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = -sin(theta), x = this[0], z = this[2];
         this[0] = x * c + z * s;
@@ -594,12 +638,13 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
-    /** @brief rotates the vector around `z` axis
-     *  @details Anticlockwise rotation.
-     *  @param theta angle of rotation
-     *  @param cos `x` metric function of the rotation
-     *  @param sin `y` metric function of the rotation
-     *  */
+    /**
+     * @brief rotates the vector around `z` axis
+     * @param theta angle of rotation
+     * @param cos `x` metric function of the rotation
+     * @param sin `y` metric function of the rotation
+     * @details Anticlockwise rotation.
+     */
     rotZ(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), x = this[0], y = this[1];
         this[0] = x * c - y * s;
@@ -607,13 +652,13 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
-    /** @brief rotates the vector around given axis
-     *  @details Anticlockwise rotation.
-     *  @param u axis of rotation
-     *  @param theta angle of rotation
-     *  @param cos `x` metric function of the rotation
-     *  @param sin `y` metric function of the rotation
-     **/
+    /**
+     * @brief rotates the vector around given axis
+     * @param u axis of rotation
+     * @param theta angle of rotation
+     * @param cos `x` metric function of the rotation
+     * @param sin `y` metric function of the rotation
+     */
     rot(u: Vector3, theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), k = 1 - c;
         const x = this[0],
@@ -631,7 +676,16 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
-    /** sets coordinates to `xm`, `ym`, `zm` with given deviation see [[Vector3.gaussian]] for more details */
+    /**
+     * @brief random vector following normal law
+     * @details If `yd` and `zd` are unspecified then `xd` will represent the standard deviation for all axis.
+     * @param xm average value of `x`
+     * @param ym average value of `y`
+     * @param zm average value of `z`
+     * @param xd standard deviation along `x` axis
+     * @param yd standard deviation along `y` axis
+     * @param zd standard deviation along `z` axis
+     */
     gaussian(xm: number, ym: number, zm: number, xd: number, yd = xd, zd = xd): this {
         this[0] = gaussian(xm, xd);
         this[1] = gaussian(ym, yd);
@@ -658,24 +712,22 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return new Vector3(s, s, s);
     }
 
-    /** vector filled with uniform random values */
+    /** vector filled with uniform random values.  See [[random]] for more details. */
     static random(): Vector3 {
         return new Vector3(Math.random(), Math.random(), Math.random());
     }
 
-    /** @brief vector with coordinates following gaussian law centered at coordinates `xm`, `ym`, `zm`
-     * @details specify either a deviation in each axis `xd`, `yd`, `zd` or a deviation `xd` for all axis
-     */
+    /** vector with coordinates following gaussian law. See [[Vector3.gaussian]] for more details. */
     static gaussian(xm: number, ym: number, zm: number, xd: number, yd = xd, zd = xd): Vector3 {
         return new Vector3(gaussian(xm, xd), gaussian(ym, yd), gaussian(zm, zd));
     }
 
-    /** vector with given cylindrical coordinates */
+    /** vector with given cylindrical coordinates. See [[this.rthz]] for more details. */
     static rthz(rxy: number, theta: number, z: number): Vector3 {
         return new Vector3(rxy * Math.cos(theta), rxy * Math.sin(theta), z);
     }
 
-    /** vector with given spherical coordinates */
+    /** vector with given spherical coordinates. See [[rthph]] for more details. */
     static rthph(r: number, theta: number, phi: number): Vector3 {
         const s = r * Math.sin(phi);
         return new Vector3(s * Math.cos(theta), s * Math.sin(theta), r * Math.cos(phi));
@@ -734,7 +786,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
     /**
      * @brief prograde vector of spherical basis
      * @details Prograde vector is perpendicular to the radial vector and oriented in the positive `theta` direction.
-     * Note that this vector also correspond to the prograde vector of cylindrical basis.
+     * This vector also correspond to the prograde vector of cylindrical basis.
      * @param u position of local basis from origin
      */
     static etheta(u: Vector3): Vector3 {

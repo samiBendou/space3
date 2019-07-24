@@ -7,10 +7,7 @@ branches:
 
 after_success:
   - npm run coverage
-  - typedoc --out docs ./src
-
-before_deploy:
-  - touch docs/.nojekyll
+  - npm run doc
 
 deploy:
   provider: pages

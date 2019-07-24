@@ -1,7 +1,7 @@
 {
   "name": "space3",
   "version": "1.0.0",
-  "description": "",
+  "description": "High performance WebGL compatible API for 3D maths",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "files": [
@@ -12,7 +12,8 @@
   "scripts": {
     "prepublishOnly": "tsc && tsc -p tsconfig.browser.json",
     "test": "nyc mocha -r ts-node/register test/**/*.test.ts --timeout=3000",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "doc": "typedoc --out docs ./src && touch docs/.nojekyll"
   },
   "nyc": {
     "include": [
@@ -33,7 +34,7 @@
     "sourceMap": true,
     "instrument": true
   },
-  "homepage": "https://github.com/samiBendou/math3/wiki",
+  "homepage": "https://samibendou.github.io/space3/",
   "bugs": "https://github.com/samiBendou/math3/issues",
   "author": "Sami Dahoux <sbdh75@gmail.com> (https://github.com/samiBendou)",
   "license": "MIT",

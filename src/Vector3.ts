@@ -14,11 +14,11 @@
  *
  * #### Example
  * ```js
- * let u = Vector3.ones; // u = (1 1 1)
- * console.log(u.r); // outputs +sqrt(3)
- * console.log(u.x); // outputs 1
- * console.log(u.theta); // outputs +pi/4
- * console.log(u.xyz); // outputs [1, 1, 1]
+ * let u = Vector3.ones; // u = (1, 1, 1)
+ * u.r; // +sqrt(3)
+ * u.x; // 1
+ * u.theta; // +pi/4
+ * u.xyz; // [1, 1, 1]
  * ```
  *
  * ### Geometrical features
@@ -27,9 +27,9 @@
  * #### Example
  *  * ```js
  * let u = Vector3.ones, ex = Vector3.ex; // (1, 1, 1) (1, 0, 0)
- * console.log(u.angle(ex)); // outputs +pi/4
- * ex.rotZ(Math.PI / 2);
- * console.log(u.string()); // outputs (0, 1, 0)
+ * u.angle(ex); // +pi/4
+ * ex.cross(ex); // (0, 0, 0)
+ * ex.rotZ(Math.PI / 2); // ex becomes ey
  * ```
  *
  * ### Basis generators
@@ -37,8 +37,8 @@
  *
  * #### Example
  * ```js
- * let ones = Vector3.ones;
- * let er = Vector3.er(ones), etheta = Vector3.etheta;
+ * let ex = Vector3.ex, ey = Vector3.ey, ez = Vector3.ez;
+ * let er = Vector3.er(u), etheta = Vector3.etheta(u);
  * ```
  *
  * </br>
@@ -225,6 +225,7 @@ export class Vector3 extends Float64Array implements Vector, Object3 {
         return new Vector3(this[0], this[1], this[2]);
     }
 
+    /** sets vector to zeros */
     reset0(): this {
         this[0] = 0;
         this[1] = 0;

@@ -5,7 +5,8 @@
  *
  * ## Matrices and vectors
  * Interfaces to standardize mathematical operations for matrices and vectors are specified here.
- * All vectors and matrices inherits from [[Float64Array]] in order to provide double precision computation and an array access `u[k]`.
+ * All vectors and matrices inherits from [[Float64Array]] in order to provide double precision computation, an array access `u[k]`.
+ * and native C/C++ array compatibility.
  *
  * All the documentation for common mathematical operations can be founded in [[Vector]] and [[Matrix]]
  * documentations. Theses interface offers a rich object oriented syntax.
@@ -13,7 +14,7 @@
  * Theses operations are implemented using 3D optimized code that achieve both very high functionality and speed.
  *
  * ## Object oriented interface
- * This module is natively written using object oriented paradigm which makes it syntax very close to the natural
+ * This framework is natively written using object oriented paradigm which makes it syntax very close to the natural
  * mathematical language. For example `u += v` becomes `u.add(v)`.
  *
  * #### Example
@@ -22,13 +23,17 @@
  * b = u.subc(w.addc(v).div(s));
  * c = m1.prodc(m2.powc(2)).prod(m3);
  * ```
+ * It allows to perform binary operations in way such that `u.op(v)` stores the result of `op` in `u`, erasing the
+ * initial content of `u` but avoid cloning objects after operations.
  *
- * **Note** calling objects are modified during the operation, call `c` suffixed method to output a new instance and
- * avoid modify the calling object.
+ * This syntax allows very fast computing by minimizing the number of new instance to create while performing operations.
+ *
+ * **Note** Call `c` suffixed method to output a new instance and avoid modify the calling object.
  *
  * ## Functional interface
  * This module provides a functional interface consists on a set of function that partially implement the interface [[Vector]].
- * It allows to perform operations using the syntax `op(u1, u2)` instead of `u1.op(u2)` with quasi no performance loss.
+ * It allows to perform operations using the syntax `op(u, v, w)` instead of `u.opc(v).op(w)` with quasi no performance loss.
+ * It can perform operations with an arbitrary number of vector `op(...vectors)`.
  *
  * #### Example
  * ```js
@@ -36,15 +41,35 @@
  * b = sub(u, div(s, w, v));
  * c = prod(m1, m2.powc(2), m3);
  * ```
- * **Note** this interface is immutable, the original objects are not modified during operation and a new instance is returned.
+ *
+ * **Note** The original objects are not modified during operation and a new instance is always returned.
+ *
+ * ## Generation of objects
+ *
+ * All classes that implement [[Algebra]] interface allows to generate matrix using many Matlab-like generators
+ * such as `zeros`, `ones`. Theses generators are designed as static accessors of each vector-like class.
+ * Each call to this accessors construct a new object.
+ *
+ * #### Example
+ * ```js
+ * let u = Vector3.zeros; // new vector filled with 0
+ * let v = Vector3.ex; // new vector (1, 0, 0)
+ * let m = Matrix3.ones; // new matrix filled with 1
+ * let n = Matrix3.eye; // new identity matrix
+ * let q = Matrix3.scalar(6); // diagonal matrix filled with 6
+ * ```
  */
 
-/** numeric precision limit */
+/** Numeric precision limit. */
 export const epsilon = Number.EPSILON;
 
 export const epsilon2 = epsilon * epsilon;
 
-/** returns a random gaussian number using Box-Muller */
+/**
+ * @brief returns a random gaussian number using Box-Muller
+ * @param mu mean of the number
+ * @param sigma standard deviation of the number
+ */
 export const gaussian = (mu: number, sigma: number) => {
     const pi2 = 2 * Math.PI;
     let s0: number, s1: number;
@@ -56,7 +81,15 @@ export const gaussian = (mu: number, sigma: number) => {
 };
 
 
-/** Encodes values in different native Javascript types. */
+/**
+ * Encodes values in different native Javascript types.
+ *
+ * #### Example
+ * ```js
+ * u.string(); // "(ux, uy, uz)"
+ * m.array(); // [mxx, myx, mzx, mxy, ... ]
+ * ```
+ * */
 export interface Encoder {
     /** native Javascript array containing object's content */
     array(): number[];
@@ -65,10 +98,42 @@ export interface Encoder {
     string(): string;
 }
 
-/** @brief Objects of 3D space.
- * @details **Standardize components accessors** between objects of dimension 3.
+/**
+ *
+ * ## Introduction
+ *
+ * This interface standardizes components accessors and rotations between objects of dimension 3.
  * Implements `x`, `y` and `z` members such that if the object is of dimension `N`,
  * `x` is of dimension `N/3`. For example `x` of a [[Matrix3]] is a [[Vector3]].
+ *
+ * ## Rotations
+ * 3D rotations for matrices and vectors are both very powerful and computationally efficient. It allows to generate
+ * custom rotation matrix and to rotate vectors around any arbitrary axis around any circular-like shape.
+ *
+ * ```js
+ * u.rotX(angle);
+ * v.rot(u, angle);
+ * w.rot(u, angle, cos, sin);
+ * m = Matrix3.rotX(angle);
+ * n = Matrix3.rot(u, angle);
+ * q = Matrix3.rot(u, angle, cos, sin);
+ * ```
+ *
+ * In the last line, he methods `cos` and `sin` are called the _metric functions_ of the rotation.
+ * By default these are let to `Math.cos` and `Math.sin` the resulting rotation will be a circular.
+ *
+ * ### Elliptic rotation
+ * A standard use case for extended features of rotation matrix is the generation of an elliptic rotation matrix.
+ * Pass the method `(x) => a * Math.cos(x)` and `(y) => b * Math.sin(y)` as metric functions, the result will
+ * be a rotation matrix around an ellipse of semi-axis major `max(a,b)` and semi-axis minor `min(a, b)`.
+ *
+ * #### Example
+ * ```js
+ * let a = 2, b = 1; // a is semi-axis major, b is semi-axis minor
+ *
+ * // +pi/2 rotation around ellipse of axis u
+ * m = Matrix3.rot(u, Math.PI / 2, (x) => a * Math.cos(x), (y) => b * Math.sin(y));
+ * ```
  */
 export interface Object3 {
     x: any;
@@ -79,8 +144,10 @@ export interface Object3 {
 }
 
 /**
- * @brief Objects of 9D space.
- * @details **Standardize components accessors** between objects of dimension 9.
+ *
+ * ## Introduction
+ *
+ * This interface tandardize components accessors between objects of dimension 9.
  * Implements `xx`, `yx` such that if the object represent a matrix the first coordinate index
  * is the row and and the second is the column index.
  */
@@ -111,8 +178,6 @@ export interface Object9 {
  * - Linear, cubic and Bezier's **interpolation** `lerp`, `herp`, ...
  * - **Equality**, zeros and distance methods `equal2`, `mag`, `dist1`, ...
  * - Provide **immutable operations** by cloning `addc`, `subc`, ...
- *
- * In all that follows `u` will always denote vector `this` and `v` vector `vector`.
  */
 export interface Vector extends Encoder, Float64Array {
     /** dimension of the vector */
@@ -300,7 +365,11 @@ export interface Vector extends Encoder, Float64Array {
 
 /**
  * @brief Abstract matrices.
- * @details Add some matrix related features to the [[Vector]] interface.
+ * @details Add some matrix related features to the [[Vector]] interface. Matrix are stored in memory
+ * as 1D contiguous array of columns.
+ *
+ * - Efficient manipulation of **rows and columns** `row`, `rows`, `cols`, ...
+ * - Matrix algebra extended features `pow`, `det`, `at`, ...
  */
 export interface Matrix extends Vector {
     /** matrix as 2D array of rows */

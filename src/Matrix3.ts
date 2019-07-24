@@ -1,5 +1,62 @@
 /**
+ * ## Introduction
  *
+ * Represent 3x3 matrix with an **object oriented interface**. This module only document the class
+ * [[Matrix3]]. See [Algebra](_algebra_.html) page for more general information about the API.
+ *
+ * ## Matrix3
+ *
+ * [[Matrix3]] is a vast class that allows to perform many **commons and advanced operations** with 3x3 matrices.
+ * It's designed in the ame philosophy as [[Vector3]].
+ *
+ * ### Coordinates
+ *
+ * Access a component using an equivalent of cartesian coordinates `m.ij` where :
+ *
+ * - `i` is a row index which value can be `x`, `y`, `z`
+ * - `j` is a column index which value can be `x`, `y`, `z`
+ *
+ * #### Example
+ * ```js
+ * m.xx = 2;
+ * s = m.yz + u.x;
+ * z = m.zz;
+ * ```
+ * ### Interface with Vector3
+ *
+ * [[Matrix3]] provides an interface with [[Vector3]] by implementing [[Object3]] interface. It allows to construct
+ * vectors from rows and columns of the matrix.
+ *
+ * #### Example
+ * ```js
+ * m.x = new Vector3(2, 0, 2);
+ * u = m.y;
+ * m.xyz = [u, v, w];
+ * ```
+ *
+ * ### Rotation matrix
+ * Rotation matrices can be generated using a very powerful generator :
+ *
+ * - Efficient rotations around `x`, `y` and `z`
+ * - Rotation around arbitrary vector axis `u`
+ * - Rotation around ellipses and hyperbolas `a * cos(theta)`, `b * sinh(theta)`, ...
+ *
+ * #### Example
+ * ```js
+ * // rotation matrix around x axis with angle +pi/4
+ * m = Matrix3.rotX(Math.PI / 4);
+ *
+ * // rotation matrix around u axis with angle +pi/4
+ * n = Matrix3.rot(u, Math.PI / 4);
+ *
+ * // elliptic rotation matrix around z axis with angle +pi/4
+ * q = Matrix3.rotZ(Math.PI / 4, (x) => 5 * Math.cos(x), Math.sin);
+ * ```
+ *
+ * see [[Object3]] interface documentation for more details about rotations in the framework.
+ *
+ * </br>
+ * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
  */
 
 /** */
@@ -11,21 +68,10 @@ import {Vector3} from "./Vector3";
  * @brief 3x3 matrices
  * @details Represents dense square matrices of dimension 3
  *
- * - components are ordered as column eg. `m[2]` denotes the value at first column and third row
- *
- * - A row index will always be noted `i` and a column index `j`
- *
- * - components accessors `.ij` such that `i` and `j` can be equal to `x`, `y` or `z`. eg. `m.xy === m[3]` and `m.yx === m[1]`
- *
+ * - **Array like** access `m[2]` denotes the value at first column and third row
+ * - components accessors `.ij`, `xx`, `xy`, ...
  * - interface with [[Vector3]] `x`, `y`, `z`, ...
- *
- * - **row and columns** accessors `row`, `col`, ...
- *
- * - **extended algebraical operations** `adj`, `pow`, `at`, ...
- *
  * - **many generators** `diag`, `sym`, `scalar`, `rotX`, ...
- *
- * - inherits from `Float64Array` in order to provide double precision computation
  */
 export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     dim: Readonly<number> = 9;

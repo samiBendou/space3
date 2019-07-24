@@ -13,9 +13,12 @@ env:
 
 after_success:
   - npm run coverage
-  - git clone "https://$GITHUB_TOKEN@github.com/$GITHUB_USER/$GITHUB_REPO.wiki.git"
-  - bash gendoc.sh
-  - cd $GITHUB_REPO.wiki
-  - git add .
-  - git commit -m "Generated Wiki via Travis-CI"
-  - git push
+  - typedoc --out docs ./src
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: docs
+  github_token: $GH_REPO_TOKEN
+  on:
+    branch: master

@@ -3,6 +3,8 @@
  * Welcome to the documentation of **space3** here is explained how to get started with the framework and where to
  * find documentation for a deep dive into the features.
  *
+ * Each module page contains a tutorial that helps you to get started with the framework step-by-step.
+ *
  * ### Summary
  * - Introduction to the framework [here](_algebra_.html)
  * - How to perform algebraical operations [[Vector]] and [[Matrix]]

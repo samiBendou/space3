@@ -1,7 +1,7 @@
 
 \.idea/
 
-node_modules/
+\node_modules/
 
 \.nyc_output/
 

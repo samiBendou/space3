@@ -9,16 +9,13 @@ describe("Point3 Tests", () => {
     let m: Point3, p: Point3, zeros: Point3;
 
     beforeEach(() => {
-        m = new Point3(Vector3.ex, Vector3.ey);
-        p = new Point3(Vector3.ex);
-        zeros = new Point3(Vector3.zeros);
+        m = new Point3(1, 0, 0, Vector3.ey);
+        p = new Point3(1, 0, 0);
+        zeros = new Point3(0, 0, 0);
     });
-    it("initialized", () => assert.isTrue(m.position.equal2(Vector3.ex) && m.origin.equal2(Vector3.ey)));
+    it("initialized", () => assert.isTrue(m[0] === 1 && m[1] === 0 && m[2] === 0 && m.origin.equal2(Vector3.ey)));
 
     describe("Generators", () => {
-        it("gets zeros", () => assert3.equal(Vector3.zeros, [0, 0, 0]));
-        it("gets ones", () => assert3.equal(Vector3.ones, [1, 1, 1]));
-        it("gets scalar", () => assert3.equal(Vector3.scalar(3), [3, 3, 3]));
     });
 
     describe("Zero", () => {
@@ -29,17 +26,17 @@ describe("Point3 Tests", () => {
     });
 
     describe("Manipulators", () => {
-        it("gets max", () => assert3.equal(p.maxc(m).position, [1, 1, 0]));
-        it("gets min", () => assert3.equal(p.minc(m).position, [1, 0, 0]));
+        it("gets max", () => assert3.equal(p.maxc(m), new Point3(1, 1, 0)));
+        it("gets min", () => assert3.equal(p.minc(m), new Point3(1, 0, 0)));
     });
 
     describe("Algebra", () => {
-        it("adds points", () => assert3.equal(m.addc(p).position, [2, -1, 0]));
-        it("adding doesn't change origin", () => assert3.equal(m.add(p).origin, [0, 1, 0]));
-        it("subtract points", () => assert3.equal(m.subc(p).position, [0, -1, 0]));
-        it("subtracting doesn't change origin", () => assert3.equal(m.sub(p).origin, [0, 1, 0]));
-        it("combines points", () => assert3.equal(m.combc(2, p).position, [3, -2, 0]));
-        it("interpolates points", () => assert3.equal(m.lerpc(p, 0.5).position, [1, -0.5, 0]));
+        it("adds points", () => assert3.equal(p.addc(m), new Point3(2, 1, 0)));
+        it("adding doesn't change origin", () => assert3.equal(p.add(m).origin, [0, 0, 0]));
+        it("subtract points", () => assert3.equal(p.subc(m), new Point3(0, 1, 0)));
+        it("subtracting doesn't change origin", () => assert3.equal(p.sub(m).origin, [0, 0, 0]));
+        it("combines points", () => assert3.equal(m.combc(2, p), new Point3(3, -2, 0, Vector3.ey)));
+        it("interpolates points", () => assert3.equal(m.lerpc(p, 0.5), new Point3(1, -0.5, 0, Vector3.ey)));
     });
 
     describe("Geometry", () => {
@@ -65,16 +62,16 @@ describe("Point3 Tests", () => {
         describe("Setters", () => {
             it("doesn't change origin", () => {
                 p.z = 2;
-                assert3.equal(p.origin, [0, 0, 0]);
+                assert3.equal(p.origin, new Point3(0, 0, 0));
                 p.xyz = [3, 4, 1];
                 assert3.equal(p.origin, Vector3.zeros);
             });
             it("sets values", () => {
                 p.x = 0;
                 p.y = 1;
-                assert3.equal(p.position, [0, 1, 0]);
+                assert3.equal(p, new Point3(0, 1, 0));
                 p.xyz = [3, 4, 1];
-                assert3.equal(p.position, [3, 4, 1]);
+                assert3.equal(p, new Point3(3, 4, 1));
             });
         });
     });
@@ -83,29 +80,29 @@ describe("Point3 Tests", () => {
        it("gets", () => assert3.equal(m.origin, Vector3.ey));
        it("sets", () => {
            m.origin = Vector3.zeros;
-           assert3.equal(m.position, [1, 1, 0]);
+           assert3.equal(m, new Point3(1, 1, 0));
            assert3.equal(m.origin, Vector3.zeros);
        });
     });
 
     describe("Absolute Position", () => {
-        it("gets", () => assert3.equal(m.absolute, [1, 1, 0]));
+        it("gets", () => assert3.equal(m.absolute, new Point3(1, 1, 0)));
         it("sets", () => {
             m.absolute = Vector3.zeros;
-            assert3.equal(m.position, Vector3.ey.neg());
-            assert3.equal(m.origin, Vector3.ey);
+            assert3.equal(m.origin, [0, 1, 0]);
+            assert3.equal(m, new Point3(0, -1, 0, Vector3.ey));
         });
     });
 
     describe("At/To", () => {
-        it("gets position at origin", () => assert3.equal(m.at(Vector3.zeros), [1, 1, 0]));
+        it("gets position at origin", () => assert3.equal(m.at(Vector3.zeros), new Point3(1, 1, 0)));
         it("this to vector", () => assert3.equal(m.to(p), new Vector3(0, -1, 0)));
     });
 
     describe("Affine", () => {
         it("gets affine transform", () => {
             let affOM = m.clone().affine(Matrix3.rotZ(Math.PI / 4), Vector3.ones);
-            assert.approximately(affOM.position.y, affOM.position.y, Number.EPSILON)
+            assert.approximately(affOM.y, affOM.y, Number.EPSILON)
         });
     });
 });

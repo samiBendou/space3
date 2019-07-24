@@ -1,7 +1,7 @@
 # space3
 
 [![Version](https://img.shields.io/npm/v/space3.svg?style=flat-square)](https://www.npmjs.com/package/space3)
-[![Build status](https://img.shields.io/travis/samiBendou/meca3.svg?style=flat-square)](https://travis-ci.org/samiBendou/space3)
+[![Build status](https://img.shields.io/travis/samiBendou/space3.svg?style=flat-square)](https://travis-ci.org/samiBendou/space3)
 [![License](https://img.shields.io/npm/l/space3.svg?style=flat-square)](https://www.npmjs.com/package/space3)
 
 Javascript has become a very common language for 3D animation and physics simulation.

@@ -1,6 +1,6 @@
 {
   "name": "space3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "High performance WebGL compatible API for 3D maths",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",

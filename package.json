@@ -36,7 +36,7 @@
   "homepage": "https://github.com/samiBendou/math3/wiki",
   "bugs": "https://github.com/samiBendou/math3/issues",
   "author": "Sami Dahoux <sbdh75@gmail.com> (https://github.com/samiBendou)",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "dependencies": {},
   "repository": {
     "type": "git",

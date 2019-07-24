@@ -67,7 +67,10 @@ describe("Matrix3 Tests", () => {
     });
 
     describe("Clone/Copy", () => {
-        it("clones object", () => assert3.equal(eye.clone(), Matrix3.eye));
+        it("clones object", () => assert3.equal(eye.clone(), new Matrix3(
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1)));
         it("does not modify original object", () => {
             magic.clone()[0] = 5;
             assert.equal(magic[0], 1);
@@ -79,6 +82,7 @@ describe("Matrix3 Tests", () => {
         it("gets zeros", () => assert3.equal(Matrix3.zeros, zeros));
         it("gets ones", () => assert3.equal(Matrix3.ones, ones));
         it("gets scalar", () => assert3.equal(Matrix3.scalar(2), a));
+        it("gets identity", () => assert3.equal(Matrix3.eye, eye));
         it("gets diagonal", () => assert3.equal(Matrix3.diag(1, 1, 1), eye));
         it("gets symmetrical", () => assert3.equal(Matrix3.sym(2, 2, 2, -1, -1), b));
         it("gets anti-symmetrical", () => assert3.equal(Matrix3.asym(2, 2, 2, 1, 1), new Matrix3(

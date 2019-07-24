@@ -1,3 +1,9 @@
+/**
+ *
+ */
+
+/** */
+
 import {epsilon, epsilon2, mag, mag2, Matrix, Object3, Object9} from "./Algebra";
 import {Vector3} from "./Vector3";
 

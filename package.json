@@ -13,7 +13,7 @@
     "prepublishOnly": "tsc && tsc -p tsconfig.browser.json",
     "test": "nyc mocha -r ts-node/register test/**/*.test.ts --timeout=3000",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "doc": "typedoc --out docs ./src --excludeNotExported --excludePrivate --excludeExternals --listInvalidSymbolLinks --mode file --module commonjs --target ES6 && touch docs/.nojekyll "
+    "doc": "typedoc --out docs ./src --excludeNotExported --excludePrivate --excludeExternals --listInvalidSymbolLinks --mode file --module commonjs --target ES6 --media media && touch docs/.nojekyll "
   },
   "nyc": {
     "include": [

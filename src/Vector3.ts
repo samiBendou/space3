@@ -20,6 +20,20 @@ import Vector from "./Vector";
  * to learn more about provided operations see [[Vector]].
  *
  * ## Getting Started
+ *
+ * Before explaining any code lets start with understanding a little diagram.
+ *
+ * ![Coordinates system](media://coordinates_diagram.png)
+ *
+ * The diagram specifies how the angles, and coordinates are oriented in space.
+ *
+ * Therefore we can defined the _canonical basis_ as bellow.
+ *
+ * ![Cartesian system](media://cartesian_diagram.png)
+ *
+ * This basis defines 3 fixed directions of space such as usual `up`, `left`, ... vectors
+ * in Unity for example.
+ *
  * ### Coordinates systems
  * Get and set coordinates in many different systems.
  *
@@ -53,6 +67,9 @@ import Vector from "./Vector";
  * let ex = Vector3.ex, ey = Vector3.ey, ez = Vector3.ez;
  * let er = Vector3.er(u), etheta = Vector3.etheta(u);
  * ```
+ *
+ * **Note** We assume that the local basis are formed as shown bellow
+ * ![Spherical system](media://local_basis_diagram.png)
  *
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>

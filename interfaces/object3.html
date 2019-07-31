@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -54,10 +52,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_algebra_.html">&quot;Algebra&quot;</a>
-				</li>
-				<li>
-					<a href="_algebra_.object3.html">Object3</a>
+					<a href="object3.html">Object3</a>
 				</li>
 			</ul>
 			<h1>Interface Object3</h1>
@@ -70,19 +65,21 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<h2 id="introduction">Introduction</h2>
-						<p>Standardizes components accessors and rotations between objects of 3D space.</p>
+						<h2 id="brief">Brief</h2>
+						<p><a href="object3.html">Object3</a> interface standardizes components accessors and rotations between objects of 3D space.</p>
 					</div>
-					<h2 id="components-accessors">Components accessors</h2>
-					<p>Provides <code>x</code>, <code>y</code> and <code>z</code> accessors such that if the object is of dimension <code>N</code>, <code>x</code> is of dimension <code>N/3</code>.</p>
-					<h3 id="example">Example</h3>
+					<h2 id="getting-started">Getting Started</h2>
+					<h3 id="components-accessors">Components accessors</h3>
+					<p>The interface provides <code>x</code>, <code>y</code> and <code>z</code> accessors such that if the object is of dimension <code>N</code>, <code>x</code> is of dimension <code>N/3</code>.</p>
+					<h4 id="example">Example</h4>
 					<pre><code class="language-js">m.x <span class="hljs-comment">// Vector3</span>
 u.z <span class="hljs-comment">// number</span>
 m.xyz <span class="hljs-comment">// [Vector3, Vector3, Vector3]</span>
 u.xyz <span class="hljs-comment">// [number, number, number]</span></code></pre>
-					<h2 id="rotations">Rotations</h2>
-					<p>3D rotations for matrices and vectors are both very powerful and computationally efficient. It allows to generate
-					custom rotation matrix and to rotate vectors around any arbitrary axis around any circular-like shape.</p>
+					<h3 id="rotations">Rotations</h3>
+					<p>3D rotations are very powerful and computationally efficient. They allow to generate
+					custom rotation matrix and to rotate vectors around any <em>arbitrary axis</em> around any <em>circular-like shape</em>.</p>
+					<h4 id="example">Example</h4>
 					<pre><code class="language-js">u.rotX(angle);
 v.rot(u, angle);
 w.rot(u, angle, cos, sin);
@@ -90,10 +87,12 @@ m.rotY(angle);
 n.rot(u, angle);
 q.rot(u, angle, cos, sin);</code></pre>
 					<p>In the last line, he methods <code>cos</code> and <code>sin</code> are called the <em>metric functions</em> of the rotation.
-					By default these are let to <code>Math.cos</code> and <code>Math.sin</code> the resulting rotation will be a circular.</p>
-					<h3 id="elliptic-rotation">Elliptic rotation</h3>
-					<p>A standard use case for extended features of rotation matrix is the generation of an elliptic rotation matrix.
-						Pass the method <code>(x) =&gt; a * Math.cos(x)</code> and <code>(y) =&gt; b * Math.sin(y)</code> as metric functions, the result will
+					By default theses are let to <code>Math.cos</code> and <code>Math.sin</code> the resulting rotation will be a circular.</p>
+					<h3 id="non-circular-rotation">Non-circular rotation</h3>
+					<p>To understand how works non-circular rotations lets start with an example.
+						A regular use case is the generation of an elliptic rotation matrix.
+					ie. a matrix that performs a rotation of a unit vector on a ellipse.</p>
+					<p>Pass the method <code>(x) =&gt; a * Math.cos(x)</code> and <code>(y) =&gt; b * Math.sin(y)</code> as metric functions, the result will
 					be a rotation matrix around an ellipse of semi-axis major <code>max(a,b)</code> and semi-axis minor <code>min(a, b)</code>.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">2</span>, b = <span class="hljs-number">1</span>; <span class="hljs-comment">// a is semi-axis major, b is semi-axis minor</span>
@@ -113,10 +112,10 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 			<section class="tsd-panel">
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/_matrix3_.matrix3.html" class="tsd-signature-type">Matrix3</a></li>
-					<li><a href="../classes/_point3_.point3.html" class="tsd-signature-type">Point3</a></li>
-					<li><a href="../classes/_point3_.point3.html" class="tsd-signature-type">Point3</a></li>
-					<li><a href="../classes/_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></li>
+					<li><a href="../classes/matrix3.html" class="tsd-signature-type">Matrix3</a></li>
+					<li><a href="../classes/point3.html" class="tsd-signature-type">Point3</a></li>
+					<li><a href="../classes/point3.html" class="tsd-signature-type">Point3</a></li>
+					<li><a href="../classes/vector3.html" class="tsd-signature-type">Vector3</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -126,20 +125,20 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.object3.html#x" class="tsd-kind-icon">x</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.object3.html#xyz" class="tsd-kind-icon">xyz</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.object3.html#xyzt" class="tsd-kind-icon">xyzt</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.object3.html#y" class="tsd-kind-icon">y</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.object3.html#z" class="tsd-kind-icon">z</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="object3.html#x" class="tsd-kind-icon">x</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="object3.html#xyz" class="tsd-kind-icon">xyz</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="object3.html#xyzt" class="tsd-kind-icon">xyzt</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="object3.html#y" class="tsd-kind-icon">y</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="object3.html#z" class="tsd-kind-icon">z</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.object3.html#rot" class="tsd-kind-icon">rot</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.object3.html#rotx" class="tsd-kind-icon">rotX</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.object3.html#roty" class="tsd-kind-icon">rotY</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.object3.html#rotz" class="tsd-kind-icon">rotZ</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="object3.html#rot" class="tsd-kind-icon">rot</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="object3.html#rotx" class="tsd-kind-icon">rotX</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="object3.html#roty" class="tsd-kind-icon">rotY</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="object3.html#rotz" class="tsd-kind-icon">rotZ</a></li>
 							</ul>
 						</section>
 					</div>
@@ -153,7 +152,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">x<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L154">Algebra.ts:154</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L54">Object3.ts:54</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -168,7 +167,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">xyz<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L163">Algebra.ts:163</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L63">Object3.ts:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -183,7 +182,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">xyzt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L166">Algebra.ts:166</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L66">Object3.ts:66</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -198,7 +197,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">y<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L157">Algebra.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L57">Object3.ts:57</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -213,7 +212,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">z<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L160">Algebra.ts:160</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L60">Object3.ts:60</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -229,13 +228,13 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<a name="rot" class="tsd-anchor"></a>
 					<h3>rot</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">rot<span class="tsd-signature-symbol">(</span>u<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, theta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cos<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span>, sin<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">rot<span class="tsd-signature-symbol">(</span>u<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, theta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cos<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span>, sin<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L207">Algebra.ts:207</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L107">Object3.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -245,14 +244,14 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 									</dd>
 									<dt>details</dt>
 									<dd><p><code>ux</code> and <code>uy</code> are such that they form a orthonormal basis <code>(ux, uy, u)</code>.
-										See <a href="_algebra_.object3.html">Object3</a> for more details.</p>
+										See <a href="object3.html">Object3</a> for more details.</p>
 									</dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>u: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>u: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>axis of rotation</p>
 									</div>
@@ -326,7 +325,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L175">Algebra.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L75">Object3.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,7 +334,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 									<dd><p>rotates the vector around <code>x</code> axis</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p>See <a href="_algebra_.object3.html">Object3</a> for more details.</p>
+									<dd><p>See <a href="object3.html">Object3</a> for more details.</p>
 									</dd>
 								</dl>
 							</div>
@@ -410,7 +409,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L185">Algebra.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L85">Object3.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -419,7 +418,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 									<dd><p>rotation around <code>y</code> axis</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p>See <a href="_algebra_.object3.html">Object3</a> for more details.</p>
+									<dd><p>See <a href="object3.html">Object3</a> for more details.</p>
 									</dd>
 								</dl>
 							</div>
@@ -494,7 +493,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L195">Algebra.ts:195</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Object3.ts#L95">Object3.ts:95</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -503,7 +502,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 									<dd><p>rotation around <code>z</code> axis</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p>See <a href="_algebra_.object3.html">Object3</a> for more details.</p>
+									<dd><p>See <a href="object3.html">Object3</a> for more details.</p>
 									</dd>
 								</dl>
 							</div>
@@ -576,162 +575,156 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_algebra_.html">"<wbr>Algebra"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_matrix3_.html">"<wbr>Matrix3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_point3_.html">"<wbr>Point3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_vector3_.html">"<wbr>Vector3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_main_.html">"main"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.encoder.html" class="tsd-kind-icon">Encoder</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/matrix3.html" class="tsd-kind-icon">Matrix3</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.matrix.html" class="tsd-kind-icon">Matrix</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/point3.html" class="tsd-kind-icon">Point3</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/vector3.html" class="tsd-kind-icon">Vector3</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="encoder.html" class="tsd-kind-icon">Encoder</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="matrix.html" class="tsd-kind-icon">Matrix</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.object3.html" class="tsd-kind-icon">Object3</a>
+					<li class="current tsd-kind-interface">
+						<a href="object3.html" class="tsd-kind-icon">Object3</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#x" class="tsd-kind-icon">x</a>
+								<a href="object3.html#x" class="tsd-kind-icon">x</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#xyz" class="tsd-kind-icon">xyz</a>
+								<a href="object3.html#xyz" class="tsd-kind-icon">xyz</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#xyzt" class="tsd-kind-icon">xyzt</a>
+								<a href="object3.html#xyzt" class="tsd-kind-icon">xyzt</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#y" class="tsd-kind-icon">y</a>
+								<a href="object3.html#y" class="tsd-kind-icon">y</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#z" class="tsd-kind-icon">z</a>
+								<a href="object3.html#z" class="tsd-kind-icon">z</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#rot" class="tsd-kind-icon">rot</a>
+								<a href="object3.html#rot" class="tsd-kind-icon">rot</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#rotx" class="tsd-kind-icon">rotX</a>
+								<a href="object3.html#rotx" class="tsd-kind-icon">rotX</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#roty" class="tsd-kind-icon">rotY</a>
+								<a href="object3.html#roty" class="tsd-kind-icon">rotY</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.object3.html#rotz" class="tsd-kind-icon">rotZ</a>
+								<a href="object3.html#rotz" class="tsd-kind-icon">rotZ</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.object9.html" class="tsd-kind-icon">Object9</a>
+					<li class=" tsd-kind-interface">
+						<a href="object9.html" class="tsd-kind-icon">Object9</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.vector.html" class="tsd-kind-icon">Vector</a>
+					<li class=" tsd-kind-interface">
+						<a href="vector.html" class="tsd-kind-icon">Vector</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#epsilon" class="tsd-kind-icon">epsilon</a>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#epsilon" class="tsd-kind-icon">epsilon</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#epsilon2" class="tsd-kind-icon">epsilon2</a>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#epsilon2" class="tsd-kind-icon">epsilon2</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#abs" class="tsd-kind-icon">abs</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#abs" class="tsd-kind-icon">abs</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#add" class="tsd-kind-icon">add</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#add" class="tsd-kind-icon">add</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#berp" class="tsd-kind-icon">berp</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#berp" class="tsd-kind-icon">berp</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#ceil" class="tsd-kind-icon">ceil</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#ceil" class="tsd-kind-icon">ceil</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#comb" class="tsd-kind-icon">comb</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#comb" class="tsd-kind-icon">comb</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#der" class="tsd-kind-icon">der</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#der" class="tsd-kind-icon">der</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#der1" class="tsd-kind-icon">der1</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#der1" class="tsd-kind-icon">der1</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#dist" class="tsd-kind-icon">dist</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#dist" class="tsd-kind-icon">dist</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#div" class="tsd-kind-icon">div</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#div" class="tsd-kind-icon">div</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#dot" class="tsd-kind-icon">dot</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#dot" class="tsd-kind-icon">dot</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#equal1" class="tsd-kind-icon">equal1</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#equal1" class="tsd-kind-icon">equal1</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#equal2" class="tsd-kind-icon">equal2</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#equal2" class="tsd-kind-icon">equal2</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#exact" class="tsd-kind-icon">exact</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#exact" class="tsd-kind-icon">exact</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#floor" class="tsd-kind-icon">floor</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#floor" class="tsd-kind-icon">floor</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#gaussian" class="tsd-kind-icon">gaussian</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#gaussian" class="tsd-kind-icon">gaussian</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#herp" class="tsd-kind-icon">herp</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#herp" class="tsd-kind-icon">herp</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#lerp" class="tsd-kind-icon">lerp</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#lerp" class="tsd-kind-icon">lerp</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#mag" class="tsd-kind-icon">mag</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#mag" class="tsd-kind-icon">mag</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#mag2" class="tsd-kind-icon">mag2</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#mag2" class="tsd-kind-icon">mag2</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#max" class="tsd-kind-icon">max</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#max" class="tsd-kind-icon">max</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#min" class="tsd-kind-icon">min</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#min" class="tsd-kind-icon">min</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#mul" class="tsd-kind-icon">mul</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#mul" class="tsd-kind-icon">mul</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#neg" class="tsd-kind-icon">neg</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#neg" class="tsd-kind-icon">neg</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#norm" class="tsd-kind-icon">norm</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#norm" class="tsd-kind-icon">norm</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#prod" class="tsd-kind-icon">prod</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#prod" class="tsd-kind-icon">prod</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#round" class="tsd-kind-icon">round</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#round" class="tsd-kind-icon">round</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#sub" class="tsd-kind-icon">sub</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#sub" class="tsd-kind-icon">sub</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#trunc" class="tsd-kind-icon">trunc</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#trunc" class="tsd-kind-icon">trunc</a>
 					</li>
 				</ul>
 			</nav>

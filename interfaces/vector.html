@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -54,10 +52,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_algebra_.html">&quot;Algebra&quot;</a>
-				</li>
-				<li>
-					<a href="_algebra_.vector.html">Vector</a>
+					<a href="vector.html">Vector</a>
 				</li>
 			</ul>
 			<h1>Interface Vector</h1>
@@ -70,13 +65,11 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<h2 id="introduction">Introduction</h2>
+						<h2 id="brief">Brief</h2>
+						<p><a href="vector.html">Vector</a> represents a <strong>vector</strong> in a  <em>normed vector space</em>.
+						It might be numerical vectors, matrices, or something more complicated.</p>
 					</div>
-					<p>Represents a <strong>vector</strong> in a  <em>normed vector space</em>.
-						It might be numerical vectors, matrices, or something more complicated.
-					A <a href="_algebra_.vector.html">Vector</a> is not necessarily an object of dimension 3.</p>
-					<h2 id="operations">Operations</h2>
-					<p>A <a href="_algebra_.vector.html">Vector</a> provides the following operations :</p>
+					<h3 id="main-features">Main Features</h3>
 					<ul>
 						<li>Objects <strong>copy and clone</strong> <code>copy</code>, <code>clone</code>, <code>assign</code>, ...</li>
 						<li>Basic <strong>manipulators</strong> <code>floor</code>, <code>fill</code>, <code>abs</code>, ...</li>
@@ -90,10 +83,22 @@
 u.floor(); <span class="hljs-comment">// u = (5, 0, 0)</span>
 u.lerp(v, <span class="hljs-number">0.5</span>) <span class="hljs-comment">// u = (5.25, 0, 0);</span>
 u.comb(<span class="hljs-number">2</span>, v) <span class="hljs-comment">// u = (16.25, 0, 0);</span></code></pre>
-					<p>The documentation of each method contains a more precise description of the API.</p>
-					<h2 id="equality-and-norm-based-operations">Equality and norm based operations</h2>
-					<p>In order to avoid float precision errors and to give different way to compare vectors,
-					<a href="_algebra_.vector.html">Vector</a> interface provides three different ways to compare vectors :</p>
+					<p><strong>Note</strong> The documentation of each method contains a more precise description of the API.</p>
+					<h2 id="getting-started">Getting Started</h2>
+					<h3 id="algebraical-operations">Algebraical operations</h3>
+					<p>Algebraical operations are the base of <strong>space3</strong> framework. Almost all classes of the framework
+					provides theses operations.</p>
+					<h4 id="example">Example</h4>
+					<pre><code class="language-js">u.add(v).sub(w).comb(lambda, w);
+a.prod(b).inv();</code></pre>
+					<p>If you&#39;re already feel comfortable with algebra you may know how all this works.
+						Therefore you just have to take a look at the <a href="https://samibendou.github.io/space3/">glossary of operations</a>
+					in order to know the list of abbreviations used for operations.</p>
+					<p>if you need a little refresh on algebra,
+					I recommend you to watch the great algebra vulgarized curse on <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown</a> channel.</p>
+					<h3 id="equality-and-norm-based-operations">Equality and norm based operations</h3>
+					<p>In order to avoid float precision errors and give different way to compare objects,
+					a <a href="vector.html">Vector</a> provides three different ways to compare to another one :</p>
 					<ul>
 						<li>Using the norm 1, manhattan distance <code>||u|| = |ux| + |uy| + |uz|</code></li>
 						<li>Using the norm 2, dot product distance <code>||u|| = sqrt(|ux|**2 + |uy|**2 + |uz|**2)</code></li>
@@ -105,21 +110,26 @@ ex.equal2(ey) <span class="hljs-comment">// false</span>
 ex.equal1(ey) <span class="hljs-comment">// false</span>
 ex.exact(ex) <span class="hljs-comment">// true</span>
 ex.zero1() <span class="hljs-comment">// false</span>
-zeros.nil() <span class="hljs-comment">// true</span></code></pre>
-					<p><strong>Note</strong> <code>mag</code> accessors is computed using the norm 2. Use <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default.</p>
+zeros.nil() <span class="hljs-comment">// true</span>
+zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span class="hljs-comment">// false</span></code></pre>
+					<p><strong>Notes</strong></p>
+					<ul>
+						<li>Use <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default</li>
+						<li><code>mag</code> accessors is computed using the norm 2</li>
+					</ul>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_algebra_.encoder.html" class="tsd-signature-type">Encoder</a>
+						<a href="encoder.html" class="tsd-signature-type">Encoder</a>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">Vector</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="_algebra_.matrix.html" class="tsd-signature-type">Matrix</a>
+										<a href="matrix.html" class="tsd-signature-type">Matrix</a>
 									</li>
 								</ul>
 							</li>
@@ -130,23 +140,21 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 			<section class="tsd-panel">
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/_point3_.point3.html" class="tsd-signature-type">Point3</a></li>
-					<li><a href="../classes/_point3_.point3.html" class="tsd-signature-type">Point3</a></li>
-					<li><a href="../classes/_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></li>
+					<li><a href="../classes/point3.html" class="tsd-signature-type">Point3</a></li>
+					<li><a href="../classes/point3.html" class="tsd-signature-type">Point3</a></li>
+					<li><a href="../classes/vector3.html" class="tsd-signature-type">Vector3</a></li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-kind-interface tsd-parent-kind-external-module">
+			<section class="tsd-panel tsd-kind-interface">
 				<h3 class="tsd-before-signature">Indexable</h3>
 				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>index: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">number</span></div>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<h2 id="introduction">Introduction</h2>
+						<h2 id="brief">Brief</h2>
+						<p><a href="vector.html">Vector</a> represents a <strong>vector</strong> in a  <em>normed vector space</em>.
+						It might be numerical vectors, matrices, or something more complicated.</p>
 					</div>
-					<p>Represents a <strong>vector</strong> in a  <em>normed vector space</em>.
-						It might be numerical vectors, matrices, or something more complicated.
-					A <a href="_algebra_.vector.html">Vector</a> is not necessarily an object of dimension 3.</p>
-					<h2 id="operations">Operations</h2>
-					<p>A <a href="_algebra_.vector.html">Vector</a> provides the following operations :</p>
+					<h3 id="main-features">Main Features</h3>
 					<ul>
 						<li>Objects <strong>copy and clone</strong> <code>copy</code>, <code>clone</code>, <code>assign</code>, ...</li>
 						<li>Basic <strong>manipulators</strong> <code>floor</code>, <code>fill</code>, <code>abs</code>, ...</li>
@@ -160,10 +168,22 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 u.floor(); <span class="hljs-comment">// u = (5, 0, 0)</span>
 u.lerp(v, <span class="hljs-number">0.5</span>) <span class="hljs-comment">// u = (5.25, 0, 0);</span>
 u.comb(<span class="hljs-number">2</span>, v) <span class="hljs-comment">// u = (16.25, 0, 0);</span></code></pre>
-					<p>The documentation of each method contains a more precise description of the API.</p>
-					<h2 id="equality-and-norm-based-operations">Equality and norm based operations</h2>
-					<p>In order to avoid float precision errors and to give different way to compare vectors,
-					<a href="_algebra_.vector.html">Vector</a> interface provides three different ways to compare vectors :</p>
+					<p><strong>Note</strong> The documentation of each method contains a more precise description of the API.</p>
+					<h2 id="getting-started">Getting Started</h2>
+					<h3 id="algebraical-operations">Algebraical operations</h3>
+					<p>Algebraical operations are the base of <strong>space3</strong> framework. Almost all classes of the framework
+					provides theses operations.</p>
+					<h4 id="example">Example</h4>
+					<pre><code class="language-js">u.add(v).sub(w).comb(lambda, w);
+a.prod(b).inv();</code></pre>
+					<p>If you&#39;re already feel comfortable with algebra you may know how all this works.
+						Therefore you just have to take a look at the <a href="https://samibendou.github.io/space3/">glossary of operations</a>
+					in order to know the list of abbreviations used for operations.</p>
+					<p>if you need a little refresh on algebra,
+					I recommend you to watch the great algebra vulgarized curse on <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown</a> channel.</p>
+					<h3 id="equality-and-norm-based-operations">Equality and norm based operations</h3>
+					<p>In order to avoid float precision errors and give different way to compare objects,
+					a <a href="vector.html">Vector</a> provides three different ways to compare to another one :</p>
 					<ul>
 						<li>Using the norm 1, manhattan distance <code>||u|| = |ux| + |uy| + |uz|</code></li>
 						<li>Using the norm 2, dot product distance <code>||u|| = sqrt(|ux|**2 + |uy|**2 + |uz|**2)</code></li>
@@ -175,8 +195,13 @@ ex.equal2(ey) <span class="hljs-comment">// false</span>
 ex.equal1(ey) <span class="hljs-comment">// false</span>
 ex.exact(ex) <span class="hljs-comment">// true</span>
 ex.zero1() <span class="hljs-comment">// false</span>
-zeros.nil() <span class="hljs-comment">// true</span></code></pre>
-					<p><strong>Note</strong> <code>mag</code> accessors is computed using the norm 2. Use <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default.</p>
+zeros.nil() <span class="hljs-comment">// true</span>
+zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span class="hljs-comment">// false</span></code></pre>
+					<p><strong>Notes</strong></p>
+					<ul>
+						<li>Use <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default</li>
+						<li><code>mag</code> accessors is computed using the norm 2</li>
+					</ul>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -186,105 +211,105 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#bytes_per_element" class="tsd-kind-icon">BYTES_<wbr>PER_<wbr>ELEMENT</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#___tostringtag" class="tsd-kind-icon">__@to<wbr>String<wbr>Tag</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#buffer" class="tsd-kind-icon">buffer</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#bytelength" class="tsd-kind-icon">byte<wbr>Length</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#byteoffset" class="tsd-kind-icon">byte<wbr>Offset</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.vector.html#dim" class="tsd-kind-icon">dim</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#length" class="tsd-kind-icon">length</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.vector.html#mag" class="tsd-kind-icon">mag</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_algebra_.vector.html#mag2" class="tsd-kind-icon">mag2</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#bytes_per_element" class="tsd-kind-icon">BYTES_<wbr>PER_<wbr>ELEMENT</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#___tostringtag" class="tsd-kind-icon">__@to<wbr>String<wbr>Tag</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#buffer" class="tsd-kind-icon">buffer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#bytelength" class="tsd-kind-icon">byte<wbr>Length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#byteoffset" class="tsd-kind-icon">byte<wbr>Offset</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="vector.html#dim" class="tsd-kind-icon">dim</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="vector.html#mag" class="tsd-kind-icon">mag</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="vector.html#mag2" class="tsd-kind-icon">mag2</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#___iterator" class="tsd-kind-icon">__@iterator</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#abs" class="tsd-kind-icon">abs</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#absc" class="tsd-kind-icon">absc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#add" class="tsd-kind-icon">add</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#addc" class="tsd-kind-icon">addc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#array" class="tsd-kind-icon">array</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#assign" class="tsd-kind-icon">assign</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#berp" class="tsd-kind-icon">berp</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#berpc" class="tsd-kind-icon">berpc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#ceil" class="tsd-kind-icon">ceil</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#ceilc" class="tsd-kind-icon">ceilc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#clone" class="tsd-kind-icon">clone</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#comb" class="tsd-kind-icon">comb</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#combc" class="tsd-kind-icon">combc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#copy" class="tsd-kind-icon">copy</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#copywithin" class="tsd-kind-icon">copy<wbr>Within</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#der" class="tsd-kind-icon">der</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#derc" class="tsd-kind-icon">derc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#dist" class="tsd-kind-icon">dist</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#dist1" class="tsd-kind-icon">dist1</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#dist2" class="tsd-kind-icon">dist2</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#div" class="tsd-kind-icon">div</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#divc" class="tsd-kind-icon">divc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#dot" class="tsd-kind-icon">dot</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#entries" class="tsd-kind-icon">entries</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#equal1" class="tsd-kind-icon">equal1</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#equal2" class="tsd-kind-icon">equal2</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#every" class="tsd-kind-icon">every</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#exact" class="tsd-kind-icon">exact</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite"><a href="_algebra_.vector.html#fill" class="tsd-kind-icon">fill</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#fillc" class="tsd-kind-icon">fillc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#filter" class="tsd-kind-icon">filter</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#find" class="tsd-kind-icon">find</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#findindex" class="tsd-kind-icon">find<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#floor" class="tsd-kind-icon">floor</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#floorc" class="tsd-kind-icon">floorc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#herp" class="tsd-kind-icon">herp</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#herpc" class="tsd-kind-icon">herpc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#includes" class="tsd-kind-icon">includes</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#indexof" class="tsd-kind-icon">index<wbr>Of</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#inv" class="tsd-kind-icon">inv</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#invc" class="tsd-kind-icon">invc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#join" class="tsd-kind-icon">join</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#keys" class="tsd-kind-icon">keys</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#lastindexof" class="tsd-kind-icon">last<wbr>Index<wbr>Of</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#lerp" class="tsd-kind-icon">lerp</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#lerpc" class="tsd-kind-icon">lerpc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#map" class="tsd-kind-icon">map</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#max" class="tsd-kind-icon">max</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#maxc" class="tsd-kind-icon">maxc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#min" class="tsd-kind-icon">min</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#minc" class="tsd-kind-icon">minc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#mul" class="tsd-kind-icon">mul</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#mulc" class="tsd-kind-icon">mulc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#neg" class="tsd-kind-icon">neg</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#negc" class="tsd-kind-icon">negc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#nil" class="tsd-kind-icon">nil</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#norm" class="tsd-kind-icon">norm</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#normc" class="tsd-kind-icon">normc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#prod" class="tsd-kind-icon">prod</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#prodc" class="tsd-kind-icon">prodc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#random" class="tsd-kind-icon">random</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited"><a href="_algebra_.vector.html#reduce" class="tsd-kind-icon">reduce</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited"><a href="_algebra_.vector.html#reduceright" class="tsd-kind-icon">reduce<wbr>Right</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#reset0" class="tsd-kind-icon">reset0</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#reset1" class="tsd-kind-icon">reset1</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#reverse" class="tsd-kind-icon">reverse</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#round" class="tsd-kind-icon">round</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#roundc" class="tsd-kind-icon">roundc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#set" class="tsd-kind-icon">set</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#slice" class="tsd-kind-icon">slice</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#some" class="tsd-kind-icon">some</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#sort" class="tsd-kind-icon">sort</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#string" class="tsd-kind-icon">string</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#sub" class="tsd-kind-icon">sub</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#subarray" class="tsd-kind-icon">subarray</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#subc" class="tsd-kind-icon">subc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#tolocalestring" class="tsd-kind-icon">to<wbr>Locale<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#trunc" class="tsd-kind-icon">trunc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#truncc" class="tsd-kind-icon">truncc</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_algebra_.vector.html#values" class="tsd-kind-icon">values</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#zero1" class="tsd-kind-icon">zero1</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_algebra_.vector.html#zero2" class="tsd-kind-icon">zero2</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#___iterator" class="tsd-kind-icon">__@iterator</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#abs" class="tsd-kind-icon">abs</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#absc" class="tsd-kind-icon">absc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#add" class="tsd-kind-icon">add</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#addc" class="tsd-kind-icon">addc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#array" class="tsd-kind-icon">array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#assign" class="tsd-kind-icon">assign</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#berp" class="tsd-kind-icon">berp</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#berpc" class="tsd-kind-icon">berpc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#ceil" class="tsd-kind-icon">ceil</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#ceilc" class="tsd-kind-icon">ceilc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#clone" class="tsd-kind-icon">clone</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#comb" class="tsd-kind-icon">comb</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#combc" class="tsd-kind-icon">combc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#copy" class="tsd-kind-icon">copy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#copywithin" class="tsd-kind-icon">copy<wbr>Within</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#der" class="tsd-kind-icon">der</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#derc" class="tsd-kind-icon">derc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#dist" class="tsd-kind-icon">dist</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#dist1" class="tsd-kind-icon">dist1</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#dist2" class="tsd-kind-icon">dist2</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#div" class="tsd-kind-icon">div</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#divc" class="tsd-kind-icon">divc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#dot" class="tsd-kind-icon">dot</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#entries" class="tsd-kind-icon">entries</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#equal1" class="tsd-kind-icon">equal1</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#equal2" class="tsd-kind-icon">equal2</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#every" class="tsd-kind-icon">every</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#exact" class="tsd-kind-icon">exact</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite"><a href="vector.html#fill" class="tsd-kind-icon">fill</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#fillc" class="tsd-kind-icon">fillc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#filter" class="tsd-kind-icon">filter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#find" class="tsd-kind-icon">find</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#findindex" class="tsd-kind-icon">find<wbr>Index</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#floor" class="tsd-kind-icon">floor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#floorc" class="tsd-kind-icon">floorc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#herp" class="tsd-kind-icon">herp</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#herpc" class="tsd-kind-icon">herpc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#includes" class="tsd-kind-icon">includes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#indexof" class="tsd-kind-icon">index<wbr>Of</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#inv" class="tsd-kind-icon">inv</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#invc" class="tsd-kind-icon">invc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#join" class="tsd-kind-icon">join</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#keys" class="tsd-kind-icon">keys</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#lastindexof" class="tsd-kind-icon">last<wbr>Index<wbr>Of</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#lerp" class="tsd-kind-icon">lerp</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#lerpc" class="tsd-kind-icon">lerpc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#map" class="tsd-kind-icon">map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#max" class="tsd-kind-icon">max</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#maxc" class="tsd-kind-icon">maxc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#min" class="tsd-kind-icon">min</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#minc" class="tsd-kind-icon">minc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#mul" class="tsd-kind-icon">mul</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#mulc" class="tsd-kind-icon">mulc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#neg" class="tsd-kind-icon">neg</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#negc" class="tsd-kind-icon">negc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#nil" class="tsd-kind-icon">nil</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#norm" class="tsd-kind-icon">norm</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#normc" class="tsd-kind-icon">normc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#prod" class="tsd-kind-icon">prod</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#prodc" class="tsd-kind-icon">prodc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#random" class="tsd-kind-icon">random</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited"><a href="vector.html#reduce" class="tsd-kind-icon">reduce</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited"><a href="vector.html#reduceright" class="tsd-kind-icon">reduce<wbr>Right</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#reset0" class="tsd-kind-icon">reset0</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#reset1" class="tsd-kind-icon">reset1</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#reverse" class="tsd-kind-icon">reverse</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#round" class="tsd-kind-icon">round</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#roundc" class="tsd-kind-icon">roundc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#set" class="tsd-kind-icon">set</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#slice" class="tsd-kind-icon">slice</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#some" class="tsd-kind-icon">some</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#sort" class="tsd-kind-icon">sort</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#string" class="tsd-kind-icon">string</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#sub" class="tsd-kind-icon">sub</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#subarray" class="tsd-kind-icon">subarray</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#subc" class="tsd-kind-icon">subc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#tolocalestring" class="tsd-kind-icon">to<wbr>Locale<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#trunc" class="tsd-kind-icon">trunc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#truncc" class="tsd-kind-icon">truncc</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="vector.html#values" class="tsd-kind-icon">values</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#zero1" class="tsd-kind-icon">zero1</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="vector.html#zero2" class="tsd-kind-icon">zero2</a></li>
 							</ul>
 						</section>
 					</div>
@@ -373,7 +398,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<div class="tsd-signature tsd-kind-icon">dim<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L294">Algebra.ts:294</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L70">Vector.ts:70</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -404,7 +429,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<div class="tsd-signature tsd-kind-icon">mag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L297">Algebra.ts:297</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L73">Vector.ts:73</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -419,7 +444,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<div class="tsd-signature tsd-kind-icon">mag2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L300">Algebra.ts:300</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L76">Vector.ts:76</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -459,7 +484,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L341">Algebra.ts:341</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L117">Vector.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -475,16 +500,16 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="absc" class="tsd-anchor"></a>
 					<h3>absc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">absc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">absc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L343">Algebra.ts:343</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L119">Vector.ts:119</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -492,13 +517,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="add" class="tsd-anchor"></a>
 					<h3>add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L361">Algebra.ts:361</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L137">Vector.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -509,7 +534,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -520,22 +545,22 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="addc" class="tsd-anchor"></a>
 					<h3>addc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">addc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">addc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L363">Algebra.ts:363</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L139">Vector.ts:139</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -548,9 +573,9 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_algebra_.encoder.html">Encoder</a>.<a href="_algebra_.encoder.html#array">array</a></p>
+								<p>Inherited from <a href="encoder.html">Encoder</a>.<a href="encoder.html#array">array</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L101">Algebra.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Encoder.ts#L18">Encoder.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -572,7 +597,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L303">Algebra.ts:303</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L79">Vector.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -594,13 +619,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="berp" class="tsd-anchor"></a>
 					<h3>berp</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">berp<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">berp<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L420">Algebra.ts:420</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L196">Vector.ts:196</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -616,19 +641,19 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>target: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>destination of interpolation</p>
 									</div>
 								</li>
 								<li>
-									<h5>vector1: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector1: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>control point number 1</p>
 									</div>
 								</li>
 								<li>
-									<h5>vector2: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector2: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>control point number 2</p>
 									</div>
@@ -648,31 +673,31 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="berpc" class="tsd-anchor"></a>
 					<h3>berpc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">berpc<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">berpc<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L422">Algebra.ts:422</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L198">Vector.ts:198</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>target: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 								<li>
-									<h5>vector1: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector1: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 								<li>
-									<h5>vector2: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector2: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 								<li>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -686,7 +711,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L326">Algebra.ts:326</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L102">Vector.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -702,16 +727,16 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="ceilc" class="tsd-anchor"></a>
 					<h3>ceilc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">ceilc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">ceilc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L328">Algebra.ts:328</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L104">Vector.ts:104</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -719,13 +744,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="clone" class="tsd-anchor"></a>
 					<h3>clone</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L309">Algebra.ts:309</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L85">Vector.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -733,7 +758,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<p>clone a vector</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -741,13 +766,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="comb" class="tsd-anchor"></a>
 					<h3>comb</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">comb<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">comb<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L386">Algebra.ts:386</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L162">Vector.ts:162</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -761,7 +786,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -772,13 +797,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="combc" class="tsd-anchor"></a>
 					<h3>combc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">combc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">combc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L388">Algebra.ts:388</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L164">Vector.ts:164</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -787,10 +812,10 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -798,13 +823,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="copy" class="tsd-anchor"></a>
 					<h3>copy</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L306">Algebra.ts:306</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L82">Vector.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -815,7 +840,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -873,13 +898,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="der" class="tsd-anchor"></a>
 					<h3>der</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">der<span class="tsd-signature-symbol">(</span>ds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">der<span class="tsd-signature-symbol">(</span>ds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L425">Algebra.ts:425</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L201">Vector.ts:201</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -893,7 +918,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>ds: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -904,13 +929,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="derc" class="tsd-anchor"></a>
 					<h3>derc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">derc<span class="tsd-signature-symbol">(</span>ds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">derc<span class="tsd-signature-symbol">(</span>ds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L427">Algebra.ts:427</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L203">Vector.ts:203</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -919,10 +944,10 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>ds: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -930,13 +955,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="dist" class="tsd-anchor"></a>
 					<h3>dist</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">dist<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">dist<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L448">Algebra.ts:448</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L224">Vector.ts:224</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -947,7 +972,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -958,13 +983,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="dist1" class="tsd-anchor"></a>
 					<h3>dist1</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">dist1<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">dist1<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L451">Algebra.ts:451</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L227">Vector.ts:227</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -975,7 +1000,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -986,13 +1011,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="dist2" class="tsd-anchor"></a>
 					<h3>dist2</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">dist2<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">dist2<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L454">Algebra.ts:454</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L230">Vector.ts:230</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1003,7 +1028,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -1020,7 +1045,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L381">Algebra.ts:381</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L157">Vector.ts:157</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1042,13 +1067,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="divc" class="tsd-anchor"></a>
 					<h3>divc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">divc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">divc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L383">Algebra.ts:383</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L159">Vector.ts:159</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1057,7 +1082,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1065,13 +1090,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="dot" class="tsd-anchor"></a>
 					<h3>dot</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">dot<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">dot<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L445">Algebra.ts:445</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L221">Vector.ts:221</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1082,7 +1107,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -1116,13 +1141,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="equal1" class="tsd-anchor"></a>
 					<h3>equal1</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">equal1<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">equal1<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L460">Algebra.ts:460</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L236">Vector.ts:236</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1133,7 +1158,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -1144,13 +1169,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="equal2" class="tsd-anchor"></a>
 					<h3>equal2</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">equal2<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">equal2<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L463">Algebra.ts:463</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L239">Vector.ts:239</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1161,7 +1186,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -1237,13 +1262,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="exact" class="tsd-anchor"></a>
 					<h3>exact</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">exact<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">exact<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L457">Algebra.ts:457</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L233">Vector.ts:233</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1254,7 +1279,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -1272,7 +1297,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<aside class="tsd-sources">
 								<p>Overrides Float64Array.fill</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L356">Algebra.ts:356</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L132">Vector.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1294,13 +1319,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="fillc" class="tsd-anchor"></a>
 					<h3>fillc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">fillc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">fillc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L358">Algebra.ts:358</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L134">Vector.ts:134</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1309,7 +1334,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1522,7 +1547,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L321">Algebra.ts:321</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L97">Vector.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1538,16 +1563,16 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="floorc" class="tsd-anchor"></a>
 					<h3>floorc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">floorc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">floorc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L323">Algebra.ts:323</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L99">Vector.ts:99</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1619,13 +1644,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="herp" class="tsd-anchor"></a>
 					<h3>herp</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">herp<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">herp<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L408">Algebra.ts:408</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L184">Vector.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1641,19 +1666,19 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>target: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>destination of interpolation</p>
 									</div>
 								</li>
 								<li>
-									<h5>vector1: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector1: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>control point number 1</p>
 									</div>
 								</li>
 								<li>
-									<h5>vector2: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector2: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>control point number 2</p>
 									</div>
@@ -1673,31 +1698,31 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="herpc" class="tsd-anchor"></a>
 					<h3>herpc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">herpc<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">herpc<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector1<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, vector2<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L410">Algebra.ts:410</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L186">Vector.ts:186</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>target: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 								<li>
-									<h5>vector1: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector1: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 								<li>
-									<h5>vector2: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector2: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 								<li>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1788,7 +1813,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L435">Algebra.ts:435</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L211">Vector.ts:211</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1804,16 +1829,16 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="invc" class="tsd-anchor"></a>
 					<h3>invc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">invc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">invc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L437">Algebra.ts:437</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L213">Vector.ts:213</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1916,13 +1941,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="lerp" class="tsd-anchor"></a>
 					<h3>lerp</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">lerp<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">lerp<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L396">Algebra.ts:396</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L172">Vector.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1938,7 +1963,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>target: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>destination of interpolation</p>
 									</div>
@@ -1958,25 +1983,25 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="lerpc" class="tsd-anchor"></a>
 					<h3>lerpc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">lerpc<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">lerpc<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a>, s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L398">Algebra.ts:398</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L174">Vector.ts:174</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>target: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 								<li>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2049,13 +2074,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="max" class="tsd-anchor"></a>
 					<h3>max</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L351">Algebra.ts:351</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L127">Vector.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2066,7 +2091,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2077,22 +2102,22 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="maxc" class="tsd-anchor"></a>
 					<h3>maxc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">maxc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">maxc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L353">Algebra.ts:353</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L129">Vector.ts:129</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2100,13 +2125,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="min" class="tsd-anchor"></a>
 					<h3>min</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">min<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">min<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L346">Algebra.ts:346</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L122">Vector.ts:122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2117,7 +2142,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2128,22 +2153,22 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="minc" class="tsd-anchor"></a>
 					<h3>minc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">minc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">minc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L348">Algebra.ts:348</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L124">Vector.ts:124</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2157,7 +2182,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L376">Algebra.ts:376</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L152">Vector.ts:152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2179,13 +2204,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="mulc" class="tsd-anchor"></a>
 					<h3>mulc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">mulc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">mulc<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L378">Algebra.ts:378</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L154">Vector.ts:154</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2194,7 +2219,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>s: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2208,7 +2233,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L371">Algebra.ts:371</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L147">Vector.ts:147</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2224,16 +2249,16 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="negc" class="tsd-anchor"></a>
 					<h3>negc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">negc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">negc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L373">Algebra.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L149">Vector.ts:149</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2247,7 +2272,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L466">Algebra.ts:466</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L242">Vector.ts:242</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2269,7 +2294,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L440">Algebra.ts:440</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L216">Vector.ts:216</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2285,16 +2310,16 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="normc" class="tsd-anchor"></a>
 					<h3>normc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">normc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">normc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L442">Algebra.ts:442</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L218">Vector.ts:218</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2302,13 +2327,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="prod" class="tsd-anchor"></a>
 					<h3>prod</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">prod<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">prod<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L430">Algebra.ts:430</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L206">Vector.ts:206</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2319,7 +2344,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2330,22 +2355,22 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="prodc" class="tsd-anchor"></a>
 					<h3>prodc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">prodc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">prodc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L432">Algebra.ts:432</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L208">Vector.ts:208</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -2359,7 +2384,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L318">Algebra.ts:318</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L94">Vector.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2733,7 +2758,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L312">Algebra.ts:312</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L88">Vector.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2755,7 +2780,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L315">Algebra.ts:315</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L91">Vector.ts:91</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2800,7 +2825,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L331">Algebra.ts:331</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L107">Vector.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2816,16 +2841,16 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="roundc" class="tsd-anchor"></a>
 					<h3>roundc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">roundc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">roundc<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L333">Algebra.ts:333</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L109">Vector.ts:109</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -3033,9 +3058,9 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_algebra_.encoder.html">Encoder</a>.<a href="_algebra_.encoder.html#string">string</a></p>
+								<p>Inherited from <a href="encoder.html">Encoder</a>.<a href="encoder.html#string">string</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L104">Algebra.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Encoder.ts#L21">Encoder.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3051,13 +3076,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="sub" class="tsd-anchor"></a>
 					<h3>sub</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">sub<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">sub<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L366">Algebra.ts:366</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L142">Vector.ts:142</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3068,7 +3093,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3118,22 +3143,22 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="subc" class="tsd-anchor"></a>
 					<h3>subc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">subc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">subc<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L368">Algebra.ts:368</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L144">Vector.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>vector: <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h5>
+									<h5>vector: <a href="vector.html" class="tsd-signature-type">Vector</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -3193,7 +3218,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L336">Algebra.ts:336</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L112">Vector.ts:112</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3215,13 +3240,13 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<a name="truncc" class="tsd-anchor"></a>
 					<h3>truncc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">truncc<span class="tsd-signature-symbol">(</span>decimals<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></li>
+						<li class="tsd-signature tsd-kind-icon">truncc<span class="tsd-signature-symbol">(</span>decimals<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector.html" class="tsd-signature-type">Vector</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L338">Algebra.ts:338</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L114">Vector.ts:114</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3230,7 +3255,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 									<h5>decimals: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_algebra_.vector.html" class="tsd-signature-type">Vector</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -3267,7 +3292,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L469">Algebra.ts:469</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L245">Vector.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3289,7 +3314,7 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/1988278/src/Algebra.ts#L472">Algebra.ts:472</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8e5b27a/src/Vector.ts#L248">Vector.ts:248</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3309,417 +3334,411 @@ zeros.nil() <span class="hljs-comment">// true</span></code></pre>
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_algebra_.html">"<wbr>Algebra"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_matrix3_.html">"<wbr>Matrix3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_point3_.html">"<wbr>Point3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_vector3_.html">"<wbr>Vector3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_main_.html">"main"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.encoder.html" class="tsd-kind-icon">Encoder</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/matrix3.html" class="tsd-kind-icon">Matrix3</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.matrix.html" class="tsd-kind-icon">Matrix</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/point3.html" class="tsd-kind-icon">Point3</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.object3.html" class="tsd-kind-icon">Object3</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/vector3.html" class="tsd-kind-icon">Vector3</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.object9.html" class="tsd-kind-icon">Object9</a>
+					<li class=" tsd-kind-interface">
+						<a href="encoder.html" class="tsd-kind-icon">Encoder</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="matrix.html" class="tsd-kind-icon">Matrix</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="object3.html" class="tsd-kind-icon">Object3</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="object9.html" class="tsd-kind-icon">Object9</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_algebra_.vector.html" class="tsd-kind-icon">Vector</a>
+					<li class="current tsd-kind-interface">
+						<a href="vector.html" class="tsd-kind-icon">Vector</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#bytes_per_element" class="tsd-kind-icon">BYTES_<wbr>PER_<wbr>ELEMENT</a>
+								<a href="vector.html#bytes_per_element" class="tsd-kind-icon">BYTES_<wbr>PER_<wbr>ELEMENT</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#___tostringtag" class="tsd-kind-icon">__@to<wbr>String<wbr>Tag</a>
+								<a href="vector.html#___tostringtag" class="tsd-kind-icon">__@to<wbr>String<wbr>Tag</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#buffer" class="tsd-kind-icon">buffer</a>
+								<a href="vector.html#buffer" class="tsd-kind-icon">buffer</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#bytelength" class="tsd-kind-icon">byte<wbr>Length</a>
+								<a href="vector.html#bytelength" class="tsd-kind-icon">byte<wbr>Length</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#byteoffset" class="tsd-kind-icon">byte<wbr>Offset</a>
+								<a href="vector.html#byteoffset" class="tsd-kind-icon">byte<wbr>Offset</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#dim" class="tsd-kind-icon">dim</a>
+								<a href="vector.html#dim" class="tsd-kind-icon">dim</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#length" class="tsd-kind-icon">length</a>
+								<a href="vector.html#length" class="tsd-kind-icon">length</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#mag" class="tsd-kind-icon">mag</a>
+								<a href="vector.html#mag" class="tsd-kind-icon">mag</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#mag2" class="tsd-kind-icon">mag2</a>
+								<a href="vector.html#mag2" class="tsd-kind-icon">mag2</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#___iterator" class="tsd-kind-icon">__@iterator</a>
+								<a href="vector.html#___iterator" class="tsd-kind-icon">__@iterator</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#abs" class="tsd-kind-icon">abs</a>
+								<a href="vector.html#abs" class="tsd-kind-icon">abs</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#absc" class="tsd-kind-icon">absc</a>
+								<a href="vector.html#absc" class="tsd-kind-icon">absc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#add" class="tsd-kind-icon">add</a>
+								<a href="vector.html#add" class="tsd-kind-icon">add</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#addc" class="tsd-kind-icon">addc</a>
+								<a href="vector.html#addc" class="tsd-kind-icon">addc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#array" class="tsd-kind-icon">array</a>
+								<a href="vector.html#array" class="tsd-kind-icon">array</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#assign" class="tsd-kind-icon">assign</a>
+								<a href="vector.html#assign" class="tsd-kind-icon">assign</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#berp" class="tsd-kind-icon">berp</a>
+								<a href="vector.html#berp" class="tsd-kind-icon">berp</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#berpc" class="tsd-kind-icon">berpc</a>
+								<a href="vector.html#berpc" class="tsd-kind-icon">berpc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#ceil" class="tsd-kind-icon">ceil</a>
+								<a href="vector.html#ceil" class="tsd-kind-icon">ceil</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#ceilc" class="tsd-kind-icon">ceilc</a>
+								<a href="vector.html#ceilc" class="tsd-kind-icon">ceilc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#clone" class="tsd-kind-icon">clone</a>
+								<a href="vector.html#clone" class="tsd-kind-icon">clone</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#comb" class="tsd-kind-icon">comb</a>
+								<a href="vector.html#comb" class="tsd-kind-icon">comb</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#combc" class="tsd-kind-icon">combc</a>
+								<a href="vector.html#combc" class="tsd-kind-icon">combc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#copy" class="tsd-kind-icon">copy</a>
+								<a href="vector.html#copy" class="tsd-kind-icon">copy</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#copywithin" class="tsd-kind-icon">copy<wbr>Within</a>
+								<a href="vector.html#copywithin" class="tsd-kind-icon">copy<wbr>Within</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#der" class="tsd-kind-icon">der</a>
+								<a href="vector.html#der" class="tsd-kind-icon">der</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#derc" class="tsd-kind-icon">derc</a>
+								<a href="vector.html#derc" class="tsd-kind-icon">derc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#dist" class="tsd-kind-icon">dist</a>
+								<a href="vector.html#dist" class="tsd-kind-icon">dist</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#dist1" class="tsd-kind-icon">dist1</a>
+								<a href="vector.html#dist1" class="tsd-kind-icon">dist1</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#dist2" class="tsd-kind-icon">dist2</a>
+								<a href="vector.html#dist2" class="tsd-kind-icon">dist2</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#div" class="tsd-kind-icon">div</a>
+								<a href="vector.html#div" class="tsd-kind-icon">div</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#divc" class="tsd-kind-icon">divc</a>
+								<a href="vector.html#divc" class="tsd-kind-icon">divc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#dot" class="tsd-kind-icon">dot</a>
+								<a href="vector.html#dot" class="tsd-kind-icon">dot</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#entries" class="tsd-kind-icon">entries</a>
+								<a href="vector.html#entries" class="tsd-kind-icon">entries</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#equal1" class="tsd-kind-icon">equal1</a>
+								<a href="vector.html#equal1" class="tsd-kind-icon">equal1</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#equal2" class="tsd-kind-icon">equal2</a>
+								<a href="vector.html#equal2" class="tsd-kind-icon">equal2</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#every" class="tsd-kind-icon">every</a>
+								<a href="vector.html#every" class="tsd-kind-icon">every</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#exact" class="tsd-kind-icon">exact</a>
+								<a href="vector.html#exact" class="tsd-kind-icon">exact</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite">
-								<a href="_algebra_.vector.html#fill" class="tsd-kind-icon">fill</a>
+								<a href="vector.html#fill" class="tsd-kind-icon">fill</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#fillc" class="tsd-kind-icon">fillc</a>
+								<a href="vector.html#fillc" class="tsd-kind-icon">fillc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#filter" class="tsd-kind-icon">filter</a>
+								<a href="vector.html#filter" class="tsd-kind-icon">filter</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#find" class="tsd-kind-icon">find</a>
+								<a href="vector.html#find" class="tsd-kind-icon">find</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#findindex" class="tsd-kind-icon">find<wbr>Index</a>
+								<a href="vector.html#findindex" class="tsd-kind-icon">find<wbr>Index</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#floor" class="tsd-kind-icon">floor</a>
+								<a href="vector.html#floor" class="tsd-kind-icon">floor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#floorc" class="tsd-kind-icon">floorc</a>
+								<a href="vector.html#floorc" class="tsd-kind-icon">floorc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#foreach" class="tsd-kind-icon">for<wbr>Each</a>
+								<a href="vector.html#foreach" class="tsd-kind-icon">for<wbr>Each</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#herp" class="tsd-kind-icon">herp</a>
+								<a href="vector.html#herp" class="tsd-kind-icon">herp</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#herpc" class="tsd-kind-icon">herpc</a>
+								<a href="vector.html#herpc" class="tsd-kind-icon">herpc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#includes" class="tsd-kind-icon">includes</a>
+								<a href="vector.html#includes" class="tsd-kind-icon">includes</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#indexof" class="tsd-kind-icon">index<wbr>Of</a>
+								<a href="vector.html#indexof" class="tsd-kind-icon">index<wbr>Of</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#inv" class="tsd-kind-icon">inv</a>
+								<a href="vector.html#inv" class="tsd-kind-icon">inv</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#invc" class="tsd-kind-icon">invc</a>
+								<a href="vector.html#invc" class="tsd-kind-icon">invc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#join" class="tsd-kind-icon">join</a>
+								<a href="vector.html#join" class="tsd-kind-icon">join</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#keys" class="tsd-kind-icon">keys</a>
+								<a href="vector.html#keys" class="tsd-kind-icon">keys</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#lastindexof" class="tsd-kind-icon">last<wbr>Index<wbr>Of</a>
+								<a href="vector.html#lastindexof" class="tsd-kind-icon">last<wbr>Index<wbr>Of</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#lerp" class="tsd-kind-icon">lerp</a>
+								<a href="vector.html#lerp" class="tsd-kind-icon">lerp</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#lerpc" class="tsd-kind-icon">lerpc</a>
+								<a href="vector.html#lerpc" class="tsd-kind-icon">lerpc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#map" class="tsd-kind-icon">map</a>
+								<a href="vector.html#map" class="tsd-kind-icon">map</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#max" class="tsd-kind-icon">max</a>
+								<a href="vector.html#max" class="tsd-kind-icon">max</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#maxc" class="tsd-kind-icon">maxc</a>
+								<a href="vector.html#maxc" class="tsd-kind-icon">maxc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#min" class="tsd-kind-icon">min</a>
+								<a href="vector.html#min" class="tsd-kind-icon">min</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#minc" class="tsd-kind-icon">minc</a>
+								<a href="vector.html#minc" class="tsd-kind-icon">minc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#mul" class="tsd-kind-icon">mul</a>
+								<a href="vector.html#mul" class="tsd-kind-icon">mul</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#mulc" class="tsd-kind-icon">mulc</a>
+								<a href="vector.html#mulc" class="tsd-kind-icon">mulc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#neg" class="tsd-kind-icon">neg</a>
+								<a href="vector.html#neg" class="tsd-kind-icon">neg</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#negc" class="tsd-kind-icon">negc</a>
+								<a href="vector.html#negc" class="tsd-kind-icon">negc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#nil" class="tsd-kind-icon">nil</a>
+								<a href="vector.html#nil" class="tsd-kind-icon">nil</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#norm" class="tsd-kind-icon">norm</a>
+								<a href="vector.html#norm" class="tsd-kind-icon">norm</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#normc" class="tsd-kind-icon">normc</a>
+								<a href="vector.html#normc" class="tsd-kind-icon">normc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#prod" class="tsd-kind-icon">prod</a>
+								<a href="vector.html#prod" class="tsd-kind-icon">prod</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#prodc" class="tsd-kind-icon">prodc</a>
+								<a href="vector.html#prodc" class="tsd-kind-icon">prodc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#random" class="tsd-kind-icon">random</a>
+								<a href="vector.html#random" class="tsd-kind-icon">random</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited">
-								<a href="_algebra_.vector.html#reduce" class="tsd-kind-icon">reduce</a>
+								<a href="vector.html#reduce" class="tsd-kind-icon">reduce</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited">
-								<a href="_algebra_.vector.html#reduceright" class="tsd-kind-icon">reduce<wbr>Right</a>
+								<a href="vector.html#reduceright" class="tsd-kind-icon">reduce<wbr>Right</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#reset0" class="tsd-kind-icon">reset0</a>
+								<a href="vector.html#reset0" class="tsd-kind-icon">reset0</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#reset1" class="tsd-kind-icon">reset1</a>
+								<a href="vector.html#reset1" class="tsd-kind-icon">reset1</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#reverse" class="tsd-kind-icon">reverse</a>
+								<a href="vector.html#reverse" class="tsd-kind-icon">reverse</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#round" class="tsd-kind-icon">round</a>
+								<a href="vector.html#round" class="tsd-kind-icon">round</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#roundc" class="tsd-kind-icon">roundc</a>
+								<a href="vector.html#roundc" class="tsd-kind-icon">roundc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#set" class="tsd-kind-icon">set</a>
+								<a href="vector.html#set" class="tsd-kind-icon">set</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#slice" class="tsd-kind-icon">slice</a>
+								<a href="vector.html#slice" class="tsd-kind-icon">slice</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#some" class="tsd-kind-icon">some</a>
+								<a href="vector.html#some" class="tsd-kind-icon">some</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#sort" class="tsd-kind-icon">sort</a>
+								<a href="vector.html#sort" class="tsd-kind-icon">sort</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#string" class="tsd-kind-icon">string</a>
+								<a href="vector.html#string" class="tsd-kind-icon">string</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#sub" class="tsd-kind-icon">sub</a>
+								<a href="vector.html#sub" class="tsd-kind-icon">sub</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#subarray" class="tsd-kind-icon">subarray</a>
+								<a href="vector.html#subarray" class="tsd-kind-icon">subarray</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#subc" class="tsd-kind-icon">subc</a>
+								<a href="vector.html#subc" class="tsd-kind-icon">subc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#tolocalestring" class="tsd-kind-icon">to<wbr>Locale<wbr>String</a>
+								<a href="vector.html#tolocalestring" class="tsd-kind-icon">to<wbr>Locale<wbr>String</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="vector.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#trunc" class="tsd-kind-icon">trunc</a>
+								<a href="vector.html#trunc" class="tsd-kind-icon">trunc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#truncc" class="tsd-kind-icon">truncc</a>
+								<a href="vector.html#truncc" class="tsd-kind-icon">truncc</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_algebra_.vector.html#values" class="tsd-kind-icon">values</a>
+								<a href="vector.html#values" class="tsd-kind-icon">values</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#zero1" class="tsd-kind-icon">zero1</a>
+								<a href="vector.html#zero1" class="tsd-kind-icon">zero1</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_algebra_.vector.html#zero2" class="tsd-kind-icon">zero2</a>
+								<a href="vector.html#zero2" class="tsd-kind-icon">zero2</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#epsilon" class="tsd-kind-icon">epsilon</a>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#epsilon" class="tsd-kind-icon">epsilon</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#epsilon2" class="tsd-kind-icon">epsilon2</a>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#epsilon2" class="tsd-kind-icon">epsilon2</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#abs" class="tsd-kind-icon">abs</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#abs" class="tsd-kind-icon">abs</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#add" class="tsd-kind-icon">add</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#add" class="tsd-kind-icon">add</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#berp" class="tsd-kind-icon">berp</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#berp" class="tsd-kind-icon">berp</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#ceil" class="tsd-kind-icon">ceil</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#ceil" class="tsd-kind-icon">ceil</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#comb" class="tsd-kind-icon">comb</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#comb" class="tsd-kind-icon">comb</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#der" class="tsd-kind-icon">der</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#der" class="tsd-kind-icon">der</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#der1" class="tsd-kind-icon">der1</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#der1" class="tsd-kind-icon">der1</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#dist" class="tsd-kind-icon">dist</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#dist" class="tsd-kind-icon">dist</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#div" class="tsd-kind-icon">div</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#div" class="tsd-kind-icon">div</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#dot" class="tsd-kind-icon">dot</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#dot" class="tsd-kind-icon">dot</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#equal1" class="tsd-kind-icon">equal1</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#equal1" class="tsd-kind-icon">equal1</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#equal2" class="tsd-kind-icon">equal2</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#equal2" class="tsd-kind-icon">equal2</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#exact" class="tsd-kind-icon">exact</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#exact" class="tsd-kind-icon">exact</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#floor" class="tsd-kind-icon">floor</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#floor" class="tsd-kind-icon">floor</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#gaussian" class="tsd-kind-icon">gaussian</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#gaussian" class="tsd-kind-icon">gaussian</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#herp" class="tsd-kind-icon">herp</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#herp" class="tsd-kind-icon">herp</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#lerp" class="tsd-kind-icon">lerp</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#lerp" class="tsd-kind-icon">lerp</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#mag" class="tsd-kind-icon">mag</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#mag" class="tsd-kind-icon">mag</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#mag2" class="tsd-kind-icon">mag2</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#mag2" class="tsd-kind-icon">mag2</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#max" class="tsd-kind-icon">max</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#max" class="tsd-kind-icon">max</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#min" class="tsd-kind-icon">min</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#min" class="tsd-kind-icon">min</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#mul" class="tsd-kind-icon">mul</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#mul" class="tsd-kind-icon">mul</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#neg" class="tsd-kind-icon">neg</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#neg" class="tsd-kind-icon">neg</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#norm" class="tsd-kind-icon">norm</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#norm" class="tsd-kind-icon">norm</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#prod" class="tsd-kind-icon">prod</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#prod" class="tsd-kind-icon">prod</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#round" class="tsd-kind-icon">round</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#round" class="tsd-kind-icon">round</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#sub" class="tsd-kind-icon">sub</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#sub" class="tsd-kind-icon">sub</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_algebra_.html#trunc" class="tsd-kind-icon">trunc</a>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#trunc" class="tsd-kind-icon">trunc</a>
 					</li>
 				</ul>
 			</nav>

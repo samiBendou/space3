@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -67,17 +65,19 @@
 					<a href="https://travis-ci.org/samiBendou/space3"><img src="https://img.shields.io/travis/samiBendou/space3.svg?style=flat-square" alt="Build status"></a>
 				<a href="https://www.npmjs.com/package/space3"><img src="https://img.shields.io/npm/l/space3.svg?style=flat-square" alt="License"></a></p>
 				<p>Javascript has become a language able to perform 3D graphics and numerical simulation in real time.
-					Theses applications are very expensive in terms of calculation and has imposed the need of both fast and
-				easy to use API to perform 3D computation.</p>
-				<p><em>space3</em> is a <strong>rich high performance API for maths 3D maths</strong>. It is designed
-					with hardcore time optimization in mind and achieves performances comparable to <a href="http://glmatrix.net/">glMatrix</a> on
-				mathematical operations while keeping maths programming close to written mathematics.</p>
+					Theses applications are very expensive in terms of calculation and impose the need of both fast and
+				handy API to perform 3D computation.</p>
+				<p><em>space3</em> is a <strong>rich high performance API for 3D maths</strong>. It is designed
+					with uncompromising time optimization in mind and reaches performances comparable to the wonderful <a href="http://glmatrix.net/">glMatrix</a>
+				for computation while <strong>keeping maths programming close to written mathematics</strong>.</p>
 				<h2 id="featuring">Featuring</h2>
 				<ul>
-					<li><p><strong>WebGL support</strong> with array based classes inheriting from <code>Float64Array</code> for matrix and vectors, column-major matrices, ...</p>
+					<li><p><strong>WebGL support</strong> with array based classes inheriting from <code>Float64Array</code>, column-major matrices, ...</p>
 					</li>
-					<li><p><strong>Vast API</strong> designed to perform many general purpose mathematical operations and specialized operations
-						useful for computer graphics, mechanics and numeric simulation, geometry...</p>
+					<li><p><strong>Three.js support</strong> with 3D coordinates manipulation and efficient rotations, translation, ...</p>
+					</li>
+					<li><p><strong>Vast API</strong> designed to perform many general purpose and specialized mathematical operations
+						for computer graphics, numeric simulation, geometry, physics...</p>
 					</li>
 					<li><p><strong>Written in Typescript</strong> with standardized interfaces to allow easily subclassing over the framework and
 						make the API simpler to use.</p>
@@ -88,19 +88,27 @@
 					<li><p><strong>Intuitive syntax</strong> that makes formulas easy to drop. You&#39;ll almost never find yourself
 						writing a math formula on more than a code line.</p>
 					</li>
-					<li><p><strong>Full <a href="https://samibendou.github.io/space3/modules/_main_.html">reference and tutorials</a></strong>
+					<li><p><strong><a href="https://samibendou.github.io/space3/">Reference and tutorials</a></strong>
 						to easily get started even if you&#39;re new in programming.</p>
+					</li>
+					<li><p><strong>Clean unit testing</strong> to allow understand the subtleties of some features   </p>
 					</li>
 				</ul>
 				<h2 id="usage">Usage</h2>
 				<h3 id="import">Import</h3>
-				<h4 id="typescript-and-es6">Typescript and ES6</h4>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> space3 <span class="hljs-keyword">from</span> <span class="hljs-string">"space3"</span>;
+				<h4 id="es6-and-typescript">ES6 and Typescript</h4>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> space3 <span class="hljs-keyword">from</span> <span class="hljs-string">"space3"</span>;
 <span class="hljs-keyword">import</span> {Vector3, Matrix3} <span class="hljs-keyword">from</span> <span class="hljs-string">"space3"</span>;</code></pre>
+				<p>With Typescript only, you can directly import sources </p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> Vector3 <span class="hljs-keyword">from</span> <span class="hljs-string">"space3/src/Vector3"</span>;</code></pre>
+				<p>This makes the syntactic coloration more consistent.</p>
 				<h4 id="node-js">Node.js</h4>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> space3 = <span class="hljs-built_in">require</span>(<span class="hljs-string">"space3"</span>);
 <span class="hljs-keyword">const</span> Vector3 = space3.Vector3, Matrix3 = space3.Matrix3;</code></pre>
-				<h3 id="syntax">Syntax</h3>
+				<h4 id="browser">Browser</h4>
+				<p>WIP... Browser bundle coming soon.
+				For now you can use a browser bundler such as browserify to transpile sources for browser.</p>
+				<h3 id="syntax-overview">Syntax overview</h3>
 				<pre><code class="language-js"><span class="hljs-keyword">let</span> u = <span class="hljs-keyword">new</span> Vector3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>), v = Vector3.ones;
 <span class="hljs-keyword">let</span> w = sub(u, v, v.mulc(<span class="hljs-number">10</span>));
 u.add(v).mul(<span class="hljs-number">6</span>);
@@ -115,9 +123,154 @@ p.origin = Vector3.zeros;
 u = p.to(q);
 p.translate(u);</code></pre>
 				<h2 id="documentation">Documentation</h2>
-				<p>Check the <a href="https://samibendou.github.io/space3/modules/_main_.html">main</a> page of the framework&#39;s site to get started.</p>
+				<p>This framework is documented such that beginners in maths and/or programming can get started easily but
+				provides rigorous documentation for more advanced users.</p>
+				<p>It comes with a complete reference and a step-by-step documentation for each class.
+				Bellow you can find a short guide that will get you started and give you an overview of the framework.</p>
+				<p><strong><a href="https://samibendou.github.io/space3/">Complete reference</a></strong></p>
 				<h2 id="contributions">Contributions</h2>
-				<p>If you want to improve math javascript experience don&#39;t hesitate to contribute. All kind of improvements are welcomed ! <a href="https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></p>
+				<p>If you want to improve math javascript experience don&#39;t hesitate to contribute.
+				All kind of improvements are welcomed !</p>
+				<p><strong><a href="https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></strong></p>
+				<h2 id="quick-start">Quick start</h2>
+				<h3 id="basic-concepts">Basic concepts</h3>
+				<p><strong>space3</strong> is a general purpose class library for 3D math.
+					It Provides handy <strong>classes for matrices, vectors</strong> and other objects related to 3D space and affine representation.
+				It Introduces the same names for abstractions that the ones commonly used in physics and geometry.</p>
+				<h4 id="conventions">Conventions</h4>
+				<p>In all the documentation and the code we will refer to :</p>
+				<ul>
+					<li><code>u</code>, <code>v</code>, <code>w</code> as vector</li>
+					<li><code>m</code>, <code>a</code>, <code>b</code>, <code>c</code> as matrix</li>
+					<li><code>p</code>, <code>q</code> as point</li>
+					<li><code>s</code>, <code>t</code> as real number</li>
+					<li><code>i</code> as row index of a matrix</li>
+					<li><code>j</code> as column index of a matrix</li>
+					<li>A series of vectors/matrices/numbers will be noted <code>uk</code> where <code>k = 0, 1, 2, ...</code></li>
+				</ul>
+				<h4 id="glossary">Glossary</h4>
+				<p>To shorten the length of the expression written using the framework, some abbreviations have been introduced.
+				Here is a glossary that resumes the definition of each.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Abbreviation</th>
+							<th>Name</th>
+							<th>Operation</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>add</code></td>
+							<td>addition</td>
+							<td><code>u += v</code></td>
+						</tr>
+						<tr>
+							<td><code>sub</code></td>
+							<td>subtraction</td>
+							<td><code>u -= v</code></td>
+						</tr>
+						<tr>
+							<td><code>mul</code></td>
+							<td>multiplication</td>
+							<td><code>u *= s</code></td>
+						</tr>
+						<tr>
+							<td><code>div</code></td>
+							<td>division</td>
+							<td><code>u /= s</code></td>
+						</tr>
+						<tr>
+							<td><code>comb</code></td>
+							<td>combination</td>
+							<td><code>u += v s</code></td>
+						</tr>
+						<tr>
+							<td><code>[lhb]erp</code></td>
+							<td>interpolation</td>
+							<td><code>u += (v-u) s</code></td>
+						</tr>
+						<tr>
+							<td><code>der</code></td>
+							<td>derivation</td>
+							<td><code>u = (v-u) / ds</code></td>
+						</tr>
+						<tr>
+							<td><code>prod</code></td>
+							<td>product</td>
+							<td><code>u *= v</code></td>
+						</tr>
+						<tr>
+							<td><code>inv</code></td>
+							<td>inversion</td>
+							<td><code>u **= -1</code></td>
+						</tr>
+						<tr>
+							<td><code>norm</code></td>
+							<td>normalization</td>
+							<td><code>u /= u . u</code></td>
+						</tr>
+						<tr>
+							<td><code>dot</code></td>
+							<td>dot product</td>
+							<td><code>u . v</code></td>
+						</tr>
+						<tr>
+							<td><code>dist</code></td>
+							<td>equality</td>
+							<td><code>d(u, v)</code></td>
+						</tr>
+						<tr>
+							<td><code>equal</code></td>
+							<td>equality</td>
+							<td><code>u == v</code></td>
+						</tr>
+						<tr>
+							<td><code>zero</code> or <code>nil</code></td>
+							<td>0 comparison</td>
+							<td><code>u == 0</code></td>
+						</tr>
+						<tr>
+							<td><code>rot</code></td>
+							<td>rotation</td>
+							<td><code>u = rot(theta)</code></td>
+						</tr>
+				</tbody></table>
+				<h3 id="standardized-algebra">Standardized algebra</h3>
+				<p>This framework comes with typescript interfaces to standardize mathematical operations. </p>
+				<p>This provides you the same syntax and equivalent specification for all operations that have the same mathematical meaning.
+				For example, <code>add</code> will name the addition of two matrices, vectors, position of points...</p>
+				<h3 id="object-oriented-interface">Object oriented interface</h3>
+				<p>This framework is natively written using object oriented paradigm which makes the syntax very close to the natural
+				mathematical language. For example <code>u += v</code> becomes <code>u.add(v)</code>.</p>
+				<h4 id="example">Example</h4>
+				<pre><code class="language-js">a = u.addc(w).add(v);
+b = u.subc(w.addc(v).div(s));
+c = m1.prodc(m2.powc(<span class="hljs-number">2</span>)).prod(m3);</code></pre>
+				<p>It allows to perform binary operations in way such that <code>u.op(v)</code> stores the result of <code>op</code> in <code>u</code>, erasing the
+				initial content of <code>u</code> but avoid cloning objects after operations.</p>
+				<p>This syntax allows surprisingly fast computing by minimizing the number of new instance to create while performing operations.</p>
+				<p><strong>Note</strong> Call <code>c</code> suffixed method to output a new instance and avoid modify the calling object.</p>
+				<h3 id="functional-interface">Functional interface</h3>
+				<p>This module provides a functional interface that is almost the same as the object oriented API but is more convenient for
+					operations over array of vectors <code>op(...vectors)</code>.
+				It allows to perform operations using the syntax <code>op(u, v, w)</code> instead of <code>u.opc(v).op(w)</code> with quasi no performance loss.</p>
+				<h4 id="example">Example</h4>
+				<pre><code class="language-js">a = add(u, w, v);
+b = sub(u, div(s, w, v));
+c = prod(m1, m2.powc(<span class="hljs-number">2</span>), m3);</code></pre>
+				<p><strong>Notes</strong> </p>
+				<ul>
+					<li>The original objects are not modified during operation, a new instance is always returned</li>
+					<li>Use and mix the two syntax at convenience</li>
+				</ul>
+				<h3 id="generation-of-objects">Generation of objects</h3>
+				<p>All classes comes with handy Matlab-style generators to avoid you writing the same <code>new Vector(1, 0, 0)</code> again and again.</p>
+				<h4 id="example">Example</h4>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> u = Vector3.zeros; <span class="hljs-comment">// new vector filled with 0</span>
+<span class="hljs-keyword">let</span> v = Vector3.ex; <span class="hljs-comment">// new vector (1, 0, 0)</span>
+<span class="hljs-keyword">let</span> m = Matrix3.ones; <span class="hljs-comment">// new matrix filled with 1</span>
+<span class="hljs-keyword">let</span> n = Matrix3.eye; <span class="hljs-comment">// new identity matrix</span>
+<span class="hljs-keyword">let</span> q = Matrix3.scalar(<span class="hljs-number">6</span>); <span class="hljs-comment">// diagonal matrix filled with 6</span></code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -126,25 +279,124 @@ p.translate(u);</code></pre>
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_algebra_.html">"<wbr>Algebra"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_matrix3_.html">"<wbr>Matrix3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_point3_.html">"<wbr>Point3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_vector3_.html">"<wbr>Vector3"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_main_.html">"main"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/matrix3.html" class="tsd-kind-icon">Matrix3</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/point3.html" class="tsd-kind-icon">Point3</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/vector3.html" class="tsd-kind-icon">Vector3</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/encoder.html" class="tsd-kind-icon">Encoder</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/matrix.html" class="tsd-kind-icon">Matrix</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/object3.html" class="tsd-kind-icon">Object3</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/object9.html" class="tsd-kind-icon">Object9</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/vector.html" class="tsd-kind-icon">Vector</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#epsilon" class="tsd-kind-icon">epsilon</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#epsilon2" class="tsd-kind-icon">epsilon2</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#abs" class="tsd-kind-icon">abs</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#add" class="tsd-kind-icon">add</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#berp" class="tsd-kind-icon">berp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#ceil" class="tsd-kind-icon">ceil</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#comb" class="tsd-kind-icon">comb</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#der" class="tsd-kind-icon">der</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#der1" class="tsd-kind-icon">der1</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#dist" class="tsd-kind-icon">dist</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#div" class="tsd-kind-icon">div</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#dot" class="tsd-kind-icon">dot</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#equal1" class="tsd-kind-icon">equal1</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#equal2" class="tsd-kind-icon">equal2</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#exact" class="tsd-kind-icon">exact</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#floor" class="tsd-kind-icon">floor</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#gaussian" class="tsd-kind-icon">gaussian</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#herp" class="tsd-kind-icon">herp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#lerp" class="tsd-kind-icon">lerp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mag" class="tsd-kind-icon">mag</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mag2" class="tsd-kind-icon">mag2</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#max" class="tsd-kind-icon">max</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#min" class="tsd-kind-icon">min</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mul" class="tsd-kind-icon">mul</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#neg" class="tsd-kind-icon">neg</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#norm" class="tsd-kind-icon">norm</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#prod" class="tsd-kind-icon">prod</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#round" class="tsd-kind-icon">round</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sub" class="tsd-kind-icon">sub</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#trunc" class="tsd-kind-icon">trunc</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

@@ -1,5 +1,5 @@
 /**
- * ## Introduction
+ * ## Brief
  * Welcome to the documentation of **space3** here is explained how to get started with the framework and where to
  * find documentation for a deep dive into the features.
  *

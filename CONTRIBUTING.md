@@ -1,6 +1,6 @@
 # Contribution guide
 
-## Introduction
+## Brief
 
 First off, thank you for considering contributing to space3 project. 
 You help to build a strong basis for 3D maths in Javascript :smile:.

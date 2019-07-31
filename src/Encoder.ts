@@ -1,6 +1,6 @@
 /**
  *
- * ## Introduction
+ * ## Brief
  * Encodes values in different native Javascript types.
  *
  * #### Example

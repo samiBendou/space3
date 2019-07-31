@@ -4,25 +4,22 @@ import Object3 from "./Object3";
 import Vector from "./Vector";
 
 
-
 /**
- * @brief 3D Vectors
- * @details Represents numeric vectors of dimension 3.
  *
+ * ## Brief
+ * [[Vector3]] represents 3D vectors.
+ *
+ * ### Main features
  * - **Array like** access `u[0]`, `u[1]`, ...
  * - **Geometrical operations** `angle`, `cross`, `dist`, ...
  * - **Many coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
  * - **Basis generators** like `ex`, `er(u)`, `e(k)`, ...
  * - **Rotations** of vector around `ex`, `ey`, `ez` and custom axis, `rot`, `rotX`, ...
  *
- * ## Introduction
- * Represent 3 dimensional vectors with an **object oriented interface**. This module only document the class
- * [[Vector3]]. See [Algebra](_algebra_.html) page for more general information about the API.
+ * Not all the operations have been detailed here
+ * to learn more about provided operations see [[Vector]].
  *
- * ## Vector3
- * [[Vector3]] is a vast class that allows to perform many **commons and advanced operations** with 3D vectors.
- * It is designed to provide fast and intuitive interface for **algebraical and geometrical** manipulations.
- *
+ * ## Getting Started
  * ### Coordinates systems
  * Get and set coordinates in many different systems.
  *
@@ -39,12 +36,14 @@ import Vector from "./Vector";
  * Perform rotations, compute angles, get cosine, ...
  *
  * #### Example
- *  * ```js
+ * ```js
  * let u = Vector3.ones, ex = Vector3.ex; // (1, 1, 1) (1, 0, 0)
  * u.angle(ex); // +pi/4
  * ex.cross(ex); // (0, 0, 0)
  * ex.rotZ(Math.PI / 2); // ex becomes ey
  * ```
+ *
+ * For more details on rotations see [[Object3]].
  *
  * ### Basis generators
  * Represent 3D local basis such as cylindrical basis.
@@ -59,7 +58,6 @@ import Vector from "./Vector";
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
  */
 export default class Vector3 extends Float64Array implements Vector, Object3 {
-
     dim: Readonly<number> = 3;
 
     /** first cartesian coordinate */

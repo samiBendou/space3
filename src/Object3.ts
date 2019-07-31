@@ -1,14 +1,14 @@
 import Vector from "./Vector";
 
 /**
+ * ## Brief
+ * [[Object3]] interface standardizes components accessors and rotations between objects of 3D space.
  *
- * ## Introduction
- * Standardizes components accessors and rotations between objects of 3D space.
+ * ## Getting Started
+ * ### Components accessors
+ * The interface provides `x`, `y` and `z` accessors such that if the object is of dimension `N`, `x` is of dimension `N/3`.
  *
- * ## Components accessors
- * Provides `x`, `y` and `z` accessors such that if the object is of dimension `N`, `x` is of dimension `N/3`.
- *
- * ### Example
+ * #### Example
  * ```js
  * m.x // Vector3
  * u.z // number
@@ -16,10 +16,11 @@ import Vector from "./Vector";
  * u.xyz // [number, number, number]
  * ```
  *
- * ## Rotations
- * 3D rotations for matrices and vectors are both very powerful and computationally efficient. It allows to generate
- * custom rotation matrix and to rotate vectors around any arbitrary axis around any circular-like shape.
+ * ### Rotations
+ * 3D rotations are very powerful and computationally efficient. They allow to generate
+ * custom rotation matrix and to rotate vectors around any _arbitrary axis_ around any _circular-like shape_.
  *
+ * #### Example
  * ```js
  * u.rotX(angle);
  * v.rot(u, angle);
@@ -30,10 +31,13 @@ import Vector from "./Vector";
  * ```
  *
  * In the last line, he methods `cos` and `sin` are called the _metric functions_ of the rotation.
- * By default these are let to `Math.cos` and `Math.sin` the resulting rotation will be a circular.
+ * By default theses are let to `Math.cos` and `Math.sin` the resulting rotation will be a circular.
  *
- * ### Elliptic rotation
- * A standard use case for extended features of rotation matrix is the generation of an elliptic rotation matrix.
+ * ### Non-circular rotation
+ * To understand how works non-circular rotations lets start with an example.
+ * A regular use case is the generation of an elliptic rotation matrix.
+ * ie. a matrix that performs a rotation of a unit vector on a ellipse.
+ *
  * Pass the method `(x) => a * Math.cos(x)` and `(y) => b * Math.sin(y)` as metric functions, the result will
  * be a rotation matrix around an ellipse of semi-axis major `max(a,b)` and semi-axis minor `min(a, b)`.
  *

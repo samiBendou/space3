@@ -1,13 +1,12 @@
 /**
  *
- * ## Introduction
+ * ## Brief
  *
  * Standardizes components accessors between objects of dimension 9.
  *
- * ## Components accessors
- *
+ * ## Getting Started
+ * ### Components accessors
  * Access a component using an equivalent of cartesian coordinates `m.ij` where :
- *
  * - `i` is a row index which value can be `x`, `y`, `z`
  * - `j` is a column index which value can be `x`, `y`, `z`
  *

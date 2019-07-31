@@ -6,38 +6,36 @@ import Object3 from "./Object3";
 import Vector from "./Vector";
 
 /**
- * @brief point with given origin
- * @details Represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
  *
+ * ## Brief
+ * [[Point3]] class represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
+ * A point is just a vector represented from a given origin. Points overrides all the vectors features.
+ *
+ * ## Main features
  * - manipulate **relative and absolute** coordinates `origin`, `absolute`,  ...
  * - **affine geometry** displacement and origin changes `at`, `to`, ...
  *
- * ## Introduction
- *
- * Represent 3 dimensional points with an **object oriented interface**. This module only document the class
- * [[Point3]]. See [Algebra](_algebra_.html) page for more general information about the API.
+ * Not all the operations have been detailed here
+ * to learn more about provided operations see [[Vector]].
  *
  * ## Point3
- * [[Point3]] is a class that allows to perform many **commons and advanced operations** with 3D points.
- * It is designed to provide fast and intuitive interface for **geometrical** manipulations in **affine space**.
- *
  * ### Inheritance with Vector3
- * [[Point3]] inherits from [[Vector3]]. A point is a vector represented from a given origin. Points overrides all
- * the vectors features.
+ * [[Point3]] inherits from [[Vector3]].
  *
  * #### Example
  * ```js
- * p.x // x position
+ * p.x // x position from origin
  * p.r // r coordinate from origin
  * ```
  *
- * Each operation between points outputs the same result as between vectors but converts coordinates of the right
- * operand in coordinates from origin of the left operand if needed.
- * Therefore operations between two points can be considered as operations between two positions vectors
+ * Each operation between two points has the same result as between two vectors but translates coordinates of the right
+ * operand in coordinates from origin of the left operand.
+ *
+ * Operations between two points can be considered as operations between two positions vectors
  * located from the origin of the left operand.
  *
  * ### Position
- * A point stores relative position from current `origin` member, if the origin is modified using `p.origin = ...` syntax
+ * A point stores relative position from current `origin`, if the origin is modified using `p.origin = ...` syntax
  * then the coordinates of the points are updated to the coordinates from new origin.
  *
  * #### Example
@@ -59,8 +57,8 @@ import Vector from "./Vector";
  * ```
  *
  * ### Displacement and Origin Changes
- * Represent displacement vector **AB** between two points `a`, `b` with `to` and get coordinates of a point from
- * a given new origin with `at`.
+ * Represent the displacement vector **AB** between two points `a`, `b` with `to` method and get coordinates of a point from
+ * a given origin with `at`.
  *
  * ```js
  * let a = Point3.zeros, b = new Point3(1, 0, 0), ex = Vector3.ex;

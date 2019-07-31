@@ -7,21 +7,19 @@ import Matrix from "./Matrix";
 import Vector3 from "./Vector3";
 
 /**
- * @brief 3x3 matrices
- * @details Represents dense square matrices of dimension 3.
+
+ * ## Brief
+ * [[Matrix3]] represents 3x3 dense matrices.
  *
+ * ### Main features
  * - **Array like** access `m[2]` denotes the value at first column and third row
  * - **Interface with [[Vector3]]** `x`, `y`, `z`, ...
  * - **Many generators** `diag`, `sym`, `scalar`, `rotX`, ...
  *
- * ## Introduction
- * Represent 3x3 matrix with an **object oriented interface**. This module only document the class
- * [[Matrix3]]. See [Algebra](_algebra_.html) page for more general information about the API.
+ * Not all the operations have been detailed here
+ * to learn more about provided operations see [[Matrix]].
  *
- * ## Matrix3
- * [[Matrix3]] is a vast class that allows to perform many **commons and advanced operations** with 3x3 matrices.
- * It's designed in the ame philosophy as [[Vector3]].
- *
+ * ## Getting Started
  * ### Interface with Vector3
  * [[Matrix3]] provides an interface with [[Vector3]] by implementing [[Object3]] interface. It allows to construct
  * vectors from rows and columns of the matrix.
@@ -33,11 +31,10 @@ import Vector3 from "./Vector3";
  * m.xyz = [u, v, w];
  * ```
  *
+ * For more details see [[Object3]].
+ *
  * ### Rotation matrix
- * Rotation matrices can be generated using a very powerful generator :
- * - Efficient rotations around `x`, `y` and `z`
- * - Rotation around arbitrary vector axis `u`
- * - Rotation around ellipses and hyperbolas `a * cos(theta)`, `b * sinh(theta)`, ...
+ * Generate rotation matrix using static methods.
  *
  * #### Example
  * ```js
@@ -50,16 +47,9 @@ import Vector3 from "./Vector3";
  * // elliptic rotation matrix around z axis with angle +pi/4
  * q = Matrix3.rotZ(Math.PI / 4, (x) => 5 * Math.cos(x), Math.sin);
  * ```
+ * For more details see [[Object3]].
  *
- * You can also directly set an existent matrix to a rotation matrix
- *
- * #### Example
- * ```js
- * m.rotX(Math.PI / 4); // sets m to rotation matrix around x axis
- * m.rot(u, Math.PI / 4); // sets m to rotation matrix around u axis
- * ```
- *
- * see [[Object3]] interface documentation for more details about rotations in the framework.
+ * **Note** You can also directly assign an existent matrix to a rotation matrix.
  *
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>

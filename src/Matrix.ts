@@ -1,13 +1,15 @@
 import Vector from "./Vector";
 
 /**
- * ## Introduction
+ * ## Brief
  * Add some matrix related features to the [[Vector]] interface.
  * Matrices are stored in memory as 1D contiguous array of columns. Therefore they conforms to the WebGL specification.
  *
- * ## Operations
+ * ### Main Features
  * - Efficient manipulation of **rows and columns** `row`, `rows`, `cols`, ...
- * - Matrix algebra extended features `pow`, `det`, `at`, ...
+ * - Matrix **algebra extended features**`pow`, `det`, `at`, ...
+ *
+ * For more details see [[Vector]].
  */
 export default interface Matrix extends Vector {
     /** matrix as 2D array of rows */

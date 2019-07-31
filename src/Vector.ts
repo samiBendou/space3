@@ -1,16 +1,11 @@
 import Encoder from "./Encoder";
 
 /**
- * ## Introduction
- *
- * Represents a **vector** in a  _normed vector space_.
+ * ## Brief
+ * [[Vector]] represents a **vector** in a  _normed vector space_.
  * It might be numerical vectors, matrices, or something more complicated.
- * A [[Vector]] is not necessarily an object of dimension 3.
  *
- * ## Operations
- *
- * A [[Vector]] provides the following operations :
- *
+ * ### Main Features
  * - Objects **copy and clone** `copy`, `clone`, `assign`, ...
  * - Basic **manipulators** `floor`, `fill`, `abs`, ...
  * - **Algebraical operations** `add`, `sub`, `inv`, `mul`, `prod`,  ...
@@ -27,17 +22,35 @@ import Encoder from "./Encoder";
  * u.comb(2, v) // u = (16.25, 0, 0);
  * ```
  *
- * The documentation of each method contains a more precise description of the API.
+ * **Note** The documentation of each method contains a more precise description of the API.
  *
- * ## Equality and norm based operations
- * In order to avoid float precision errors and to give different way to compare vectors,
- * [[Vector]] interface provides three different ways to compare vectors :
+ * ## Getting Started
+ *
+ * ### Algebraical operations
+ * Algebraical operations are the base of **space3** framework. Almost all classes of the framework
+ * provides theses operations.
+ *
+ * #### Example
+ * ```js
+ * u.add(v).sub(w).comb(lambda, w);
+ * a.prod(b).inv();
+ * ```
+ *
+ * If you're already feel comfortable with algebra you may know how all this works.
+ * Therefore you just have to take a look at the [glossary of operations](https://samibendou.github.io/space3/)
+ * in order to know the list of abbreviations used for operations.
+ *
+ * if you need a little refresh on algebra,
+ * I recommend you to watch the great algebra vulgarized curse on [3Blue1Brown](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) channel.
+ *
+ * ### Equality and norm based operations
+ * In order to avoid float precision errors and give different way to compare objects,
+ * a [[Vector]] provides three different ways to compare to another one :
  * - Using the norm 1, manhattan distance `||u|| = |ux| + |uy| + |uz|`
  * - Using the norm 2, dot product distance `||u|| = sqrt(|ux|**2 + |uy|**2 + |uz|**2)`
  * - Using exact comparison coordinates by coordinates.
  *
  * #### Example
- *
  * ```js
  * let ex = Vector3.ex, ey = Vector3.ey, zeros = Vector3.zeros;
  * ex.equal2(ey) // false
@@ -45,9 +58,12 @@ import Encoder from "./Encoder";
  * ex.exact(ex) // true
  * ex.zero1() // false
  * zeros.nil() // true
+ * zeros.add(ex.mul(Number.EPSILON)).nil() // false
  * ```
  *
- * **Note** `mag` accessors is computed using the norm 2. Use `dist`, `equal2` and `zero2` to compare objects by default.
+ * **Notes**
+ * - Use `dist`, `equal2` and `zero2` to compare objects by default
+ * - `mag` accessors is computed using the norm 2
  */
 export default interface Vector extends Encoder {
     /** dimension of the vector */

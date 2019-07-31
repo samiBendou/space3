@@ -13,7 +13,7 @@
     "prepublishOnly": "tsc && tsc -p tsconfig.browser.json",
     "test": "nyc mocha -r ts-node/register test/**/*.test.ts --timeout=3000",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "doc": "typedoc --out docs ./src --excludeNotExported --excludePrivate --listInvalidSymbolLinks --mode file && touch docs/.nojekyll "
+    "doc": "typedoc --out docs ./src --excludeNotExported --excludePrivate --excludeExternals --listInvalidSymbolLinks --mode file --module commonjs --target ES6 && touch docs/.nojekyll "
   },
   "nyc": {
     "include": [
@@ -67,6 +67,7 @@
     "nyc": "^14.1.1",
     "ts-node": "^8.3.0",
     "typedoc": "^0.14.2",
+    "typedoc-plugin-no-inherit": "^1.1.9",
     "typescript": "^3.5.3"
   }
 }

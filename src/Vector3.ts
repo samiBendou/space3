@@ -1,4 +1,20 @@
+import {mag, mag2} from "./Algebra";
+import {epsilon, epsilon2, gaussian} from "./common";
+import Object3 from "./Object3";
+import Vector from "./Vector";
+
+
+
 /**
+ * @brief 3D Vectors
+ * @details Represents numeric vectors of dimension 3.
+ *
+ * - **Array like** access `u[0]`, `u[1]`, ...
+ * - **Geometrical operations** `angle`, `cross`, `dist`, ...
+ * - **Many coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
+ * - **Basis generators** like `ex`, `er(u)`, `e(k)`, ...
+ * - **Rotations** of vector around `ex`, `ey`, `ez` and custom axis, `rot`, `rotX`, ...
+ *
  * ## Introduction
  * Represent 3 dimensional vectors with an **object oriented interface**. This module only document the class
  * [[Vector3]]. See [Algebra](_algebra_.html) page for more general information about the API.
@@ -42,23 +58,7 @@
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
  */
-/** */
-
-import {epsilon, epsilon2, gaussian, mag, mag2, Object3, Vector} from "./Algebra";
-
-/**
- * @brief 3D Vectors
- * @details Represents numeric vectors of dimension 3.
- *
- * - **Array like** access `u[0]`, `u[1]`, ...
- * - **Geometrical operations** `angle`, `cross`, `dist`, ...
- * - **Many coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
- * - **Basis generators** like `ex`, `er(u)`, `e(k)`, ...
- * - **Rotations** of vector around `ex`, `ey`, `ez` and custom axis, `rot`, `rotX`, ...
- *
- * See [[Vector]] for more details.
- */
-export class Vector3 extends Float64Array implements Vector, Object3 {
+export default class Vector3 extends Float64Array implements Vector, Object3 {
 
     dim: Readonly<number> = 3;
 

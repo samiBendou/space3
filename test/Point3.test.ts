@@ -1,8 +1,8 @@
 import {assert} from "chai";
 import * as assert3 from "./assert3";
-import {Vector3} from "../src/Vector3";
-import {Matrix3} from "../src/Matrix3";
-import {Point3} from "../src/Point3";
+import Vector3 from "../src/Vector3";
+import Matrix3 from "../src/Matrix3";
+import Point3 from "../src/Point3";
 
 describe("Point3 Tests", () => {
 

@@ -43,7 +43,7 @@ const space3 = require("space3");
 const Vector3 = space3.Vector3, Matrix3 = space3.Matrix3;
 ```
 
-### Syntax
+### Syntax overview
 ```js
 let u = new Vector3(1, 2, 3), v = Vector3.ones;
 let w = sub(u, v, v.mulc(10));
@@ -59,6 +59,68 @@ p.origin = Vector3.zeros;
 u = p.to(q);
 p.translate(u);
 ```
+
+ ## Introduction
+ This module provides various algebra related features. It provides API specification for almost all the framework.
+ *
+ ## Matrices and vectors
+ Interfaces to standardize mathematical operations for matrices and vectors are specified here.
+ *
+ All the documentation for common mathematical operations can be founded in `Vector` and `Matrix`
+ documentations. Theses interface offers a rich object oriented syntax.
+ *
+ Theses operations are implemented using 3D optimized code that achieve both very high functionality and speed.
+ *
+ ## Object oriented interface
+ This framework is natively written using object oriented paradigm which makes it syntax very close to the natural
+ mathematical language. For example `u += v` becomes `u.add(v)`.
+ *
+ #### Example
+ ```js
+ a = u.addc(w).add(v);
+ b = u.subc(w.addc(v).div(s));
+ c = m1.prodc(m2.powc(2)).prod(m3);
+ ```
+ It allows to perform binary operations in way such that `u.op(v)` stores the result of `op` in `u`, erasing the
+ initial content of `u` but avoid cloning objects after operations.
+ *
+ This syntax allows very fast computing by minimizing the number of new instance to create while performing operations.
+ *
+ **Note*Call `c` suffixed method to output a new instance and avoid modify the calling object.
+ *
+ ## Functional interface
+ This module provides a functional interface consists on a set of function that partially implement the interface `Vector`.
+ It allows to perform operations using the syntax `op(u, v, w)` instead of `u.opc(v).op(w)` with quasi no performance loss.
+ It can perform operations with an arbitrary number of vector `op(...vectors)`.
+ *
+ #### Example
+ ```js
+ a = add(u, w, v);
+ b = sub(u, div(s, w, v));
+ c = prod(m1, m2.powc(2), m3);
+ ```
+ *
+ **Note*The original objects are not modified during operation and a new instance is always returned.
+ *
+ ## Generation of objects
+ *
+ All classes that implement `Vector` interface allows to generate matrix using many Matlab-like generators
+ such as `zeros`, `ones`. Theses generators are designed as static accessors of each vector-like class.
+ Each call to this accessors construct a new object.
+ *
+ #### Example
+ ```js
+ let u = Vector3.zeros; // new vector filled with 0
+ let v = Vector3.ex; // new vector (1, 0, 0)
+ let m = Matrix3.ones; // new matrix filled with 1
+ let n = Matrix3.eye; // new identity matrix
+ let q = Matrix3.scalar(6); // diagonal matrix filled with 6
+ ```
+ *
+ </br>
+ <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
+
+
 
 ## Documentation
 Check the [main](https://samibendou.github.io/space3/modules/_main_.html) page of the framework's site to get started.

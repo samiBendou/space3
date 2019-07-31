@@ -1,9 +1,9 @@
 import {assert} from "chai";
 import * as assert3 from "./assert3";
 import * as Algebra from "../src/Algebra";
-import {Vector3} from "../src/Vector3";
-import {Matrix3} from "../src/Matrix3";
-import {epsilon} from "../src/Algebra";
+import Vector3 from "../src/Vector3";
+import Matrix3 from "../src/Matrix3";
+import {epsilon} from "../src/common";
 
 describe("Algebra Tests", () => {
 

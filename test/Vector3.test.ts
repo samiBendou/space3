@@ -1,7 +1,7 @@
 import {assert} from "chai";
 import * as assert3 from "./assert3";
-import {Vector3} from "../src/Vector3";
-import {epsilon} from "../src/Algebra";
+import Vector3 from "../src/Vector3";
+import {epsilon} from "../src/common";
 
 describe("Vector3 Tests", () => {
 

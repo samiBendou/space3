@@ -1,4 +1,19 @@
+import {mag, mag2} from "./Algebra";
+import {epsilon, epsilon2} from "./common";
+import Object3 from "./Object3";
+import Object9 from "./Object9";
+import Vector from "./Vector";
+import Matrix from "./Matrix";
+import Vector3 from "./Vector3";
+
 /**
+ * @brief 3x3 matrices
+ * @details Represents dense square matrices of dimension 3.
+ *
+ * - **Array like** access `m[2]` denotes the value at first column and third row
+ * - **Interface with [[Vector3]]** `x`, `y`, `z`, ...
+ * - **Many generators** `diag`, `sym`, `scalar`, `rotX`, ...
+ *
  * ## Introduction
  * Represent 3x3 matrix with an **object oriented interface**. This module only document the class
  * [[Matrix3]]. See [Algebra](_algebra_.html) page for more general information about the API.
@@ -49,23 +64,7 @@
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
  */
-
-/** */
-
-import {epsilon, epsilon2, mag, mag2, Matrix, Object3, Object9, Vector} from "./Algebra";
-import {Vector3} from "./Vector3";
-
-/**
- * @brief 3x3 matrices
- * @details Represents dense square matrices of dimension 3.
- *
- * - **Array like** access `m[2]` denotes the value at first column and third row
- * - **Interface with [[Vector3]]** `x`, `y`, `z`, ...
- * - **Many generators** `diag`, `sym`, `scalar`, `rotX`, ...
- *
- * See [[Matrix]] for mor details.
- */
-export class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
+export default class Matrix3 extends Float64Array implements Matrix, Object3, Object9 {
     dim: Readonly<number> = 9;
 
     /** first row as vector **/

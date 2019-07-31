@@ -1,5 +1,6 @@
 import {assert} from "chai";
-import {Encoder, Vector} from "../src/Algebra";
+import Vector from "../src/Vector";
+import Encoder from "../src/Encoder";
 
 type Vectors = Vector | Vector[] | number[];
 

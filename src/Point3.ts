@@ -1,4 +1,17 @@
+import Vector3 from "./Vector3";
+import Matrix3 from "./Matrix3";
+import {dist} from "./Algebra";
+import {epsilon2} from "./common";
+import Object3 from "./Object3";
+import Vector from "./Vector";
+
 /**
+ * @brief point with given origin
+ * @details Represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
+ *
+ * - manipulate **relative and absolute** coordinates `origin`, `absolute`,  ...
+ * - **affine geometry** displacement and origin changes `at`, `to`, ...
+ *
  * ## Introduction
  *
  * Represent 3 dimensional points with an **object oriented interface**. This module only document the class
@@ -69,22 +82,7 @@
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
  */
-/** */
-
-import {Vector3} from "./Vector3";
-import {Matrix3} from "./Matrix3";
-import {dist, epsilon2, Object3, Vector} from "./Algebra";
-
-/**
- * @brief point with given origin
- * @details Represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
- *
- * - manipulate **relative and absolute** coordinates `origin`, `absolute`,  ...
- * - **affine geometry** displacement and origin changes `at`, `to`, ...
- *
- * See [[Vector]] for more details.
- */
-export class Point3 extends Vector3 implements Vector, Object3 {
+export default class Point3 extends Vector3 implements Vector, Object3 {
 
     dim: Readonly<number> = 3;
 

@@ -1,7 +1,7 @@
 import {mag, mag2} from "./Algebra";
-import Vector from "./Vector";
+import Vector from "./int/Vector";
 import {epsilon, epsilon2} from "./common";
-import Encoder from "./Encoder";
+import Encoder from "./int/Encoder";
 
 
 /**

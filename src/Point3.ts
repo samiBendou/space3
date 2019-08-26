@@ -2,8 +2,8 @@ import Vector3 from "./Vector3";
 import Matrix3 from "./Matrix3";
 import {dist} from "./Algebra";
 import {epsilon2} from "./common";
-import Object3 from "./Object3";
-import Vector from "./Vector";
+import Object3 from "./int/Object3";
+import Vector from "./int/Vector";
 
 /**
  *

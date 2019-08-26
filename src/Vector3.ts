@@ -1,7 +1,7 @@
 import {mag, mag2} from "./Algebra";
 import {epsilon, epsilon2, gaussian} from "./common";
-import Object3 from "./Object3";
-import Vector from "./Vector";
+import Object3 from "./int/Object3";
+import Vector from "./int/Vector";
 
 
 /**

@@ -1,5 +1,5 @@
-import Vector from "./Vector";
-import Matrix from "./Matrix";
+import Vector from "./int/Vector";
+import Matrix from "./int/Matrix";
 
 /**
  * ## Brief

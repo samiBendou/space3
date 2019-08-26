@@ -1,9 +1,9 @@
 import {mag, mag2} from "./Algebra";
 import {epsilon, epsilon2} from "./common";
-import Object3 from "./Object3";
-import Object9 from "./Object9";
-import Vector from "./Vector";
-import Matrix from "./Matrix";
+import Object3 from "./int/Object3";
+import Object9 from "./int/Object9";
+import Vector from "./int/Vector";
+import Matrix from "./int/Matrix";
 import Vector3 from "./Vector3";
 
 /**

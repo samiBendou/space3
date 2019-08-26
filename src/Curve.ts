@@ -7,7 +7,7 @@ import Matrix from "./Matrix";
  *
  * ## Main features
  *
- * - push and pop vectors onto the curve `pup`, `pop`
+ * - LIFO of vectors `push`, `pop`
  * - linear interpolation of position, speed, length
  * - manipulate geometrical origin of the point `origin`
  * - **geometrical transforms** `translate`, `affine`, ...
@@ -63,11 +63,12 @@ export default class Curve {
         this.positions[this.positions.length - 2] = newLast;
     }
 
-    get origin(): Readonly<Vector> {
+    /** origin of the curve */
+    get origin(): Vector {
         return this._origin;
     }
 
-    set orgin(newOrigin: Vector) {
+    set origin(newOrigin: Vector) {
         this.positions.forEach(position => {
             position.add(this._origin).sub(newOrigin);
         });
@@ -92,7 +93,7 @@ export default class Curve {
     }
 
     /**
-     * @brief clears the trajectory
+     * @brief clears the curve
      * @details Removes all position and steps.
      * @returns reference to `this`
      */
@@ -111,14 +112,14 @@ export default class Curve {
 
     transform(m: Matrix) {
         this.positions.forEach((position) => {
-            m.prodv(position)
+            m.prodv(position);
         });
         return this;
     }
 
     affine(m: Matrix, v: Vector) {
         this.positions.forEach((position) => {
-            m.prodv(position).add(v)
+            m.prodv(position).add(v);
         });
         return this;
     }
@@ -129,12 +130,19 @@ export default class Curve {
      * @returns value of position at `x`
      */
     position(x: number = 1): Vector {
-        const scale = x * (this.positions.length - 1), i0 = Math.floor(scale), i1 = (i0 + 1);
+        const scale = x * (this.positions.length - 1),
+            i0 = Math.floor(scale), i1 = Math.min(this.positions.length - 1, (i0 + 1));
         return this.positions[i0].lerpc(this.positions[i1], scale - i0);
     }
 
+    /**
+     * @brief speed on parametrized curve
+     * @param x parameter between `0` and `1`
+     * @returns value of position at `x`
+     */
     speed(x: number = 1): Vector {
-        const scale = x * (this.positions.length - 1), i0 = Math.floor(scale), i1 = (i0 + 1);
+        const scale = x * (this.positions.length - 1),
+            i0 = Math.min(this.positions.length - 2, Math.floor(scale)), i1 = i0 + 1;
         return this.positions[i1].derc(this.dt[i0], this.positions[i0]);
     }
 
@@ -146,29 +154,33 @@ export default class Curve {
      */
     duration(x: number = 1): number {
         const scale = x * (this.positions.length - 1), i0 = Math.floor(scale);
-        return +(this.dt.slice(0, i0).reduce((acc, dt) => acc + dt, 0)) + (scale - i0) * this.dt[i0];
+        return this.dt.slice(0, i0).reduce((acc, dt) => acc + dt, 0) + (scale - i0) * this.dt[Math.min(this.dt.length - 1, i0)];
     }
 
     length(x: number = 1): number {
-        const scale = x * (this.positions.length - 1), i0 = Math.floor(scale), i1 = (i0 + 1);
+        const scale = x * (this.positions.length - 1),
+            i0 = Math.floor(scale), i1 = Math.min(this.positions.length - 1, (i0 + 1));
 
         let length = 0;
-        for (let i = 1; i < i0; i++)
+        for (let i = 1; i <= i0; i++)
             length += this.positions[i].dist(this.positions[i - 1]);
 
-        return length + this.positions[i1].dist(this.positions[i0]) * (scale - i0) / this.dt[i0];
+        return length + this.positions[i1].dist(this.positions[i0]) * (scale - i0);
     }
 
     /**
-     * @brief generates an immobile trajectory
-     * @details Observer and mobile positions are equal
-     * @param u position of observer and mobile
-     * @param size number of elements in trajectory
-     * @param dt time step between each position
-     * @returns new instance of trajectory
+     * @brief generates an constant curve ie. a point.
+     * @details The position is constant and step is non null
+     * @param u position of the point
+     * @param size number of samples
+     * @param dt time step
      */
     static zeros(u: Vector, size: number, dt: number[] | number = 1) {
-        return new Curve(Array(size).fill(u.clone()), u.clone().reset0(), dt);
+        let array = [];
+        for (let i = 0; i < size; i++)
+            array.push(u.clone());
+
+        return new Curve(array, u.clone().reset0(), dt);
     }
 
     static graph(f: (t: number) => Vector, a: number, b: number, dt: number = 1) {

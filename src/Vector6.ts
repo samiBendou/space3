@@ -539,6 +539,18 @@ export default class Vector6 extends Float64Array implements Vector, Encoder {
         return new Vector6(s, s, s, s, s, s);
     }
 
+    static e(k: number): Vector6 {
+        const ek = new Vector6(0, 0, 0, 0, 0, 0);
+        ek[k] = 1;
+        return ek;
+    }
+
+    static en(k: number): Vector6 {
+        const ek = new Vector6(0, 0, 0, 0, 0, 0);
+        ek[k] = -1;
+        return ek;
+    }
+
     /** vector filled with uniform random values.  See [[random]] for more details. */
     static random(): Vector6 {
         return new Vector6(Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random());

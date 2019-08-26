@@ -798,6 +798,17 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     /**
+     * @brief opposite of canonical basis vector
+     * @details `e(0) == ex`, `e(1) == ey`, `e(2) == ez`.
+     * @param k {number} order of the vector in basis
+     */
+    static en(k: number): Vector3 {
+        const ek = new Vector3(0, 0, 0);
+        ek[k] = -1;
+        return ek;
+    }
+
+    /**
      * @brief radial vector of spherical basis
      * @param u position of local basis
      */

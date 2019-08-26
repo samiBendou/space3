@@ -89,5 +89,7 @@ export * from "./Matrix";
 export * from "./Object3";
 export * from "./Object9";
 export * from "./Vector3";
+export * from "./Vector6";
 export * from "./Matrix3";
 export * from "./Point3";
+export * from "./Curve";

@@ -59,9 +59,9 @@ export default class Vector6 extends Float64Array implements Vector, Encoder {
         this[0] = x;
         this[1] = y;
         this[2] = z;
-        this[4] = vx;
-        this[5] = vy;
-        this[6] = vz;
+        this[3] = vx;
+        this[4] = vy;
+        this[5] = vz;
     }
 
     string(): string {
@@ -522,5 +522,30 @@ export default class Vector6 extends Float64Array implements Vector, Encoder {
             vy = this[4],
             vz = this[5];
         return x * x + y * y + z * z + vx * vx + vy * vy + vz * vz < epsilon2;
+    }
+
+    /** vector filled with `0` */
+    static get zeros(): Vector6 {
+        return new Vector6(0, 0, 0, 0, 0, 0);
+    }
+
+    /** vector filled with `1` */
+    static get ones(): Vector6 {
+        return new Vector6(1, 1, 1, 1, 1, 1);
+    }
+
+    /** vector filled with `s` */
+    static scalar(s: number): Vector6 {
+        return new Vector6(s, s, s, s, s, s);
+    }
+
+    /** vector filled with uniform random values.  See [[random]] for more details. */
+    static random(): Vector6 {
+        return new Vector6(Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
+    }
+
+    /** vector from coordinates of array in the form `[x, y, z, vx, vy, vz, ...]` */
+    static array(arr: number[]): Vector6 {
+        return new Vector6(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
     }
 }

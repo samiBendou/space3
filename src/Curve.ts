@@ -3,7 +3,7 @@ import Matrix from "./Matrix";
 
 export default class Curve {
 
-    /** array of successive position of mobile from the point of view of observer **/
+    /** position vectors representing the curve */
     positions: Vector[];
 
     private readonly _origin: Vector;
@@ -43,6 +43,17 @@ export default class Curve {
 
     set nexto(newLast) {
         this.positions[this.positions.length - 2] = newLast;
+    }
+
+    get origin(): Readonly<Vector> {
+        return this._origin;
+    }
+
+    set orgin(newOrigin: Vector) {
+        this.positions.forEach(position => {
+            position.add(this._origin).sub(newOrigin);
+        });
+        this._origin.copy(newOrigin);
     }
 
     /**

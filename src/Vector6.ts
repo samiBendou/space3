@@ -7,9 +7,23 @@ import Encoder from "./Encoder";
 /**
  * ## Brief
  *
- * ## Main features
+ * [[Vector6]] represents 6D vectors.
  *
  * ## Getting started
+ *
+ * The `Vector6` class mainly implements [[Vector]] interface. It's a generalization of
+ * [[Vector3]] class but it does not provide geometrical features such as rotations.
+ *
+ * `Vector6` can be seen as the concatenation of two vectors `(x, y, z)` and `(vx, vy, vz)` which
+ * can represent the coordinates of a moving mobile in a 6D phase space. It's particularly useful
+ * when dealing with second order differential equations.
+ *
+ * #### Example
+ * ```js
+ * let u = Vector6(1, 2, 3, 4, 5, 6);
+ * let v = u.upper; // Vector3(1, 2, 3)
+ * u.lower = v; // u = (1, 2, 3, 1, 2, 3)
+ * ```
  *
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
@@ -49,7 +63,7 @@ export default class Vector6 extends Float64Array implements Vector, Encoder {
         this[5] = newUpper[2];
     }
 
-    /** constructs a vector with cartesian coordinates */
+    /** constructs a vector with coordinates */
     constructor(x?: number, y?: number, z?: number, vx?: number, vy?: number, vz?: number) {
         super(6);
 

@@ -1,6 +1,24 @@
 import Vector from "./Vector";
 import Matrix from "./Matrix";
 
+/**
+ * ## Brief
+ * [[Curve]] represent a parametrized curve in an arbitrary vector space.
+ *
+ * ## Main features
+ *
+ * - push and pop vectors onto the curve `pup`, `pop`
+ * - linear interpolation of position, speed, length
+ * - manipulate geometrical origin of the point `origin`
+ * - **geometrical transforms** `translate`, `affine`, ...
+ *
+ * ## Getting started
+ *
+ *
+ * </br>
+ * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
+ */
+
 export default class Curve {
 
     /** position vectors representing the curve */

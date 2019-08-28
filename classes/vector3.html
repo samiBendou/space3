@@ -79,15 +79,16 @@
 					<p>Not all the operations have been detailed here
 					to learn more about provided operations see <a href="../interfaces/vector.html">Vector</a>.</p>
 					<h2 id="getting-started">Getting Started</h2>
-					<p>Before explaining any code lets start with understanding a little diagram.</p>
+					<p>Before explaining any code lets started by understanding a little diagram.</p>
 					<p><img src="../media/coordinates_diagram.png" alt="Coordinates system"></p>
-					<p>The diagram specifies how the angles, and coordinates are oriented in space.</p>
-					<p>Therefore we can defined the <em>canonical basis</em> as bellow.</p>
+					<p>The diagram specifies how the angles, and coordinates are defined according to an orthonormal frame.</p>
+					<p>We can defined the <em>canonical basis</em> as bellow.</p>
 					<p><img src="../media/cartesian_diagram.png" alt="Cartesian system"></p>
-					<p>This basis defines 3 fixed directions of space such as usual <code>up</code>, <code>left</code>, ... vectors
-					in Unity for example.</p>
+					<p>This basis defines 3 fixed directions of <code>left</code>, <code>forward</code> and <code>up</code>, it&#39;s the same as Unity for example.
+						Anyway <code>ex</code>, <code>ey</code>, <code>ez</code> are more flexible then <code>left</code>, <code>forward</code>, <code>up</code> notation cause you can compute equations using theses
+					<code>ek</code> vectors without necessarily referring to an orientation.</p>
 					<h3 id="coordinates-systems">Coordinates systems</h3>
-					<p>Get and set coordinates in many different systems.</p>
+					<p>Get and set cartesian, spherical and cylindrical coordinates.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> u = Vector3.ones; <span class="hljs-comment">// u = (1, 1, 1)</span>
 u.r; <span class="hljs-comment">// +sqrt(3)</span>
@@ -157,15 +158,16 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 					<p>Not all the operations have been detailed here
 					to learn more about provided operations see <a href="../interfaces/vector.html">Vector</a>.</p>
 					<h2 id="getting-started">Getting Started</h2>
-					<p>Before explaining any code lets start with understanding a little diagram.</p>
+					<p>Before explaining any code lets started by understanding a little diagram.</p>
 					<p><img src="../media/coordinates_diagram.png" alt="Coordinates system"></p>
-					<p>The diagram specifies how the angles, and coordinates are oriented in space.</p>
-					<p>Therefore we can defined the <em>canonical basis</em> as bellow.</p>
+					<p>The diagram specifies how the angles, and coordinates are defined according to an orthonormal frame.</p>
+					<p>We can defined the <em>canonical basis</em> as bellow.</p>
 					<p><img src="../media/cartesian_diagram.png" alt="Cartesian system"></p>
-					<p>This basis defines 3 fixed directions of space such as usual <code>up</code>, <code>left</code>, ... vectors
-					in Unity for example.</p>
+					<p>This basis defines 3 fixed directions of <code>left</code>, <code>forward</code> and <code>up</code>, it&#39;s the same as Unity for example.
+						Anyway <code>ex</code>, <code>ey</code>, <code>ez</code> are more flexible then <code>left</code>, <code>forward</code>, <code>up</code> notation cause you can compute equations using theses
+					<code>ek</code> vectors without necessarily referring to an orientation.</p>
 					<h3 id="coordinates-systems">Coordinates systems</h3>
-					<p>Get and set coordinates in many different systems.</p>
+					<p>Get and set cartesian, spherical and cylindrical coordinates.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> u = Vector3.ones; <span class="hljs-comment">// u = (1, 1, 1)</span>
 u.r; <span class="hljs-comment">// +sqrt(3)</span>
@@ -345,6 +347,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="vector3.html#zero2" class="tsd-kind-icon">zero2</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="vector3.html#array-1" class="tsd-kind-icon">array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="vector3.html#e" class="tsd-kind-icon">e</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="vector3.html#en" class="tsd-kind-icon">en</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="vector3.html#ephi-1" class="tsd-kind-icon">ephi</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="vector3.html#er-1" class="tsd-kind-icon">er</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="vector3.html#etheta-1" class="tsd-kind-icon">etheta</a></li>
@@ -370,7 +373,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L207">Vector3.ts:207</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L207">Vector3.ts:207</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -484,7 +487,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dim">dim</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L78">Vector3.ts:78</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L78">Vector3.ts:78</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -529,7 +532,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L166">Vector3.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L166">Vector3.ts:166</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -542,7 +545,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L170">Vector3.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L170">Vector3.ts:170</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -571,7 +574,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L175">Vector3.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L175">Vector3.ts:175</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -584,7 +587,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L180">Vector3.ts:180</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L180">Vector3.ts:180</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -612,7 +615,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L117">Vector3.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L117">Vector3.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -634,7 +637,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L122">Vector3.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L122">Vector3.ts:122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -657,7 +660,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L148">Vector3.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L148">Vector3.ts:148</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -670,7 +673,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L152">Vector3.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L152">Vector3.ts:152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -699,7 +702,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L127">Vector3.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L127">Vector3.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -712,7 +715,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L131">Vector3.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L131">Vector3.ts:131</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -741,7 +744,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L197">Vector3.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L197">Vector3.ts:197</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -754,7 +757,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L201">Vector3.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L201">Vector3.ts:201</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -783,7 +786,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L185">Vector3.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L185">Vector3.ts:185</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -796,7 +799,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L189">Vector3.ts:189</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L189">Vector3.ts:189</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -825,7 +828,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L157">Vector3.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L157">Vector3.ts:157</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -838,7 +841,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L161">Vector3.ts:161</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L161">Vector3.ts:161</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -867,7 +870,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L139">Vector3.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L139">Vector3.ts:139</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -880,7 +883,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L143">Vector3.ts:143</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L143">Vector3.ts:143</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -909,7 +912,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L81">Vector3.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L81">Vector3.ts:81</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -922,7 +925,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L85">Vector3.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L85">Vector3.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -951,7 +954,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L108">Vector3.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L108">Vector3.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -964,7 +967,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L112">Vector3.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L112">Vector3.ts:112</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -993,7 +996,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L90">Vector3.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L90">Vector3.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1006,7 +1009,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L94">Vector3.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L94">Vector3.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1035,7 +1038,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L99">Vector3.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L99">Vector3.ts:99</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1048,7 +1051,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L103">Vector3.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L103">Vector3.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1076,7 +1079,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L719">Vector3.ts:719</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L719">Vector3.ts:719</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -1093,7 +1096,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L760">Vector3.ts:760</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L760">Vector3.ts:760</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1115,7 +1118,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L765">Vector3.ts:765</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L765">Vector3.ts:765</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1137,7 +1140,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L770">Vector3.ts:770</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L770">Vector3.ts:770</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1159,7 +1162,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L775">Vector3.ts:775</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L775">Vector3.ts:775</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1181,7 +1184,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L780">Vector3.ts:780</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L780">Vector3.ts:780</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1203,7 +1206,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L785">Vector3.ts:785</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L785">Vector3.ts:785</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1225,7 +1228,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L729">Vector3.ts:729</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L729">Vector3.ts:729</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1247,7 +1250,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L724">Vector3.ts:724</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L724">Vector3.ts:724</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1292,7 +1295,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#abs">abs</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L316">Vector3.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L316">Vector3.ts:316</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -1310,7 +1313,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#absc">absc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L323">Vector3.ts:323</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L323">Vector3.ts:323</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -1328,7 +1331,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#add">add</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L373">Vector3.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L373">Vector3.ts:373</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1352,7 +1355,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#addc">addc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L380">Vector3.ts:380</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L380">Vector3.ts:380</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1375,7 +1378,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L652">Vector3.ts:652</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L652">Vector3.ts:652</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1403,7 +1406,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L637">Vector3.ts:637</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L637">Vector3.ts:637</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1432,7 +1435,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#array">array</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L225">Vector3.ts:225</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L225">Vector3.ts:225</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -1449,7 +1452,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L229">Vector3.ts:229</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L229">Vector3.ts:229</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1479,7 +1482,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#berp">berp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L466">Vector3.ts:466</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L466">Vector3.ts:466</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1512,7 +1515,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#berpc">berpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L480">Vector3.ts:480</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L480">Vector3.ts:480</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1545,7 +1548,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#ceil">ceil</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L281">Vector3.ts:281</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L281">Vector3.ts:281</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -1563,7 +1566,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#ceilc">ceilc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L288">Vector3.ts:288</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L288">Vector3.ts:288</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -1581,7 +1584,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#clone">clone</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L243">Vector3.ts:243</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L243">Vector3.ts:243</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -1599,7 +1602,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#comb">comb</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L428">Vector3.ts:428</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L428">Vector3.ts:428</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1626,7 +1629,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#combc">combc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L435">Vector3.ts:435</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L435">Vector3.ts:435</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1653,7 +1656,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#copy">copy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L236">Vector3.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L236">Vector3.ts:236</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1724,7 +1727,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L657">Vector3.ts:657</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L657">Vector3.ts:657</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1752,7 +1755,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L619">Vector3.ts:619</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L619">Vector3.ts:619</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1780,7 +1783,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L632">Vector3.ts:632</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L632">Vector3.ts:632</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1804,7 +1807,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#der">der</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L484">Vector3.ts:484</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L484">Vector3.ts:484</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1831,7 +1834,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#derc">derc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L491">Vector3.ts:491</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L491">Vector3.ts:491</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1858,7 +1861,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dist">dist</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L522">Vector3.ts:522</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L522">Vector3.ts:522</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1882,7 +1885,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dist1">dist1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L526">Vector3.ts:526</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L526">Vector3.ts:526</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1906,7 +1909,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dist2">dist2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L533">Vector3.ts:533</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L533">Vector3.ts:533</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1930,7 +1933,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#div">div</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L417">Vector3.ts:417</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L417">Vector3.ts:417</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1954,7 +1957,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#divc">divc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L424">Vector3.ts:424</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L424">Vector3.ts:424</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1978,7 +1981,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dot">dot</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L518">Vector3.ts:518</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L518">Vector3.ts:518</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2025,7 +2028,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L692">Vector3.ts:692</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L692">Vector3.ts:692</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2049,7 +2052,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#equal1">equal1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L544">Vector3.ts:544</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L544">Vector3.ts:544</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2073,7 +2076,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#equal2">equal2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L556">Vector3.ts:556</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L556">Vector3.ts:556</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2096,7 +2099,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L673">Vector3.ts:673</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L673">Vector3.ts:673</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2119,7 +2122,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L684">Vector3.ts:684</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L684">Vector3.ts:684</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2208,7 +2211,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#exact">exact</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L540">Vector3.ts:540</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L540">Vector3.ts:540</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2233,7 +2236,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#fill">fill</a></p>
 								<p>Overrides Float64Array.fill</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L350">Vector3.ts:350</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L350">Vector3.ts:350</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2257,7 +2260,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#fillc">fillc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L357">Vector3.ts:357</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L357">Vector3.ts:357</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2480,7 +2483,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#floor">floor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L270">Vector3.ts:270</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L270">Vector3.ts:270</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2498,7 +2501,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#floorc">floorc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L277">Vector3.ts:277</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L277">Vector3.ts:277</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -2579,7 +2582,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L712">Vector3.ts:712</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L712">Vector3.ts:712</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2646,7 +2649,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#herp">herp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L450">Vector3.ts:450</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L450">Vector3.ts:450</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2679,7 +2682,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#herpc">herpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L462">Vector3.ts:462</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L462">Vector3.ts:462</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2791,7 +2794,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#inv">inv</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L507">Vector3.ts:507</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L507">Vector3.ts:507</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2809,7 +2812,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#invc">invc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L514">Vector3.ts:514</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L514">Vector3.ts:514</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -2925,7 +2928,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#lerp">lerp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L439">Vector3.ts:439</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L439">Vector3.ts:439</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2952,7 +2955,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#lerpc">lerpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L446">Vector3.ts:446</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L446">Vector3.ts:446</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3044,7 +3047,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#max">max</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L339">Vector3.ts:339</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L339">Vector3.ts:339</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3068,7 +3071,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#maxc">maxc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L346">Vector3.ts:346</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L346">Vector3.ts:346</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3092,7 +3095,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#min">min</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L327">Vector3.ts:327</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L327">Vector3.ts:327</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3116,7 +3119,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#minc">minc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L334">Vector3.ts:334</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L334">Vector3.ts:334</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3140,7 +3143,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#mul">mul</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L406">Vector3.ts:406</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L406">Vector3.ts:406</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3164,7 +3167,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#mulc">mulc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L413">Vector3.ts:413</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L413">Vector3.ts:413</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3188,7 +3191,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#neg">neg</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L395">Vector3.ts:395</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L395">Vector3.ts:395</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3206,7 +3209,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#negc">negc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L402">Vector3.ts:402</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L402">Vector3.ts:402</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -3224,7 +3227,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#nil">nil</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L560">Vector3.ts:560</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L560">Vector3.ts:560</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -3242,7 +3245,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#norm">norm</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L361">Vector3.ts:361</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L361">Vector3.ts:361</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3260,7 +3263,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#normc">normc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L369">Vector3.ts:369</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L369">Vector3.ts:369</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -3278,7 +3281,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#prod">prod</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L496">Vector3.ts:496</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L496">Vector3.ts:496</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3307,7 +3310,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#prodc">prodc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L503">Vector3.ts:503</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L503">Vector3.ts:503</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3331,7 +3334,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#random">random</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L263">Vector3.ts:263</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L263">Vector3.ts:263</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3701,7 +3704,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#reset0">reset0</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L248">Vector3.ts:248</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L248">Vector3.ts:248</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3724,7 +3727,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#reset1">reset1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L256">Vector3.ts:256</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L256">Vector3.ts:256</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3770,7 +3773,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L601">Vector3.ts:601</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L601">Vector3.ts:601</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3802,7 +3805,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L580">Vector3.ts:580</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L580">Vector3.ts:580</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3831,7 +3834,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L587">Vector3.ts:587</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L587">Vector3.ts:587</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3860,7 +3863,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L594">Vector3.ts:594</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L594">Vector3.ts:594</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3890,7 +3893,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#round">round</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L293">Vector3.ts:293</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L293">Vector3.ts:293</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3908,7 +3911,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#roundc">roundc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L300">Vector3.ts:300</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L300">Vector3.ts:300</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -4123,7 +4126,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#string">string</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L221">Vector3.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L221">Vector3.ts:221</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -4141,7 +4144,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#sub">sub</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L384">Vector3.ts:384</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L384">Vector3.ts:384</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4205,7 +4208,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#subc">subc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L391">Vector3.ts:391</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L391">Vector3.ts:391</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4277,7 +4280,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#trunc">trunc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L304">Vector3.ts:304</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L304">Vector3.ts:304</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4301,7 +4304,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#truncc">truncc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L312">Vector3.ts:312</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L312">Vector3.ts:312</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4349,7 +4352,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#zero1">zero1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L564">Vector3.ts:564</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L564">Vector3.ts:564</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -4367,7 +4370,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#zero2">zero2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L573">Vector3.ts:573</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L573">Vector3.ts:573</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -4384,7 +4387,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L828">Vector3.ts:828</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L839">Vector3.ts:839</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4412,13 +4415,49 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L794">Vector3.ts:794</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L794">Vector3.ts:794</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>brief</dt>
 									<dd><p>canonical basis vector</p>
+									</dd>
+									<dt>details</dt>
+									<dd><p><code>e(0) == ex</code>, <code>e(1) == ey</code>, <code>e(2) == ez</code>.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>k: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>order of the vector in basis</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type">Vector3</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="en" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> en</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">en<span class="tsd-signature-symbol">(</span>k<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type">Vector3</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L805">Vector3.ts:805</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>brief</dt>
+									<dd><p>opposite of canonical basis vector</p>
 									</dd>
 									<dt>details</dt>
 									<dd><p><code>e(0) == ex</code>, <code>e(1) == ey</code>, <code>e(2) == ez</code>.</p>
@@ -4448,7 +4487,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L823">Vector3.ts:823</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L834">Vector3.ts:834</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4484,7 +4523,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L804">Vector3.ts:804</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L815">Vector3.ts:815</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4517,7 +4556,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L814">Vector3.ts:814</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L825">Vector3.ts:825</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4554,7 +4593,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L744">Vector3.ts:744</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L744">Vector3.ts:744</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4597,7 +4636,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L739">Vector3.ts:739</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L739">Vector3.ts:739</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4619,7 +4658,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L754">Vector3.ts:754</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L754">Vector3.ts:754</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4653,7 +4692,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L749">Vector3.ts:749</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L749">Vector3.ts:749</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4687,7 +4726,7 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/2e747d0/src/Vector3.ts#L734">Vector3.ts:734</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector3.ts#L734">Vector3.ts:734</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4717,12 +4756,6 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="matrix3.html" class="tsd-kind-icon">Matrix3</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="point3.html" class="tsd-kind-icon">Point3</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
@@ -5125,6 +5158,9 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 								<a href="vector3.html#e" class="tsd-kind-icon">e</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="vector3.html#en" class="tsd-kind-icon">en</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="vector3.html#ephi-1" class="tsd-kind-icon">ephi</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -5152,111 +5188,6 @@ ex.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/encoder.html" class="tsd-kind-icon">Encoder</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/matrix.html" class="tsd-kind-icon">Matrix</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/object3.html" class="tsd-kind-icon">Object3</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/object9.html" class="tsd-kind-icon">Object9</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/vector.html" class="tsd-kind-icon">Vector</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#epsilon" class="tsd-kind-icon">epsilon</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#epsilon2" class="tsd-kind-icon">epsilon2</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#abs" class="tsd-kind-icon">abs</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#add" class="tsd-kind-icon">add</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#berp" class="tsd-kind-icon">berp</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#ceil" class="tsd-kind-icon">ceil</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#comb" class="tsd-kind-icon">comb</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#der" class="tsd-kind-icon">der</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#der1" class="tsd-kind-icon">der1</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#dist" class="tsd-kind-icon">dist</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#div" class="tsd-kind-icon">div</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#dot" class="tsd-kind-icon">dot</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#equal1" class="tsd-kind-icon">equal1</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#equal2" class="tsd-kind-icon">equal2</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#exact" class="tsd-kind-icon">exact</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#floor" class="tsd-kind-icon">floor</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#gaussian" class="tsd-kind-icon">gaussian</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#herp" class="tsd-kind-icon">herp</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#lerp" class="tsd-kind-icon">lerp</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#mag" class="tsd-kind-icon">mag</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#mag2" class="tsd-kind-icon">mag2</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#max" class="tsd-kind-icon">max</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#min" class="tsd-kind-icon">min</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#mul" class="tsd-kind-icon">mul</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#neg" class="tsd-kind-icon">neg</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#norm" class="tsd-kind-icon">norm</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#prod" class="tsd-kind-icon">prod</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#round" class="tsd-kind-icon">round</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#sub" class="tsd-kind-icon">sub</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#trunc" class="tsd-kind-icon">trunc</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

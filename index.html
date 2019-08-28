@@ -64,12 +64,11 @@
 				<p><a href="https://www.npmjs.com/package/space3"><img src="https://img.shields.io/npm/v/space3.svg?style=flat-square" alt="Version"></a>
 					<a href="https://travis-ci.org/samiBendou/space3"><img src="https://img.shields.io/travis/samiBendou/space3.svg?style=flat-square" alt="Build status"></a>
 				<a href="https://www.npmjs.com/package/space3"><img src="https://img.shields.io/npm/l/space3.svg?style=flat-square" alt="License"></a></p>
-				<p>Javascript has become a language able to perform 3D graphics and numerical simulation in real time.
-					Theses applications are very expensive in terms of calculation and impose the need of both fast and
-				handy API to perform 3D computation.</p>
+				<p>Javascript has become a language able to perform 3D numerical simulation and graphics.
+					It&#39;s a very expensive application in terms of calculation and impose the need of both fast and
+				handy API to perform 3D computation in real time.</p>
 				<p><em>space3</em> is a <strong>rich high performance API for 3D maths</strong>. It is designed
-					with uncompromising time optimization in mind and reaches performances comparable to the wonderful <a href="http://glmatrix.net/">glMatrix</a>
-				for computation while <strong>keeping maths programming close to written mathematics</strong>.</p>
+				with uncompromising time optimization in mind and reaches surprisingly fast computation while <strong>keeping maths programming close to written mathematics</strong>.</p>
 				<h2 id="featuring">Featuring</h2>
 				<ul>
 					<li><p><strong>WebGL support</strong> with array based classes inheriting from <code>Float64Array</code>, column-major matrices, ...</p>
@@ -182,12 +181,12 @@ p.translate(u);</code></pre>
 						<tr>
 							<td><code>comb</code></td>
 							<td>combination</td>
-							<td><code>u += v s</code></td>
+							<td><code>u += v * s</code></td>
 						</tr>
 						<tr>
 							<td><code>[lhb]erp</code></td>
 							<td>interpolation</td>
-							<td><code>u += (v-u) s</code></td>
+							<td><code>u += (v-u) * s</code></td>
 						</tr>
 						<tr>
 							<td><code>der</code></td>
@@ -243,9 +242,9 @@ p.translate(u);</code></pre>
 				<p>This framework is natively written using object oriented paradigm which makes the syntax very close to the natural
 				mathematical language. For example <code>u += v</code> becomes <code>u.add(v)</code>.</p>
 				<h4 id="example">Example</h4>
-				<pre><code class="language-js">a = u.addc(w).add(v);
-b = u.subc(w.addc(v).div(s));
-c = m1.prodc(m2.powc(<span class="hljs-number">2</span>)).prod(m3);</code></pre>
+				<pre><code class="language-js">u1 = u.addc(w).add(v);
+u2 = u.subc(w.addc(v).div(s));
+a = m1.prodc(m2.powc(<span class="hljs-number">2</span>)).prod(m3);</code></pre>
 				<p>It allows to perform binary operations in way such that <code>u.op(v)</code> stores the result of <code>op</code> in <code>u</code>, erasing the
 				initial content of <code>u</code> but avoid cloning objects after operations.</p>
 				<p>This syntax allows surprisingly fast computing by minimizing the number of new instance to create while performing operations.</p>
@@ -255,9 +254,9 @@ c = m1.prodc(m2.powc(<span class="hljs-number">2</span>)).prod(m3);</code></pre>
 					operations over array of vectors <code>op(...vectors)</code>.
 				It allows to perform operations using the syntax <code>op(u, v, w)</code> instead of <code>u.opc(v).op(w)</code> with quasi no performance loss.</p>
 				<h4 id="example">Example</h4>
-				<pre><code class="language-js">a = add(u, w, v);
-b = sub(u, div(s, w, v));
-c = prod(m1, m2.powc(<span class="hljs-number">2</span>), m3);</code></pre>
+				<pre><code class="language-js">u1 = add(u, w, v);
+u2 = sub(u, div(s, w, v));
+a = prod(m1, m2.powc(<span class="hljs-number">2</span>), m3);</code></pre>
 				<p><strong>Notes</strong> </p>
 				<ul>
 					<li>The original objects are not modified during operation, a new instance is always returned</li>
@@ -284,13 +283,22 @@ c = prod(m1, m2.powc(<span class="hljs-number">2</span>), m3);</code></pre>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class">
+						<a href="classes/curve.html" class="tsd-kind-icon">Curve</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/matrix3.html" class="tsd-kind-icon">Matrix3</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/point3.html" class="tsd-kind-icon">Point3</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/solver.html" class="tsd-kind-icon">Solver</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/vector3.html" class="tsd-kind-icon">Vector3</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/vector6.html" class="tsd-kind-icon">Vector6</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/encoder.html" class="tsd-kind-icon">Encoder</a>

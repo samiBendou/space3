@@ -14,7 +14,7 @@ import Matrix from "./int/Matrix";
  *
  * ## Getting started
  *
- * A curve is a discrete set of vectors that describes a polygonal curve in ND-space.
+ * A curve is a discrete set of [[Vector]] objects that describes a polygonal curve in ND-space.
  * The curve can be parametrized with different speeds. It also has an origin that is common to all points
  *
  * ### Create a curve

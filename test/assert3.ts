@@ -48,6 +48,12 @@ export function equal2D(actual: number[][], expected: number[][], tol?: number) 
     });
 }
 
+export function solved(approx: Vector[], exact: (t: number) => Vector, tol: number, shift = 0) {
+    approx.forEach((u: Vector, index: number) => {
+        assert.approximately(u.dist(exact(index + shift)), 0, tol, `${u} != ${exact(index + shift)} index: ${index}`);
+    });
+}
+
 function arrayCompare(actual: Vector[], expected: Vector[], tol?: number) {
     actual.forEach((value: Vector & Encoder, index: number) => {
         let message = `\n${actual}\n${expected}\nindex: ${index}`;

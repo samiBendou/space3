@@ -1,8 +1,8 @@
 import Vector from "./int/Vector";
 
-type VectorField = (u: Vector, t?: number) => Vector;
+type VectorField = (u?: Vector, t?: number) => Vector;
 
-class Solver {
+export default class Solver {
     f: VectorField;
     t: number;
     dt: number;
@@ -10,27 +10,33 @@ class Solver {
     u0: Vector;
     u1: Vector;
 
-    constructor(f: VectorField, dt: number) {
+    constructor(f: VectorField, dt: number, u0: Vector) {
         this.f = f;
         this.dt = dt;
         this.t = 0;
+        this.u0 = u0;
+        this.u1 = u0.clone();
+        this.tmp = u0.clone();
     }
 
     step(u0?: Vector, dt: number = this.dt): Vector {
-        if (u0)
+        if (u0) {
             this.u0.copy(u0);
+            this.u1.copy(u0);
+        }
 
-        this.tmp.copy(this.u0);
         this.dt = dt;
-        this.u1.copy(this.u0).comb(this.dt, this.f(this.tmp, this.t));
+        this.tmp.copy(this.u1);
+        this.u1.comb(this.dt, this.f(this.tmp, this.t));
         this.t += this.dt;
         return this.u1;
     }
 
-    solve(u0: Vector, tmax: number, dt: number = this.dt): Vector {
-
-        this.u0.copy(u0);
-        this.u1.copy(u0);
+    solve(tmax: number, u0?: Vector, dt: number = this.dt): Vector {
+        if (u0) {
+            this.u0.copy(u0);
+            this.u1.copy(u0);
+        }
         this.dt = dt;
         for (this.t = 0; this.t < tmax; this.t += dt) {
             this.tmp.copy(this.u1);

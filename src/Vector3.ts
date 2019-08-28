@@ -3,7 +3,6 @@ import {epsilon, epsilon2, gaussian} from "./common";
 import Object3 from "./int/Object3";
 import Vector from "./int/Vector";
 
-
 /**
  *
  * ## Brief

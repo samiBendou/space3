@@ -18,7 +18,7 @@ import Vector from "./int/Vector";
  *
  * Not all the operations have been detailed here to learn more about provided operations see [[Vector]].
  *
- * ## Point3
+ * ## Getting started
  * ### Inheritance with Vector3
  * [[Point3]] inherits from [[Vector3]]. You can manipulate a point like a regular vector.
  *

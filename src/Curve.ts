@@ -3,7 +3,7 @@ import Matrix from "./int/Matrix";
 
 /**
  * ## Brief
- * [[Curve]] represent a parametrized curve in an arbitrary vector space.
+ * [[Curve]] represents a parametrized curve in an arbitrary affine space.
  *
  * ## Main features
  *
@@ -14,6 +14,71 @@ import Matrix from "./int/Matrix";
  *
  * ## Getting started
  *
+ * A curve is a discrete set of vectors that describes a polygonal curve in ND-space.
+ * The curve can be parametrized with different speeds. It also has an origin that is common to all points
+ *
+ * ### Create a curve
+ *
+ * First create a set of vectors that represents the polygonal curve and a choose a time step.
+ * ```js
+ * let positions = [Vector3.ex, Vector3.ey, Vector3.exn, Vector3.eyn];
+ * let dt = 0.1;
+ * ```
+ *
+ * If you want to set a variable time step along the curve :
+ * ```js
+ * let dt = [0.1, 0.01, 1];
+ * ```
+ *
+ * **Note** If `positions` is of size **N** then `dt` is of size **N-1**.
+ *
+ * Then choose your origin and construct the curve :
+ *
+ * ```js
+ * let curve = new Curve(positions, Vector3.zeros, dt); // origin is (0, 0, 0)
+ * ```
+ *
+ * **Note** It's preferable that the origin does not reference an object contained in the `positions` array and that references
+ * in `positions` points to different instances.
+ *
+ * ### Positions
+ * The `positions` array stores position of curve samples relative to `this.origin`, when affecting a new origin,
+ * the new relative positions are recomputed. It's the same process as what was done for [[Point3]] class.
+ *
+ * ### LIFO Structure
+ * You can push/pop elements of the curve.
+ * When pushing you can specify the position vector to insert but also the time step elapsed between the last
+ * stored and the position to add.
+ *
+ * #### Example
+ * ```js
+ * curve.push(Vector3.ez) // push with default value of time step
+ * curve.push(Vector3.ez, 0.1) // push with given value of time step
+ * ```
+ *
+ * However when popping a value a couple `[lastPosition, lastTimeStep]` is always returned.
+ *
+ * ### Interpolation
+ *
+ * As polygonal curves, we can perform linear interpolation between two points of the curve. This allows
+ * to get the speed, position along the curve as if it was a polygonal continuous curve.
+ *
+ * To interpolate any variable use `x` parameter, a real value between `0` and `1`
+ *
+ * #### Example
+ * ```js
+ * let u = curve.position(0.5); // middle point of the curve
+ * let v = curve.length(1); // total length of the curve
+ * let w = curve.speed(0); // initial speed of the curve
+ * ```
+ *
+ * ### Translation and Transformation
+ * Apply matrix transform, translations, affine transforms, ...
+ *
+ * ```js
+ * curve.translate(u);
+ * curve.transform(m);
+ * curve.affine(m, u);
  *
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>

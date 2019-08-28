@@ -15,7 +15,7 @@ import Encoder from "./int/Encoder";
  * [[Vector3]] class but it does not provide geometrical features such as rotations.
  *
  * `Vector6` can be seen as the concatenation of two vectors `(x, y, z)` and `(vx, vy, vz)` which
- * can represent the coordinates of a moving mobile in a 6D phase space. It's particularly useful
+ * can represent the coordinates of a moving point in a 3D space. It's particularly useful
  * when dealing with second order differential equations.
  *
  * #### Example

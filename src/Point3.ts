@@ -20,7 +20,7 @@ import Vector from "./int/Vector";
  *
  * ## Point3
  * ### Inheritance with Vector3
- * [[Point3]] inherits from [[Vector3]]. You can manipulate a point strictly as a regular vector.
+ * [[Point3]] inherits from [[Vector3]]. You can manipulate a point like a regular vector.
  *
  * #### Example
  * ```js

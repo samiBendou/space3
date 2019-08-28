@@ -3,13 +3,12 @@
 [![Build status](https://img.shields.io/travis/samiBendou/space3.svg?style=flat-square)](https://travis-ci.org/samiBendou/space3)
 [![License](https://img.shields.io/npm/l/space3.svg?style=flat-square)](https://www.npmjs.com/package/space3)
 
-Javascript has become a language able to perform 3D graphics and numerical simulation in real time.
-Theses applications are very expensive in terms of calculation and impose the need of both fast and 
-handy API to perform 3D computation.
+Javascript has become a language able to perform 3D numerical simulation and graphics.
+It's a very expensive application in terms of calculation and impose the need of both fast and 
+handy API to perform 3D computation in real time.
 
 _space3_ is a **rich high performance API for 3D maths**. It is designed
-with uncompromising time optimization in mind and reaches performances comparable to the wonderful [glMatrix](http://glmatrix.net/)
-for computation while **keeping maths programming close to written mathematics**.
+with uncompromising time optimization in mind and reaches surprisingly fast computation while **keeping maths programming close to written mathematics**.
 
 ## Featuring
 - **WebGL support** with array based classes inheriting from `Float64Array`, column-major matrices, ...
@@ -115,8 +114,8 @@ Here is a glossary that resumes the definition of each.
 | `sub`          | subtraction   |`u -= v`          |
 | `mul`          | multiplication|`u *= s`          |
 | `div`          | division      |`u /= s`          |
-| `comb`         | combination   |`u += v s`        |
-| `[lhb]erp`     | interpolation |`u += (v-u) s`    |
+| `comb`         | combination   |`u += v * s`      |
+| `[lhb]erp`     | interpolation |`u += (v-u) * s`  |
 | `der`          | derivation    |`u = (v-u) / ds`  |
 | `prod`         | product       |`u *= v`          |
 | `inv`          | inversion     |`u **= -1`        |
@@ -139,9 +138,9 @@ mathematical language. For example `u += v` becomes `u.add(v)`.
 
 #### Example
 ```js
-a = u.addc(w).add(v);
-b = u.subc(w.addc(v).div(s));
-c = m1.prodc(m2.powc(2)).prod(m3);
+u1 = u.addc(w).add(v);
+u2 = u.subc(w.addc(v).div(s));
+a = m1.prodc(m2.powc(2)).prod(m3);
 ```
 It allows to perform binary operations in way such that `u.op(v)` stores the result of `op` in `u`, erasing the
 initial content of `u` but avoid cloning objects after operations.
@@ -157,9 +156,9 @@ It allows to perform operations using the syntax `op(u, v, w)` instead of `u.opc
 
 #### Example
 ```js
-a = add(u, w, v);
-b = sub(u, div(s, w, v));
-c = prod(m1, m2.powc(2), m3);
+u1 = add(u, w, v);
+u2 = sub(u, div(s, w, v));
+a = prod(m1, m2.powc(2), m3);
 ```
 
 **Notes** 

@@ -30,7 +30,7 @@ import Matrix from "./int/Matrix";
  * let dt = [0.1, 0.01, 1];
  * ```
  *
- * **Note** If `positions` is of size **N** then `dt` is of size **N-1**.
+ * **Note** If `positions` is of size N then `dt` is of size N-1.
  *
  * Then choose your origin and construct the curve :
  *
@@ -63,7 +63,10 @@ import Matrix from "./int/Matrix";
  * As polygonal curves, we can perform linear interpolation between two points of the curve. This allows
  * to get the speed, position along the curve as if it was a polygonal continuous curve.
  *
- * To interpolate any variable use `x` parameter, a real value between `0` and `1`
+ * To interpolate any variable use `x` parameter, a real value between `0` and `1` :
+ * - `x = 0` denotes the starting of the curve
+ * - `x = 1` denotes the ending of the curve
+ * - `x = 0.5` denotes the middle of the curve
  *
  * #### Example
  * ```js

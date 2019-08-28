@@ -1,6 +1,6 @@
 import {assert} from "chai";
-import Vector from "../src/Vector";
-import Encoder from "../src/Encoder";
+import Vector from "../src/int/Vector";
+import Encoder from "../src/int/Encoder";
 
 type Vectors = Vector | Vector[] | number[];
 
@@ -45,6 +45,12 @@ export function equal1D(actual: number[], expected: number[], tol?: number, inde
 export function equal2D(actual: number[][], expected: number[][], tol?: number) {
     actual.forEach((row: number[], i: number) => {
         equal1D(row, expected[i], tol, i)
+    });
+}
+
+export function solved(approx: Vector[], exact: (t: number) => Vector, tol: number, shift = 0) {
+    approx.forEach((u: Vector, index: number) => {
+        assert.approximately(u.dist(exact(index + shift)), 0, tol, `${u} != ${exact(index + shift)} index: ${index}`);
     });
 }
 

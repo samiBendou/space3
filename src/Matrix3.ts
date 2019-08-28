@@ -1,9 +1,9 @@
 import {mag, mag2} from "./Algebra";
 import {epsilon, epsilon2} from "./common";
-import Object3 from "./Object3";
-import Object9 from "./Object9";
-import Vector from "./Vector";
-import Matrix from "./Matrix";
+import Object3 from "./int/Object3";
+import Object9 from "./int/Object9";
+import Vector from "./int/Vector";
+import Matrix from "./int/Matrix";
 import Vector3 from "./Vector3";
 
 /**
@@ -12,7 +12,7 @@ import Vector3 from "./Vector3";
  * [[Matrix3]] represents 3x3 dense matrices.
  *
  * ### Main features
- * - **Array like** access `m[2]` denotes the value at first column and third row
+ * - **1D-Array like** access `m[2]` denotes the value at first column and third row
  * - **Interface with [[Vector3]]** `x`, `y`, `z`, ...
  * - **Many generators** `diag`, `sym`, `scalar`, `rotX`, ...
  *
@@ -20,6 +20,18 @@ import Vector3 from "./Vector3";
  * to learn more about provided operations see [[Matrix]].
  *
  * ## Getting Started
+ *
+ * ### Get components
+ * In order to get components of the matrix use the syntax `m.ij` where :
+ * - `i` can be `x`, `y` or `z` and denotes the row index of the matrix in a descending order
+ * - `j` can be `x`, `y` or `z` and denotes the column index of the matrix in a left-to-right order
+ *
+ * ###Example
+ * ```js
+ * m.xx = 2; // m[0][0] = 2
+ * m.yz = 5; // m[1][2] = 5
+ * ```
+ *
  * ### Interface with Vector3
  * [[Matrix3]] provides an interface with [[Vector3]] by implementing [[Object3]] interface. It allows to construct
  * vectors from rows and columns of the matrix.
@@ -49,7 +61,12 @@ import Vector3 from "./Vector3";
  * ```
  * For more details see [[Object3]].
  *
- * **Note** You can also directly assign an existent matrix to a rotation matrix.
+ * You can also directly assign an existent matrix to a rotation matrix.
+ *
+ * #### Example
+ * ```js
+ * m.rotX(Math.PI / 3);
+ * ```
  *
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>

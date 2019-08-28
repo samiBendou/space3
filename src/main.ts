@@ -83,11 +83,14 @@
 
 // ENTRY POINT FOF NPM PACKAGE
 
-export * from "./Encoder";
-export * from "./Vector";
-export * from "./Matrix";
-export * from "./Object3";
-export * from "./Object9";
+export * from "./int/Encoder";
+export * from "./int/Vector";
+export * from "./int/Matrix";
+export * from "./int/Object3";
+export * from "./int/Object9";
 export * from "./Vector3";
+export * from "./Vector6";
 export * from "./Matrix3";
 export * from "./Point3";
+export * from "./Curve";
+export * from "./Solver";

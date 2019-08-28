@@ -1,4 +1,4 @@
-import Vector from "./Vector";
+import Vector from "./int/Vector";
 
 export const mag = (vector: Vector): number => Math.sqrt(vector.dot(vector));
 

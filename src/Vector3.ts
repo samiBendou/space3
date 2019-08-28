@@ -1,8 +1,7 @@
 import {mag, mag2} from "./Algebra";
 import {epsilon, epsilon2, gaussian} from "./common";
-import Object3 from "./Object3";
-import Vector from "./Vector";
-
+import Object3 from "./int/Object3";
+import Vector from "./int/Vector";
 
 /**
  *
@@ -21,21 +20,22 @@ import Vector from "./Vector";
  *
  * ## Getting Started
  *
- * Before explaining any code lets start with understanding a little diagram.
+ * Before explaining any code lets started by understanding a little diagram.
  *
  * ![Coordinates system](media://coordinates_diagram.png)
  *
- * The diagram specifies how the angles, and coordinates are oriented in space.
+ * The diagram specifies how the angles, and coordinates are defined according to an orthonormal frame.
  *
- * Therefore we can defined the _canonical basis_ as bellow.
+ * We can defined the _canonical basis_ as bellow.
  *
  * ![Cartesian system](media://cartesian_diagram.png)
  *
- * This basis defines 3 fixed directions of space such as usual `up`, `left`, ... vectors
- * in Unity for example.
+ * This basis defines 3 fixed directions of `left`, `forward` and `up`, it's the same as Unity for example.
+ * Anyway `ex`, `ey`, `ez` are more flexible then `left`, `forward`, `up` notation cause you can compute equations using theses
+ * `ek` vectors without necessarily referring to an orientation.
  *
  * ### Coordinates systems
- * Get and set coordinates in many different systems.
+ * Get and set cartesian, spherical and cylindrical coordinates.
  *
  * #### Example
  * ```js
@@ -794,6 +794,17 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
     static e(k: number): Vector3 {
         const ek = new Vector3(0, 0, 0);
         ek[k] = 1;
+        return ek;
+    }
+
+    /**
+     * @brief opposite of canonical basis vector
+     * @details `e(0) == ex`, `e(1) == ey`, `e(2) == ez`.
+     * @param k {number} order of the vector in basis
+     */
+    static en(k: number): Vector3 {
+        const ek = new Vector3(0, 0, 0);
+        ek[k] = -1;
         return ek;
     }
 

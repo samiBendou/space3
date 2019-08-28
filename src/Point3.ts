@@ -2,8 +2,8 @@ import Vector3 from "./Vector3";
 import Matrix3 from "./Matrix3";
 import {dist} from "./Algebra";
 import {epsilon2} from "./common";
-import Object3 from "./Object3";
-import Vector from "./Vector";
+import Object3 from "./int/Object3";
+import Vector from "./int/Vector";
 
 /**
  *
@@ -14,13 +14,13 @@ import Vector from "./Vector";
  * ## Main features
  * - manipulate **relative and absolute** coordinates `origin`, `absolute`,  ...
  * - **affine geometry** displacement and origin changes `at`, `to`, ...
+ * - **geometrical transforms** `translate`, `affine`, ...
  *
- * Not all the operations have been detailed here
- * to learn more about provided operations see [[Vector]].
+ * Not all the operations have been detailed here to learn more about provided operations see [[Vector]].
  *
- * ## Point3
+ * ## Getting started
  * ### Inheritance with Vector3
- * [[Point3]] inherits from [[Vector3]].
+ * [[Point3]] inherits from [[Vector3]]. You can manipulate a point like a regular vector.
  *
  * #### Example
  * ```js
@@ -61,20 +61,20 @@ import Vector from "./Vector";
  * a given origin with `at`.
  *
  * ```js
- * let a = Point3.zeros, b = new Point3(1, 0, 0), ex = Vector3.ex;
- * a.to(b); // (1, 0, 0)
- * b.to(a); // (-1, 0, 0)
- * b.at(ex); // (0, 0, 0)
- * a.at(ex); // (-1, 0, 0)
+ * let p = Point3.zeros, q = new Point3(1, 0, 0), ex = Vector3.ex;
+ * p.to(b); // (1, 0, 0)
+ * q.to(a); // (-1, 0, 0)
+ * q.at(ex); // (0, 0, 0)
+ * p.at(ex); // (-1, 0, 0)
  * ```
  *
  * ### Translation and Transformation
  * Apply matrix transform, translations, affine transforms, ...
  *
  * ```js
- * a.translate(u);
- * a.transform(m);
- * a.affine(m, u);
+ * p.translate(u);
+ * p.transform(m);
+ * p.affine(m, u);
  * ```
  *
  * </br>

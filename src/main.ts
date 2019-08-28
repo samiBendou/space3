@@ -93,3 +93,4 @@ export * from "./Vector6";
 export * from "./Matrix3";
 export * from "./Point3";
 export * from "./Curve";
+export * from "./Solver";

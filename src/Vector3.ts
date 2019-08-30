@@ -864,6 +864,14 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     /**
+     * @brief radial vector of cylindrical basis
+     * @param u position of local basis
+     */
+    static erxy(u: Vector): Vector3 {
+        return new Vector3().erxy(u);
+    }
+
+    /**
      * @brief prograde vector of spherical basis
      * @details Prograde vector is perpendicular to the radial vector and oriented in the positive `theta` direction.
      * This vector also correspond to the prograde vector of cylindrical basis.

@@ -56,11 +56,17 @@ describe("Vector3 Tests", () => {
                 it("gets at -ez", () => assert3.equal(Vector3.ezn, [0, 0, -1]));
             });
 
-            describe("Spherical", () => {
-                describe("Radial", () => {
+            describe("Spherical and Cylindrical", () => {
+                describe("Radial spherical", () => {
                     it("gets at ex", () => assert3.equal(Vector3.er(Vector3.ex), Vector3.ex));
                     it("gets at ey", () => assert3.equal(Vector3.er(Vector3.ey), Vector3.ey));
                     it("gets at ez", () => assert3.equal(Vector3.er(Vector3.ez), Vector3.ez));
+                });
+
+                describe("Radial cylindrical", () => {
+                    it("gets at ex", () => assert3.equal(Vector3.erxy(Vector3.ex), Vector3.ex));
+                    it("gets at ey", () => assert3.equal(Vector3.erxy(Vector3.ey), Vector3.ey));
+                    it("gets at ez", () => assert3.equal(Vector3.erxy(Vector3.ez), Vector3.zeros));
                 });
 
                 describe("Prograde", () => {

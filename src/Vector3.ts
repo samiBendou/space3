@@ -64,7 +64,7 @@ import Vector from "./int/Vector";
  *
  * If you want to get deep into rotation features see [[Object3]].
  *
- * ### Canonical basis
+ * ### Standard basis
  *
  * Represent the standard basis of 3D space made of :
  * - `ex = (1, 0, 0)`
@@ -85,7 +85,7 @@ import Vector from "./int/Vector";
  *
  * **Note** Here we have drawn `ex`, `ey` and `ez` as respectively `right`, `forward`, `up`.
  *
- * You can then generate vectors of this canonical basis
+ * You can then generate vectors of this standard basis
  * #### Example
  * ```js
  * let ex = Vector3.ex, ey = Vector3.ey, ez = Vector3.ez;
@@ -615,6 +615,7 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         return x * x + y * y + z * z < epsilon2;
     }
 
+    /** See [[Object3]] for more details */
     rotX(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), y = this[1], z = this[2];
         this[1] = y * c - z * s;
@@ -622,6 +623,7 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
+    /** See [[Object3]] for more details */
     rotY(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = -sin(theta), x = this[0], z = this[2];
         this[0] = x * c + z * s;
@@ -629,6 +631,7 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
+    /** See [[Object3]] for more details */
     rotZ(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), x = this[0], y = this[1];
         this[0] = x * c - y * s;
@@ -636,6 +639,7 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
+    /** See [[Object3]] for more details */
     rot(u: Vector, theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), k = 1 - c;
         const x = this[0],
@@ -804,37 +808,37 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     static get ex(): Vector3 {
-        /** first vector of canonical basis `(1, 0, 0)`*/
+        /** first vector of standard basis `(1, 0, 0)`*/
         return new Vector3(1, 0, 0);
     }
 
-    /** opposite of the first vector of canonical basis `(-1, 0, 0)`*/
+    /** opposite of the first vector of standard basis `(-1, 0, 0)`*/
     static get exn(): Vector3 {
         return new Vector3(-1, 0, 0);
     }
 
-    /** second vector of canonical basis `(0, 1, 0)`*/
+    /** second vector of standard basis `(0, 1, 0)`*/
     static get ey(): Vector3 {
         return new Vector3(0, 1, 0);
     }
 
-    /** opposite of the second vector of canonical basis `(0, -1, 0)`*/
+    /** opposite of the second vector of standard basis `(0, -1, 0)`*/
     static get eyn(): Vector3 {
         return new Vector3(0, -1, 0);
     }
 
-    /** third vector of canonical basis `(0, 0, 1)`*/
+    /** third vector of standard basis `(0, 0, 1)`*/
     static get ez(): Vector3 {
         return new Vector3(0, 0, 1);
     }
 
-    /** third vector of canonical basis `(0, 0, -1)` */
+    /** third vector of standard basis `(0, 0, -1)` */
     static get ezn(): Vector3 {
         return new Vector3(0, 0, -1);
     }
 
     /**
-     * @brief canonical basis vector
+     * @brief standard basis vector
      * @details `e(0) == ex`, `e(1) == ey`, `e(2) == ez`.
      * @param k {number} order of the vector in basis
      */
@@ -845,7 +849,7 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
     }
 
     /**
-     * @brief opposite of canonical basis vector
+     * @brief opposite of standard basis vector
      * @details `en(0) == exn`, `en(1) == eyn`, `en(2) == ezn`.
      * @param k {number} order of the vector in basis
      */

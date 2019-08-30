@@ -6,48 +6,53 @@ import Vector from "./int/Vector";
 /**
  *
  * ## Brief
- * [[Vector3]] represents 3D vectors.
+ * [[Vector3]] represents 3D vectors as a set of three numerical components. They implement [[Vector]] interface.
  *
  * ### Main features
  * - **Array like** access `u[0]`, `u[1]`, ...
- * - **Geometrical operations** `angle`, `cross`, `dist`, ...
- * - **Many coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
+ * - **Algebra** `add`, `mul`, `neg`
+ * - **Geometry** `angle`, `cross`, `dist`, `rot`, ...
+ * - **Coordinates system** accessors `x`, `y`, `z`, `r`, `theta`, `lat`, `lon` ...
  * - **Basis generators** like `ex`, `er(u)`, `e(k)`, ...
- * - **Rotations** of vector around `ex`, `ey`, `ez` and custom axis, `rot`, `rotX`, ...
- *
- * Not all the operations have been detailed here
- * to learn more about provided operations see [[Vector]].
  *
  * ## Getting Started
  *
- * Before explaining any code lets started by understanding a little diagram.
+ * [[Vector3]] objects are made of an array of three cartesian coordinates in an arbitrary basis `[x, y, z]`.
+ * They can be considered the following column vector :
+ *
+ * ![Vector3 shape](media://vector3_shape.png)
+ *
+ * ### Coordinates systems
+ *
+ * Before explaining any code lets start by understanding a little diagram.
  *
  * ![Coordinates system](media://coordinates_diagram.png)
  *
- * The diagram specifies how the angles, and coordinates are defined according to an orthonormal frame.
+ * This diagram represents 3D space provided with an orthonormal basis, we see that `u` can be
+ * decomposed in three different coordinates systems :
+ * - cartesian coordinates `(x, y, z)`
+ * - cylindrical coordinates `(rxy, theta, z)`
+ * - spherical coordinates  `(r, theta, phi)`
  *
- * We can defined the _canonical basis_ as bellow.
+ * **Note** θ and Φ are respectively denoted `theta` and `phi` in the framework
  *
- * ![Cartesian system](media://cartesian_diagram.png)
+ * The diagram specifies which convention are chosen for the coordinates systems provided.
  *
- * This basis defines 3 fixed directions of `left`, `forward` and `up`, it's the same as Unity for example.
- * Anyway `ex`, `ey`, `ez` are more flexible then `left`, `forward`, `up` notation cause you can compute equations using theses
- * `ek` vectors without necessarily referring to an orientation.
- *
- * ### Coordinates systems
- * Get and set cartesian, spherical and cylindrical coordinates.
+ * You can use the coordinates accessors to get and set the value of the coordinates.
  *
  * #### Example
  * ```js
  * let u = Vector3.ones; // u = (1, 1, 1)
  * u.r; // +sqrt(3)
- * u.x; // 1
+ * u.x = 1; // 1
  * u.theta; // +pi/4
  * u.xyz; // [1, 1, 1]
+ * u.r = 1; // u = 1/sqrt(3) * (1, 1, 1)
  * ```
  *
+ *
  * ### Geometrical features
- * Perform rotations, compute angles, get cosine, ...
+ * Perform rotations, compute angles, cross product, ...
  *
  * #### Example
  * ```js
@@ -57,19 +62,49 @@ import Vector from "./int/Vector";
  * ex.rotZ(Math.PI / 2); // ex becomes ey
  * ```
  *
- * For more details on rotations see [[Object3]].
+ * If you want to get deep into rotation features see [[Object3]].
  *
- * ### Basis generators
- * Represent 3D local basis such as cylindrical basis.
+ * ### Canonical basis
  *
+ * Represent the standard basis of 3D space made of :
+ * - `ex = (1, 0, 0)`
+ * - `ey = (0, 1, 0)`
+ * - `ez = (0, 0, 1)`
+ *
+ * You can represent the basis `(ex, ey, ez)` on the following diagram :
+ *
+ * ![Cartesian system](media://cartesian_diagram.png)
+ *
+ * `ex`, `ey` and `ez` often respectively represents `left`, `up` and `forward` directions in computer graphics.
+ *
+ * Anyway the first notation seems more general because math equations often use it without necessarily referring to these particular directions.
+ *
+ * For example `ex`, `ey`, `ez` as respectively `right`, `forward`, `up` directions is often used in mechanics.
+ *
+
+ *
+ * **Note** Here we have drawn `ex`, `ey` and `ez` as respectively `right`, `forward`, `up`.
+ *
+ * You can then generate vectors of this canonical basis
  * #### Example
  * ```js
  * let ex = Vector3.ex, ey = Vector3.ey, ez = Vector3.ez;
- * let er = Vector3.er(u), etheta = Vector3.etheta(u);
  * ```
  *
- * **Note** We assume that the local basis are formed as shown bellow
+ * ### Spherical and cylindrical basis
+ *
+ * The spherical basis vectors at `u` is represented bellow.
  * ![Spherical system](media://local_basis_diagram.png)
+ *
+ * **Note** All the vector of a local basis are orthogonal to each other and of norm 1.
+ *
+ * You can generate or compute a local basis vector of the two coordinates systems.
+ * #### Example
+ * ```js
+ * let er = Vector3.er(u), etheta = Vector3.etheta(u);
+ * w = w.erxy(Vector3.ones) // w = 1/sqrt(2) * (1, 1, 0);
+ * ```
+ *
  *
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
@@ -177,8 +212,8 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         return theta <= Math.PI ? theta : theta - 2 * Math.PI;
     }
 
-    set lon(newLat) {
-        this.rthph = [mag(this), newLat >= 0 ? newLat : newLat + 2 * Math.PI, this.phi];
+    set lon(newLon) {
+        this.rthph = [mag(this), newLon >= 0 ? newLon : newLon + 2 * Math.PI, this.phi];
     }
 
     /** cylindrical coordinates of the vector*/
@@ -206,7 +241,10 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         this[2] = r * Math.cos(phi);
     }
 
-    /** constructs a vector with cartesian coordinates */
+    /**
+     * @brief Constructs a vector with cartesian coordinates. `
+     * @details If you don't specify components then the underlying array is initialized with the default values for `Float64Array`.
+     **/
     constructor(x?: number, y?: number, z?: number) {
         super(3);
 
@@ -681,6 +719,15 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         return this;
     }
 
+    erxy(u: Vector): this {
+        const ux = u[0], uy = u[1],
+            urxy = Math.sqrt(ux * ux + uy * uy) || Number.POSITIVE_INFINITY;
+        this[0] = ux / urxy;
+        this[1] = uy / urxy;
+        this[2] = 0;
+        return this;
+    }
+
     etheta(u: Vector): this {
         const theta = Math.atan2(u[1], u[0]);
         this[0] = -Math.sin(theta);
@@ -756,32 +803,32 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
         return new Vector3(s * Math.cos(theta), s * Math.sin(theta), r * Math.cos(phi));
     }
 
-    /** first vector of canonical basis, equivalent to _right_ */
     static get ex(): Vector3 {
+        /** first vector of canonical basis `(1, 0, 0)`*/
         return new Vector3(1, 0, 0);
     }
 
-    /** opposite of the first vector of canonical basis, equivalent to _left_ */
+    /** opposite of the first vector of canonical basis `(-1, 0, 0)`*/
     static get exn(): Vector3 {
         return new Vector3(-1, 0, 0);
     }
 
-    /** second vector of canonical basis, equivalent to _up_ */
+    /** second vector of canonical basis `(0, 1, 0)`*/
     static get ey(): Vector3 {
         return new Vector3(0, 1, 0);
     }
 
-    /** opposite of the second vector of canonical basis, equivalent to _down_ */
+    /** opposite of the second vector of canonical basis `(0, -1, 0)`*/
     static get eyn(): Vector3 {
         return new Vector3(0, -1, 0);
     }
 
-    /** third vector of canonical basis, equivalent to _forward_ */
+    /** third vector of canonical basis `(0, 0, 1)`*/
     static get ez(): Vector3 {
         return new Vector3(0, 0, 1);
     }
 
-    /** third vector of canonical basis, equivalent to _backward_ */
+    /** third vector of canonical basis `(0, 0, -1)` */
     static get ezn(): Vector3 {
         return new Vector3(0, 0, -1);
     }
@@ -799,7 +846,7 @@ export default class Vector3 extends Float64Array implements Vector, Object3 {
 
     /**
      * @brief opposite of canonical basis vector
-     * @details `e(0) == ex`, `e(1) == ey`, `e(2) == ez`.
+     * @details `en(0) == exn`, `en(1) == eyn`, `en(2) == ezn`.
      * @param k {number} order of the vector in basis
      */
     static en(k: number): Vector3 {

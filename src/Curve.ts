@@ -15,7 +15,9 @@ import Matrix from "./int/Matrix";
  * ## Getting started
  *
  * A curve is a discrete set of [[Vector]] objects that describes a polygonal curve in ND-space.
- * The curve can be parametrized with different speeds. It also has an origin that is common to all points
+ * The curve can be parametrized with different speeds. It also has an origin that is common to all points.
+ *
+ * ![Curve diagram](media://curve_diagram.png)
  *
  * ### Create a curve
  *
@@ -68,6 +70,8 @@ import Matrix from "./int/Matrix";
  * - `x = 1` denotes the ending of the curve
  * - `x = 0.5` denotes the middle of the curve
  *
+ * ![Interpolation diagram](media://interpolation_diagram.png)
+ *
  * #### Example
  * ```js
  * let u = curve.position(0.5); // middle point of the curve
@@ -76,13 +80,13 @@ import Matrix from "./int/Matrix";
  * ```
  *
  * ### Translation and Transformation
- * Apply matrix transform, translations, affine transforms, ...
+ * Apply matrix transform, translations and affine transforms the same way as for [[Point3]] class..
  *
  * ```js
  * curve.translate(u);
  * curve.transform(m);
  * curve.affine(m, u);
- *
+ *```
  * </br>
  * <center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
  */

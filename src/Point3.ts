@@ -8,19 +8,21 @@ import Vector from "./int/Vector";
 /**
  *
  * ## Brief
- * [[Point3]] class represents a point of 3D affine space. [[Point3]] objects behave mostly like [[Vector3]] objects.
- * A point is just a vector represented from a given origin. Points overrides all the vectors features.
+ * [[Point3]] class represents a point of 3D affine space. Points inherit from [[Vector3]].
  *
  * ## Main features
  * - manipulate **relative and absolute** coordinates `origin`, `absolute`,  ...
  * - **affine geometry** displacement and origin changes `at`, `to`, ...
  * - **geometrical transforms** `translate`, `affine`, ...
  *
- * Not all the operations have been detailed here to learn more about provided operations see [[Vector]].
- *
  * ## Getting started
- * ### Inheritance with Vector3
- * [[Point3]] inherits from [[Vector3]]. You can manipulate a point like a regular vector.
+ *
+ * [[Point3]] objects behave mostly like [[Vector3]] objects.
+ * A point is just a displacement vector represented from a particular origin.
+ *
+ * ![Point diagram](media://point_diagram.png)
+ *
+ * You can manipulate a point like a regular vector.
  *
  * #### Example
  * ```js
@@ -33,6 +35,8 @@ import Vector from "./int/Vector";
  *
  * Operations between two points can be considered as operations between two positions vectors
  * located from the origin of the left operand.
+ *
+ * ![Origin change diagram](media://origin_change_diagram.png)
  *
  * ### Position
  * A point stores relative position from current `origin`, if the origin is modified using `p.origin = ...` syntax
@@ -49,6 +53,8 @@ import Vector from "./int/Vector";
  * ### Chalses Relation
  * Addition and subtraction are performed using Chalses relation from the origin of the left operand of the operation.
  *
+ * ![Chalses relation](media://chalses_diagram.png)
+ *
  * #### Example
  * ```js
  * let p = Point3(1, 2, 3), q = Point3(2, 0, 0, Vector3.ex);
@@ -57,8 +63,8 @@ import Vector from "./int/Vector";
  * ```
  *
  * ### Displacement and Origin Changes
- * Represent the displacement vector **AB** between two points `a`, `b` with `to` method and get coordinates of a point from
- * a given origin with `at`.
+ * Represent the displacement vector between two points `p` and `q` with `to` method.
+ * Get coordinates of a point from a given origin with `at` method.
  *
  * ```js
  * let p = Point3.zeros, q = new Point3(1, 0, 0), ex = Vector3.ex;
@@ -69,7 +75,8 @@ import Vector from "./int/Vector";
  * ```
  *
  * ### Translation and Transformation
- * Apply matrix transform, translations, affine transforms, ...
+ * Apply matrix transform, translations and affine transforms. All theses features modify the
+ * displacement vector between point and origin.
  *
  * ```js
  * p.translate(u);
@@ -530,7 +537,7 @@ export default class Point3 extends Vector3 implements Vector, Object3 {
     }
 
     /**
-     * @brief point from array
+     * @brief point from array of coordinates
      * @param arr array containing coordinates of both position and origin
      * */
     static array(arr: number[]): Point3 {

@@ -4,9 +4,9 @@ type VectorField = (u?: Vector, t?: number) => Vector;
 
 /**
  * ## Brief
- * [[Solver]] is a tool class to represent ordinary differential equation between vector-valued function
+ * [[Solver]] is a tool class to represent ordinary differential equation between vector-valued functions
  *
- * ## Main features
+ * ### Main features
  * - First, second and third order non-linear solving
  * - Bufferization of result for best performance
  *
@@ -31,7 +31,7 @@ type VectorField = (u?: Vector, t?: number) => Vector;
  * ```
  *
  * ### Solve equations
- * Once you've initialized the solver, you can start compute solutions of your equation. There is two ways to do that
+ * Once you've initialized the solver, you can start compute solutions of your equation. There is two ways to do that :
  * - Compute values step-by-step
  * - Compute value after a maximum duration
  *

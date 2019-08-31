@@ -6,7 +6,7 @@ import Vector from "./int/Vector";
 /**
  *
  * ## Brief
- * [[Vector3]] represents 3D vectors as a set of three numerical components. They implement [[Vector]] interface.
+ * [[Vector3]] represents 3D vectors as a set of three numerical components. It implements [[Vector]] interface.
  *
  * ### Main features
  * - **Array like** access `u[0]`, `u[1]`, ...

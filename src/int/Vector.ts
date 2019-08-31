@@ -6,10 +6,10 @@ import Encoder from "./Encoder";
  * It might be numerical vectors, matrices, or something more complicated.
  *
  * ### Main Features
- * - Objects **copy and clone** `copy`, `clone`, `assign`, ...
- * - Basic **manipulators** `floor`, `fill`, `abs`, ...
- * - **Algebraical operations** `add`, `sub`, `inv`, `mul`, `prod`,  ...
- * - Linear, cubic and Bezier's **interpolation** `lerp`, `herp`, ...
+ * - **Copy and Clone** `copy`, `clone`, `assign`, ...
+ * - **Manipulators** `floor`, `fill`, `abs`, ...
+ * - **Algebra** `add`, `sub`, `inv`, `mul`, `prod`,  ...
+ * - Linear, cubic and Bezier's **Interpolation** `lerp`, `herp`, ...
  * - **Equality**, zeros and distance methods `equal2`, `mag`, `dist1`, ...
  * - Provide **immutable operations** by cloning `addc`, `subc`, ...
  *
@@ -22,13 +22,12 @@ import Encoder from "./Encoder";
  * u.comb(2, v) // u = (16.25, 0, 0);
  * ```
  *
- * **Note** The documentation of each method contains a more precise description of the API.
- *
  * ## Getting Started
  *
- * ### Algebraical operations
- * Algebraical operations are the base of **space3** framework. Almost all classes of the framework
- * provides theses operations.
+ * ### Algebra and interpolation
+ *
+ * Perform additions, scalar multiplication, linear interpolation and many other common operations.
+ * Take a look at the [glossary of operations](https://samibendou.github.io/space3/) to have an exhaustive list.
  *
  * #### Example
  * ```js
@@ -36,19 +35,32 @@ import Encoder from "./Encoder";
  * a.prod(b).inv();
  * ```
  *
- * If you're already feel comfortable with algebra you may know how all this works.
- * Therefore you just have to take a look at the [glossary of operations](https://samibendou.github.io/space3/)
- * in order to know the list of abbreviations used for operations.
+ * Theses operations are the core of **space3** framework. Almost all classes of the framework
+ * provide or use theses.
  *
  * if you need a little refresh on algebra,
- * I recommend you to watch the great algebra vulgarized curse on [3Blue1Brown](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) channel.
+ * I recommend you to watch the great algebra curse on [3Blue1Brown](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) channel.
  *
- * ### Equality and norm based operations
- * In order to avoid float precision errors and give different way to compare objects,
+ * The operations are defined in the reference by mentioning two vectors `u` and `v`. it's admitted that :
+ * - `u` refers to `this` in the code
+ * - `v` refers to the parameter `vector` in the code
+ * - The result is stored in `this`
+ * - If the method is suffixed by `c`, the result is a newly created [[Vector]]
+ *
+ * ### Comparison and zeros
+ * In order to avoid float precision errors and allow you to choose the most pertinent comparison,
  * a [[Vector]] provides three different ways to compare to another one :
- * - Using the norm 1, manhattan distance `||u|| = |ux| + |uy| + |uz|`
- * - Using the norm 2, dot product distance `||u|| = sqrt(|ux|**2 + |uy|**2 + |uz|**2)`
+ * - Using the norm 1, manhattan distance
+ * - Using the norm 2, dot product distance
  * - Using exact comparison coordinates by coordinates.
+ *
+ * The first two comparison are based on the following definition of norms :
+ *
+ * ![Norm](media://norm.png)
+ *
+ * Given a norm the distance between two vector is defined by :
+ *
+ * ![Distance](media://distance.png)
  *
  * #### Example
  * ```js
@@ -58,30 +70,29 @@ import Encoder from "./Encoder";
  * ex.exact(ex) // true
  * ex.zero1() // false
  * zeros.nil() // true
- * zeros.add(ex.mul(Number.EPSILON)).nil() // false
+ * zeros.add(ex.mul(0.5 * Number.EPSILON)).nil() // false
  * ```
+ * **Note** `mag`, `mag2` accessors uses the norm 2
  *
- * **Notes**
- * - Use `dist`, `equal2` and `zero2` to compare objects by default
- * - `mag` accessors is computed using the norm 2
+ * If you don't know which comparison to use, I recommend you `dist`, `equal2` and `zero2` to compare objects by default.
  */
 export default interface Vector extends Encoder {
     /** dimension of the vector */
     dim: number;
 
-    /** magnitude of the vector */
+    /** magnitude of the vector `||u||` */
     mag: number;
 
-    /** squared magnitude of the vector */
+    /** squared magnitude of the vector `u . u` */
     mag2: number;
 
     /** assigns components to a vector */
     assign(...coordinates: number[]): this;
 
-    /** copies a source vector into `this` */
+    /** copies a source vector into `this` component by component */
     copy(vector: Vector): this;
 
-    /** clone a vector */
+    /** clone `this` vector */
     clone(): Vector;
 
     /** reset to an additive neutral element `0` */
@@ -90,7 +101,7 @@ export default interface Vector extends Encoder {
     /** reset to a multiplicative neutral element `1` */
     reset1(): this;
 
-    /** `Math.random` of the components */
+    /** `Math.random` components by components */
     random(): this;
 
     /** `Math.floor` of the components */
@@ -108,7 +119,7 @@ export default interface Vector extends Encoder {
 
     roundc(): Vector;
 
-    /** truncate method keeping a given amount of decimals */
+    /** truncation of the components given a number of decimals to keep */
     trunc(decimals: number): this;
 
     truncc(decimals: number): Vector;
@@ -128,7 +139,7 @@ export default interface Vector extends Encoder {
 
     maxc(vector: Vector): Vector;
 
-    /** fills the vector with a single value `s` */
+    /** fills `this` vector with a single scalar value `s` */
     fill(s: number): this;
 
     fillc(s: number): Vector;
@@ -158,7 +169,7 @@ export default interface Vector extends Encoder {
 
     divc(s: number): Vector;
 
-    /** linear combination of scalar and vector `u + s * v` */
+    /** linear combination of a scalar and a vector `u + s * v` */
     comb(s: number, vector: Vector): this;
 
     combc(s: number, vector: Vector): Vector;
@@ -175,7 +186,7 @@ export default interface Vector extends Encoder {
 
     /**
      * @brief Hermite's interpolation between two vectors
-     * @details `s` must be between 0 and 1.
+     * @details `s` must be between 0 and 1. Starting vector is `this`.
      * @param target destination of interpolation
      * @param vector1 control point number 1
      * @param vector2 control point number 2
@@ -187,7 +198,7 @@ export default interface Vector extends Encoder {
 
     /**
      * @brief Bezier's interpolation between two vectors
-     * @details `s` must be between 0 and 1.
+     * @details `s` must be between 0 and 1. Starting vector is `this`.
      * @param target destination of interpolation
      * @param vector1 control point number 1
      * @param vector2 control point number 2
@@ -197,7 +208,7 @@ export default interface Vector extends Encoder {
 
     berpc(target: Vector, vector1: Vector, vector2: Vector, s: number): Vector;
 
-    /** 1-th order derivative between the two vectors with given step `(u - v) / ds`*/
+    /** derivative between the two vectors with given step `(u - v) / ds`*/
     der(ds: number, vector: Vector): this;
 
     derc(ds: number, vector: Vector): Vector;

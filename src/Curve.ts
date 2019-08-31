@@ -5,7 +5,7 @@ import Matrix from "./int/Matrix";
  * ## Brief
  * [[Curve]] represents a parametrized curve in an arbitrary affine space.
  *
- * ## Main features
+ * ### Main features
  *
  * - **LIFO** of vectors `push`, `pop`
  * - **linear interpolation** of position, speed, length
@@ -79,6 +79,8 @@ import Matrix from "./int/Matrix";
  * - `x = 0.5` denotes the middle of the curve
  *
  * ![Interpolation diagram](media://interpolation_diagram.png)
+ *
+ * **Note** γ denotes the position vector on the curve according to the parametrization with `x`.
  *
  * #### Example
  * ```js

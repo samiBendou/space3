@@ -10,7 +10,7 @@
  * ```
  *
  * ## Float64Array
- *  [[Encoder]] class inherits from [[Float64Array]] in order to provide double precision computation, an array access `u[k]`.
+ * [[Encoder]] class inherits from [[Float64Array]] in order to provide double precision computation, an array subscript operator `u[k]`.
  * and native C/C++ array compatibility.
  * */
 export default interface Encoder extends Float64Array {

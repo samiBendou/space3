@@ -10,7 +10,7 @@ import Vector3 from "./Vector3";
 
  * ## Brief
  * [[Matrix3]] represents 3x3 dense matrices as a set of numerical components.
- * They implement [[Matrix]] and therefore [[Vector]] interface.
+ * It implement [[Matrix]] interface and therefore [[Vector]] interface.
  *
  * ### Main features
  * - **1D-Array like** component accessors `m[2]`

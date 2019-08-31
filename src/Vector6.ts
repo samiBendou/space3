@@ -7,16 +7,22 @@ import Encoder from "./int/Encoder";
 /**
  * ## Brief
  *
- * [[Vector6]] represents 6D vectors.
+ * [[Vector3]] represents 6D vectors as a set of six numerical components. It implements [[Vector]] interface.
  *
- * ## Getting started
+ * ### Getting started
  *
- * The `Vector6` class mainly implements [[Vector]] interface. It's a generalization of
- * [[Vector3]] class but it does not provide geometrical features such as rotations.
+ * [[Vector6]] objects are made of an array of three cartesian coordinates in an arbitrary basis `[x, y, z, vx, vy, vz]`.
+ * They can be considered the following column vector :
  *
- * `Vector6` can be seen as the concatenation of two vectors `(x, y, z)` and `(vx, vy, vz)` which
- * can represent the coordinates of a moving point in a 3D space. It's particularly useful
- * when dealing with second order differential equations.
+ * ![Vector6 shape](media://vector6_shape.png)
+ *
+ * The [[Vector6]] class is a generalization of [[Vector3]] class but it does not provide geometrical features such as rotations.
+ *
+ * They can be considered as the concatenation of two parts :
+ * - The upper one `(x, y, z)`
+ * - The lower one `(vx, vy, vz)`
+ *
+ * **Note** This representation is particularly useful when dealing with second order differential equations.
  *
  * #### Example
  * ```js

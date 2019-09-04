@@ -1,7 +1,7 @@
 import Vector3 from "./Vector3";
 import Matrix3 from "./Matrix3";
 import {dist} from "./Algebra";
-import {epsilon2} from "./common";
+import {epsilon, epsilon2} from "./common";
 import Object3 from "./int/Object3";
 import Vector from "./int/Vector";
 
@@ -417,8 +417,12 @@ export default class Point3 extends Vector3 implements Vector, Object3 {
         return dist(this, p);
     }
 
-    dist1(vector: Point3): number {
-        return 0;
+    dist1(p: Point3): number {
+        const u = p._at(this._origin);
+        const dx = Math.abs(this[0] - u[0]),
+            dy = Math.abs(this[1] - u[1]),
+            dz = Math.abs(this[2] - u[2]);
+        return dx + dy + dz;
     }
 
     dist2(p: Point3): number {
@@ -429,13 +433,23 @@ export default class Point3 extends Vector3 implements Vector, Object3 {
         return dx * dx + dy * dy + dz * dz;
     }
 
-    exact(vector: Vector): boolean {
-        return false;
+    exact(p: Point3): boolean {
+        const u = p._at(this._origin);
+        return this[0] === u[0] && this[1] === u[1] && this[2] === u[2];
     }
 
 
-    equal1(vector: Vector): boolean {
-        return false;
+    equal1(p: Point3): boolean {
+        const u = p._at(this._origin);
+        const x = this[0],
+            y = this[1],
+            z = this[2],
+            ux = u[0],
+            uy = u[1],
+            uz = u[2];
+
+        // noinspection JSSuspiciousNameCombination
+        return Math.abs(x - ux) < epsilon && Math.abs(y - uy) < epsilon && Math.abs(z - uz) < epsilon;
     }
 
 
@@ -444,20 +458,17 @@ export default class Point3 extends Vector3 implements Vector, Object3 {
     }
 
     nil(): boolean {
-        return false;
+        return super.nil();
     }
 
 
     zero1(): boolean {
-        return false;
+        return super.zero1();
     }
 
 
     zero2(): boolean {
-        const x = this[0],
-            y = this[1],
-            z = this[2];
-        return x * x + y * y + z * z < epsilon2;
+        return super.zero2();
     }
 
     array(): number[] {

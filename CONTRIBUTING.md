@@ -14,40 +14,35 @@ Appropriate yourself the project : improving documentation, proposing new featur
 Contribute a way that you can earn time or add something you which, feel free to propose your ideas ! :smiley:
 
 Be welcoming to newcomers and encourage diverse new contributors from all backgrounds.
-See the [space Code of Conduct](https://github.com/samiBendou/space/blob/master/CODE_OF_CONDUCT.md).
+See the [Code of Conduct](https://github.com/samiBendou/space/blob/master/CODE_OF_CONDUCT.md).
 
 ## Your First Contribution
 
 You can work on any open issue, there are issues for any kind of work :
 * **Good first issue** : issue which should require a few lines of code
 * **Help wanted** : issue which should require some work and documentation
-* Other issues reporting various things
+* Other issues reporting various things such as bugs, enhancements, ...
 
 ## How to suggest a feature or enhancement
 
 ### Philosophy
-space3 philosophy is to provide fast and easy to use tools for 3D maths, it's great for 3D simulations that reconstruct
-real physics behaviors but also for 3D graphics.
+space3 philosophy is to provide fast and easy to use tools for 3D maths, it's great for realistic simulation, graphics and physics.
 
-The module must provide as many tools as possible to manipulate 3D objects such as vectors, matrix, points...
-
-It has to be easily integrable with a 3D animation framework such as [threejs](https://threejs.org/).
+The module must provide as many tools as possible to manipulate 3D/4D objects such as vectors, matrix, points...
 
 ### Issues
-* Create issues for any major changes and enhancements that you wish to make
-* Use templates as often as possible. It makes you save time :smile:
-* Add at least one label
+* Create issues for changes and enhancements that you wish to make
+* Use templates as often as possible
 
 ## Coding contributions
 You can contribute to the codebase of space3. Each version is published following theses general guidelines :
 
 * Keep as small as possible, preferably one new feature per version
+* Avoid as much as possible using external packages
 * Must be related to at least an open issue
-* Must be documented and implement necessary unit tests
-* Must pass unit tests
-* Use package only if necessary
+* Must implement and pass unit tests
 
-Before starting, ensure following the rules in the basics concepts section of [space3 introduction]().
+Before starting, ensure you understand the basics concepts of [space3](https://samibendou.github.io/space3/).
 
 ### Coding style
 
@@ -58,7 +53,7 @@ Please follow these conventions when submitting code :
 * Enumerations : `UPPERCASE`
 * Variables and constants : `lowerCamelCase`
 * Enumerations must belong to a class eg. `Solver.methods.EULER`
-* The classes must be implemented using the [ECMAScript2015 syntax](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Classes).
+* Use typescript with ECMAScript2015 syntax.
 
 The implementation must be as straight forward as possible since 3D objects easier to manipulate then ND objects.
 

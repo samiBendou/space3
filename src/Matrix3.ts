@@ -9,32 +9,46 @@ import Vector3 from "./Vector3";
 /**
 
  * ## Brief
- * [[Matrix3]] represents 3x3 dense matrices.
+ * [[Matrix3]] represents 3x3 dense matrices as a set of numerical components.
+ * It implement [[Matrix]] interface and therefore [[Vector]] interface.
  *
  * ### Main features
- * - **1D-Array like** access `m[2]` denotes the value at first column and third row
+ * - **1D-Array like** component accessors `m[2]`
+ * - **Handy component accessors**  `xx`, `yz`, ...
  * - **Interface with [[Vector3]]** `x`, `y`, `z`, ...
- * - **Many generators** `diag`, `sym`, `scalar`, `rotX`, ...
+ * - **Algebra** of matrices and vectors, `add`, `prodv`, `pow`, ...
+ * - **Rotation** matrices, `rot`, `rotX`, ...
+ * - **Many generators** `diag`, `sym`, `scalar`, ...
  *
  * Not all the operations have been detailed here
  * to learn more about provided operations see [[Matrix]].
  *
  * ## Getting Started
  *
- * ### Get components
- * In order to get components of the matrix use the syntax `m.ij` where :
+ * A matrix is 1D-array of number stored in a column-major form, each components of the column are ordered
+ * from up to down.
+ *
+ * ### Components accessors
+ * In order to access the components of the matrix use the syntax `m.ij` where :
  * - `i` can be `x`, `y` or `z` and denotes the row index of the matrix in a descending order
  * - `j` can be `x`, `y` or `z` and denotes the column index of the matrix in a left-to-right order
  *
- * ###Example
+ * **Note** `m.ij` is equal to `m[3 * j + i]` if we consider `x == 0`, `y == 1` and `z == 2`.
+ *
+ * You can represent the matrix with theses conventions as :
+ *
+ * ![Matrix3 shape](media://matrix3_shape.png)
+ *
+ * #### Example
  * ```js
- * m.xx = 2; // m[0][0] = 2
- * m.yz = 5; // m[1][2] = 5
+ * m.xx = 2; // m[0] = 2
+ * m.yz = 5; // m[7] = 5
  * ```
  *
  * ### Interface with Vector3
- * [[Matrix3]] provides an interface with [[Vector3]] by implementing [[Object3]] interface. It allows to construct
- * vectors from rows and columns of the matrix.
+ * [[Matrix3]] provides an interface with [[Vector3]] by implementing [[Object3]] interface.
+ * It allows to construct vectors from rows and columns of the matrix.
+ * Reciprocally you can affect rows and columns of the matrix with a `Vector3`.
  *
  * #### Example
  * ```js
@@ -59,7 +73,8 @@ import Vector3 from "./Vector3";
  * // elliptic rotation matrix around z axis with angle +pi/4
  * q = Matrix3.rotZ(Math.PI / 4, (x) => 5 * Math.cos(x), Math.sin);
  * ```
- * For more details see [[Object3]].
+ *
+ * If you want to get deep into rotation features see [[Object3]].
  *
  * You can also directly assign an existent matrix to a rotation matrix.
  *
@@ -295,7 +310,10 @@ export default class Matrix3 extends Float64Array implements Matrix, Object3, Ob
         return mxx * (mzz * myy - mzy * myz) + myx * (-mzz * mxy + mzy * mxz) + mzx * (myz * mxy - myy * mxz);
     }
 
-    /** constructs a matrix by explicitly giving components ordered by rows */
+    /**
+     * @brief constructs a matrix by explicitly giving components ordered by rows from left to right
+     * @details If you don't specify components then the underlying array is initialized with the default values for `Float64Array`.
+     */
     constructor(xx?: number, xy?: number, xz?: number,
                 yx?: number, yy?: number, yz?: number,
                 zx?: number, zy?: number, zz?: number) {
@@ -1038,6 +1056,7 @@ export default class Matrix3 extends Float64Array implements Matrix, Object3, Ob
             Math.pow(this[6], 2) + Math.pow(this[7], 2) + Math.pow(this[8], 2));
     }
 
+    /** See [[Object3]] for more details */
     rotX(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta);
         this[0] = 1;
@@ -1052,6 +1071,7 @@ export default class Matrix3 extends Float64Array implements Matrix, Object3, Ob
         return this;
     }
 
+    /** See [[Object3]] for more details */
     rotY(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta);
         this[0] = c;
@@ -1066,6 +1086,7 @@ export default class Matrix3 extends Float64Array implements Matrix, Object3, Ob
         return this;
     }
 
+    /** See [[Object3]] for more details */
     rotZ(theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta);
         this[0] = c;
@@ -1080,6 +1101,7 @@ export default class Matrix3 extends Float64Array implements Matrix, Object3, Ob
         return this;
     }
 
+    /** See [[Object3]] for more details */
     rot(u: Vector, theta: number, cos = Math.cos, sin = Math.sin): this {
         const c = cos(theta), s = sin(theta), k = 1 - c;
         const ux = u[0],
@@ -1139,22 +1161,22 @@ export default class Matrix3 extends Float64Array implements Matrix, Object3, Ob
 
     /**
      * @brief symmetric matrix
-     * @details Fill the matrix by giving values on diagonal.
+     * @details Fill the matrix by giving values on diagonal and sub diagonals.
      */
     static sym(xx: number, yy: number, zz: number, xy: number, yz: number, xz = 0): Matrix3 {
         return new Matrix3(xx, xy, xz, xy, yy, yz, xz, yz, zz);
     }
 
     /**
-     * @brief antisymmetric matrix
-     * @details Fill the matrix by giving values on diagonals.
+     * @brief antisymmetric matrix with non zero diagonal
+     * @details Fill the matrix by giving values on diagonal and sub diagonals.
      */
     static asym(xx: number, yy: number, zz: number, xy: number, yz: number, xz = 0): Matrix3 {
         return new Matrix3(xx, xy, xz, -xy, yy, yz, -xz, -yz, zz);
     }
 
     /**
-     * @brief canonical matrix
+     * @brief standard basis matrix
      * @details Matrix with `0` everywhere except in `i`, `j` position where there is a `1`.
      */
     static e(i: number, j: number): Matrix3 {
@@ -1203,7 +1225,7 @@ export default class Matrix3 extends Float64Array implements Matrix, Object3, Ob
     }
 
     /**
-     * @brief tensor product of two vectors `ut * v`
+     * @brief tensor product of two vectors `u * vt`
      * @details matrix such that `m.ij = u.i * u.j`
      * @param u left operand
      * @param v right operand

@@ -5,6 +5,7 @@ import Vector from "./Vector";
  * [[Object3]] interface standardizes components accessors and rotations between objects of 3D space.
  *
  * ## Getting Started
+ *
  * ### Components accessors
  * The interface provides `x`, `y` and `z` accessors such that if the object is of dimension `N`, `x` is of dimension `N/3`.
  *
@@ -30,7 +31,7 @@ import Vector from "./Vector";
  * q.rot(u, angle, cos, sin);
  * ```
  *
- * In the last line, he methods `cos` and `sin` are called the _metric functions_ of the rotation.
+ * In the last line, he methods `cos` and `sin` are called the _rotation functions_ of the rotation.
  * By default theses are let to `Math.cos` and `Math.sin` the resulting rotation will be a circular.
  *
  * ### Non-circular rotation
@@ -38,7 +39,14 @@ import Vector from "./Vector";
  * A regular use case is the generation of an elliptic rotation matrix.
  * ie. a matrix that performs a rotation of a unit vector on a ellipse.
  *
- * Pass the method `(x) => a * Math.cos(x)` and `(y) => b * Math.sin(y)` as metric functions, the result will
+ * ![Rotations](media://rotations.png)
+ *
+ * The circular rotation is represented in blue and the elliptic in red.
+ *
+ * **Note** In the schema above, rotation matrices are defined such that they transform unit vectors into vectors on
+ * vectors of the circle or the ellipse.
+ *
+ * Pass the method `(x) => a * Math.cos(x)` and `(y) => b * Math.sin(y)` as rotation functions, the result will
  * be a rotation matrix around an ellipse of semi-axis major `max(a,b)` and semi-axis minor `min(a, b)`.
  *
  * #### Example
@@ -48,6 +56,9 @@ import Vector from "./Vector";
  * // +pi/2 rotation around ellipse of axis u
  * m.rot(u, Math.PI / 2, (x) => a * Math.cos(x), (y) => b * Math.sin(y));
  * ```
+ *
+ * **Note** By default the rotations function are set to `Math.cos` and `Math.sin`.
+ * It simply performs rotation of a vector or set a matrix to a rotation matrix.
  */
 export default interface Object3 {
     /** first component */
@@ -69,8 +80,8 @@ export default interface Object3 {
      * @brief rotates the vector around `x` axis
      * @details See [[Object3]] for more details.
      * @param theta angle of rotation
-     * @param cos `y` metric function of the rotation
-     * @param sin `z` metric function of the rotation
+     * @param cos `y` rotation function of the rotation
+     * @param sin `z` rotation function of the rotation
      */
     rotX(theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
 
@@ -79,8 +90,8 @@ export default interface Object3 {
      * @brief rotation around `y` axis
      * @details See [[Object3]] for more details.
      * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `z` metric function of the rotation
+     * @param cos `x` rotation function of the rotation
+     * @param sin `z` rotation function of the rotation
      */
     rotY(theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
 
@@ -89,8 +100,8 @@ export default interface Object3 {
      * @brief rotation around `z` axis
      * @details See [[Object3]] for more details.
      * @param theta angle of rotation
-     * @param cos `x` metric function of the rotation
-     * @param sin `y` metric function of the rotation
+     * @param cos `x` rotation function of the rotation
+     * @param sin `y` rotation function of the rotation
      */
     rotZ(theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
 
@@ -101,8 +112,8 @@ export default interface Object3 {
      * See [[Object3]] for more details.
      * @param u axis of rotation
      * @param theta angle of rotation
-     * @param cos `ux` metric function of the rotation
-     * @param sin `uy` metric function of the rotation
+     * @param cos `ux` rotation function of the rotation
+     * @param sin `uy` rotation function of the rotation
      */
     rot(u: Vector, theta: number, cos?: (x: number) => number, sin?: (x: number) => number): this;
 }

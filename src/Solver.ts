@@ -4,31 +4,34 @@ type VectorField = (u?: Vector, t?: number) => Vector;
 
 /**
  * ## Brief
- * [[Solver]] represents an ordinary differential equation between any vector-valued function
+ * [[Solver]] is a tool class to represent ordinary differential equation between vector-valued functions
  *
- * ## Main features
+ * ### Main features
  * - First, second and third order non-linear solving
  * - Bufferization of result for best performance
  *
  * ## Getting started
- * A solver is an object that models an ode between any object of type [[Vector]]. The equation must be in the form
- * **du/dt = f(u, t)** where **u** is the unknown vector-valued function and **f** is a smooth time-dependant vector field.
+ * A solver is an object that models an ode between any object of type [[Vector]]. The equation has the following form
  *
- * ## Initialize a solver
- * Solver objects contains notably the value of the initial condition, the function **f** and the time step **dt**.
- * Therefore to initialize a solver, simply choose a pertinent value to these parameter.
+ * ![ODE](media://ode.png)
  *
- * ### Example
+ * Where `u` is an unknown vector valued function and `f` a smooth time dependant vector field.
+ *
+ * ### Initialize a solver
+ * Solver objects are initialized with the value of the initial condition `u0`, the function `f` and the time step `dt`
+ * Therefore to initialize a solver, simply choose values of theses parameters that models your problem.
+ *
+ * #### Example
  * ```js
- * let f = u => u; // equation du/dt = u (exponential solution)
+ * let f = u => u; // equation du/dt = u first order linear equation
  * let dt = 0.1; // time step
  * let u0 = new Vector3(1, 0, 0); // initial condition
  * let solver = new Solver(f, dt, u0),
  * console.log(solver.dt) // prints 0.1
  * ```
  *
- * ## Solve equations
- * Once you've initialized the solver, you can start compute solutions of your equation. There is two ways to do that
+ * ### Solve equations
+ * Once you've initialized the solver, you can start compute solutions of your equation. There is two ways to do that :
  * - Compute values step-by-step
  * - Compute value after a maximum duration
  *
@@ -37,7 +40,7 @@ type VectorField = (u?: Vector, t?: number) => Vector;
  * let v = solver.solve(tmax);
  * ```
  *
- * You can impose a new initial condition and a time step each time you call `step` and `solve` methods.
+ * You can change initial condition and time step each time you call `step` and `solve` methods.
  *
  * ```js
  * let u0 = Vector3(2, 3, 7);
@@ -45,7 +48,13 @@ type VectorField = (u?: Vector, t?: number) => Vector;
  * let u = solver.step(u0, dt);
  * ```
  *
- * **Note** currently there is implicit methods and only Euler's method is provided.
+ * **Note** currently only Euler's explicit method is provided.
+ *
+ * ### Time dependant equations
+ *
+ * Time dependant equations uses the member `t` to count time from the last initialisation/reset of the solver.
+ * Each time an equation is solved, `t` is set to it's final value after solving. If you want to reset the value of `t`,
+ * call the `reset` method.
  *
  */
 export default class Solver {
@@ -58,7 +67,7 @@ export default class Solver {
     /** current time step */
     dt: number;
 
-    /** buffer value, stores the value of the last **f(u, t)** computed */
+    /** buffer value, stores the value of the last `f(u, t)` computed */
     tmp: Vector;
 
     /** last initial condition used */
@@ -97,7 +106,7 @@ export default class Solver {
 
     /**
      * @brief computes value of solution according to current `u0` at `t = tmax`
-     * @details `this.u1` is set to **u(tmax)**
+     * @details `this.u1` is set to `u(tmax)`
      * @param tmax instant where to compute the solution
      * @param u0 initial condition
      * @param dt time step
@@ -115,5 +124,20 @@ export default class Solver {
         }
 
         return this.u1;
+    }
+
+    /**
+     * @brief reset the solver with initial condition and time step
+     * @details the timer member `this.t` is set to `0`.
+     * @param u0 initial condition
+     * @param dt time step
+     */
+    reset(u0: Vector = this.u0, dt: number = this.dt): this {
+        this.t = 0;
+        this.u0.copy(u0);
+        this.u1.copy(u0);
+        this.tmp.copy(u0);
+        this.dt = dt;
+        return this;
     }
 }

@@ -18,7 +18,7 @@ you are already familiar with maths framework. The reason is that here is define
 ### Quick start
 
 #### Basic concepts
-**space3** is a general purpose class library for 3D math. Here is the wonderful land of _algebra_ and _advanced calculus_.
+**space3** is a general purpose class library for 3D math. Welcome to the wonderful land of _algebra_ and _advanced calculus_.
 It provides handy **classes for matrices, vectors, curves, ode, ...**
 
 The main goal, is to shorten maths expressions by introducing **standardized and rich API**, but with minimal computational cost.  
@@ -78,7 +78,8 @@ Here is a glossary that resumes the definition of each.
 | `inv`          | inversion     |`u **= -1`        |
 | `norm`         | normalization |`u /= u . u`      |
 | `dot`          | dot product   |`u . v`           |
-| `dist`         | equality      |`d(u, v)`         |
+| `mag`          | magnitude/norm|`sqrt(u . u)`     |
+| `dist`         | distance      |`d2(u, v)`        |
 | `equal`        | equality      |`u == v`          |
 | `zero` or `nil`| 0 comparison  |`u == 0`          |
 | `rot`          | rotation      |`u = rot(theta)`  |

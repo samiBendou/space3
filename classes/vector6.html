@@ -67,13 +67,18 @@
 					<div class="lead">
 						<h2 id="brief">Brief</h2>
 					</div>
-					<p><a href="vector6.html">Vector6</a> represents 6D vectors.</p>
-					<h2 id="getting-started">Getting started</h2>
-					<p>The <code>Vector6</code> class mainly implements <a href="../interfaces/vector.html">Vector</a> interface. It&#39;s a generalization of
-					<a href="vector3.html">Vector3</a> class but it does not provide geometrical features such as rotations.</p>
-					<p><code>Vector6</code> can be seen as the concatenation of two vectors <code>(x, y, z)</code> and <code>(vx, vy, vz)</code> which
-						can represent the coordinates of a moving point in a 3D space. It&#39;s particularly useful
-					when dealing with second order differential equations.</p>
+					<p><a href="vector3.html">Vector3</a> represents 6D vectors as a set of six numerical components. It implements <a href="../interfaces/vector.html">Vector</a> interface.</p>
+					<h3 id="getting-started">Getting started</h3>
+					<p><a href="vector6.html">Vector6</a> objects are made of an array of three cartesian coordinates in an arbitrary basis <code>[x, y, z, vx, vy, vz]</code>.
+					They can be considered the following column vector :</p>
+					<p><img src="../media/vector6_shape.png" alt="Vector6 shape"></p>
+					<p>The <a href="vector6.html">Vector6</a> class is a generalization of <a href="vector3.html">Vector3</a> class but it does not provide geometrical features such as rotations.</p>
+					<p>They can be considered as the concatenation of two parts :</p>
+					<ul>
+						<li>The upper one <code>(x, y, z)</code></li>
+						<li>The lower one <code>(vx, vy, vz)</code></li>
+					</ul>
+					<p><strong>Note</strong> This representation is particularly useful when dealing with second order differential equations.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> u = Vector6(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>);
 <span class="hljs-keyword">let</span> v = u.upper; <span class="hljs-comment">// Vector3(1, 2, 3)</span>
@@ -109,13 +114,18 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 					<div class="lead">
 						<h2 id="brief">Brief</h2>
 					</div>
-					<p><a href="vector6.html">Vector6</a> represents 6D vectors.</p>
-					<h2 id="getting-started">Getting started</h2>
-					<p>The <code>Vector6</code> class mainly implements <a href="../interfaces/vector.html">Vector</a> interface. It&#39;s a generalization of
-					<a href="vector3.html">Vector3</a> class but it does not provide geometrical features such as rotations.</p>
-					<p><code>Vector6</code> can be seen as the concatenation of two vectors <code>(x, y, z)</code> and <code>(vx, vy, vz)</code> which
-						can represent the coordinates of a moving point in a 3D space. It&#39;s particularly useful
-					when dealing with second order differential equations.</p>
+					<p><a href="vector3.html">Vector3</a> represents 6D vectors as a set of six numerical components. It implements <a href="../interfaces/vector.html">Vector</a> interface.</p>
+					<h3 id="getting-started">Getting started</h3>
+					<p><a href="vector6.html">Vector6</a> objects are made of an array of three cartesian coordinates in an arbitrary basis <code>[x, y, z, vx, vy, vz]</code>.
+					They can be considered the following column vector :</p>
+					<p><img src="../media/vector6_shape.png" alt="Vector6 shape"></p>
+					<p>The <a href="vector6.html">Vector6</a> class is a generalization of <a href="vector3.html">Vector3</a> class but it does not provide geometrical features such as rotations.</p>
+					<p>They can be considered as the concatenation of two parts :</p>
+					<ul>
+						<li>The upper one <code>(x, y, z)</code></li>
+						<li>The lower one <code>(vx, vy, vz)</code></li>
+					</ul>
+					<p><strong>Note</strong> This representation is particularly useful when dealing with second order differential equations.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> u = Vector6(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>);
 <span class="hljs-keyword">let</span> v = u.upper; <span class="hljs-comment">// Vector3(1, 2, 3)</span>
@@ -268,7 +278,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L64">Vector6.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L70">Vector6.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -391,7 +401,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dim">dim</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L32">Vector6.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L38">Vector6.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -436,7 +446,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L56">Vector6.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L62">Vector6.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -449,7 +459,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L60">Vector6.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L66">Vector6.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -477,7 +487,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L35">Vector6.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L41">Vector6.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -499,7 +509,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L40">Vector6.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L46">Vector6.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -522,7 +532,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L45">Vector6.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L51">Vector6.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -535,7 +545,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L49">Vector6.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L55">Vector6.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -563,7 +573,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L547">Vector6.ts:547</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L553">Vector6.ts:553</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -585,7 +595,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L542">Vector6.ts:542</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L548">Vector6.ts:548</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -630,7 +640,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#abs">abs</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L203">Vector6.ts:203</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L209">Vector6.ts:209</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -648,7 +658,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#absc">absc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L213">Vector6.ts:213</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L219">Vector6.ts:219</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -666,7 +676,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#add">add</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L275">Vector6.ts:275</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L281">Vector6.ts:281</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -690,7 +700,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#addc">addc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L285">Vector6.ts:285</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L291">Vector6.ts:291</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -714,7 +724,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/encoder.html">Encoder</a>.<a href="../interfaces/encoder.html#array">array</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L85">Vector6.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L91">Vector6.ts:91</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -731,7 +741,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L89">Vector6.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L95">Vector6.ts:95</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -770,7 +780,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#berp">berp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L392">Vector6.ts:392</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L398">Vector6.ts:398</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -803,7 +813,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#berpc">berpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L409">Vector6.ts:409</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L415">Vector6.ts:415</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -836,7 +846,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#ceil">ceil</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L159">Vector6.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L165">Vector6.ts:165</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -854,7 +864,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#ceilc">ceilc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L169">Vector6.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L175">Vector6.ts:175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -872,7 +882,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#clone">clone</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L109">Vector6.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L115">Vector6.ts:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -890,7 +900,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#comb">comb</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L345">Vector6.ts:345</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L351">Vector6.ts:351</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -917,7 +927,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#combc">combc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L355">Vector6.ts:355</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L361">Vector6.ts:361</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -944,7 +954,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#copy">copy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L99">Vector6.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L105">Vector6.ts:105</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1016,7 +1026,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#der">der</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L413">Vector6.ts:413</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L419">Vector6.ts:419</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1043,7 +1053,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#derc">derc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L423">Vector6.ts:423</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L429">Vector6.ts:429</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1070,7 +1080,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dist">dist</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L461">Vector6.ts:461</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L467">Vector6.ts:467</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1094,7 +1104,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dist1">dist1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L465">Vector6.ts:465</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L471">Vector6.ts:471</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1118,7 +1128,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dist2">dist2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L475">Vector6.ts:475</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L481">Vector6.ts:481</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1142,7 +1152,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#div">div</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L331">Vector6.ts:331</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L337">Vector6.ts:337</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1166,7 +1176,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#divc">divc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L341">Vector6.ts:341</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L347">Vector6.ts:347</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1190,7 +1200,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#dot">dot</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L456">Vector6.ts:456</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L462">Vector6.ts:462</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1238,7 +1248,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#equal1">equal1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L490">Vector6.ts:490</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L496">Vector6.ts:496</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1262,7 +1272,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#equal2">equal2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L509">Vector6.ts:509</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L515">Vector6.ts:515</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1351,7 +1361,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#exact">exact</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L485">Vector6.ts:485</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L491">Vector6.ts:491</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1376,7 +1386,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#fill">fill</a></p>
 								<p>Overrides Float64Array.fill</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L246">Vector6.ts:246</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L252">Vector6.ts:252</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1400,7 +1410,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#fillc">fillc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L256">Vector6.ts:256</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L262">Vector6.ts:262</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1623,7 +1633,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#floor">floor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L145">Vector6.ts:145</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L151">Vector6.ts:151</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -1641,7 +1651,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#floorc">floorc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L155">Vector6.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L161">Vector6.ts:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -1723,7 +1733,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#herp">herp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L373">Vector6.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L379">Vector6.ts:379</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1756,7 +1766,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#herpc">herpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L388">Vector6.ts:388</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L394">Vector6.ts:394</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1868,7 +1878,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#inv">inv</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L442">Vector6.ts:442</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L448">Vector6.ts:448</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -1886,7 +1896,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#invc">invc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L452">Vector6.ts:452</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L458">Vector6.ts:458</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -2002,7 +2012,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#lerp">lerp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L359">Vector6.ts:359</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L365">Vector6.ts:365</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2029,7 +2039,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#lerpc">lerpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L369">Vector6.ts:369</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L375">Vector6.ts:375</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2121,7 +2131,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#max">max</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L232">Vector6.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L238">Vector6.ts:238</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2145,7 +2155,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#maxc">maxc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L242">Vector6.ts:242</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L248">Vector6.ts:248</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2169,7 +2179,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#min">min</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L217">Vector6.ts:217</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L223">Vector6.ts:223</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2193,7 +2203,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#minc">minc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L227">Vector6.ts:227</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L233">Vector6.ts:233</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2217,7 +2227,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#mul">mul</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L317">Vector6.ts:317</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L323">Vector6.ts:323</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2241,7 +2251,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#mulc">mulc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L327">Vector6.ts:327</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L333">Vector6.ts:333</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2265,7 +2275,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#neg">neg</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L303">Vector6.ts:303</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L309">Vector6.ts:309</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2283,7 +2293,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#negc">negc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L313">Vector6.ts:313</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L319">Vector6.ts:319</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -2301,7 +2311,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#nil">nil</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L513">Vector6.ts:513</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L519">Vector6.ts:519</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -2319,7 +2329,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#norm">norm</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L260">Vector6.ts:260</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L266">Vector6.ts:266</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2337,7 +2347,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#normc">normc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L271">Vector6.ts:271</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L277">Vector6.ts:277</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -2355,7 +2365,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#prod">prod</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L428">Vector6.ts:428</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L434">Vector6.ts:434</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2384,7 +2394,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#prodc">prodc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L438">Vector6.ts:438</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L444">Vector6.ts:444</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2408,7 +2418,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#random">random</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L135">Vector6.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L141">Vector6.ts:141</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2778,7 +2788,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#reset0">reset0</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L114">Vector6.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L120">Vector6.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2801,7 +2811,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#reset1">reset1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L125">Vector6.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L131">Vector6.ts:131</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2848,7 +2858,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#round">round</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L174">Vector6.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L180">Vector6.ts:180</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2866,7 +2876,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#roundc">roundc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L184">Vector6.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L190">Vector6.ts:190</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector6.html" class="tsd-signature-type">Vector6</a></h4>
@@ -3081,7 +3091,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/encoder.html">Encoder</a>.<a href="../interfaces/encoder.html#string">string</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L81">Vector6.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L87">Vector6.ts:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -3099,7 +3109,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#sub">sub</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L289">Vector6.ts:289</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L295">Vector6.ts:295</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3163,7 +3173,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#subc">subc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L299">Vector6.ts:299</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L305">Vector6.ts:305</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3235,7 +3245,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#trunc">trunc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L188">Vector6.ts:188</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L194">Vector6.ts:194</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3259,7 +3269,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#truncc">truncc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L199">Vector6.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L205">Vector6.ts:205</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3307,7 +3317,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#zero1">zero1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L518">Vector6.ts:518</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L524">Vector6.ts:524</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -3325,7 +3335,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/vector.html">Vector</a>.<a href="../interfaces/vector.html#zero2">zero2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L531">Vector6.ts:531</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L537">Vector6.ts:537</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -3342,7 +3352,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L584">Vector6.ts:584</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L590">Vector6.ts:590</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3370,7 +3380,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L561">Vector6.ts:561</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L567">Vector6.ts:567</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3406,7 +3416,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L572">Vector6.ts:572</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L578">Vector6.ts:578</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3442,7 +3452,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L579">Vector6.ts:579</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L585">Vector6.ts:585</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3464,7 +3474,7 @@ u.lower = v; <span class="hljs-comment">// u = (1, 2, 3, 1, 2, 3)</span></code><
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Vector6.ts#L552">Vector6.ts:552</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Vector6.ts#L558">Vector6.ts:558</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

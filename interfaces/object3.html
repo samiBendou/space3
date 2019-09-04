@@ -86,19 +86,25 @@ w.rot(u, angle, cos, sin);
 m.rotY(angle);
 n.rot(u, angle);
 q.rot(u, angle, cos, sin);</code></pre>
-					<p>In the last line, he methods <code>cos</code> and <code>sin</code> are called the <em>metric functions</em> of the rotation.
+					<p>In the last line, he methods <code>cos</code> and <code>sin</code> are called the <em>rotation functions</em> of the rotation.
 					By default theses are let to <code>Math.cos</code> and <code>Math.sin</code> the resulting rotation will be a circular.</p>
 					<h3 id="non-circular-rotation">Non-circular rotation</h3>
 					<p>To understand how works non-circular rotations lets start with an example.
 						A regular use case is the generation of an elliptic rotation matrix.
 					ie. a matrix that performs a rotation of a unit vector on a ellipse.</p>
-					<p>Pass the method <code>(x) =&gt; a * Math.cos(x)</code> and <code>(y) =&gt; b * Math.sin(y)</code> as metric functions, the result will
+					<p><img src="../media/rotations.png" alt="Rotations"></p>
+					<p>The circular rotation is represented in blue and the elliptic in red.</p>
+					<p><strong>Note</strong> In the schema above, rotation matrices are defined such that they transform unit vectors into vectors on
+					vectors of the circle or the ellipse.</p>
+					<p>Pass the method <code>(x) =&gt; a * Math.cos(x)</code> and <code>(y) =&gt; b * Math.sin(y)</code> as rotation functions, the result will
 					be a rotation matrix around an ellipse of semi-axis major <code>max(a,b)</code> and semi-axis minor <code>min(a, b)</code>.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">2</span>, b = <span class="hljs-number">1</span>; <span class="hljs-comment">// a is semi-axis major, b is semi-axis minor</span>
 
 <span class="hljs-comment">// +pi/2 rotation around ellipse of axis u</span>
 m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2</span>, (x) =&gt; a * <span class="hljs-built_in">Math</span>.cos(x), (y) =&gt; b * <span class="hljs-built_in">Math</span>.sin(y));</code></pre>
+					<p><strong>Note</strong> By default the rotations function are set to <code>Math.cos</code> and <code>Math.sin</code>.
+					It simply performs rotation of a vector or set a matrix to a rotation matrix.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -152,7 +158,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">x<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L54">int/Object3.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L65">int/Object3.ts:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -167,7 +173,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">xyz<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L63">int/Object3.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L74">int/Object3.ts:74</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -182,7 +188,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">xyzt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L66">int/Object3.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L77">int/Object3.ts:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -197,7 +203,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">y<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L57">int/Object3.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L68">int/Object3.ts:68</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -212,7 +218,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 					<div class="tsd-signature tsd-kind-icon">z<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L60">int/Object3.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L71">int/Object3.ts:71</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -234,7 +240,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L107">int/Object3.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L118">int/Object3.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -265,7 +271,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cos: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>ux</code> metric function of the rotation</p>
+										<p><code>ux</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -289,7 +295,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> sin: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>uy</code> metric function of the rotation</p>
+										<p><code>uy</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -325,7 +331,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L75">int/Object3.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L86">int/Object3.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -349,7 +355,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cos: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>y</code> metric function of the rotation</p>
+										<p><code>y</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -373,7 +379,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> sin: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>z</code> metric function of the rotation</p>
+										<p><code>z</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -409,7 +415,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L85">int/Object3.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L96">int/Object3.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -433,7 +439,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cos: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>x</code> metric function of the rotation</p>
+										<p><code>x</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -457,7 +463,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> sin: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>z</code> metric function of the rotation</p>
+										<p><code>z</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -493,7 +499,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Object3.ts#L95">int/Object3.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Object3.ts#L106">int/Object3.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -517,7 +523,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cos: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>x</code> metric function of the rotation</p>
+										<p><code>x</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -541,7 +547,7 @@ m.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> sin: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p><code>y</code> metric function of the rotation</p>
+										<p><code>y</code> rotation function of the rotation</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">

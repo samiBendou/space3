@@ -66,38 +66,43 @@
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<h2 id="brief">Brief</h2>
-						<p><a href="solver.html">Solver</a> represents an ordinary differential equation between any vector-valued function</p>
+						<p><a href="solver.html">Solver</a> is a tool class to represent ordinary differential equation between vector-valued functions</p>
 					</div>
-					<h2 id="main-features">Main features</h2>
+					<h3 id="main-features">Main features</h3>
 					<ul>
 						<li>First, second and third order non-linear solving</li>
 						<li>Bufferization of result for best performance</li>
 					</ul>
 					<h2 id="getting-started">Getting started</h2>
-					<p>A solver is an object that models an ode between any object of type <a href="../interfaces/vector.html">Vector</a>. The equation must be in the form
-					<strong>du/dt = f(u, t)</strong> where <strong>u** is the unknown vector-valued function and **f</strong> is a smooth time-dependant vector field.</p>
-					<h2 id="initialize-a-solver">Initialize a solver</h2>
-					<p>Solver objects contains notably the value of the initial condition, the function <strong>f** and the time step **dt</strong>.
-					Therefore to initialize a solver, simply choose a pertinent value to these parameter.</p>
-					<h3 id="example">Example</h3>
-					<pre><code class="language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-function"><span class="hljs-params">u</span> =&gt;</span> u; <span class="hljs-comment">// equation du/dt = u (exponential solution)</span>
+					<p>A solver is an object that models an ode between any object of type <a href="../interfaces/vector.html">Vector</a>. The equation has the following form</p>
+					<p><img src="../media/ode.png" alt="ODE"></p>
+					<p>Where <code>u</code> is an unknown vector valued function and <code>f</code> a smooth time dependant vector field.</p>
+					<h3 id="initialize-a-solver">Initialize a solver</h3>
+					<p>Solver objects are initialized with the value of the initial condition <code>u0</code>, the function <code>f</code> and the time step <code>dt</code>
+					Therefore to initialize a solver, simply choose values of theses parameters that models your problem.</p>
+					<h4 id="example">Example</h4>
+					<pre><code class="language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-function"><span class="hljs-params">u</span> =&gt;</span> u; <span class="hljs-comment">// equation du/dt = u first order linear equation</span>
 <span class="hljs-keyword">let</span> dt = <span class="hljs-number">0.1</span>; <span class="hljs-comment">// time step</span>
 <span class="hljs-keyword">let</span> u0 = <span class="hljs-keyword">new</span> Vector3(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// initial condition</span>
 <span class="hljs-keyword">let</span> solver = <span class="hljs-keyword">new</span> Solver(f, dt, u0),
 <span class="hljs-built_in">console</span>.log(solver.dt) <span class="hljs-comment">// prints 0.1</span></code></pre>
-					<h2 id="solve-equations">Solve equations</h2>
-					<p>Once you&#39;ve initialized the solver, you can start compute solutions of your equation. There is two ways to do that</p>
+					<h3 id="solve-equations">Solve equations</h3>
+					<p>Once you&#39;ve initialized the solver, you can start compute solutions of your equation. There is two ways to do that :</p>
 					<ul>
 						<li>Compute values step-by-step</li>
 						<li>Compute value after a maximum duration</li>
 					</ul>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> u = solver.step();
 <span class="hljs-keyword">let</span> v = solver.solve(tmax);</code></pre>
-					<p>You can impose a new initial condition and a time step each time you call <code>step</code> and <code>solve</code> methods.</p>
+					<p>You can change initial condition and time step each time you call <code>step</code> and <code>solve</code> methods.</p>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> u0 = Vector3(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>);
 <span class="hljs-keyword">let</span> dt = <span class="hljs-number">0.1</span>;
 <span class="hljs-keyword">let</span> u = solver.step(u0, dt);</code></pre>
-					<p><strong>Note</strong> currently there is implicit methods and only Euler&#39;s method is provided.</p>
+					<p><strong>Note</strong> currently only Euler&#39;s explicit method is provided.</p>
+					<h3 id="time-dependant-equations">Time dependant equations</h3>
+					<p>Time dependant equations uses the member <code>t</code> to count time from the last initialisation/reset of the solver.
+						Each time an equation is solved, <code>t</code> is set to it&#39;s final value after solving. If you want to reset the value of <code>t</code>,
+					call the <code>reset</code> method.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -132,6 +137,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="solver.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="solver.html#solve" class="tsd-kind-icon">solve</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="solver.html#step" class="tsd-kind-icon">step</a></li>
 							</ul>
@@ -151,7 +157,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L68">Solver.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L77">Solver.ts:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -179,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">dt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L59">Solver.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L68">Solver.ts:68</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -194,7 +200,7 @@
 					<div class="tsd-signature tsd-kind-icon">f<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">VectorField</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L53">Solver.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L62">Solver.ts:62</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -209,7 +215,7 @@
 					<div class="tsd-signature tsd-kind-icon">t<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L56">Solver.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L65">Solver.ts:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -224,12 +230,12 @@
 					<div class="tsd-signature tsd-kind-icon">tmp<span class="tsd-signature-symbol">:</span> <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L62">Solver.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L71">Solver.ts:71</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>buffer value, stores the value of the last <strong>f(u, t)</strong> computed</p>
+							<p>buffer value, stores the value of the last <code>f(u, t)</code> computed</p>
 						</div>
 					</div>
 				</section>
@@ -239,7 +245,7 @@
 					<div class="tsd-signature tsd-kind-icon">u0<span class="tsd-signature-symbol">:</span> <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L65">Solver.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L74">Solver.ts:74</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -254,7 +260,7 @@
 					<div class="tsd-signature tsd-kind-icon">u1<span class="tsd-signature-symbol">:</span> <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L68">Solver.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L77">Solver.ts:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -267,6 +273,48 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="reset" class="tsd-anchor"></a>
+					<h3>reset</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">(</span>u0<span class="tsd-signature-symbol">?: </span><a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a>, dt<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L135">Solver.ts:135</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>brief</dt>
+									<dd><p>reset the solver with initial condition and time step</p>
+									</dd>
+									<dt>details</dt>
+									<dd><p>the timer member <code>this.t</code> is set to <code>0</code>.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> u0: <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol"> =&nbsp;this.u0</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>initial condition</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> dt: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;this.dt</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>time step</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="solve" class="tsd-anchor"></a>
 					<h3>solve</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -276,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L106">Solver.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L115">Solver.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -285,7 +333,7 @@
 									<dd><p>computes value of solution according to current <code>u0</code> at <code>t = tmax</code></p>
 									</dd>
 									<dt>details</dt>
-									<dd><p><code>this.u1</code> is set to <strong>u(tmax)</strong></p>
+									<dd><p><code>this.u1</code> is set to <code>u(tmax)</code></p>
 									</dd>
 								</dl>
 							</div>
@@ -325,7 +373,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Solver.ts#L85">Solver.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Solver.ts#L94">Solver.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -392,6 +440,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="solver.html#u1" class="tsd-kind-icon">u1</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="solver.html#reset" class="tsd-kind-icon">reset</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="solver.html#solve" class="tsd-kind-icon">solve</a>

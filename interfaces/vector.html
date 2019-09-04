@@ -71,10 +71,10 @@
 					</div>
 					<h3 id="main-features">Main Features</h3>
 					<ul>
-						<li>Objects <strong>copy and clone</strong> <code>copy</code>, <code>clone</code>, <code>assign</code>, ...</li>
-						<li>Basic <strong>manipulators</strong> <code>floor</code>, <code>fill</code>, <code>abs</code>, ...</li>
-						<li><strong>Algebraical operations</strong> <code>add</code>, <code>sub</code>, <code>inv</code>, <code>mul</code>, <code>prod</code>,  ...</li>
-						<li>Linear, cubic and Bezier&#39;s <strong>interpolation</strong> <code>lerp</code>, <code>herp</code>, ...</li>
+						<li><strong>Copy and Clone</strong> <code>copy</code>, <code>clone</code>, <code>assign</code>, ...</li>
+						<li><strong>Manipulators</strong> <code>floor</code>, <code>fill</code>, <code>abs</code>, ...</li>
+						<li><strong>Algebra</strong> <code>add</code>, <code>sub</code>, <code>inv</code>, <code>mul</code>, <code>prod</code>,  ...</li>
+						<li>Linear, cubic and Bezier&#39;s <strong>Interpolation</strong> <code>lerp</code>, <code>herp</code>, ...</li>
 						<li><strong>Equality</strong>, zeros and distance methods <code>equal2</code>, <code>mag</code>, <code>dist1</code>, ...</li>
 						<li>Provide <strong>immutable operations</strong> by cloning <code>addc</code>, <code>subc</code>, ...</li>
 					</ul>
@@ -83,27 +83,36 @@
 u.floor(); <span class="hljs-comment">// u = (5, 0, 0)</span>
 u.lerp(v, <span class="hljs-number">0.5</span>) <span class="hljs-comment">// u = (5.25, 0, 0);</span>
 u.comb(<span class="hljs-number">2</span>, v) <span class="hljs-comment">// u = (16.25, 0, 0);</span></code></pre>
-					<p><strong>Note</strong> The documentation of each method contains a more precise description of the API.</p>
 					<h2 id="getting-started">Getting Started</h2>
-					<h3 id="algebraical-operations">Algebraical operations</h3>
-					<p>Algebraical operations are the base of <strong>space3</strong> framework. Almost all classes of the framework
-					provides theses operations.</p>
+					<h3 id="algebra-and-interpolation">Algebra and interpolation</h3>
+					<p>Perform additions, scalar multiplication, linear interpolation and many other common operations.
+					Take a look at the <a href="https://samibendou.github.io/space3/">glossary of operations</a> to have an exhaustive list.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js">u.add(v).sub(w).comb(lambda, w);
 a.prod(b).inv();</code></pre>
-					<p>If you&#39;re already feel comfortable with algebra you may know how all this works.
-						Therefore you just have to take a look at the <a href="https://samibendou.github.io/space3/">glossary of operations</a>
-					in order to know the list of abbreviations used for operations.</p>
+					<p>Theses operations are the core of <strong>space3</strong> framework. Almost all classes of the framework
+					provide or use theses.</p>
 					<p>if you need a little refresh on algebra,
-					I recommend you to watch the great algebra vulgarized curse on <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown</a> channel.</p>
-					<h3 id="equality-and-norm-based-operations">Equality and norm based operations</h3>
-					<p>In order to avoid float precision errors and give different way to compare objects,
+					I recommend you to watch the great algebra curse on <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown</a> channel.</p>
+					<p>The operations are defined in the reference by mentioning two vectors <code>u</code> and <code>v</code>. it&#39;s admitted that :</p>
+					<ul>
+						<li><code>u</code> refers to <code>this</code> in the code</li>
+						<li><code>v</code> refers to the parameter <code>vector</code> in the code</li>
+						<li>The result is stored in <code>this</code></li>
+						<li>If the method is suffixed by <code>c</code>, the result is a newly created <a href="vector.html">Vector</a></li>
+					</ul>
+					<h3 id="comparison-and-zeros">Comparison and zeros</h3>
+					<p>In order to avoid float precision errors and allow you to choose the most pertinent comparison,
 					a <a href="vector.html">Vector</a> provides three different ways to compare to another one :</p>
 					<ul>
-						<li>Using the norm 1, manhattan distance <code>||u|| = |ux| + |uy| + |uz|</code></li>
-						<li>Using the norm 2, dot product distance <code>||u|| = sqrt(|ux|**2 + |uy|**2 + |uz|**2)</code></li>
+						<li>Using the norm 1, manhattan distance</li>
+						<li>Using the norm 2, dot product distance</li>
 						<li>Using exact comparison coordinates by coordinates.</li>
 					</ul>
+					<p>The first two comparison are based on the following definition of norms :</p>
+					<p><img src="../media/norm.png" alt="Norm"></p>
+					<p>Given a norm the distance between two vector is defined by :</p>
+					<p><img src="../media/distance.png" alt="Distance"></p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> ex = Vector3.ex, ey = Vector3.ey, zeros = Vector3.zeros;
 ex.equal2(ey) <span class="hljs-comment">// false</span>
@@ -111,12 +120,9 @@ ex.equal1(ey) <span class="hljs-comment">// false</span>
 ex.exact(ex) <span class="hljs-comment">// true</span>
 ex.zero1() <span class="hljs-comment">// false</span>
 zeros.nil() <span class="hljs-comment">// true</span>
-zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span class="hljs-comment">// false</span></code></pre>
-					<p><strong>Notes</strong></p>
-					<ul>
-						<li>Use <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default</li>
-						<li><code>mag</code> accessors is computed using the norm 2</li>
-					</ul>
+zeros.add(ex.mul(<span class="hljs-number">0.5</span> * <span class="hljs-built_in">Number</span>.EPSILON)).nil() <span class="hljs-comment">// false</span></code></pre>
+					<p><strong>Note</strong> <code>mag</code>, <code>mag2</code> accessors uses the norm 2</p>
+					<p>If you don&#39;t know which comparison to use, I recommend you <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -157,10 +163,10 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 					</div>
 					<h3 id="main-features">Main Features</h3>
 					<ul>
-						<li>Objects <strong>copy and clone</strong> <code>copy</code>, <code>clone</code>, <code>assign</code>, ...</li>
-						<li>Basic <strong>manipulators</strong> <code>floor</code>, <code>fill</code>, <code>abs</code>, ...</li>
-						<li><strong>Algebraical operations</strong> <code>add</code>, <code>sub</code>, <code>inv</code>, <code>mul</code>, <code>prod</code>,  ...</li>
-						<li>Linear, cubic and Bezier&#39;s <strong>interpolation</strong> <code>lerp</code>, <code>herp</code>, ...</li>
+						<li><strong>Copy and Clone</strong> <code>copy</code>, <code>clone</code>, <code>assign</code>, ...</li>
+						<li><strong>Manipulators</strong> <code>floor</code>, <code>fill</code>, <code>abs</code>, ...</li>
+						<li><strong>Algebra</strong> <code>add</code>, <code>sub</code>, <code>inv</code>, <code>mul</code>, <code>prod</code>,  ...</li>
+						<li>Linear, cubic and Bezier&#39;s <strong>Interpolation</strong> <code>lerp</code>, <code>herp</code>, ...</li>
 						<li><strong>Equality</strong>, zeros and distance methods <code>equal2</code>, <code>mag</code>, <code>dist1</code>, ...</li>
 						<li>Provide <strong>immutable operations</strong> by cloning <code>addc</code>, <code>subc</code>, ...</li>
 					</ul>
@@ -169,27 +175,36 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 u.floor(); <span class="hljs-comment">// u = (5, 0, 0)</span>
 u.lerp(v, <span class="hljs-number">0.5</span>) <span class="hljs-comment">// u = (5.25, 0, 0);</span>
 u.comb(<span class="hljs-number">2</span>, v) <span class="hljs-comment">// u = (16.25, 0, 0);</span></code></pre>
-					<p><strong>Note</strong> The documentation of each method contains a more precise description of the API.</p>
 					<h2 id="getting-started">Getting Started</h2>
-					<h3 id="algebraical-operations">Algebraical operations</h3>
-					<p>Algebraical operations are the base of <strong>space3</strong> framework. Almost all classes of the framework
-					provides theses operations.</p>
+					<h3 id="algebra-and-interpolation">Algebra and interpolation</h3>
+					<p>Perform additions, scalar multiplication, linear interpolation and many other common operations.
+					Take a look at the <a href="https://samibendou.github.io/space3/">glossary of operations</a> to have an exhaustive list.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js">u.add(v).sub(w).comb(lambda, w);
 a.prod(b).inv();</code></pre>
-					<p>If you&#39;re already feel comfortable with algebra you may know how all this works.
-						Therefore you just have to take a look at the <a href="https://samibendou.github.io/space3/">glossary of operations</a>
-					in order to know the list of abbreviations used for operations.</p>
+					<p>Theses operations are the core of <strong>space3</strong> framework. Almost all classes of the framework
+					provide or use theses.</p>
 					<p>if you need a little refresh on algebra,
-					I recommend you to watch the great algebra vulgarized curse on <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown</a> channel.</p>
-					<h3 id="equality-and-norm-based-operations">Equality and norm based operations</h3>
-					<p>In order to avoid float precision errors and give different way to compare objects,
+					I recommend you to watch the great algebra curse on <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown</a> channel.</p>
+					<p>The operations are defined in the reference by mentioning two vectors <code>u</code> and <code>v</code>. it&#39;s admitted that :</p>
+					<ul>
+						<li><code>u</code> refers to <code>this</code> in the code</li>
+						<li><code>v</code> refers to the parameter <code>vector</code> in the code</li>
+						<li>The result is stored in <code>this</code></li>
+						<li>If the method is suffixed by <code>c</code>, the result is a newly created <a href="vector.html">Vector</a></li>
+					</ul>
+					<h3 id="comparison-and-zeros">Comparison and zeros</h3>
+					<p>In order to avoid float precision errors and allow you to choose the most pertinent comparison,
 					a <a href="vector.html">Vector</a> provides three different ways to compare to another one :</p>
 					<ul>
-						<li>Using the norm 1, manhattan distance <code>||u|| = |ux| + |uy| + |uz|</code></li>
-						<li>Using the norm 2, dot product distance <code>||u|| = sqrt(|ux|**2 + |uy|**2 + |uz|**2)</code></li>
+						<li>Using the norm 1, manhattan distance</li>
+						<li>Using the norm 2, dot product distance</li>
 						<li>Using exact comparison coordinates by coordinates.</li>
 					</ul>
+					<p>The first two comparison are based on the following definition of norms :</p>
+					<p><img src="../media/norm.png" alt="Norm"></p>
+					<p>Given a norm the distance between two vector is defined by :</p>
+					<p><img src="../media/distance.png" alt="Distance"></p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> ex = Vector3.ex, ey = Vector3.ey, zeros = Vector3.zeros;
 ex.equal2(ey) <span class="hljs-comment">// false</span>
@@ -197,12 +212,9 @@ ex.equal1(ey) <span class="hljs-comment">// false</span>
 ex.exact(ex) <span class="hljs-comment">// true</span>
 ex.zero1() <span class="hljs-comment">// false</span>
 zeros.nil() <span class="hljs-comment">// true</span>
-zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span class="hljs-comment">// false</span></code></pre>
-					<p><strong>Notes</strong></p>
-					<ul>
-						<li>Use <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default</li>
-						<li><code>mag</code> accessors is computed using the norm 2</li>
-					</ul>
+zeros.add(ex.mul(<span class="hljs-number">0.5</span> * <span class="hljs-built_in">Number</span>.EPSILON)).nil() <span class="hljs-comment">// false</span></code></pre>
+					<p><strong>Note</strong> <code>mag</code>, <code>mag2</code> accessors uses the norm 2</p>
+					<p>If you don&#39;t know which comparison to use, I recommend you <code>dist</code>, <code>equal2</code> and <code>zero2</code> to compare objects by default.</p>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -399,7 +411,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 					<div class="tsd-signature tsd-kind-icon">dim<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L70">int/Vector.ts:70</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L81">int/Vector.ts:81</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -430,12 +442,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 					<div class="tsd-signature tsd-kind-icon">mag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L73">int/Vector.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L84">int/Vector.ts:84</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>magnitude of the vector</p>
+							<p>magnitude of the vector <code>||u||</code></p>
 						</div>
 					</div>
 				</section>
@@ -445,12 +457,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 					<div class="tsd-signature tsd-kind-icon">mag2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L76">int/Vector.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L87">int/Vector.ts:87</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>squared magnitude of the vector</p>
+							<p>squared magnitude of the vector <code>u . u</code></p>
 						</div>
 					</div>
 				</section>
@@ -485,7 +497,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L117">int/Vector.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L128">int/Vector.ts:128</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -507,7 +519,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L119">int/Vector.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L130">int/Vector.ts:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -524,7 +536,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L137">int/Vector.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L148">int/Vector.ts:148</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -552,7 +564,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L139">int/Vector.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L150">int/Vector.ts:150</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -576,7 +588,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="encoder.html">Encoder</a>.<a href="encoder.html#array">array</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Encoder.ts#L18">int/Encoder.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Encoder.ts#L18">int/Encoder.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -598,7 +610,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L79">int/Vector.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L90">int/Vector.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -626,7 +638,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L196">int/Vector.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L207">int/Vector.ts:207</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -635,7 +647,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 									<dd><p>Bezier&#39;s interpolation between two vectors</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p><code>s</code> must be between 0 and 1.</p>
+									<dd><p><code>s</code> must be between 0 and 1. Starting vector is <code>this</code>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -680,7 +692,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L198">int/Vector.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L209">int/Vector.ts:209</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -712,7 +724,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L102">int/Vector.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L113">int/Vector.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -734,7 +746,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L104">int/Vector.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L115">int/Vector.ts:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -751,12 +763,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L85">int/Vector.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L96">int/Vector.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>clone a vector</p>
+									<p>clone <code>this</code> vector</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -773,12 +785,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L162">int/Vector.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L173">int/Vector.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>linear combination of scalar and vector <code>u + s * v</code></p>
+									<p>linear combination of a scalar and a vector <code>u + s * v</code></p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -804,7 +816,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L164">int/Vector.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L175">int/Vector.ts:175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -830,12 +842,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L82">int/Vector.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L93">int/Vector.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>copies a source vector into <code>this</code></p>
+									<p>copies a source vector into <code>this</code> component by component</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -905,12 +917,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L201">int/Vector.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L212">int/Vector.ts:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>1-th order derivative between the two vectors with given step <code>(u - v) / ds</code></p>
+									<p>derivative between the two vectors with given step <code>(u - v) / ds</code></p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -936,7 +948,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L203">int/Vector.ts:203</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L214">int/Vector.ts:214</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -962,7 +974,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L224">int/Vector.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L235">int/Vector.ts:235</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -990,7 +1002,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L227">int/Vector.ts:227</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L238">int/Vector.ts:238</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1018,7 +1030,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L230">int/Vector.ts:230</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L241">int/Vector.ts:241</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1046,7 +1058,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L157">int/Vector.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L168">int/Vector.ts:168</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1074,7 +1086,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L159">int/Vector.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L170">int/Vector.ts:170</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1097,7 +1109,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L221">int/Vector.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L232">int/Vector.ts:232</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1148,7 +1160,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L236">int/Vector.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L247">int/Vector.ts:247</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1176,7 +1188,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L239">int/Vector.ts:239</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L250">int/Vector.ts:250</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1269,7 +1281,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L233">int/Vector.ts:233</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L244">int/Vector.ts:244</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1298,12 +1310,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 							<aside class="tsd-sources">
 								<p>Overrides Float64Array.fill</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L132">int/Vector.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L143">int/Vector.ts:143</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>fills the vector with a single value <code>s</code></p>
+									<p>fills <code>this</code> vector with a single scalar value <code>s</code></p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1326,7 +1338,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L134">int/Vector.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L145">int/Vector.ts:145</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1548,7 +1560,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L97">int/Vector.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L108">int/Vector.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1570,7 +1582,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L99">int/Vector.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L110">int/Vector.ts:110</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -1651,7 +1663,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L184">int/Vector.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L195">int/Vector.ts:195</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1660,7 +1672,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 									<dd><p>Hermite&#39;s interpolation between two vectors</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p><code>s</code> must be between 0 and 1.</p>
+									<dd><p><code>s</code> must be between 0 and 1. Starting vector is <code>this</code>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -1705,7 +1717,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L186">int/Vector.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L197">int/Vector.ts:197</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1814,7 +1826,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L211">int/Vector.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L222">int/Vector.ts:222</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1836,7 +1848,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L213">int/Vector.ts:213</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L224">int/Vector.ts:224</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -1948,7 +1960,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L172">int/Vector.ts:172</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L183">int/Vector.ts:183</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1990,7 +2002,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L174">int/Vector.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L185">int/Vector.ts:185</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2081,7 +2093,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L127">int/Vector.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L138">int/Vector.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2109,7 +2121,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L129">int/Vector.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L140">int/Vector.ts:140</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2132,7 +2144,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L122">int/Vector.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L133">int/Vector.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2160,7 +2172,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L124">int/Vector.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L135">int/Vector.ts:135</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2183,7 +2195,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L152">int/Vector.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L163">int/Vector.ts:163</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2211,7 +2223,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L154">int/Vector.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L165">int/Vector.ts:165</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2234,7 +2246,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L147">int/Vector.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L158">int/Vector.ts:158</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2256,7 +2268,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L149">int/Vector.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L160">int/Vector.ts:160</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -2273,7 +2285,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L242">int/Vector.ts:242</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L253">int/Vector.ts:253</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2295,7 +2307,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L216">int/Vector.ts:216</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L227">int/Vector.ts:227</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2317,7 +2329,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L218">int/Vector.ts:218</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L229">int/Vector.ts:229</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -2334,7 +2346,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L206">int/Vector.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L217">int/Vector.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2362,7 +2374,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L208">int/Vector.ts:208</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L219">int/Vector.ts:219</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2385,12 +2397,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L94">int/Vector.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L105">int/Vector.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p><code>Math.random</code> of the components</p>
+									<p><code>Math.random</code> components by components</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2759,7 +2771,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L88">int/Vector.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L99">int/Vector.ts:99</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2781,7 +2793,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L91">int/Vector.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L102">int/Vector.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2826,7 +2838,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L107">int/Vector.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L118">int/Vector.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2848,7 +2860,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L109">int/Vector.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L120">int/Vector.ts:120</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -3061,7 +3073,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="encoder.html">Encoder</a>.<a href="encoder.html#string">string</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Encoder.ts#L21">int/Encoder.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Encoder.ts#L21">int/Encoder.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3083,7 +3095,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L142">int/Vector.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L153">int/Vector.ts:153</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3150,7 +3162,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L144">int/Vector.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L155">int/Vector.ts:155</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3219,12 +3231,12 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L112">int/Vector.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L123">int/Vector.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>truncate method keeping a given amount of decimals</p>
+									<p>truncation of the components given a number of decimals to keep</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3247,7 +3259,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L114">int/Vector.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L125">int/Vector.ts:125</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3293,7 +3305,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L245">int/Vector.ts:245</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L256">int/Vector.ts:256</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3315,7 +3327,7 @@ zeros.add(ex.mul(<span class="hljs-built_in">Number</span>.EPSILON)).nil() <span
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/int/Vector.ts#L248">int/Vector.ts:248</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/int/Vector.ts#L259">int/Vector.ts:259</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

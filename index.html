@@ -60,82 +60,30 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="space3">space3</h1>
-				<p><a href="https://www.npmjs.com/package/space3"><img src="https://img.shields.io/npm/v/space3.svg?style=flat-square" alt="Version"></a>
-					<a href="https://travis-ci.org/samiBendou/space3"><img src="https://img.shields.io/travis/samiBendou/space3.svg?style=flat-square" alt="Build status"></a>
-				<a href="https://www.npmjs.com/package/space3"><img src="https://img.shields.io/npm/l/space3.svg?style=flat-square" alt="License"></a></p>
-				<p>Javascript has become a language able to perform 3D numerical simulation and graphics.
-					It&#39;s a very expensive application in terms of calculation and impose the need of both fast and
-				handy API to perform 3D computation in real time.</p>
-				<p><em>space3</em> is a <strong>rich high performance API for 3D maths</strong>. It is designed
-				with uncompromising time optimization in mind and reaches surprisingly fast computation while <strong>keeping maths programming close to written mathematics</strong>.</p>
-				<h2 id="featuring">Featuring</h2>
+				<h2 id="documentation-of-space3">Documentation of space3</h2>
+				<h3 id="introduction">Introduction</h3>
+				<p>Welcome to the documentation of the space3 framework !</p>
 				<ul>
-					<li><p><strong>WebGL support</strong> with array based classes inheriting from <code>Float64Array</code>, column-major matrices, ...</p>
-					</li>
-					<li><p><strong>Three.js support</strong> with 3D coordinates manipulation and efficient rotations, translation, ...</p>
-					</li>
-					<li><p><strong>Vast API</strong> designed to perform many general purpose and specialized mathematical operations
-						for computer graphics, numeric simulation, geometry, physics...</p>
-					</li>
-					<li><p><strong>Written in Typescript</strong> with standardized interfaces to allow easily subclassing over the framework and
-						make the API simpler to use.</p>
-					</li>
-					<li><p><strong>Object oriented</strong> and <strong>functional</strong> paradigm for mathematical operations in order to make syntax as clear as possible
-						while staying concise.</p>
-					</li>
-					<li><p><strong>Intuitive syntax</strong> that makes formulas easy to drop. You&#39;ll almost never find yourself
-						writing a math formula on more than a code line.</p>
-					</li>
-					<li><p><strong><a href="https://samibendou.github.io/space3/">Reference and tutorials</a></strong>
-						to easily get started even if you&#39;re new in programming.</p>
-					</li>
-					<li><p><strong>Clean unit testing</strong> to allow understand the subtleties of some features   </p>
-					</li>
+					<li><strong>Complete reference</strong> for classes, methods, ...</li>
+					<li><strong>Step by step</strong> guides learn how to use the main features</li>
 				</ul>
-				<h2 id="usage">Usage</h2>
-				<h3 id="import">Import</h3>
-				<h4 id="es6-and-typescript">ES6 and Typescript</h4>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> space3 <span class="hljs-keyword">from</span> <span class="hljs-string">"space3"</span>;
-<span class="hljs-keyword">import</span> {Vector3, Matrix3} <span class="hljs-keyword">from</span> <span class="hljs-string">"space3"</span>;</code></pre>
-				<p>With Typescript only, you can directly import sources </p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> Vector3 <span class="hljs-keyword">from</span> <span class="hljs-string">"space3/src/Vector3"</span>;</code></pre>
-				<p>This makes the syntactic coloration more consistent.</p>
-				<h4 id="node-js">Node.js</h4>
-				<pre><code class="language-js"><span class="hljs-keyword">const</span> space3 = <span class="hljs-built_in">require</span>(<span class="hljs-string">"space3"</span>);
-<span class="hljs-keyword">const</span> Vector3 = space3.Vector3, Matrix3 = space3.Matrix3;</code></pre>
-				<h4 id="browser">Browser</h4>
-				<p>WIP... Browser bundle coming soon.
-				For now you can use a browser bundler such as browserify to transpile sources for browser.</p>
-				<h3 id="syntax-overview">Syntax overview</h3>
-				<pre><code class="language-js"><span class="hljs-keyword">let</span> u = <span class="hljs-keyword">new</span> Vector3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>), v = Vector3.ones;
-<span class="hljs-keyword">let</span> w = sub(u, v, v.mulc(<span class="hljs-number">10</span>));
-u.add(v).mul(<span class="hljs-number">6</span>);
-
-<span class="hljs-keyword">let</span> m = Matrix3.rotX(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2</span>);
-v = m.prodv(add(w, v, u));
-u.rot(w, <span class="hljs-built_in">Math</span>.PI);
-m.inv();
-
-<span class="hljs-keyword">let</span> p = <span class="hljs-keyword">new</span> Point3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, Vector3.ey), q = Point3.zeros;
-p.origin = Vector3.zeros;
-u = p.to(q);
-p.translate(u);</code></pre>
-				<h2 id="documentation">Documentation</h2>
-				<p>This framework is documented such that beginners in maths and/or programming can get started easily but
-				provides rigorous documentation for more advanced users.</p>
-				<p>It comes with a complete reference and a step-by-step documentation for each class.
-				Bellow you can find a short guide that will get you started and give you an overview of the framework.</p>
-				<p><strong><a href="https://samibendou.github.io/space3/">Complete reference</a></strong></p>
-				<h2 id="contributions">Contributions</h2>
-				<p>If you want to improve math javascript experience don&#39;t hesitate to contribute.
-				All kind of improvements are welcomed !</p>
-				<p><strong><a href="https://github.com/samiBendou/space3/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></strong></p>
-				<h2 id="quick-start">Quick start</h2>
-				<h3 id="basic-concepts">Basic concepts</h3>
-				<p><strong>space3</strong> is a general purpose class library for 3D math.
-					It Provides handy <strong>classes for matrices, vectors</strong> and other objects related to 3D space and affine representation.
-				It Introduces the same names for abstractions that the ones commonly used in physics and geometry.</p>
+				<p><strong>Note</strong> step by step guides can be found at the start of each page of this documentation.</p>
+				<p>This page is a quick start guide that presents the philosophy of the framework
+					and introduce you to the main features. I advise you to start there even if
+				you are already familiar with maths framework. The reason is that here is defined :</p>
+				<ul>
+					<li><strong>Nomenclature</strong> for mathematical operations</li>
+					<li><strong>Naming</strong> convention used for variables</li>
+					<li><strong>Paradigms</strong> provided by the framework</li>
+				</ul>
+				<h3 id="quick-start">Quick start</h3>
+				<h4 id="basic-concepts">Basic concepts</h4>
+				<p><strong>space3</strong> is a general purpose class library for 3D math. Here is the wonderful land of <em>algebra</em> and <em>advanced calculus</em>.
+				It provides handy <strong>classes for matrices, vectors, curves, ode, ...</strong></p>
+				<p>The main goal, is to shorten maths expressions by introducing <strong>standardized and rich API</strong>, but with minimal computational cost.  </p>
+				<p>The syntax is directly inspired from what can be done with <strong>operators in C</strong>. The main advantage is to keep
+				implementation of mathematics <strong>as natural as possible</strong>.</p>
+				<p><strong>Note</strong> Despite of it&#39;s name the framework does not represent only object of dimension 3 or 9</p>
 				<h4 id="conventions">Conventions</h4>
 				<p>In all the documentation and the code we will refer to :</p>
 				<ul>
@@ -147,8 +95,25 @@ p.translate(u);</code></pre>
 					<li><code>j</code> as column index of a matrix</li>
 					<li>A series of vectors/matrices/numbers will be noted <code>uk</code> where <code>k = 0, 1, 2, ...</code></li>
 				</ul>
+				<h3 id="mathematical-operations">Mathematical operations</h3>
+				<p>This framework provides a huge range of mathematical operations compared to other ones.
+				In order to keep all theses operations consistent along the classes, this framework comes with <strong>typescript interfaces</strong>.</p>
+				<p>It achieves a <strong>standardization of mathematical operations</strong>,
+				providing you the same syntax and equivalent specification for all operations that have equivalent meaning along the framework.</p>
+				<h4 id="example">Example</h4>
+				<pre><code class="language-js">u.add(v); <span class="hljs-comment">// vector addition</span>
+a.add(b); <span class="hljs-comment">// matrix addition</span>
+p.add(q); <span class="hljs-comment">// point addition (Chalses relation)</span></code></pre>
+				<p>If you want to know more about all the mathematical operations provided see :</p>
+				<ul>
+					<li><a href="interfaces/vector.html">Vector</a> page for algebra</li>
+					<li><a href="classes/vector3.html">Vector3</a> page for geometry</li>
+					<li><a href="interfaces/object3.html">Object3</a> page for rotations</li>
+					<li><a href="classes/curve.html">Curve</a> page for parametrized curves manipulation</li>
+					<li><a href="classes/solver.html">Solver</a> page for differential equations solving</li>
+				</ul>
 				<h4 id="glossary">Glossary</h4>
-				<p>To shorten the length of the expression written using the framework, some abbreviations have been introduced.
+				<p>The framework introduces a lot of abbreviations.
 				Here is a glossary that resumes the definition of each.</p>
 				<table>
 					<thead>
@@ -234,13 +199,9 @@ p.translate(u);</code></pre>
 							<td><code>u = rot(theta)</code></td>
 						</tr>
 				</tbody></table>
-				<h3 id="standardized-algebra">Standardized algebra</h3>
-				<p>This framework comes with typescript interfaces to standardize mathematical operations. </p>
-				<p>This provides you the same syntax and equivalent specification for all operations that have the same mathematical meaning.
-				For example, <code>add</code> will name the addition of two matrices, vectors, position of points...</p>
 				<h3 id="object-oriented-interface">Object oriented interface</h3>
-				<p>This framework is natively written using object oriented paradigm which makes the syntax very close to the natural
-				mathematical language. For example <code>u += v</code> becomes <code>u.add(v)</code>.</p>
+				<p>The framework is natively written using object oriented paradigm. <code>u = u op v</code> becomes <code>u.op(v)</code>.
+				All mathematical abstraction are classes and quasi all operations are instance method.</p>
 				<h4 id="example">Example</h4>
 				<pre><code class="language-js">u1 = u.addc(w).add(v);
 u2 = u.subc(w.addc(v).div(s));
@@ -248,22 +209,19 @@ a = m1.prodc(m2.powc(<span class="hljs-number">2</span>)).prod(m3);</code></pre>
 				<p>It allows to perform binary operations in way such that <code>u.op(v)</code> stores the result of <code>op</code> in <code>u</code>, erasing the
 				initial content of <code>u</code> but avoid cloning objects after operations.</p>
 				<p>This syntax allows surprisingly fast computing by minimizing the number of new instance to create while performing operations.</p>
-				<p><strong>Note</strong> Call <code>c</code> suffixed method to output a new instance and avoid modify the calling object.</p>
+				<p><strong>Note</strong> Call <code>c</code> suffixed method to return a new instance and avoid modify the calling object.</p>
 				<h3 id="functional-interface">Functional interface</h3>
-				<p>This module provides a functional interface that is almost the same as the object oriented API but is more convenient for
-					operations over array of vectors <code>op(...vectors)</code>.
-				It allows to perform operations using the syntax <code>op(u, v, w)</code> instead of <code>u.opc(v).op(w)</code> with quasi no performance loss.</p>
+				<p>The framework provides a functional interface. <code>u = u op v op w</code> becomes <code>u = op(u, v, w)</code>.
+				That is almost the same as the object oriented API but is more convenient for operations over large ranges of vectors. </p>
 				<h4 id="example">Example</h4>
 				<pre><code class="language-js">u1 = add(u, w, v);
 u2 = sub(u, div(s, w, v));
 a = prod(m1, m2.powc(<span class="hljs-number">2</span>), m3);</code></pre>
-				<p><strong>Notes</strong> </p>
-				<ul>
-					<li>The original objects are not modified during operation, a new instance is always returned</li>
-					<li>Use and mix the two syntax at convenience</li>
-				</ul>
+				<p>It allows to perform operations using the syntax <code>op(u, v, w)</code> instead of <code>u.opc(v).op(w)</code> with quasi no performance loss.
+				The argument objects are not modified during operation, a new instance is always returned.</p>
+				<p><strong>Note</strong> Use and mix the two syntax at convenience.</p>
 				<h3 id="generation-of-objects">Generation of objects</h3>
-				<p>All classes comes with handy Matlab-style generators to avoid you writing the same <code>new Vector(1, 0, 0)</code> again and again.</p>
+				<p>All classes comes with handy generators to avoid you writing the same <code>new Vector(1, 0, 0)</code> again and again.</p>
 				<h4 id="example">Example</h4>
 				<pre><code class="language-js"><span class="hljs-keyword">let</span> u = Vector3.zeros; <span class="hljs-comment">// new vector filled with 0</span>
 <span class="hljs-keyword">let</span> v = Vector3.ex; <span class="hljs-comment">// new vector (1, 0, 0)</span>

@@ -66,29 +66,39 @@
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<h2 id="brief">Brief</h2>
-						<p><a href="matrix3.html">Matrix3</a> represents 3x3 dense matrices.</p>
+						<p><a href="matrix3.html">Matrix3</a> represents 3x3 dense matrices as a set of numerical components.
+						It implement <a href="../interfaces/matrix.html">Matrix</a> interface and therefore <a href="../interfaces/vector.html">Vector</a> interface.</p>
 					</div>
 					<h3 id="main-features">Main features</h3>
 					<ul>
-						<li><strong>1D-Array like</strong> access <code>m[2]</code> denotes the value at first column and third row</li>
+						<li><strong>1D-Array like</strong> component accessors <code>m[2]</code></li>
+						<li><strong>Handy component accessors</strong>  <code>xx</code>, <code>yz</code>, ...</li>
 						<li><strong>Interface with <a href="vector3.html">Vector3</a></strong> <code>x</code>, <code>y</code>, <code>z</code>, ...</li>
-						<li><strong>Many generators</strong> <code>diag</code>, <code>sym</code>, <code>scalar</code>, <code>rotX</code>, ...</li>
+						<li><strong>Algebra</strong> of matrices and vectors, <code>add</code>, <code>prodv</code>, <code>pow</code>, ...</li>
+						<li><strong>Rotation</strong> matrices, <code>rot</code>, <code>rotX</code>, ...</li>
+						<li><strong>Many generators</strong> <code>diag</code>, <code>sym</code>, <code>scalar</code>, ...</li>
 					</ul>
 					<p>Not all the operations have been detailed here
 					to learn more about provided operations see <a href="../interfaces/matrix.html">Matrix</a>.</p>
 					<h2 id="getting-started">Getting Started</h2>
-					<h3 id="get-components">Get components</h3>
-					<p>In order to get components of the matrix use the syntax <code>m.ij</code> where :</p>
+					<p>A matrix is 1D-array of number stored in a column-major form, each components of the column are ordered
+					from up to down.</p>
+					<h3 id="components-accessors">Components accessors</h3>
+					<p>In order to access the components of the matrix use the syntax <code>m.ij</code> where :</p>
 					<ul>
 						<li><code>i</code> can be <code>x</code>, <code>y</code> or <code>z</code> and denotes the row index of the matrix in a descending order</li>
 						<li><code>j</code> can be <code>x</code>, <code>y</code> or <code>z</code> and denotes the column index of the matrix in a left-to-right order</li>
 					</ul>
-					<p>###Example</p>
-					<pre><code class="language-js">m.xx = <span class="hljs-number">2</span>; <span class="hljs-comment">// m[0][0] = 2</span>
-m.yz = <span class="hljs-number">5</span>; <span class="hljs-comment">// m[1][2] = 5</span></code></pre>
+					<p><strong>Note</strong> <code>m.ij</code> is equal to <code>m[3 * j + i]</code> if we consider <code>x == 0</code>, <code>y == 1</code> and <code>z == 2</code>.</p>
+					<p>You can represent the matrix with theses conventions as :</p>
+					<p><img src="../media/matrix3_shape.png" alt="Matrix3 shape"></p>
+					<h4 id="example">Example</h4>
+					<pre><code class="language-js">m.xx = <span class="hljs-number">2</span>; <span class="hljs-comment">// m[0] = 2</span>
+m.yz = <span class="hljs-number">5</span>; <span class="hljs-comment">// m[7] = 5</span></code></pre>
 					<h3 id="interface-with-vector3">Interface with Vector3</h3>
-					<p><a href="matrix3.html">Matrix3</a> provides an interface with <a href="vector3.html">Vector3</a> by implementing <a href="../interfaces/object3.html">Object3</a> interface. It allows to construct
-					vectors from rows and columns of the matrix.</p>
+					<p><a href="matrix3.html">Matrix3</a> provides an interface with <a href="vector3.html">Vector3</a> by implementing <a href="../interfaces/object3.html">Object3</a> interface.
+						It allows to construct vectors from rows and columns of the matrix.
+					Reciprocally you can affect rows and columns of the matrix with a <code>Vector3</code>.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js">m.x = <span class="hljs-keyword">new</span> Vector3(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>);
 u = m.y;
@@ -105,7 +115,7 @@ n = Matrix3.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hlj
 
 <span class="hljs-comment">// elliptic rotation matrix around z axis with angle +pi/4</span>
 q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">4</span>, (x) =&gt; <span class="hljs-number">5</span> * <span class="hljs-built_in">Math</span>.cos(x), <span class="hljs-built_in">Math</span>.sin);</code></pre>
-					<p>For more details see <a href="../interfaces/object3.html">Object3</a>.</p>
+					<p>If you want to get deep into rotation features see <a href="../interfaces/object3.html">Object3</a>.</p>
 					<p>You can also directly assign an existent matrix to a rotation matrix.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js">m.rotX(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">3</span>);</code></pre>
@@ -140,29 +150,39 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<h2 id="brief">Brief</h2>
-						<p><a href="matrix3.html">Matrix3</a> represents 3x3 dense matrices.</p>
+						<p><a href="matrix3.html">Matrix3</a> represents 3x3 dense matrices as a set of numerical components.
+						It implement <a href="../interfaces/matrix.html">Matrix</a> interface and therefore <a href="../interfaces/vector.html">Vector</a> interface.</p>
 					</div>
 					<h3 id="main-features">Main features</h3>
 					<ul>
-						<li><strong>1D-Array like</strong> access <code>m[2]</code> denotes the value at first column and third row</li>
+						<li><strong>1D-Array like</strong> component accessors <code>m[2]</code></li>
+						<li><strong>Handy component accessors</strong>  <code>xx</code>, <code>yz</code>, ...</li>
 						<li><strong>Interface with <a href="vector3.html">Vector3</a></strong> <code>x</code>, <code>y</code>, <code>z</code>, ...</li>
-						<li><strong>Many generators</strong> <code>diag</code>, <code>sym</code>, <code>scalar</code>, <code>rotX</code>, ...</li>
+						<li><strong>Algebra</strong> of matrices and vectors, <code>add</code>, <code>prodv</code>, <code>pow</code>, ...</li>
+						<li><strong>Rotation</strong> matrices, <code>rot</code>, <code>rotX</code>, ...</li>
+						<li><strong>Many generators</strong> <code>diag</code>, <code>sym</code>, <code>scalar</code>, ...</li>
 					</ul>
 					<p>Not all the operations have been detailed here
 					to learn more about provided operations see <a href="../interfaces/matrix.html">Matrix</a>.</p>
 					<h2 id="getting-started">Getting Started</h2>
-					<h3 id="get-components">Get components</h3>
-					<p>In order to get components of the matrix use the syntax <code>m.ij</code> where :</p>
+					<p>A matrix is 1D-array of number stored in a column-major form, each components of the column are ordered
+					from up to down.</p>
+					<h3 id="components-accessors">Components accessors</h3>
+					<p>In order to access the components of the matrix use the syntax <code>m.ij</code> where :</p>
 					<ul>
 						<li><code>i</code> can be <code>x</code>, <code>y</code> or <code>z</code> and denotes the row index of the matrix in a descending order</li>
 						<li><code>j</code> can be <code>x</code>, <code>y</code> or <code>z</code> and denotes the column index of the matrix in a left-to-right order</li>
 					</ul>
-					<p>###Example</p>
-					<pre><code class="language-js">m.xx = <span class="hljs-number">2</span>; <span class="hljs-comment">// m[0][0] = 2</span>
-m.yz = <span class="hljs-number">5</span>; <span class="hljs-comment">// m[1][2] = 5</span></code></pre>
+					<p><strong>Note</strong> <code>m.ij</code> is equal to <code>m[3 * j + i]</code> if we consider <code>x == 0</code>, <code>y == 1</code> and <code>z == 2</code>.</p>
+					<p>You can represent the matrix with theses conventions as :</p>
+					<p><img src="../media/matrix3_shape.png" alt="Matrix3 shape"></p>
+					<h4 id="example">Example</h4>
+					<pre><code class="language-js">m.xx = <span class="hljs-number">2</span>; <span class="hljs-comment">// m[0] = 2</span>
+m.yz = <span class="hljs-number">5</span>; <span class="hljs-comment">// m[7] = 5</span></code></pre>
 					<h3 id="interface-with-vector3">Interface with Vector3</h3>
-					<p><a href="matrix3.html">Matrix3</a> provides an interface with <a href="vector3.html">Vector3</a> by implementing <a href="../interfaces/object3.html">Object3</a> interface. It allows to construct
-					vectors from rows and columns of the matrix.</p>
+					<p><a href="matrix3.html">Matrix3</a> provides an interface with <a href="vector3.html">Vector3</a> by implementing <a href="../interfaces/object3.html">Object3</a> interface.
+						It allows to construct vectors from rows and columns of the matrix.
+					Reciprocally you can affect rows and columns of the matrix with a <code>Vector3</code>.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js">m.x = <span class="hljs-keyword">new</span> Vector3(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>);
 u = m.y;
@@ -179,7 +199,7 @@ n = Matrix3.rot(u, <span class="hljs-built_in">Math</span>.PI / <span class="hlj
 
 <span class="hljs-comment">// elliptic rotation matrix around z axis with angle +pi/4</span>
 q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">4</span>, (x) =&gt; <span class="hljs-number">5</span> * <span class="hljs-built_in">Math</span>.cos(x), <span class="hljs-built_in">Math</span>.sin);</code></pre>
-					<p>For more details see <a href="../interfaces/object3.html">Object3</a>.</p>
+					<p>If you want to get deep into rotation features see <a href="../interfaces/object3.html">Object3</a>.</p>
 					<p>You can also directly assign an existent matrix to a rotation matrix.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js">m.rotX(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">3</span>);</code></pre>
@@ -374,13 +394,18 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L296">Matrix3.ts:296</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L311">Matrix3.ts:311</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>constructs a matrix by explicitly giving components ordered by rows</p>
-								</div>
+								<dl class="tsd-comment-tags">
+									<dt>brief</dt>
+									<dd><p>constructs a matrix by explicitly giving components ordered by rows from left to right</p>
+									</dd>
+									<dt>details</dt>
+									<dd><p>If you don&#39;t specify components then the underlying array is initialized with the default values for <code>Float64Array</code>.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -506,7 +531,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#dim">dim</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L75">Matrix3.ts:75</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L90">Matrix3.ts:90</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -551,7 +576,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L241">Matrix3.ts:241</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L256">Matrix3.ts:256</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -559,7 +584,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L249">Matrix3.ts:249</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L264">Matrix3.ts:264</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -582,7 +607,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L285">Matrix3.ts:285</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L300">Matrix3.ts:300</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -599,7 +624,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L233">Matrix3.ts:233</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L248">Matrix3.ts:248</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -616,7 +641,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L237">Matrix3.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L252">Matrix3.ts:252</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -634,7 +659,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L261">Matrix3.ts:261</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L276">Matrix3.ts:276</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -642,7 +667,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L269">Matrix3.ts:269</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L284">Matrix3.ts:284</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -665,7 +690,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L281">Matrix3.ts:281</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L296">Matrix3.ts:296</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -683,7 +708,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L78">Matrix3.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L93">Matrix3.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -696,7 +721,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L82">Matrix3.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L97">Matrix3.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -725,7 +750,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L153">Matrix3.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L168">Matrix3.ts:168</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -738,7 +763,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L157">Matrix3.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L172">Matrix3.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -767,7 +792,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L180">Matrix3.ts:180</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L195">Matrix3.ts:195</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -780,7 +805,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L184">Matrix3.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L199">Matrix3.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -809,7 +834,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L111">Matrix3.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L126">Matrix3.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -822,7 +847,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L119">Matrix3.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L134">Matrix3.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -851,7 +876,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L132">Matrix3.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L147">Matrix3.ts:147</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -864,7 +889,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L140">Matrix3.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L155">Matrix3.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -893,7 +918,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L207">Matrix3.ts:207</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L222">Matrix3.ts:222</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -906,7 +931,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L211">Matrix3.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L226">Matrix3.ts:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -935,7 +960,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L89">Matrix3.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L104">Matrix3.ts:104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -948,7 +973,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L93">Matrix3.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L108">Matrix3.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -977,7 +1002,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L162">Matrix3.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L177">Matrix3.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -990,7 +1015,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L166">Matrix3.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L181">Matrix3.ts:181</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1019,7 +1044,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L189">Matrix3.ts:189</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L204">Matrix3.ts:204</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1032,7 +1057,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L193">Matrix3.ts:193</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L208">Matrix3.ts:208</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1061,7 +1086,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L216">Matrix3.ts:216</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L231">Matrix3.ts:231</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1074,7 +1099,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L220">Matrix3.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L235">Matrix3.ts:235</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1103,7 +1128,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L100">Matrix3.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L115">Matrix3.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1116,7 +1141,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L104">Matrix3.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L119">Matrix3.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1145,7 +1170,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L171">Matrix3.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L186">Matrix3.ts:186</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1158,7 +1183,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L175">Matrix3.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L190">Matrix3.ts:190</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1187,7 +1212,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L198">Matrix3.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L213">Matrix3.ts:213</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1200,7 +1225,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L202">Matrix3.ts:202</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L217">Matrix3.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1229,7 +1254,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L225">Matrix3.ts:225</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L240">Matrix3.ts:240</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1242,7 +1267,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L229">Matrix3.ts:229</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L244">Matrix3.ts:244</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1270,7 +1295,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1103">Matrix3.ts:1103</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1125">Matrix3.ts:1125</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -1287,7 +1312,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1119">Matrix3.ts:1119</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1141">Matrix3.ts:1141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1314,7 +1339,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1111">Matrix3.ts:1111</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1133">Matrix3.ts:1133</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -1331,7 +1356,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1107">Matrix3.ts:1107</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1129">Matrix3.ts:1129</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -1371,7 +1396,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#abs">abs</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L462">Matrix3.ts:462</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L480">Matrix3.ts:480</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -1389,7 +1414,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#absc">absc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L475">Matrix3.ts:475</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L493">Matrix3.ts:493</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -1407,7 +1432,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#add">add</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L566">Matrix3.ts:566</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L584">Matrix3.ts:584</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1431,7 +1456,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#addc">addc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L579">Matrix3.ts:579</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L597">Matrix3.ts:597</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1455,7 +1480,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#adj">adj</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1009">Matrix3.ts:1009</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1027">Matrix3.ts:1027</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -1473,7 +1498,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#adjc">adjc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1031">Matrix3.ts:1031</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1049">Matrix3.ts:1049</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -1491,7 +1516,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#array">array</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L324">Matrix3.ts:324</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L342">Matrix3.ts:342</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -1508,7 +1533,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L329">Matrix3.ts:329</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L347">Matrix3.ts:347</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1561,7 +1586,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#berp">berp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L707">Matrix3.ts:707</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L725">Matrix3.ts:725</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1594,7 +1619,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#berpc">berpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L727">Matrix3.ts:727</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L745">Matrix3.ts:745</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1627,7 +1652,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#ceil">ceil</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L428">Matrix3.ts:428</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L446">Matrix3.ts:446</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -1645,7 +1670,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#ceilc">ceilc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L441">Matrix3.ts:441</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L459">Matrix3.ts:459</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -1663,7 +1688,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#clone">clone</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L357">Matrix3.ts:357</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L375">Matrix3.ts:375</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -1681,7 +1706,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#col">col</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L947">Matrix3.ts:947</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L965">Matrix3.ts:965</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1705,7 +1730,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#comb">comb</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L651">Matrix3.ts:651</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L669">Matrix3.ts:669</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1732,7 +1757,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#combc">combc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L664">Matrix3.ts:664</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L682">Matrix3.ts:682</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1759,7 +1784,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#copy">copy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L344">Matrix3.ts:344</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L362">Matrix3.ts:362</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1831,7 +1856,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#der">der</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L731">Matrix3.ts:731</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L749">Matrix3.ts:749</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1858,7 +1883,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#derc">derc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L744">Matrix3.ts:744</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L762">Matrix3.ts:762</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1885,7 +1910,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#dist">dist</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L833">Matrix3.ts:833</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L851">Matrix3.ts:851</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1909,7 +1934,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#dist1">dist1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L837">Matrix3.ts:837</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L855">Matrix3.ts:855</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1933,7 +1958,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#dist2">dist2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L850">Matrix3.ts:850</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L868">Matrix3.ts:868</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1957,7 +1982,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#div">div</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L634">Matrix3.ts:634</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L652">Matrix3.ts:652</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1981,7 +2006,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#divc">divc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L647">Matrix3.ts:647</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L665">Matrix3.ts:665</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2005,7 +2030,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#dot">dot</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L820">Matrix3.ts:820</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L838">Matrix3.ts:838</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2053,7 +2078,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#equal1">equal1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L878">Matrix3.ts:878</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L896">Matrix3.ts:896</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2077,7 +2102,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#equal2">equal2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L904">Matrix3.ts:904</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L922">Matrix3.ts:922</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2166,7 +2191,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#exact">exact</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L872">Matrix3.ts:872</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L890">Matrix3.ts:890</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2191,7 +2216,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#fill">fill</a></p>
 								<p>Overrides Float64Array.fill</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L531">Matrix3.ts:531</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L549">Matrix3.ts:549</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2215,7 +2240,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#fillc">fillc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L544">Matrix3.ts:544</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L562">Matrix3.ts:562</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2438,7 +2463,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#floor">floor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L411">Matrix3.ts:411</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L429">Matrix3.ts:429</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2456,7 +2481,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#floorc">floorc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L424">Matrix3.ts:424</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L442">Matrix3.ts:442</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -2538,7 +2563,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#frob">frob</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1035">Matrix3.ts:1035</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1053">Matrix3.ts:1053</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2556,7 +2581,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#herp">herp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L685">Matrix3.ts:685</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L703">Matrix3.ts:703</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2589,7 +2614,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#herpc">herpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L703">Matrix3.ts:703</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L721">Matrix3.ts:721</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2701,7 +2726,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#inv">inv</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L783">Matrix3.ts:783</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L801">Matrix3.ts:801</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -2719,7 +2744,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#invc">invc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L816">Matrix3.ts:816</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L834">Matrix3.ts:834</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -2835,7 +2860,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#lerp">lerp</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L668">Matrix3.ts:668</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L686">Matrix3.ts:686</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2862,7 +2887,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#lerpc">lerpc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L681">Matrix3.ts:681</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L699">Matrix3.ts:699</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2954,7 +2979,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#max">max</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L497">Matrix3.ts:497</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L515">Matrix3.ts:515</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2978,7 +3003,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#maxc">maxc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L510">Matrix3.ts:510</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L528">Matrix3.ts:528</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3002,7 +3027,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#min">min</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L514">Matrix3.ts:514</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L532">Matrix3.ts:532</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3026,7 +3051,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#minc">minc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L527">Matrix3.ts:527</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L545">Matrix3.ts:545</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3050,7 +3075,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#mul">mul</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L617">Matrix3.ts:617</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L635">Matrix3.ts:635</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3074,7 +3099,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#mulc">mulc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L630">Matrix3.ts:630</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L648">Matrix3.ts:648</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3098,7 +3123,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#neg">neg</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L600">Matrix3.ts:600</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L618">Matrix3.ts:618</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3116,7 +3141,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#negc">negc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L613">Matrix3.ts:613</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L631">Matrix3.ts:631</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -3134,7 +3159,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#nil">nil</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L908">Matrix3.ts:908</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L926">Matrix3.ts:926</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -3152,7 +3177,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#norm">norm</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L548">Matrix3.ts:548</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L566">Matrix3.ts:566</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3170,7 +3195,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#normc">normc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L562">Matrix3.ts:562</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L580">Matrix3.ts:580</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -3188,7 +3213,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#pow">pow</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L996">Matrix3.ts:996</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1014">Matrix3.ts:1014</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3212,7 +3237,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#powc">powc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1005">Matrix3.ts:1005</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1023">Matrix3.ts:1023</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3236,7 +3261,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#prod">prod</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L748">Matrix3.ts:748</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L766">Matrix3.ts:766</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3260,7 +3285,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#prodc">prodc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L779">Matrix3.ts:779</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L797">Matrix3.ts:797</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3283,7 +3308,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L952">Matrix3.ts:952</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L970">Matrix3.ts:970</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3306,7 +3331,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L962">Matrix3.ts:962</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L980">Matrix3.ts:980</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3330,7 +3355,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#random">random</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L398">Matrix3.ts:398</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L416">Matrix3.ts:416</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3700,7 +3725,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#reset0">reset0</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L371">Matrix3.ts:371</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L389">Matrix3.ts:389</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3718,7 +3743,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#reset1">reset1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L385">Matrix3.ts:385</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L403">Matrix3.ts:403</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3764,9 +3789,14 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1083">Matrix3.ts:1083</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1105">Matrix3.ts:1105</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>See <a href="../interfaces/object3.html">Object3</a> for more details</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -3796,9 +3826,14 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1041">Matrix3.ts:1041</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1060">Matrix3.ts:1060</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>See <a href="../interfaces/object3.html">Object3</a> for more details</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -3825,9 +3860,14 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1055">Matrix3.ts:1055</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1075">Matrix3.ts:1075</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>See <a href="../interfaces/object3.html">Object3</a> for more details</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -3854,9 +3894,14 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1069">Matrix3.ts:1069</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1090">Matrix3.ts:1090</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>See <a href="../interfaces/object3.html">Object3</a> for more details</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -3884,7 +3929,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#round">round</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L445">Matrix3.ts:445</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L463">Matrix3.ts:463</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3902,7 +3947,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#roundc">roundc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L458">Matrix3.ts:458</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L476">Matrix3.ts:476</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -3920,7 +3965,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#row">row</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L943">Matrix3.ts:943</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L961">Matrix3.ts:961</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4141,7 +4186,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#string">string</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L318">Matrix3.ts:318</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L336">Matrix3.ts:336</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -4159,7 +4204,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#sub">sub</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L583">Matrix3.ts:583</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L601">Matrix3.ts:601</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4223,7 +4268,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#subc">subc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L596">Matrix3.ts:596</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L614">Matrix3.ts:614</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4295,7 +4340,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#trans">trans</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L966">Matrix3.ts:966</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L984">Matrix3.ts:984</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -4313,7 +4358,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#transc">transc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L979">Matrix3.ts:979</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L997">Matrix3.ts:997</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="matrix3.html" class="tsd-signature-type">Matrix3</a></h4>
@@ -4331,7 +4376,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#trunc">trunc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L479">Matrix3.ts:479</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L497">Matrix3.ts:497</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4355,7 +4400,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#truncc">truncc</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L493">Matrix3.ts:493</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L511">Matrix3.ts:511</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4403,7 +4448,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#zero1">zero1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L914">Matrix3.ts:914</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L932">Matrix3.ts:932</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -4421,7 +4466,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/matrix.html">Matrix</a>.<a href="../interfaces/matrix.html#zero2">zero2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L929">Matrix3.ts:929</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L947">Matrix3.ts:947</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -4438,7 +4483,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1194">Matrix3.ts:1194</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1216">Matrix3.ts:1216</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4487,7 +4532,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1220">Matrix3.ts:1220</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1242">Matrix3.ts:1242</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4515,16 +4560,16 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1152">Matrix3.ts:1152</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1174">Matrix3.ts:1174</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>brief</dt>
-									<dd><p>antisymmetric matrix</p>
+									<dd><p>antisymmetric matrix with non zero diagonal</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p>Fill the matrix by giving values on diagonals.</p>
+									<dd><p>Fill the matrix by giving values on diagonal and sub diagonals.</p>
 									</dd>
 								</dl>
 							</div>
@@ -4563,7 +4608,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1236">Matrix3.ts:1236</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1258">Matrix3.ts:1258</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4591,7 +4636,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1136">Matrix3.ts:1136</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1158">Matrix3.ts:1158</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4630,13 +4675,13 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1160">Matrix3.ts:1160</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1182">Matrix3.ts:1182</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>brief</dt>
-									<dd><p>canonical matrix</p>
+									<dd><p>standard basis matrix</p>
 									</dd>
 									<dt>details</dt>
 									<dd><p>Matrix with <code>0</code> everywhere except in <code>i</code>, <code>j</code> position where there is a <code>1</code>.</p>
@@ -4666,7 +4711,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1182">Matrix3.ts:1182</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1204">Matrix3.ts:1204</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4703,7 +4748,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1167">Matrix3.ts:1167</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1189">Matrix3.ts:1189</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4737,7 +4782,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1172">Matrix3.ts:1172</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1194">Matrix3.ts:1194</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4771,7 +4816,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1177">Matrix3.ts:1177</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1199">Matrix3.ts:1199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4805,7 +4850,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1228">Matrix3.ts:1228</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1250">Matrix3.ts:1250</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4833,7 +4878,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1128">Matrix3.ts:1128</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1150">Matrix3.ts:1150</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4869,7 +4914,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1144">Matrix3.ts:1144</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1166">Matrix3.ts:1166</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -4878,7 +4923,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 									<dd><p>symmetric matrix</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p>Fill the matrix by giving values on diagonal.</p>
+									<dd><p>Fill the matrix by giving values on diagonal and sub diagonals.</p>
 									</dd>
 								</dl>
 							</div>
@@ -4917,13 +4962,13 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1211">Matrix3.ts:1211</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1233">Matrix3.ts:1233</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>brief</dt>
-									<dd><p>tensor product of two vectors <code>ut * v</code></p>
+									<dd><p>tensor product of two vectors <code>u * vt</code></p>
 									</dd>
 									<dt>details</dt>
 									<dd><p>matrix such that <code>m.ij = u.i * u.j</code></p>
@@ -4959,7 +5004,7 @@ q = Matrix3.rotZ(<span class="hljs-built_in">Math</span>.PI / <span class="hljs-
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Matrix3.ts#L1244">Matrix3.ts:1244</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Matrix3.ts#L1266">Matrix3.ts:1266</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

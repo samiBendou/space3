@@ -68,25 +68,28 @@
 						<h2 id="brief">Brief</h2>
 						<p><a href="curve.html">Curve</a> represents a parametrized curve in an arbitrary affine space.</p>
 					</div>
-					<h2 id="main-features">Main features</h2>
+					<h3 id="main-features">Main features</h3>
 					<ul>
-						<li>LIFO of vectors <code>push</code>, <code>pop</code></li>
-						<li>linear interpolation of position, speed, length</li>
-						<li>manipulate geometrical origin of the point <code>origin</code></li>
+						<li><strong>LIFO</strong> of vectors <code>push</code>, <code>pop</code></li>
+						<li><strong>linear interpolation</strong> of position, speed, length</li>
+						<li><strong>manipulate origin</strong> of the curve <code>origin</code></li>
 						<li><strong>geometrical transforms</strong> <code>translate</code>, <code>affine</code>, ...</li>
 					</ul>
 					<h2 id="getting-started">Getting started</h2>
 					<p>A curve is a discrete set of <a href="../interfaces/vector.html">Vector</a> objects that describes a polygonal curve in ND-space.
-					The curve can be parametrized with different speeds. It also has an origin that is common to all points</p>
+						It has an origin that is common to all points.
+					The curve can be parametrized with different speeds along it.</p>
+					<p><img src="../media/curve_diagram.png" alt="Curve diagram"></p>
 					<h3 id="create-a-curve">Create a curve</h3>
 					<p>First create a set of vectors that represents the polygonal curve and a choose a time step.</p>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> positions = [Vector3.ex, Vector3.ey, Vector3.exn, Vector3.eyn];
 <span class="hljs-keyword">let</span> dt = <span class="hljs-number">0.1</span>;</code></pre>
-					<p>If you want to set a variable time step along the curve :</p>
+					<p>If you want to set a variable time step along the curve you can specify <code>dt</code> as an array</p>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> dt = [<span class="hljs-number">0.1</span>, <span class="hljs-number">0.01</span>, <span class="hljs-number">1</span>];</code></pre>
 					<p><strong>Note</strong> If <code>positions</code> is of size N then <code>dt</code> is of size N-1.</p>
 					<p>Then choose your origin and construct the curve :</p>
-					<pre><code class="language-js"><span class="hljs-keyword">let</span> curve = <span class="hljs-keyword">new</span> Curve(positions, Vector3.zeros, dt); <span class="hljs-comment">// origin is (0, 0, 0)</span></code></pre>
+					<pre><code class="language-js"><span class="hljs-keyword">const</span> origin = Vector3.zeros
+<span class="hljs-keyword">let</span> curve = <span class="hljs-keyword">new</span> Curve(positions, origin, dt); <span class="hljs-comment">// origin is (0, 0, 0)</span></code></pre>
 					<p><strong>Note</strong> It&#39;s preferable that the origin does not reference an object contained in the <code>positions</code> array and that references
 					in <code>positions</code> points to different instances.</p>
 					<h3 id="positions">Positions</h3>
@@ -94,31 +97,35 @@
 					the new relative positions are recomputed. It&#39;s the same process as what was done for <a href="point3.html">Point3</a> class.</p>
 					<h3 id="lifo-structure">LIFO Structure</h3>
 					<p>You can push/pop elements of the curve.
-						When pushing you can specify the position vector to insert but also the time step elapsed between the last
-					stored and the position to add.</p>
+						When pushing you have to specify the position vector to insert.
+						You can also specify a time step <code>dt</code> which correspond to the duration to perform a displacement from the last
+					stored to the position to insert.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js">curve.push(Vector3.ez) <span class="hljs-comment">// push with default value of time step</span>
 curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-comment">// push with given value of time step</span></code></pre>
-					<p>However when popping a value a couple <code>[lastPosition, lastTimeStep]</code> is always returned.</p>
+					<p>However when popping a value a couple with duration and position is always returned.</p>
+					<h4 id="example">Example</h4>
+					<pre><code class="language-js">arr = curve.pop() <span class="hljs-comment">// [u, dt]</span></code></pre>
 					<h3 id="interpolation">Interpolation</h3>
 					<p>As polygonal curves, we can perform linear interpolation between two points of the curve. This allows
-					to get the speed, position along the curve as if it was a polygonal continuous curve.</p>
-					<p>To interpolate any variable use <code>x</code> parameter, a real value between <code>0</code> and <code>1</code> :</p>
+					to get the speed, position and many other values along the curve as if it was a polygonal continuous curve.</p>
+					<p>All the interpolation functions uses <code>x</code> parameter, a real value between <code>0</code> and <code>1</code> :</p>
 					<ul>
 						<li><code>x = 0</code> denotes the starting of the curve</li>
 						<li><code>x = 1</code> denotes the ending of the curve</li>
 						<li><code>x = 0.5</code> denotes the middle of the curve</li>
 					</ul>
+					<p><img src="../media/interpolation_diagram.png" alt="Interpolation diagram"></p>
+					<p><strong>Note</strong> γ denotes the position vector on the curve according to the parametrization with <code>x</code>.</p>
 					<h4 id="example">Example</h4>
 					<pre><code class="language-js"><span class="hljs-keyword">let</span> u = curve.position(<span class="hljs-number">0.5</span>); <span class="hljs-comment">// middle point of the curve</span>
 <span class="hljs-keyword">let</span> v = curve.length(<span class="hljs-number">1</span>); <span class="hljs-comment">// total length of the curve</span>
 <span class="hljs-keyword">let</span> w = curve.speed(<span class="hljs-number">0</span>); <span class="hljs-comment">// initial speed of the curve</span></code></pre>
 					<h3 id="translation-and-transformation">Translation and Transformation</h3>
-					<p>Apply matrix transform, translations, affine transforms, ...</p>
-					<p><code>`</code>js
-						curve.translate(u);
-						curve.transform(m);
-					curve.affine(m, u);</p>
+					<p>Apply matrix transform, translations and affine transforms the same way as for <a href="point3.html">Point3</a> class..</p>
+					<pre><code class="language-js">curve.translate(u);
+curve.transform(m);
+curve.affine(m, u);</code></pre>
 					</br>
 					<center> 2019 <a href="https://github.com/samiBendou/">samiBendou</a> © All Rights Reserved </center>
 				</div>
@@ -189,9 +196,14 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L98">Curve.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L115">Curve.ts:115</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>explicitly construct a curve by giving, positions, origins and time step(s)</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -217,12 +229,13 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 					<div class="tsd-signature tsd-kind-icon">dt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L98">Curve.ts:98</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L115">Curve.ts:115</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>array of duration between each successive position. Must be of length  <code>position.length - 1</code>.</p>
+							<p>array of duration elapsed for each displacement between two successive positions.
+							Must be of length  <code>position.length - 1</code>.</p>
 						</div>
 					</div>
 				</section>
@@ -232,7 +245,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 					<div class="tsd-signature tsd-kind-icon">positions<span class="tsd-signature-symbol">:</span> <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L93">Curve.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L107">Curve.ts:107</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -255,12 +268,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L107">Curve.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L125">Curve.ts:125</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>initial position of the mobile</p>
+									<p>initial position vector of the curve</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -268,12 +281,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L111">Curve.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L129">Curve.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>initial position of the mobile</p>
+									<p>initial position vector of the curve</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -297,12 +310,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L116">Curve.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L134">Curve.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>final position of the mobile</p>
+									<p>final position vector of the curve</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -310,12 +323,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L120">Curve.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L138">Curve.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>final position of the mobile</p>
+									<p>final position vector of the curve</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -339,12 +352,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L125">Curve.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L143">Curve.ts:143</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>position of the mobile next to last</p>
+									<p>position vector of the curve next to last</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -352,12 +365,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L130">Curve.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L148">Curve.ts:148</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>position of the mobile next to last</p>
+									<p>position vector of the curve next to last</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -381,12 +394,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L135">Curve.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L153">Curve.ts:153</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>origin of the curve</p>
+									<p>position of origin of the curve</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></h4>
@@ -394,12 +407,12 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L139">Curve.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L157">Curve.ts:157</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>origin of the curve</p>
+									<p>position of origin of the curve</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -425,7 +438,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L188">Curve.ts:188</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L204">Curve.ts:204</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -451,7 +464,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L168">Curve.ts:168</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L184">Curve.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -465,7 +478,6 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 								</dl>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-							<p>reference to <code>this</code></p>
 						</li>
 					</ul>
 				</section>
@@ -479,7 +491,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L223">Curve.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L239">Curve.ts:239</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -488,7 +500,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 									<dd><p>duration on parametrized curve</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p>Duration is the accumulated time steps <code>this.dt</code> since the starting point of the curve</p>
+									<dd><p>It&#39;s the total duration to go from position at <code>0</code> to position at <code>x</code> according to the parametrization of the curve.</p>
 									</dd>
 								</dl>
 							</div>
@@ -516,16 +528,30 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L228">Curve.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L250">Curve.ts:250</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>brief</dt>
+									<dd><p>length on parametrized curve</p>
+									</dd>
+									<dt>details</dt>
+									<dd><p>It&#39;s the total length to go from position at <code>0</code> to position at <code>x</code>.</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>parameter between <code>0</code> and <code>1</code></p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>value of the length at <code>x</code></p>
 						</li>
 					</ul>
 				</section>
@@ -539,7 +565,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L159">Curve.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L176">Curve.ts:176</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h4>
@@ -556,7 +582,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L200">Curve.ts:200</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L216">Curve.ts:216</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -590,7 +616,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L153">Curve.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L170">Curve.ts:170</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -608,18 +634,17 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 								<li>
 									<h5>position: <a href="../interfaces/vector.html" class="tsd-signature-type">Vector</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>position of the mobile</p>
+										<p>position vector to insert</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dt: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>time step elapsed since <code>last</code> position</p>
+										<p>duration elapsed since <code>last</code> position</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-							<p>reference to <code>this</code></p>
 						</li>
 					</ul>
 				</section>
@@ -633,7 +658,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L211">Curve.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L227">Curve.ts:227</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -667,7 +692,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L181">Curve.ts:181</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L197">Curve.ts:197</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -690,7 +715,7 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L174">Curve.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L190">Curve.ts:190</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -713,13 +738,26 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L254">Curve.ts:254</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L284">Curve.ts:284</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>brief</dt>
+									<dd><p>generates a curve that is the graph of a function.</p>
+									</dd>
+									<dt>details</dt>
+									<dd><p>Samples the function <code>f</code> from <code>f(a)</code> to <code>f(b)</code> with constant time step</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>f: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>vector valued function that depends only on time.</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
@@ -741,12 +779,21 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 								</li>
 								<li>
 									<h5>a: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>starting point to evaluate <code>f</code></p>
+									</div>
 								</li>
 								<li>
 									<h5>b: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>ending point to evaluate <code>f</code></p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> dt: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>constant time step to sample <code>f</code></p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="curve.html" class="tsd-signature-type">Curve</a></h4>
@@ -763,16 +810,16 @@ curve.push(Vector3.ez, <span class="hljs-number">0.1</span>) <span class="hljs-c
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/8a75731/src/Curve.ts#L246">Curve.ts:246</a></li>
+									<li>Defined in <a href="https://github.com/samiBendou/space3/blob/7e25ec5/src/Curve.ts#L268">Curve.ts:268</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>brief</dt>
-									<dd><p>generates an constant curve ie. a point.</p>
+									<dd><p>generates a constant curve ie. a point.</p>
 									</dd>
 									<dt>details</dt>
-									<dd><p>The position is constant and step is non null</p>
+									<dd><p>The position is constant and the step is non zero</p>
 									</dd>
 								</dl>
 							</div>

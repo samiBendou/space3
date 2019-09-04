@@ -76,7 +76,7 @@ Here is a glossary that resumes the definition of each.
 | `der`          | derivation    |`u = (v-u) / ds`  |
 | `prod`         | product       |`u *= v`          |
 | `inv`          | inversion     |`u **= -1`        |
-| `norm`         | normalization |`u /= u . u`      |
+| `norm`         | normalization |`u /= sqrt(u . u)`|
 | `dot`          | dot product   |`u . v`           |
 | `mag`          | magnitude/norm|`sqrt(u . u)`     |
 | `dist`         | distance      |`d2(u, v)`        |

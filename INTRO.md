@@ -73,7 +73,7 @@ Here is a glossary that resumes the definition of each.
 | `div`          | division      |`u /= s`          |
 | `comb`         | combination   |`u += v * s`      |
 | `[lhb]erp`     | interpolation |`u += (v-u) * s`  |
-| `der`          | derivation    |`u = (v-u) / ds`  |
+| `der`          | derivation    |`u = (u-v) / ds`  |
 | `prod`         | product       |`u *= v`          |
 | `inv`          | inversion     |`u **= -1`        |
 | `norm`         | normalization |`u /= sqrt(u . u)`|

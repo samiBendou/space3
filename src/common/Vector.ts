@@ -77,184 +77,184 @@ import Encoder from "./Encoder";
  * If you don't know which comparison to use, I recommend you `dist`, `equal2` and `zero2` to compare objects by default.
  */
 export default interface Vector extends Encoder {
-    /** dimension of the vector */
-    dim: number;
+  /** dimension of the vector */
+  dim: number;
 
-    /** magnitude of the vector `||u||` */
-    mag: number;
+  /** magnitude of the vector `||u||` */
+  mag: number;
 
-    /** squared magnitude of the vector `u . u` */
-    mag2: number;
+  /** squared magnitude of the vector `u . u` */
+  mag2: number;
 
-    /** assigns components to a vector */
-    assign(...coordinates: number[]): this;
+  /** assigns components to a vector */
+  assign(...coordinates: number[]): this;
 
-    /** copies a source vector into `this` component by component */
-    copy(vector: Vector): this;
+  /** copies a source vector into `this` component by component */
+  copy(vector: Vector): this;
 
-    /** clone `this` vector */
-    clone(): Vector;
+  /** clone `this` vector */
+  clone(): Vector;
 
-    /** reset to an additive neutral element `0` */
-    reset0(): this;
+  /** reset to an additive neutral element `0` */
+  reset0(): this;
 
-    /** reset to a multiplicative neutral element `1` */
-    reset1(): this;
+  /** reset to a multiplicative neutral element `1` */
+  reset1(): this;
 
-    /** `Math.random` components by components */
-    random(): this;
+  /** `Math.random` components by components */
+  random(): this;
 
-    /** `Math.floor` of the components */
-    floor(): this;
+  /** `Math.floor` of the components */
+  floor(): this;
 
-    floorc(): Vector;
+  floorc(): Vector;
 
-    /** `Math.ceil` of the components */
-    ceil(): this;
+  /** `Math.ceil` of the components */
+  ceil(): this;
 
-    ceilc(): Vector;
+  ceilc(): Vector;
 
-    /** `Math.round` of the components */
-    round(): this;
+  /** `Math.round` of the components */
+  round(): this;
 
-    roundc(): Vector;
+  roundc(): Vector;
 
-    /** truncation of the components given a number of decimals to keep */
-    trunc(decimals: number): this;
+  /** truncation of the components given a number of decimals to keep */
+  trunc(decimals: number): this;
 
-    truncc(decimals: number): Vector;
+  truncc(decimals: number): Vector;
 
-    /** `Math.abs` of the components */
-    abs(): this;
+  /** `Math.abs` of the components */
+  abs(): this;
 
-    absc(): Vector;
+  absc(): Vector;
 
-    /** `Math.min` between the components of the two vectors  */
-    min(vector: Vector): this;
+  /** `Math.min` between the components of the two vectors  */
+  min(vector: Vector): this;
 
-    minc(vector: Vector): Vector;
+  minc(vector: Vector): Vector;
 
-    /** `Math.max` between the components of the two vectors */
-    max(vector: Vector): this;
+  /** `Math.max` between the components of the two vectors */
+  max(vector: Vector): this;
 
-    maxc(vector: Vector): Vector;
+  maxc(vector: Vector): Vector;
 
-    /** fills `this` vector with a single scalar value `s` */
-    fill(s: number): this;
+  /** fills `this` vector with a single scalar value `s` */
+  fill(s: number): this;
 
-    fillc(s: number): Vector;
+  fillc(s: number): Vector;
 
-    /** usual addition between two vectors `u + v` */
-    add(vector: Vector): this;
+  /** usual addition between two vectors `u + v` */
+  add(vector: Vector): this;
 
-    addc(vector: Vector): Vector;
+  addc(vector: Vector): Vector;
 
-    /** usual subtraction between two vectors `u - v` */
-    sub(vector: Vector): this;
+  /** usual subtraction between two vectors `u - v` */
+  sub(vector: Vector): this;
 
-    subc(vector: Vector): Vector;
+  subc(vector: Vector): Vector;
 
-    /** usual opposite of the vector `-u` */
-    neg(): this;
+  /** usual opposite of the vector `-u` */
+  neg(): this;
 
-    negc(): Vector;
+  negc(): Vector;
 
-    /** usual scalar multiplication of the vector `s * u` */
-    mul(s: number): this;
+  /** usual scalar multiplication of the vector `s * u` */
+  mul(s: number): this;
 
-    mulc(s: number): Vector;
+  mulc(s: number): Vector;
 
-    /** usual scalar division of the vector `u / s` */
-    div(s: number): this;
+  /** usual scalar division of the vector `u / s` */
+  div(s: number): this;
 
-    divc(s: number): Vector;
+  divc(s: number): Vector;
 
-    /** linear combination of a scalar and a vector `u + s * v` */
-    comb(s: number, vector: Vector): this;
+  /** linear combination of a scalar and a vector `u + s * v` */
+  comb(s: number, vector: Vector): this;
 
-    combc(s: number, vector: Vector): Vector;
+  combc(s: number, vector: Vector): Vector;
 
-    /**
-     * @brief linear interpolation between two vectors `u + (v - u) * s`
-     * @details `s` must be between 0 and 1.
-     * @param target destination of interpolation
-     * @param s parameter of the interpolation.
-     */
-    lerp(target: Vector, s: number): this;
+  /**
+   * @brief linear interpolation between two vectors `u + (v - u) * s`
+   * @details `s` must be between 0 and 1.
+   * @param target destination of interpolation
+   * @param s parameter of the interpolation.
+   */
+  lerp(target: Vector, s: number): this;
 
-    lerpc(target: Vector, s: number): Vector;
+  lerpc(target: Vector, s: number): Vector;
 
-    /**
-     * @brief Hermite's interpolation between two vectors
-     * @details `s` must be between 0 and 1. Starting vector is `this`.
-     * @param target destination of interpolation
-     * @param vector1 control point number 1
-     * @param vector2 control point number 2
-     * @param s parameter of the interpolation.
-     */
-    herp(target: Vector, vector1: Vector, vector2: Vector, s: number): this;
+  /**
+   * @brief Hermite's interpolation between two vectors
+   * @details `s` must be between 0 and 1. Starting vector is `this`.
+   * @param target destination of interpolation
+   * @param vector1 control point number 1
+   * @param vector2 control point number 2
+   * @param s parameter of the interpolation.
+   */
+  herp(target: Vector, vector1: Vector, vector2: Vector, s: number): this;
 
-    herpc(target: Vector, vector1: Vector, vector2: Vector, s: number): Vector;
+  herpc(target: Vector, vector1: Vector, vector2: Vector, s: number): Vector;
 
-    /**
-     * @brief Bezier's interpolation between two vectors
-     * @details `s` must be between 0 and 1. Starting vector is `this`.
-     * @param target destination of interpolation
-     * @param vector1 control point number 1
-     * @param vector2 control point number 2
-     * @param s parameter of the interpolation.
-     */
-    berp(target: Vector, vector1: Vector, vector2: Vector, s: number): this;
+  /**
+   * @brief Bezier's interpolation between two vectors
+   * @details `s` must be between 0 and 1. Starting vector is `this`.
+   * @param target destination of interpolation
+   * @param vector1 control point number 1
+   * @param vector2 control point number 2
+   * @param s parameter of the interpolation.
+   */
+  berp(target: Vector, vector1: Vector, vector2: Vector, s: number): this;
 
-    berpc(target: Vector, vector1: Vector, vector2: Vector, s: number): Vector;
+  berpc(target: Vector, vector1: Vector, vector2: Vector, s: number): Vector;
 
-    /** derivative between the two vectors with given step `(u - v) / ds`*/
-    der(ds: number, vector: Vector): this;
+  /** derivative between the two vectors with given step `(u - v) / ds`*/
+  der(ds: number, vector: Vector): this;
 
-    derc(ds: number, vector: Vector): Vector;
+  derc(ds: number, vector: Vector): Vector;
 
-    /** product between two vectors `u * v` */
-    prod(vector: Vector): this;
+  /** product between two vectors `u * v` */
+  prod(vector: Vector): this;
 
-    prodc(vector: Vector): Vector;
+  prodc(vector: Vector): Vector;
 
-    /** multiplicative inverse of a vector `u ** -1` **/
-    inv(): this;
+  /** multiplicative inverse of a vector `u ** -1` **/
+  inv(): this;
 
-    invc(): Vector;
+  invc(): Vector;
 
-    /** normalizes a vector `u / ||u||` */
-    norm(): this;
+  /** normalizes a vector `u / ||u||` */
+  norm(): this;
 
-    normc(): Vector;
+  normc(): Vector;
 
-    /** usual dot product of two vector `u . v` */
-    dot(vector: Vector): number;
+  /** usual dot product of two vector `u . v` */
+  dot(vector: Vector): number;
 
-    /** distance distance between two vectors `d2(u, v)` */
-    dist(vector: Vector): number;
+  /** distance distance between two vectors `d2(u, v)` */
+  dist(vector: Vector): number;
 
-    /** distance between two vectors given by norm 1 `d1(u, v)` */
-    dist1(vector: Vector): number;
+  /** distance between two vectors given by norm 1 `d1(u, v)` */
+  dist1(vector: Vector): number;
 
-    /** squared distance between two vectors given by norm 2 `d2(u, v)**2` */
-    dist2(vector: Vector): number;
+  /** squared distance between two vectors given by norm 2 `d2(u, v)**2` */
+  dist2(vector: Vector): number;
 
-    /** `true` if the vectors have exactly the same coordinates */
-    exact(vector: Vector): boolean;
+  /** `true` if the vectors have exactly the same coordinates */
+  exact(vector: Vector): boolean;
 
-    /** `true` if the distance 1 between vectors is 0 */
-    equal1(vector: Vector): boolean
+  /** `true` if the distance 1 between vectors is 0 */
+  equal1(vector: Vector): boolean;
 
-    /** `true` if the distance 2 between vectors is 0 */
-    equal2(vector: Vector): boolean;
+  /** `true` if the distance 2 between vectors is 0 */
+  equal2(vector: Vector): boolean;
 
-    /** `true` if the vector has only exacts 0 as coordinates */
-    nil(): boolean;
+  /** `true` if the vector has only exacts 0 as coordinates */
+  nil(): boolean;
 
-    /** `true` if the vector has a 0 norm 1 */
-    zero1(): boolean;
+  /** `true` if the vector has a 0 norm 1 */
+  zero1(): boolean;
 
-    /** `true` if the vector has a 0 norm 2 */
-    zero2(): boolean;
+  /** `true` if the vector has a 0 norm 2 */
+  zero2(): boolean;
 }

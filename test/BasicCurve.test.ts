@@ -29,47 +29,35 @@ describe("Curve Tests", function () {
     eyn = Vector3.eyn;
     ezn = Vector3.ezn;
 
-    square = new BasicCurve([ex, ey, exn, eyn, ex.clone()], dt);
-    linear0 = new BasicCurve([exn, zero, ex], dt);
+    square = new BasicCurve([ex, ey, exn, eyn, ex.clone()]);
+    linear0 = new BasicCurve([exn, zero, ex]);
     linear1 = new BasicCurve([ex, zero, exn]);
-    zeros = new BasicCurve([zero], dt);
+    zeros = new BasicCurve([zero]);
   });
 
   describe("Initialization", () => {
     it("should has the right size", () => {
       assert.equal(square.positions.length, 5);
-      assert.equal(square.dt.length, 4);
-      assert.equal(zeros.dt.length, 0);
     });
     it("should set the elements", () => {
       assert3.equal(square.positions, [ex, ey, exn, eyn, ex]);
-    });
-    it("should set the right default values", () => {
-      assert3.equal1D(linear1.dt, [1, 1]);
     });
   });
 
   describe("Push/Pop", () => {
     describe("Push without dt", () => {
-      it("should push step 1", () => assert.equal(zeros.push(ex).dt[0], 1));
-      it("should clone step", () =>
-        assert.equal(square.push(ex).dt[square.dt.length - 1], 0.1));
       it("should push position", () =>
         assert3.equal(zeros.push(ex).positions[1], ex));
     });
     describe("Push with dt", () => {
-      it("should push step", () =>
-        assert.equal(zeros.push(ex, 0.1).dt[0], 0.1));
       it("should push position", () =>
         assert3.equal(zeros.push(ex).positions[1], ex));
     });
     describe("Pop", () => {
-      it("should return position", () => assert3.equal(square.pop()[0], ex));
-      it("should return step", () => assert.equal(square.pop()[1], 0.1));
-      it("should pop position and step", () => {
+      it("should return position", () => assert3.equal(square.pop(), ex));
+      it("should pop position", () => {
         square.pop();
         assert.equal(square.positions.length, 4);
-        assert.equal(square.dt.length, 3);
         assert3.equal(square.last, eyn);
       });
     });
@@ -93,52 +81,27 @@ describe("Curve Tests", function () {
   describe("Cinematic", () => {
     describe("Position", () => {
       it("should get initial position", () =>
-        assert3.equal(linear1.position(0), linear1.first));
+        assert3.equal(linear1.positionAt(0), linear1.first));
       it("should get final position", () =>
-        assert3.equal(linear1.position(1), linear1.last));
+        assert3.equal(linear1.positionAt(1), linear1.last));
       it("should get middle position", () =>
-        assert3.equal(linear1.position(0.5), linear1.positions[1]));
+        assert3.equal(linear1.positionAt(0.5), linear1.positions[1]));
       it("should get x = 0.25 position", () =>
-        assert3.equal(linear1.position(0.25), ex.mulc(0.5)));
+        assert3.equal(linear1.positionAt(0.25), ex.mulc(0.5)));
       it("should get x = 0.75 position", () =>
-        assert3.equal(linear1.position(0.75), ex.mulc(-0.5)));
-    });
-
-    describe("Speed", () => {
-      it("should get initial speed", () =>
-        assert3.equal(square.speed(0), exn.addc(ey).mul(10)));
-      it("should get final speed", () =>
-        assert3.equal(square.speed(1), ex.addc(ey).mul(10)));
-      it("should get middle speed", () =>
-        assert3.equal(square.speed(0.5), ex.addc(eyn).mul(10)));
-      it("should get x = 0.25 speed", () =>
-        assert3.equal(square.speed(0.25), exn.addc(eyn).mulc(10)));
-      it("should get x = 0.75 speed", () =>
-        assert3.equal(square.speed(0.75), ex.addc(ey).mul(10)));
-    });
-
-    describe("Duration", () => {
-      it("should get initial duration", () =>
-        assert.equal(linear0.duration(0), 0));
-      it("should get final duration", () =>
-        assert.equal(linear0.duration(1), 0.2));
-      it("should get middle duration", () =>
-        assert.equal(linear0.duration(0.5), 0.1));
-      it("should get x = 0.25 duration", () =>
-        assert.equal(linear0.duration(0.25), 0.05));
-      it("should get x = 0.75 duration", () =>
-        assert.approximately(linear0.duration(0.75), 0.15, epsilon));
+        assert3.equal(linear1.positionAt(0.75), ex.mulc(-0.5)));
     });
 
     describe("Length", () => {
-      it("should get initial length", () => assert.equal(linear0.length(0), 0));
-      it("should get final length", () => assert.equal(linear0.length(1), 2));
+      it("should get initial length", () =>
+        assert.equal(linear0.lengthAt(0), 0));
+      it("should get final length", () => assert.equal(linear0.lengthAt(1), 2));
       it("should get middle length", () =>
-        assert.equal(linear0.length(0.5), 1));
+        assert.equal(linear0.lengthAt(0.5), 1));
       it("should get x = 0.25 length", () =>
-        assert.equal(linear0.length(0.25), 0.5));
+        assert.equal(linear0.lengthAt(0.25), 0.5));
       it("should get x = 0.75 length", () =>
-        assert.approximately(linear0.length(0.75), 1.5, epsilon));
+        assert.approximately(linear0.lengthAt(0.75), 1.5, epsilon));
     });
 
     describe("Generators", () => {

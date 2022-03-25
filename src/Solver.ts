@@ -1,4 +1,4 @@
-import Vector from "./int/Vector";
+import Vector from "./common/Vector";
 
 type VectorField = (u?: Vector, t?: number) => Vector;
 
@@ -58,86 +58,86 @@ type VectorField = (u?: Vector, t?: number) => Vector;
  *
  */
 export default class Solver {
-    /** time dependant vector field **f** */
-    f: VectorField;
+  /** time dependant vector field **f** */
+  f: VectorField;
 
-    /** time elapsed, incremented each time `step` or `solve` methods are called */
-    t: number;
+  /** time elapsed, incremented each time `step` or `solve` methods are called */
+  t: number;
 
-    /** current time step */
-    dt: number;
+  /** current time step */
+  dt: number;
 
-    /** buffer value, stores the value of the last `f(u, t)` computed */
-    tmp: Vector;
+  /** buffer value, stores the value of the last `f(u, t)` computed */
+  tmp: Vector;
 
-    /** last initial condition used */
-    u0: Vector;
+  /** last initial condition used */
+  u0: Vector;
 
-    /** last solution computed */
-    u1: Vector;
+  /** last solution computed */
+  u1: Vector;
 
-    constructor(f: VectorField, dt: number, u0: Vector) {
-        this.f = f;
-        this.dt = dt;
-        this.t = 0;
-        this.u0 = u0;
-        this.u1 = u0.clone();
-        this.tmp = u0.clone();
+  constructor(f: VectorField, dt: number, u0: Vector) {
+    this.f = f;
+    this.dt = dt;
+    this.t = 0;
+    this.u0 = u0;
+    this.u1 = u0.clone();
+    this.tmp = u0.clone();
+  }
+
+  /**
+   * @brief compute next value of solution according to current `u0`
+   * @param u0 initial condition
+   * @param dt time step
+   * @returns reference to `this.u1` after computation
+   */
+  step(u0?: Vector, dt: number = this.dt): Vector {
+    if (u0) {
+      this.u0.copy(u0);
+      this.u1.copy(u0);
     }
 
-    /**
-     * @brief compute next value of solution according to current `u0`
-     * @param u0 initial condition
-     * @param dt time step
-     * @returns reference to `this.u1` after computation
-     */
-    step(u0?: Vector, dt: number = this.dt): Vector {
-        if (u0) {
-            this.u0.copy(u0);
-            this.u1.copy(u0);
-        }
+    this.dt = dt;
+    this.tmp.copy(this.u1);
+    this.u1.comb(this.dt, this.f(this.tmp, this.t));
+    this.t += this.dt;
+    return this.u1;
+  }
 
-        this.dt = dt;
-        this.tmp.copy(this.u1);
-        this.u1.comb(this.dt, this.f(this.tmp, this.t));
-        this.t += this.dt;
-        return this.u1;
+  /**
+   * @brief computes value of solution according to current `u0` at `t = tmax`
+   * @details `this.u1` is set to `u(tmax)`
+   * @param tmax instant where to compute the solution
+   * @param u0 initial condition
+   * @param dt time step
+   * @returns reference to `this.u1` after computation
+   */
+  solve(tmax: number, u0?: Vector, dt: number = this.dt): Vector {
+    if (u0) {
+      this.u0.copy(u0);
+      this.u1.copy(u0);
+    }
+    this.dt = dt;
+    for (this.t = 0; this.t < tmax; this.t += dt) {
+      this.tmp.copy(this.u1);
+      this.u1.comb(this.dt, this.f(this.tmp, this.t));
     }
 
-    /**
-     * @brief computes value of solution according to current `u0` at `t = tmax`
-     * @details `this.u1` is set to `u(tmax)`
-     * @param tmax instant where to compute the solution
-     * @param u0 initial condition
-     * @param dt time step
-     * @returns reference to `this.u1` after computation
-     */
-    solve(tmax: number, u0?: Vector, dt: number = this.dt): Vector {
-        if (u0) {
-            this.u0.copy(u0);
-            this.u1.copy(u0);
-        }
-        this.dt = dt;
-        for (this.t = 0; this.t < tmax; this.t += dt) {
-            this.tmp.copy(this.u1);
-            this.u1.comb(this.dt, this.f(this.tmp, this.t));
-        }
+    return this.u1;
+  }
 
-        return this.u1;
-    }
-
-    /**
-     * @brief reset the solver with initial condition and time step
-     * @details the timer member `this.t` is set to `0`.
-     * @param u0 initial condition
-     * @param dt time step
-     */
-    reset(u0: Vector = this.u0, dt: number = this.dt): this {
-        this.t = 0;
-        this.u0.copy(u0);
-        this.u1.copy(u0);
-        this.tmp.copy(u0);
-        this.dt = dt;
-        return this;
-    }
+  /**
+   * @brief reset the solver with initial condition and time step
+   * @details the timer member `this.t` is set to `0`.
+   * @param u0 initial condition
+   * @param dt time step
+   */
+  reset(u0: Vector = this.u0, dt: number = this.dt): this {
+    this.t = 0;
+    this.u0.copy(u0);
+    this.u1.copy(u0);
+    this.tmp.copy(u0);
+    this.dt = dt;
+    return this;
+  }
 }

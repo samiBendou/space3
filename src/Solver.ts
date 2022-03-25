@@ -1,6 +1,6 @@
 import Vector from "./common/Vector";
 
-type VectorField = (u?: Vector, t?: number) => Vector;
+type VectorField<T> = (u?: T, t?: number) => T;
 
 /**
  * ## Brief
@@ -57,9 +57,9 @@ type VectorField = (u?: Vector, t?: number) => Vector;
  * call the `reset` method.
  *
  */
-export default class Solver {
+export default class Solver<T extends Vector> {
   /** time dependant vector field **f** */
-  f: VectorField;
+  f: VectorField<T>;
 
   /** time elapsed, incremented each time `step` or `solve` methods are called */
   t: number;
@@ -68,21 +68,21 @@ export default class Solver {
   dt: number;
 
   /** buffer value, stores the value of the last `f(u, t)` computed */
-  tmp: Vector;
+  tmp: T;
 
   /** last initial condition used */
-  u0: Vector;
+  u0: T;
 
   /** last solution computed */
-  u1: Vector;
+  u1: T;
 
-  constructor(f: VectorField, dt: number, u0: Vector) {
+  constructor(f: VectorField<T>, dt: number, u0: T) {
     this.f = f;
     this.dt = dt;
     this.t = 0;
     this.u0 = u0;
-    this.u1 = u0.clone();
-    this.tmp = u0.clone();
+    this.u1 = u0.clone() as T;
+    this.tmp = u0.clone() as T;
   }
 
   /**
@@ -91,7 +91,7 @@ export default class Solver {
    * @param dt time step
    * @returns reference to `this.u1` after computation
    */
-  step(u0?: Vector, dt: number = this.dt): Vector {
+  step(u0?: T, dt: number = this.dt): T {
     if (u0) {
       this.u0.copy(u0);
       this.u1.copy(u0);
@@ -112,7 +112,7 @@ export default class Solver {
    * @param dt time step
    * @returns reference to `this.u1` after computation
    */
-  solve(tmax: number, u0?: Vector, dt: number = this.dt): Vector {
+  solve(tmax: number, u0?: T, dt: number = this.dt): T {
     if (u0) {
       this.u0.copy(u0);
       this.u1.copy(u0);
@@ -132,7 +132,7 @@ export default class Solver {
    * @param u0 initial condition
    * @param dt time step
    */
-  reset(u0: Vector = this.u0, dt: number = this.dt): this {
+  reset(u0: T = this.u0, dt: number = this.dt): this {
     this.t = 0;
     this.u0.copy(u0);
     this.u1.copy(u0);

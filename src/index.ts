@@ -83,13 +83,14 @@
 
 // ENTRY POINT FOF NPM PACKAGE
 
-export * from "./BasicCurve";
-export * from "./common/Encoder";
-export * from "./common/Matrix";
-export * from "./common/Object3";
-export * from "./common/Object9";
-export * from "./common/Vector";
-export * from "./Matrix3";
-export * from "./Solver";
-export * from "./Vector3";
-export * from "./Vector6";
+export { default as BasicCurve } from "./BasicCurve";
+export { default as BufferCurve } from "./BufferCurve";
+export { default as Encoder } from "./common/Encoder";
+export { default as Matrix } from "./common/Matrix";
+export { default as Object3 } from "./common/Object3";
+export { default as Object9 } from "./common/Object9";
+export { default as Vector } from "./common/Vector";
+export { default as Matrix3 } from "./Matrix3";
+export { default as Solver } from "./Solver";
+export { default as Vector3 } from "./Vector3";
+export { default as Vector6 } from "./Vector6";

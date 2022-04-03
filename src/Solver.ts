@@ -98,8 +98,9 @@ export default class Solver<T extends Vector> {
     }
 
     this.dt = dt;
-    this.tmp.copy(this.u1);
-    this.u1.comb(this.dt, this.f(this.tmp, this.t));
+    this.tmp.copy(this.u0);
+    this.tmp = this.f(this.tmp, this.t);
+    this.u1.comb(this.dt, this.tmp);
     this.t += this.dt;
     return this.u1;
   }
